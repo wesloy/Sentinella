@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <!-- CONFIG BD SQL -->
+    <add key="ALGAR_BD" value="db_Sentinella" />
+    <add key="ALGAR_SERVIDOR" value="UDPCRPDB03" />
+    <!--add key="ALGAR_USER" value="usr_Fraude_Amex" />
+    <add key="ALGAR_PWD" value="R3cyY1RKQFdoQ00wNWs=" /-->
+    <add key="ALGAR_USER" value="usr_sentinella" />
+    <add key="ALGAR_PWD" value="I3NkTXI0QEQzc2sj" />
+    <!-- CONFIG DE PASTAS DO SISTEMA SISTEMA -->
+    <add key="PATH_ICONS" value="\IMG\" />
+    <add key="PATH_PASTA_MIS" value="\mis\" />
+    <add key="PATH_PASTA_ANEXO" value="\anexo\" />
+    <add key="PATH_LOG_IMPORT" value="\log\" />
+    <add key="PATH_MODELOS" value="\modelos\" />
+    <add key="PATH_REPORT" value="\report\" />
+    <!-- CONFIG DE PERMISSÕES -->
+    <add key="DIR_PESSOAL" value="TEMPO" />
+    <add key="HOSTNAME_ATM" value="xD5174S400E040" />
+    <add key="ClientSettingsProvider.ServiceUri" value="" />
+  </appSettings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6" />
+  </startup>
+  <system.web>
+    <membership defaultProvider="ClientAuthenticationMembershipProvider">
+      <providers>
+        <add name="ClientAuthenticationMembershipProvider" type="System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="ClientRoleProvider" enabled="true">
+      <providers>
+        <add name="ClientRoleProvider" type="System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" cacheTimeout="86400" />
+      </providers>
+    </roleManager>
+  </system.web>
+</configuration>

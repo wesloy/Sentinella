@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+minerador
+</name>
+</assembly>
+<members>
+<member name="T:minerador.My.Resources.Resources">
+<summary>
+  Uma classe de recurso de tipo de alta segurança, para pesquisar cadeias de caracteres localizadas etc.
+</summary>
+</member>
+<member name="P:minerador.My.Resources.Resources.ResourceManager">
+<summary>
+  Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
+</summary>
+</member>
+<member name="P:minerador.My.Resources.Resources.Culture">
+<summary>
+  Substitui a propriedade CurrentUICulture do thread atual para todas as
+  pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
+</summary>
+</member>
+<member name="M:minerador.Automacoes.logarB2K(System.String)">
+ <summary>
+ USADO APENAS PARA INICIAR O B2K PARA FAZER TESTES
+ </summary>
+ <param name="nomeAcessoMainFrame"></param>
+</member>
+<member name="T:minerador.MF_DTO">
+ <summary>
+ ID: Chave primária
+ MAINFRAME: Nome do sistema a ser acessado, por exemplo: B2K, SRT e IBI.
+ NOME: Quem é o dono do Usuário e Senha do sistema.
+ USUARIO: Login de acesso a tela preta.
+ SENHA: Código chave de entrada no sistema.
+ SESSAO: Caminho para o emulador da tela preta a ser utilizada.
+ STATUS: determinar se o usuário e senha estao ativos
+ DT_ALTERAR_SENHA: Controle de quando a senha do sistema deve ser alterada.
+ </summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+sentinella
+</name>
+</assembly>
+<members>
+<member name="T:sentinella.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:sentinella.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:sentinella.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:sentinella.Automacoes.logarB2K(System.String)">
+ <summary>
+ USADO APENAS PARA INICIAR O B2K PARA FAZER TESTES
+ </summary>
+ <param name="nomeAcessoMainFrame"></param>
+</member>
+<member name="T:sentinella.MF_DTO">
+ <summary>
+ ID: Chave primária
+ MAINFRAME: Nome do sistema a ser acessado, por exemplo: B2K, SRT e IBI.
+ NOME: Quem é o dono do Usuário e Senha do sistema.
+ USUARIO: Login de acesso a tela preta.
+ SENHA: Código chave de entrada no sistema.
+ SESSAO: Caminho para o emulador da tela preta a ser utilizada.
+ STATUS: determinar se o usuário e senha estao ativos
+ DT_ALTERAR_SENHA: Controle de quando a senha do sistema deve ser alterada.
+ </summary>
+</member>
+</members>
+</doc>

@@ -25,6 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPlanoAcao));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lvCadastroGeralSimplificado = new System.Windows.Forms.ListView();
             this.Label9 = new System.Windows.Forms.Label();
             this.PictureBox2 = new System.Windows.Forms.PictureBox();
             this.Label10 = new System.Windows.Forms.Label();
@@ -58,8 +60,6 @@
             this.txt_protocolo = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
-            this.lvCadastroGeralSimplificado = new System.Windows.Forms.ListView();
-            this.label6 = new System.Windows.Forms.Label();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
@@ -92,15 +92,40 @@
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 57);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1081, 487);
+            this.pnlConteudo.Size = new System.Drawing.Size(1081, 494);
             this.pnlConteudo.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(324, 18);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(175, 13);
+            this.label6.TabIndex = 70;
+            this.label6.Text = "Cadastro Geral (Simplificado):";
+            // 
+            // lvCadastroGeralSimplificado
+            // 
+            this.lvCadastroGeralSimplificado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvCadastroGeralSimplificado.BackColor = System.Drawing.Color.White;
+            this.lvCadastroGeralSimplificado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvCadastroGeralSimplificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvCadastroGeralSimplificado.HideSelection = false;
+            this.lvCadastroGeralSimplificado.Location = new System.Drawing.Point(326, 37);
+            this.lvCadastroGeralSimplificado.Name = "lvCadastroGeralSimplificado";
+            this.lvCadastroGeralSimplificado.Size = new System.Drawing.Size(735, 141);
+            this.lvCadastroGeralSimplificado.TabIndex = 5;
+            this.lvCadastroGeralSimplificado.UseCompatibleStateImageBehavior = false;
+            this.lvCadastroGeralSimplificado.View = System.Windows.Forms.View.SmallIcon;
             // 
             // Label9
             // 
             this.Label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Label9.AutoSize = true;
             this.Label9.BackColor = System.Drawing.Color.Transparent;
-            this.Label9.Location = new System.Drawing.Point(146, 471);
+            this.Label9.Location = new System.Drawing.Point(146, 478);
             this.Label9.Name = "Label9";
             this.Label9.Size = new System.Drawing.Size(71, 13);
             this.Label9.TabIndex = 68;
@@ -112,7 +137,7 @@
             this.PictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox2.Image")));
-            this.PictureBox2.Location = new System.Drawing.Point(131, 469);
+            this.PictureBox2.Location = new System.Drawing.Point(131, 476);
             this.PictureBox2.Name = "PictureBox2";
             this.PictureBox2.Size = new System.Drawing.Size(18, 15);
             this.PictureBox2.TabIndex = 67;
@@ -124,7 +149,7 @@
             this.Label10.AutoSize = true;
             this.Label10.BackColor = System.Drawing.Color.Transparent;
             this.Label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label10.Location = new System.Drawing.Point(11, 471);
+            this.Label10.Location = new System.Drawing.Point(11, 478);
             this.Label10.Name = "Label10";
             this.Label10.Size = new System.Drawing.Size(60, 13);
             this.Label10.TabIndex = 66;
@@ -135,7 +160,7 @@
             this.Label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.Label11.AutoSize = true;
             this.Label11.BackColor = System.Drawing.Color.Transparent;
-            this.Label11.Location = new System.Drawing.Point(84, 471);
+            this.Label11.Location = new System.Drawing.Point(84, 478);
             this.Label11.Name = "Label11";
             this.Label11.Size = new System.Drawing.Size(48, 13);
             this.Label11.TabIndex = 65;
@@ -147,7 +172,7 @@
             this.PictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
-            this.PictureBox1.Location = new System.Drawing.Point(67, 469);
+            this.PictureBox1.Location = new System.Drawing.Point(67, 476);
             this.PictureBox1.Name = "PictureBox1";
             this.PictureBox1.Size = new System.Drawing.Size(18, 15);
             this.PictureBox1.TabIndex = 64;
@@ -254,7 +279,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label3.Location = new System.Drawing.Point(920, 469);
+            this.label3.Location = new System.Drawing.Point(920, 476);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 13);
             this.label3.TabIndex = 4;
@@ -271,7 +296,7 @@
             this.lvPlanoAcao.HideSelection = false;
             this.lvPlanoAcao.Location = new System.Drawing.Point(11, 198);
             this.lvPlanoAcao.Name = "lvPlanoAcao";
-            this.lvPlanoAcao.Size = new System.Drawing.Size(1058, 270);
+            this.lvPlanoAcao.Size = new System.Drawing.Size(1058, 277);
             this.lvPlanoAcao.TabIndex = 6;
             this.lvPlanoAcao.UseCompatibleStateImageBehavior = false;
             this.lvPlanoAcao.View = System.Windows.Forms.View.SmallIcon;
@@ -370,7 +395,7 @@
             this.pnlBotoes.Controls.Add(this.btnCancelar);
             this.pnlBotoes.Controls.Add(this.btnSalvar);
             this.pnlBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBotoes.Location = new System.Drawing.Point(0, 544);
+            this.pnlBotoes.Location = new System.Drawing.Point(0, 551);
             this.pnlBotoes.Name = "pnlBotoes";
             this.pnlBotoes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.pnlBotoes.Size = new System.Drawing.Size(1081, 57);
@@ -470,36 +495,11 @@
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
-            // lvCadastroGeralSimplificado
-            // 
-            this.lvCadastroGeralSimplificado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvCadastroGeralSimplificado.BackColor = System.Drawing.Color.White;
-            this.lvCadastroGeralSimplificado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvCadastroGeralSimplificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvCadastroGeralSimplificado.HideSelection = false;
-            this.lvCadastroGeralSimplificado.Location = new System.Drawing.Point(326, 37);
-            this.lvCadastroGeralSimplificado.Name = "lvCadastroGeralSimplificado";
-            this.lvCadastroGeralSimplificado.Size = new System.Drawing.Size(735, 141);
-            this.lvCadastroGeralSimplificado.TabIndex = 5;
-            this.lvCadastroGeralSimplificado.UseCompatibleStateImageBehavior = false;
-            this.lvCadastroGeralSimplificado.View = System.Windows.Forms.View.SmallIcon;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(324, 18);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(175, 13);
-            this.label6.TabIndex = 70;
-            this.label6.Text = "Cadastro Geral (Simplificado):";
-            // 
             // frmPlanoAcao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1081, 601);
+            this.ClientSize = new System.Drawing.Size(1081, 608);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.pnlFiltros);
             this.Controls.Add(this.pnlBotoes);
