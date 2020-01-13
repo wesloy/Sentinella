@@ -106,7 +106,7 @@
             this.menuPrincipal.Name = "menuPrincipal";
             this.menuPrincipal.Padding = new System.Windows.Forms.Padding(3, 2, 2, 2);
             this.menuPrincipal.ShowItemToolTips = true;
-            this.menuPrincipal.Size = new System.Drawing.Size(125, 467);
+            this.menuPrincipal.Size = new System.Drawing.Size(42, 467);
             this.menuPrincipal.TabIndex = 2;
             this.menuPrincipal.Text = "menuStrip1";
             // 
@@ -348,6 +348,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1131, 519);
             this.Controls.Add(this.toolStripContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

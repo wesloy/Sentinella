@@ -847,13 +847,20 @@ namespace Sentinella
             }
         }
 
-        private dadosCadastraisTH _capturarDadosCadastraisPorNomeAssociado(string _nomeAssociado)
+        private dadosCadastraisTH _capturarDadosCadastraisPorNomeAssociado(string _nomeAssociado, bool localizacaoExata = false)
         {
             try
             {
                 dadosCadastraisTH oDados = new dadosCadastraisTH();
                 DataTable dt = new DataTable();
-                sql = "select top 1 * from w_funcionarios_historico where nome_associado like '%" + _nomeAssociado + "%' order by dataAtualizacao desc";
+                sql = "select top 1 * from w_funcionarios_historico where nome_associado ";
+                if (localizacaoExata) {
+                    sql += "= '" + _nomeAssociado + "' ";
+                } else {
+                    sql += "like '%" + _nomeAssociado + "%' ";
+                }
+                sql += "Order By dataAtualizacao desc ";
+                    
                 dt = objCon.retornaDataTable(sql);
                 oDados = _carregarObjeto(dt);
                 return oDados;
@@ -884,6 +891,7 @@ namespace Sentinella
                 return null;
             }
         }
+
         private DataTable _capturarDadosCadastraisPorMatricula_tbl(string _matricula) {
             try {
                 sql = "select * from w_funcionarios_historico where matricula = " + objCon.valorSql(_matricula) + " order by dataAtualizacao desc ";
@@ -894,6 +902,7 @@ namespace Sentinella
                 return null;
             }
         }
+
         private DataTable _capturarDadosCadastraisPorNomeAssociado_tbl(string _nomeAssociado) {
             try {
                 sql = sql = "select * from w_funcionarios_historico where nome_associado like '%" + _nomeAssociado + "%' order by dataAtualizacao desc";
@@ -968,6 +977,58 @@ namespace Sentinella
             catch (Exception ex)
             {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CAPTURAR RESPONSAVEL TH (BLL)");
+                return null;
+            }
+        }
+
+        public ListView CarregarListviewSimplificado(ListView lst, string _cpf) {
+            try {
+                DataTable dt = new DataTable();
+                dt = _capturarDadosCadastraisPorCpf_tbl(_cpf);
+                lst.Clear();
+                lst.View = View.Details;
+                lst.LabelEdit = false;
+                lst.CheckBoxes = false;
+                lst.SmallImageList = Constantes.imglist();
+                lst.GridLines = true;
+                lst.FullRowSelect = true;
+                lst.HideSelection = false;
+                lst.MultiSelect = false;
+                lst.Columns.Add("PROTOCOLO", 120, HorizontalAlignment.Center);
+                lst.Columns.Add("EMPRESA", 120, HorizontalAlignment.Left);
+                lst.Columns.Add("CPF", 120, HorizontalAlignment.Center);
+                lst.Columns.Add("MATRÍCULA", 120, HorizontalAlignment.Center);
+                lst.Columns.Add("NOME", 200, HorizontalAlignment.Left);
+                lst.Columns.Add("1º GESTOR", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("2º GESTOR", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("3º GESTOR", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("4º GESTOR", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("5º GESTOR", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("DT. ATUALIZAÇÃO", 150, HorizontalAlignment.Center);
+
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow linha in dt.Rows) {
+                        ListViewItem item = new ListViewItem();
+                        item.Text = linha["id"].ToString();
+                        item.SubItems.Add(linha["nome_empresa"].ToString());
+                        item.SubItems.Add(linha["cpf"].ToString());
+                        item.SubItems.Add(linha["matricula"].ToString());
+                        item.SubItems.Add(linha["nome_associado"].ToString());
+                        item.SubItems.Add(linha["matricula_gestor_1"].ToString() + " - " + linha["gestor_1"].ToString());
+                        item.SubItems.Add(linha["matricula_gestor_2"].ToString() + " - " + linha["gestor_2"].ToString());
+                        item.SubItems.Add(linha["matricula_gestor_3"].ToString() + " - " + linha["gestor_3"].ToString());
+                        item.SubItems.Add(linha["matricula_gestor_4"].ToString() + " - " + linha["gestor_4"].ToString());
+                        item.SubItems.Add(linha["matricula_gestor_5"].ToString() + " - " + linha["gestor_5"].ToString());
+                        item.SubItems.Add(hlp.retornaDataTextBox(linha["dataAtualizacao"].ToString()));
+                        item.ImageKey = "9";
+                        lst.Items.Add(item);
+
+                    }
+                }
+                return lst;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - LISTVIEW (BLL)");
                 return null;
             }
         }
@@ -1089,11 +1150,13 @@ namespace Sentinella
             dt = _capturarDadosCadastraisPorCpf_tbl(cpf);
             carregarDataGridView(dgv, dt);
         }
+
         public void carregarDataGridView_NomeAssociado(string nomeAssociado, DataGridView dgv) {
             DataTable dt = new DataTable();
             dt = _capturarDadosCadastraisPorNomeAssociado_tbl(nomeAssociado);
             carregarDataGridView(dgv, dt);
         }
+
         public void carregarDataGridView_Matricula(string matricula, DataGridView dgv) {
             DataTable dt = new DataTable();
             dt = _capturarDadosCadastraisPorMatricula_tbl(matricula);
@@ -1102,6 +1165,18 @@ namespace Sentinella
 
         private void carregarDataGridView(DataGridView dgv, DataTable dt) {
             dgv.DataSource = dt;
+        }
+
+        public dadosCadastraisTH infoMaisRecentePorNomeEspecifico(string _nomeAssociado) {
+            try {
+                return _capturarDadosCadastraisPorNomeAssociado(_nomeAssociado, true);
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.ToString(), Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - INFO MAIS RECENTE POR NOME ASSOCIADO (BLL)");
+                return null;
+            }
+
         }
 
         #endregion
