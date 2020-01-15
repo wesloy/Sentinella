@@ -15,6 +15,7 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Microsoft.Xrm.Sdk.xml
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Microsoft.Xrm.Sdk.Deployment.xml
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csprojAssemblyReference.cache
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe.config
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmAnalies.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmAutorizacoes.resources
@@ -38,4 +39,3 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csproj.CopyComplete
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.pdb
-C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csprojAssemblyReference.cache
