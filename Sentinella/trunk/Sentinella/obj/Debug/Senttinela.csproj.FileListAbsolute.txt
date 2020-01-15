@@ -38,3 +38,4 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csproj.CopyComplete
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.pdb
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csprojAssemblyReference.cache

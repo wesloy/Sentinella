@@ -451,6 +451,10 @@ namespace Sentinella {
                     //fechando barra de carregamento para iniciar uma nova posteriormente
                     frm.Close();
 
+                    //limpando casos que não foram encontrados o CPF/MATRICULA com o AD
+                    sql = "delete from w_dlp where cpf = '' or cpf is null";
+                    objCon.executaQuery(sql, ref retorno);
+
                     //capturando todos os casos importados e atualizados acima
                     sql = "Select * from w_dlp where id_tbl_trabalho = 0 " +
                             " and id_importacao = " + objCon.valorSql(Constantes.idlogadoFerramenta) + " " +
