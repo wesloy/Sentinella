@@ -405,7 +405,7 @@
             this.tbInfos.Location = new System.Drawing.Point(4, 25);
             this.tbInfos.Name = "tbInfos";
             this.tbInfos.Padding = new System.Windows.Forms.Padding(3);
-            this.tbInfos.Size = new System.Drawing.Size(1273, 486);
+            this.tbInfos.Size = new System.Drawing.Size(1273, 526);
             this.tbInfos.TabIndex = 6;
             this.tbInfos.Text = "Informações Adicionais";
             this.tbInfos.UseVisualStyleBackColor = true;
@@ -488,7 +488,7 @@
             this.tbDadosCartao.Location = new System.Drawing.Point(4, 25);
             this.tbDadosCartao.Name = "tbDadosCartao";
             this.tbDadosCartao.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDadosCartao.Size = new System.Drawing.Size(1273, 486);
+            this.tbDadosCartao.Size = new System.Drawing.Size(1273, 526);
             this.tbDadosCartao.TabIndex = 2;
             this.tbDadosCartao.Text = "Dados Cartão";
             this.tbDadosCartao.UseVisualStyleBackColor = true;
@@ -1013,18 +1013,22 @@
             this.tbManutencoes.Location = new System.Drawing.Point(4, 25);
             this.tbManutencoes.Name = "tbManutencoes";
             this.tbManutencoes.Padding = new System.Windows.Forms.Padding(3);
-            this.tbManutencoes.Size = new System.Drawing.Size(1273, 486);
+            this.tbManutencoes.Size = new System.Drawing.Size(1273, 526);
             this.tbManutencoes.TabIndex = 1;
             this.tbManutencoes.Text = "Manutenções";
             // 
             // lvManutencoes
             // 
+            this.lvManutencoes.Alignment = System.Windows.Forms.ListViewAlignment.Default;
             this.lvManutencoes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvManutencoes.BackColor = System.Drawing.Color.White;
             this.lvManutencoes.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvManutencoes.CheckBoxes = true;
             this.lvManutencoes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvManutencoes.FullRowSelect = true;
+            this.lvManutencoes.GridLines = true;
             this.lvManutencoes.HideSelection = false;
             this.lvManutencoes.Location = new System.Drawing.Point(3, 3);
             this.lvManutencoes.Name = "lvManutencoes";
@@ -1041,7 +1045,7 @@
             this.tbFaturas.Location = new System.Drawing.Point(4, 25);
             this.tbFaturas.Name = "tbFaturas";
             this.tbFaturas.Padding = new System.Windows.Forms.Padding(3);
-            this.tbFaturas.Size = new System.Drawing.Size(1273, 486);
+            this.tbFaturas.Size = new System.Drawing.Size(1273, 526);
             this.tbFaturas.TabIndex = 0;
             this.tbFaturas.Text = "Faturas";
             // 
@@ -1125,7 +1129,7 @@
             this.tbLaudo.Location = new System.Drawing.Point(4, 25);
             this.tbLaudo.Name = "tbLaudo";
             this.tbLaudo.Padding = new System.Windows.Forms.Padding(3);
-            this.tbLaudo.Size = new System.Drawing.Size(1273, 486);
+            this.tbLaudo.Size = new System.Drawing.Size(1273, 526);
             this.tbLaudo.TabIndex = 4;
             this.tbLaudo.Text = "Gerar Laudo";
             this.tbLaudo.UseVisualStyleBackColor = true;

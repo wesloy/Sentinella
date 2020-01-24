@@ -160,7 +160,11 @@ namespace Sentinella {
                         item.Text = hlp.retornaDataTextBox(linha["generated_"].ToString());
                         item.SubItems.Add(linha["rule_"].ToString());
                         item.SubItems.Add(linha["template"].ToString());
-                        item.SubItems.Add(linha["department"].ToString().Substring(0, 8));
+                        if (string.IsNullOrEmpty(linha["department"].ToString())) {
+                            item.SubItems.Add("");
+                        } else {
+                            item.SubItems.Add(linha["department"].ToString().Substring(0, 8));
+                        }
                         item.SubItems.Add(linha["incident_source_ad_account"].ToString());
                         item.SubItems.Add(linha["nome_completo"].ToString());
                         item.SubItems.Add(linha["destination"].ToString());
