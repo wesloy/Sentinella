@@ -61,7 +61,7 @@
         Dim exec_DTO As New execucao_DTO
         Dim exec_BLL As New execucao_BLL
 
-        rsExecucoes = objCon.retornaRs("Select top 1 * from w_execucao where dataConclusao is null and dataInicio is null order by dataPesquisa asc")
+        rsExecucoes = objCon.retornaRs("Select top 1 * from w_execucao where dataConclusao is null and dataInicio is null order by prioridade asc")
         'Validando se existe processo a ser executado
         If rsExecucoes.RecordCount > 0 Then
 
@@ -93,6 +93,7 @@
 
                 'Atualizando tabela de processos
                 .dataConclusao = hlp.dataHoraAtual()
+                .logErro += " - Percentual concluído = " & frm_execucao_robos.status_Percentual.Text
                 exec_BLL.finalizarProcesso(exec_DTO)
 
             End With
@@ -132,7 +133,7 @@
 
                 'Capturando todos os CPFs para pesquisa
                 Dim rsCPFs As ADODB.Recordset
-                rsCPFs = objCon.retornaRs("Select cpf from w_funcionarios_historico where data_demissao = '1/1/1900' and cpf is not null order by data_demissao DESC")
+                rsCPFs = objCon.retornaRs("Select distinct cpf from w_funcionarios_historico where data_demissao = '1/1/1900' and cpf is not null and cpf <> '0'  order by cpf asc")
                 If rsCPFs.RecordCount = 0 Then
                     'Saindo da execucao visto que são tem nenhum cpf válido para pesquisar
                     rsCPFs = Nothing
@@ -423,7 +424,7 @@
             End With
 
         Catch ex As Exception
-            MsgBox(ex.Message)
+            'MsgBox(ex.Message)
             msgErro = ex.Message
             Return False
         End Try
@@ -555,7 +556,7 @@
 
                 mainframe = New MF_DTO
                 mainframe = GetAcessoMF("B2K", .usuarioMainFrame)
-                frm_execucao_robos.atualizarStatusLabel("Macro em Execução - Logs de Manutenção " & IIf(.apenasCartoesAtivos, "Ativos - ", "Ativos/Inativos - "))
+                frm_execucao_robos.atualizarStatusLabel("Macro em Execução - Captura de Faturas - " & IIf(.apenasCartoesAtivos, "Ativos - ", "Ativos/Inativos - "))
                 Application.DoEvents()
 
                 'Capturando todos os cartões para pesquisa
@@ -680,9 +681,10 @@
             End With
 
         Catch ex As Exception
-            MsgBox(ex.Message)
-            msgErro = ex.Message
+            'MsgBox(ex.Message)
+
             Return False
+
         End Try
     End Function
 

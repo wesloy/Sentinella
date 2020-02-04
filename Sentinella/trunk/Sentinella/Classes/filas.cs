@@ -14,6 +14,7 @@ namespace Sentinella {
     //	    [grupo]           NVARCHAR (100) NULL,
     //	    [sla]             INT            DEFAULT ((1)) NOT NULL,
     //	    [regraNegocio]    NVARCHAR (500) NULL,
+    //	    [regraImportacao]           NVARCHAR (100) NULL,
     //	    [ativo]           BIT            DEFAULT ((0)) NOT NULL,
     //	    [dataAtualizacao] DATETIME       DEFAULT (getdate()) NULL,
     //	    [idAtualizacao]   NCHAR (10)     NULL,
@@ -36,10 +37,11 @@ namespace Sentinella {
             // construtor vazio
         }
 
-        public filas(string _descricao, string _grupo, string _regraNegocio, bool _ativo, int _sla, int _id = 0) {
+        public filas(string _descricao, string _grupo, string _regraNegocio, string _regraImportacao, bool _ativo, int _sla, int _id = 0) {
             Descricao = _descricao;
             Grupo = _grupo;
             RegraNegocio = _regraNegocio;
+            RegraImportacao = _regraImportacao;
             Ativo = _ativo;
             Sla = _sla;
             DataAtualizacao = hlp.dataHoraAtual();
@@ -52,7 +54,7 @@ namespace Sentinella {
 
         #region Atributos
         private int _id, _sla;
-        private string _descricao, _grupo, _regraNegocio, _idAtualizacao;
+        private string _descricao, _grupo, _regraNegocio, _idAtualizacao, _regraImportacao;
         private bool _ativo;
         private DateTime _dataAtualizacao;
         #endregion
@@ -107,6 +109,15 @@ namespace Sentinella {
                 _regraNegocio = hlp.desacentua(value).ToUpper().Trim();
             }
         }
+        public string RegraImportacao {
+            get {
+                return _regraImportacao.Trim();
+            }
+
+            set {
+                _regraImportacao = hlp.desacentua(value).ToUpper().Trim();
+            }
+        }
         public bool Ativo {
             get {
                 return _ativo;
@@ -152,6 +163,7 @@ namespace Sentinella {
                 sql += "(Descricao,";
                 sql += "Grupo,";
                 sql += "RegraNegocio,";
+                sql += "RegraImportacao,";
                 sql += "Ativo,";
                 sql += "Sla, ";
                 sql += "IdAtualizacao, ";
@@ -160,6 +172,7 @@ namespace Sentinella {
                 sql += objCon.valorSql(obj.Descricao) + ",";
                 sql += objCon.valorSql(obj.Grupo) + ",";
                 sql += objCon.valorSql(obj.RegraNegocio) + ",";
+                sql += objCon.valorSql(obj.RegraImportacao) + ",";
                 sql += objCon.valorSql(obj.Ativo) + ",";
                 sql += objCon.valorSql(obj.Sla) + ", ";
                 sql += objCon.valorSql(obj.IdAtualizacao) + ",";
@@ -187,6 +200,7 @@ namespace Sentinella {
                 sql += "set Descricao = " + objCon.valorSql(obj.Descricao) + ",";
                 sql += "Grupo = " + objCon.valorSql(obj.Grupo) + ",";
                 sql += "RegraNegocio = " + objCon.valorSql(obj.RegraNegocio) + ",";
+                sql += "RegraImportacao = " + objCon.valorSql(obj.RegraImportacao) + ",";
                 sql += "Ativo = " + objCon.valorSql(obj.Ativo) + ",";
                 sql += "Sla = " + objCon.valorSql(obj.Sla) + ",";
                 sql += "IdAtualizacao = " + objCon.valorSql(obj.IdAtualizacao) + ",";
@@ -235,7 +249,6 @@ namespace Sentinella {
             }
         }
 
-
         private bool _valorDuplicado(filas obj) {
             try {
                 sql = "Select * from w_sysfilas where descricao like " + objCon.valorSql(obj.Descricao) + " ";
@@ -263,6 +276,7 @@ namespace Sentinella {
                         oDados.Grupo = (ln["Grupo"].ToString());
                         oDados.Sla = int.Parse(ln["sla"].ToString());
                         oDados.RegraNegocio = (ln["RegraNegocio"].ToString());
+                        oDados.RegraImportacao = (ln["RegraImportacao"].ToString());
                         oDados.IdAtualizacao = (ln["IdAtualizacao"].ToString());
                         oDados.DataAtualizacao = DateTime.Parse(ln["DataAtualizacao"].ToString());
                     }
@@ -318,6 +332,7 @@ namespace Sentinella {
                 lst.Columns.Add("GRUPO MIS", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("SLA", 80, HorizontalAlignment.Center);
                 lst.Columns.Add("REGRA DE NEGÓCIO", 200, HorizontalAlignment.Left);
+                lst.Columns.Add("REGRA DE IMPORTAÇÃO", 200, HorizontalAlignment.Left);
                 lst.Columns.Add("ID ATUALIZAÇÃO", 150, HorizontalAlignment.Center);
                 lst.Columns.Add("DATA ATUALIZAÇÃO", 150, HorizontalAlignment.Center);
                 if (dt.Rows.Count > 0) {
@@ -328,6 +343,7 @@ namespace Sentinella {
                         item.SubItems.Add(linha["grupo"].ToString());
                         item.SubItems.Add(linha["sla"].ToString());
                         item.SubItems.Add(linha["regraNegocio"].ToString());
+                        item.SubItems.Add(linha["regraImportacao"].ToString());
                         item.SubItems.Add(linha["idAtualizacao"].ToString());
                         item.SubItems.Add(linha["dataAtualizacao"].ToString());
 
@@ -413,6 +429,22 @@ namespace Sentinella {
                 MessageBox.Show("Não foi carregar a lista de Filas, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "FILAS - CARREGAR COMBOBOX (BLL)");                
             }
+
+        }
+        
+        public DataTable listaFilasDataTable(string filtro = "") {
+
+            DataTable dt = new DataTable();
+            try {
+                dt = _listarFilas(filtro);
+                return dt;
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Não foi carregar a lista de Filas, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                log.registrarLog(ex.ToString(), "FILAS - LISTA DE FILAS DATATABLE (BLL)");
+                return dt;
+            }
+
 
         }
 

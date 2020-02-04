@@ -26,11 +26,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConfigFilas));
             this.pnlConteudo = new System.Windows.Forms.Panel();
             this.txtID = new System.Windows.Forms.TextBox();
+            this.Label9 = new System.Windows.Forms.Label();
+            this.PictureBox2 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.Label10 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.Label11 = new System.Windows.Forms.Label();
             this.txtRegraNegocio = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lvLista = new System.Windows.Forms.ListView();
+            this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtSla = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Label12 = new System.Windows.Forms.Label();
@@ -48,24 +53,23 @@
             this.txtFiltro = new System.Windows.Forms.TextBox();
             this.pnlBotoes = new System.Windows.Forms.Panel();
             this.btnExcluir = new System.Windows.Forms.Button();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.PictureBox2 = new System.Windows.Forms.PictureBox();
-            this.Label10 = new System.Windows.Forms.Label();
-            this.Label11 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
-            this.PictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnIncluir = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtRegraImport = new System.Windows.Forms.TextBox();
             this.pnlConteudo.SuspendLayout();
-            this.pnlFiltros.SuspendLayout();
-            this.pnlBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
+            this.pnlFiltros.SuspendLayout();
+            this.pnlBotoes.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
+            this.pnlConteudo.Controls.Add(this.label13);
+            this.pnlConteudo.Controls.Add(this.txtRegraImport);
             this.pnlConteudo.Controls.Add(this.txtID);
             this.pnlConteudo.Controls.Add(this.Label9);
             this.pnlConteudo.Controls.Add(this.PictureBox2);
@@ -101,6 +105,29 @@
             this.txtID.TabIndex = 74;
             this.txtID.Visible = false;
             // 
+            // Label9
+            // 
+            this.Label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Label9.AutoSize = true;
+            this.Label9.BackColor = System.Drawing.Color.Transparent;
+            this.Label9.Location = new System.Drawing.Point(218, 484);
+            this.Label9.Name = "Label9";
+            this.Label9.Size = new System.Drawing.Size(39, 13);
+            this.Label9.TabIndex = 44;
+            this.Label9.Text = "Inativo";
+            // 
+            // PictureBox2
+            // 
+            this.PictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.PictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox2.Image")));
+            this.PictureBox2.Location = new System.Drawing.Point(204, 482);
+            this.PictureBox2.Name = "PictureBox2";
+            this.PictureBox2.Size = new System.Drawing.Size(18, 15);
+            this.PictureBox2.TabIndex = 43;
+            this.PictureBox2.TabStop = false;
+            // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -113,16 +140,39 @@
             this.label7.TabIndex = 72;
             this.label7.Text = "(Duplo clique para alterar as informações)";
             // 
+            // Label10
+            // 
+            this.Label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Label10.AutoSize = true;
+            this.Label10.BackColor = System.Drawing.Color.Transparent;
+            this.Label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label10.Location = new System.Drawing.Point(97, 484);
+            this.Label10.Name = "Label10";
+            this.Label10.Size = new System.Drawing.Size(60, 13);
+            this.Label10.TabIndex = 42;
+            this.Label10.Text = "Legenda:";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 206);
+            this.label6.Location = new System.Drawing.Point(14, 243);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 13);
             this.label6.TabIndex = 71;
             this.label6.Text = "Lista de Filas:";
+            // 
+            // Label11
+            // 
+            this.Label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Label11.AutoSize = true;
+            this.Label11.BackColor = System.Drawing.Color.Transparent;
+            this.Label11.Location = new System.Drawing.Point(170, 484);
+            this.Label11.Name = "Label11";
+            this.Label11.Size = new System.Drawing.Size(31, 13);
+            this.Label11.TabIndex = 41;
+            this.Label11.Text = "Ativo";
             // 
             // txtRegraNegocio
             // 
@@ -130,10 +180,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRegraNegocio.BackColor = System.Drawing.Color.Azure;
             this.txtRegraNegocio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRegraNegocio.Location = new System.Drawing.Point(98, 107);
+            this.txtRegraNegocio.Location = new System.Drawing.Point(99, 144);
             this.txtRegraNegocio.Multiline = true;
             this.txtRegraNegocio.Name = "txtRegraNegocio";
-            this.txtRegraNegocio.Size = new System.Drawing.Size(913, 93);
+            this.txtRegraNegocio.Size = new System.Drawing.Size(912, 93);
             this.txtRegraNegocio.TabIndex = 69;
             this.txtRegraNegocio.Tag = "Regra de Negócio";
             // 
@@ -141,7 +191,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(14, 110);
+            this.label4.Location = new System.Drawing.Point(14, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 13);
             this.label4.TabIndex = 70;
@@ -153,19 +203,32 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.BackColor = System.Drawing.Color.Azure;
-            this.lvLista.Location = new System.Drawing.Point(99, 206);
+            this.lvLista.HideSelection = false;
+            this.lvLista.Location = new System.Drawing.Point(99, 243);
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(912, 275);
+            this.lvLista.Size = new System.Drawing.Size(912, 238);
             this.lvLista.TabIndex = 65;
             this.lvLista.Tag = "Lista de Registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
+            // PictureBox1
+            // 
+            this.PictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.PictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
+            this.PictureBox1.Location = new System.Drawing.Point(153, 482);
+            this.PictureBox1.Name = "PictureBox1";
+            this.PictureBox1.Size = new System.Drawing.Size(18, 15);
+            this.PictureBox1.TabIndex = 40;
+            this.PictureBox1.TabStop = false;
+            // 
             // txtSla
             // 
             this.txtSla.BackColor = System.Drawing.Color.Azure;
             this.txtSla.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtSla.Location = new System.Drawing.Point(98, 81);
+            this.txtSla.Location = new System.Drawing.Point(98, 107);
             this.txtSla.Name = "txtSla";
             this.txtSla.Size = new System.Drawing.Size(257, 20);
             this.txtSla.TabIndex = 63;
@@ -176,7 +239,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(14, 84);
+            this.label1.Location = new System.Drawing.Point(14, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 64;
@@ -355,52 +418,6 @@
             this.btnExcluir.UseVisualStyleBackColor = true;
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
-            // Label9
-            // 
-            this.Label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Label9.AutoSize = true;
-            this.Label9.BackColor = System.Drawing.Color.Transparent;
-            this.Label9.Location = new System.Drawing.Point(218, 484);
-            this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(39, 13);
-            this.Label9.TabIndex = 44;
-            this.Label9.Text = "Inativo";
-            // 
-            // PictureBox2
-            // 
-            this.PictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox2.Image")));
-            this.PictureBox2.Location = new System.Drawing.Point(204, 482);
-            this.PictureBox2.Name = "PictureBox2";
-            this.PictureBox2.Size = new System.Drawing.Size(18, 15);
-            this.PictureBox2.TabIndex = 43;
-            this.PictureBox2.TabStop = false;
-            // 
-            // Label10
-            // 
-            this.Label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Label10.AutoSize = true;
-            this.Label10.BackColor = System.Drawing.Color.Transparent;
-            this.Label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label10.Location = new System.Drawing.Point(97, 484);
-            this.Label10.Name = "Label10";
-            this.Label10.Size = new System.Drawing.Size(60, 13);
-            this.Label10.TabIndex = 42;
-            this.Label10.Text = "Legenda:";
-            // 
-            // Label11
-            // 
-            this.Label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Label11.AutoSize = true;
-            this.Label11.BackColor = System.Drawing.Color.Transparent;
-            this.Label11.Location = new System.Drawing.Point(170, 484);
-            this.Label11.Name = "Label11";
-            this.Label11.Size = new System.Drawing.Size(31, 13);
-            this.Label11.TabIndex = 41;
-            this.Label11.Text = "Ativo";
-            // 
             // btnCancelar
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -434,18 +451,6 @@
             this.btnAlterar.UseVisualStyleBackColor = true;
             this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
-            // PictureBox1
-            // 
-            this.PictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
-            this.PictureBox1.Location = new System.Drawing.Point(153, 482);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(18, 15);
-            this.PictureBox1.TabIndex = 40;
-            this.PictureBox1.TabStop = false;
-            // 
             // btnIncluir
             // 
             this.btnIncluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -462,6 +467,26 @@
             this.btnIncluir.UseVisualStyleBackColor = true;
             this.btnIncluir.Click += new System.EventHandler(this.btnIncluir_Click);
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Location = new System.Drawing.Point(14, 84);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(74, 13);
+            this.label13.TabIndex = 76;
+            this.label13.Text = "Regra Import.:";
+            // 
+            // txtRegraImport
+            // 
+            this.txtRegraImport.BackColor = System.Drawing.Color.Azure;
+            this.txtRegraImport.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRegraImport.Location = new System.Drawing.Point(98, 81);
+            this.txtRegraImport.Name = "txtRegraImport";
+            this.txtRegraImport.Size = new System.Drawing.Size(257, 20);
+            this.txtRegraImport.TabIndex = 75;
+            this.txtRegraImport.Tag = "Grupo MIS";
+            // 
             // frmConfigFilas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -475,11 +500,11 @@
             this.Load += new System.EventHandler(this.frmConfigFilas_Load);
             this.pnlConteudo.ResumeLayout(false);
             this.pnlConteudo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.pnlFiltros.ResumeLayout(false);
             this.pnlFiltros.PerformLayout();
             this.pnlBotoes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -518,5 +543,7 @@
         internal System.Windows.Forms.Button btnExcluir;
         internal System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtID;
+        internal System.Windows.Forms.Label label13;
+        internal System.Windows.Forms.TextBox txtRegraImport;
     }
 }

@@ -79,11 +79,9 @@ namespace Sentinella.Forms {
                     th.CarregaListView(lvHistoricoTH, cat.Cpf);
 
                     //Informações adicionais
-                    if (cat.Fila_id == 6) //DLP
-                    {
                         dlp dlp = new dlp();
                         dlp.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()));
-                    }
+
 
 
                     //Carregando os dados do Cartão, se BIM for diferente de 000000

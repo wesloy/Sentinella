@@ -36,6 +36,8 @@ Partial Class frm_execucao_robos
         Me.cb_2 = New System.Windows.Forms.CheckBox()
         Me.cb_1 = New System.Windows.Forms.CheckBox()
         Me.gb_passos = New System.Windows.Forms.GroupBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtCpfEspecifico = New System.Windows.Forms.TextBox()
         Me.cb_5 = New System.Windows.Forms.CheckBox()
         Me.cb_4 = New System.Windows.Forms.CheckBox()
         Me.cb_3 = New System.Windows.Forms.CheckBox()
@@ -47,8 +49,6 @@ Partial Class frm_execucao_robos
         Me.status_label = New System.Windows.Forms.ToolStripStatusLabel()
         Me.status_progressBar = New System.Windows.Forms.ToolStripProgressBar()
         Me.status_Percentual = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtCpfEspecifico = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         CType(Me.pb_mais_usuario, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gb_passos.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -115,6 +115,7 @@ Partial Class frm_execucao_robos
         Me.cb_7.Name = "cb_7"
         Me.cb_7.Size = New System.Drawing.Size(155, 17)
         Me.cb_7.TabIndex = 24
+        Me.cb_7.Tag = "4"
         Me.cb_7.Text = "Capturar Logs Manutenção"
         Me.ToolTip1.SetToolTip(Me.cb_7, "Captura os registros dos logs da manutenções realizadas na conta")
         Me.cb_7.UseVisualStyleBackColor = True
@@ -127,6 +128,7 @@ Partial Class frm_execucao_robos
         Me.cb_8.Name = "cb_8"
         Me.cb_8.Size = New System.Drawing.Size(157, 17)
         Me.cb_8.TabIndex = 25
+        Me.cb_8.Tag = "5"
         Me.cb_8.Text = "Capturar Fatura / Despesas"
         Me.ToolTip1.SetToolTip(Me.cb_8, "Coleta dados relacionados às faturas no B2K")
         Me.cb_8.UseVisualStyleBackColor = True
@@ -139,6 +141,7 @@ Partial Class frm_execucao_robos
         Me.cb_6.Name = "cb_6"
         Me.cb_6.Size = New System.Drawing.Size(188, 17)
         Me.cb_6.TabIndex = 26
+        Me.cb_6.Tag = "3"
         Me.cb_6.Text = "Capturar Dados do Cartão / Conta"
         Me.ToolTip1.SetToolTip(Me.cb_6, "Coleta informações referentes a data da emissão do cartão e data do último bloque" &
         "io/desbloqueio do cartão")
@@ -187,6 +190,22 @@ Partial Class frm_execucao_robos
         Me.gb_passos.TabStop = False
         Me.gb_passos.Text = "Passos de Execução:"
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(23, 256)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(137, 13)
+        Me.Label4.TabIndex = 27
+        Me.Label4.Text = "Buscar por CPF específico:"
+        '
+        'txtCpfEspecifico
+        '
+        Me.txtCpfEspecifico.Location = New System.Drawing.Point(20, 272)
+        Me.txtCpfEspecifico.Name = "txtCpfEspecifico"
+        Me.txtCpfEspecifico.Size = New System.Drawing.Size(188, 20)
+        Me.txtCpfEspecifico.TabIndex = 20
+        '
         'cb_5
         '
         Me.cb_5.AutoSize = True
@@ -195,6 +214,7 @@ Partial Class frm_execucao_robos
         Me.cb_5.Name = "cb_5"
         Me.cb_5.Size = New System.Drawing.Size(152, 17)
         Me.cb_5.TabIndex = 20
+        Me.cb_5.Tag = "2"
         Me.cb_5.Text = "Capturar Dados Cadastrais"
         Me.cb_5.UseVisualStyleBackColor = True
         '
@@ -204,9 +224,10 @@ Partial Class frm_execucao_robos
         Me.cb_4.ForeColor = System.Drawing.Color.Black
         Me.cb_4.Location = New System.Drawing.Point(20, 105)
         Me.cb_4.Name = "cb_4"
-        Me.cb_4.Size = New System.Drawing.Size(149, 17)
+        Me.cb_4.Size = New System.Drawing.Size(178, 17)
         Me.cb_4.TabIndex = 18
-        Me.cb_4.Text = "Capturar Cartões / Contas"
+        Me.cb_4.Tag = "1"
+        Me.cb_4.Text = "Capturar Cartões / Contas (CPF)"
         Me.cb_4.UseVisualStyleBackColor = True
         '
         'cb_3
@@ -288,22 +309,6 @@ Partial Class frm_execucao_robos
         Me.status_Percentual.Size = New System.Drawing.Size(23, 17)
         Me.status_Percentual.Text = "0%"
         Me.status_Percentual.Visible = False
-        '
-        'txtCpfEspecifico
-        '
-        Me.txtCpfEspecifico.Location = New System.Drawing.Point(20, 272)
-        Me.txtCpfEspecifico.Name = "txtCpfEspecifico"
-        Me.txtCpfEspecifico.Size = New System.Drawing.Size(188, 20)
-        Me.txtCpfEspecifico.TabIndex = 20
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(23, 256)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(137, 13)
-        Me.Label4.TabIndex = 27
-        Me.Label4.Text = "Buscar por CPF específico:"
         '
         'frm_execucao_robos
         '

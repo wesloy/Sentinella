@@ -892,7 +892,7 @@
                 Do While Not .getString(1, 23, 26).ToString.Trim = "ACCOUNT INQUIRY ( PAGE 5 )" And contador < 3 'Navegando para a tela de captura
                     .putstring("I5", 1, 7)
                     .sendKeys("<Enter>")
-                    .WaitHostQuiet(50)
+                    .WaitHostQuiet(25)
                     contador += 1
                 Loop
 
@@ -903,7 +903,7 @@
                     'paginando para tela principal da função
                     .putstring("I5", 1, 7)
                     .sendKeys("<Enter>")
-                    .WaitHostQuiet(50)
+                    .WaitHostQuiet(25)
                 End If
 
 
@@ -915,13 +915,13 @@
                     'Limpando o cartão anterior
                     .putstring("                   ", 2, 16)
                     .sendKeys("<Enter>")
-                    .WaitHostQuiet(50)
+                    .WaitHostQuiet(25)
 
                     'Inserindo novo cartão
                     numCartao = numCartao.Insert(6, " ")
                     .putstring(numCartao, 2, 16)
                     .sendKeys("<Enter>")
-                    .WaitHostQuiet(50)
+                    .WaitHostQuiet(25)
                     contador = 0
                 End If
             End With
@@ -997,7 +997,7 @@
             If qtdeTentativas > 3 Then
                 status_execucao = False
                 msgErro = ex.Message & " - " & numCartao
-                MsgBox(ex.Message)
+                'MsgBox(ex.Message)
                 Return Nothing
             Else
                 qtdeTentativas += 1
@@ -1290,6 +1290,10 @@ entrando_na_tela:
                 ' - ao finalizar a coleta das autorizações de um ciclo, clicar <F1> e passar para o ciclo seguinte..
                 ' - validar a data limite para captura das faturas/transacoes
 
+                If numCartao = "4551821001673874" Then
+                    MsgBox("PARADA PARA ANÁLISE")
+                End If
+
                 With fatura
                     .cartao = Replace(numCartao, " ", "")
                     .bin = Left(.cartao, 6)
@@ -1388,13 +1392,14 @@ entrando_na_tela:
 
         Catch ex As Exception
             If qtdeTentativas > 3 Then
-                MsgBox(ex.Message)
+                'MsgBox(ex.Message)
                 status_execucao = False
                 msgErro = ex.Message & " - " & numCartao
                 Return Nothing
             Else
                 qtdeTentativas += 1
                 B2K_CapturarFaturas(mainframe, tela, cpf, numCartao, dataLimite, status_execucao, msgErro)
+                msgErro = ex.ToString()
                 Throw New Exception
             End If
         End Try

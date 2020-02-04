@@ -79,17 +79,18 @@ namespace Sentinella.Forms
                     if (rbRobos.Checked)
                     {
 
-                        switch (cbxSeletorFilaImportacao.SelectedValue.ToString())
+
+                        if (cbxSeletorFilaImportacao.Text.Contains("OUVIDORIA"))
                         {
-                            case "5":
-                                impOuv.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()));
-                                break;
-                            case "6":
-                                imp.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()), txtEnderecoArquivo.Text.ToString());
-                                break;
-                            default:
-                                imp.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()));
-                                break;
+                            impOuv.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()));
+                        }
+                        else if (cbxSeletorFilaImportacao.Text.Contains("DLP"))
+                        {
+                            imp.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()), txtEnderecoArquivo.Text.ToString());
+                        }
+                        else
+                        {
+                            imp.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()));
                         }
 
 
@@ -101,11 +102,11 @@ namespace Sentinella.Forms
                         {
 
                             case "PLANILHA CADASTRO GERAL":
-                                                                
+
                                 if (hlp.validaCamposObrigatorios(pnlConteudo, "txtEnderecoArquivo"))
                                 {
                                     //imp.CadastroGeral(txtEnderecoArquivo.Text.ToString());
-                                    imp.CadastroGeralConexao(txtEnderecoArquivo.Text.ToString());                                    
+                                    imp.CadastroGeralConexao(txtEnderecoArquivo.Text.ToString());
                                 }
                                 break;
                             case "BANCO DE DADOS CADASTRO GERAL":
@@ -261,7 +262,7 @@ namespace Sentinella.Forms
         }
         private void cbxSeletorFilaImportacao_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (cbxSeletorFilaImportacao.Text.ToString() == "DLP")
+            if (cbxSeletorFilaImportacao.Text.ToString().Contains("DLP"))
             {
                 txtEnderecoArquivo.Enabled = true;
                 btnProcurar.Enabled = true;

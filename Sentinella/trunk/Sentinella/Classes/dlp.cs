@@ -7,8 +7,8 @@ namespace Sentinella {
 
         //	CREATE TABLE [dbo].[w_dlp] (
         //	    [id]                         INT            IDENTITY (1, 1) NOT NULL,
-        //	    [generated_]                 NVARCHAR (150) NULL,
-        //	    [received]                   NVARCHAR (150) NULL,
+        //	    [generated_]                 DATETIME       NULL,
+        //	    [received]                   DATETIME       NULL,
         //	    [severity]                   NVARCHAR (150) NULL,
         //	    [status_]                    NVARCHAR (150) NULL,
         //	    [manager]                    NVARCHAR (150) NULL,
@@ -41,8 +41,12 @@ namespace Sentinella {
         //	    [cpf]                        NVARCHAR (15)  NULL,
         //	    [data_importacao]            DATETIME       DEFAULT (getdate()) NULL,
         //	    [id_importacao]              NVARCHAR (150) NULL,
+        //	    [id_tbl_trabalho]            INT            DEFAULT ((0)) NOT NULL,
+        //	    [flag_trabalho]              BIT            DEFAULT ((0)) NOT NULL,
+        //	    [id_fila_trabalho]           INT            DEFAULT ((0)) NOT NULL,
         //	    CONSTRAINT [PK_w_dlp] PRIMARY KEY CLUSTERED ([id] ASC)
         //	);
+
 
         #region Variaveis 
         string sql = "";
@@ -86,6 +90,7 @@ namespace Sentinella {
         public string matricula { get; set; }
         public string nome_completo { get; set; }
         public string cpf { get; set; }
+        public int id_fila_trabalho { get; set; }
         public DateTime data_importacao { get; set; }
         public string id_importacao { get; set; }
 

@@ -3,7 +3,8 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 
-namespace Sentinella {
+namespace Sentinella
+{
 
     //	CREATE TABLE [dbo].[w_base] (
     //	    [id]                      INT            IDENTITY (1, 1) NOT NULL,
@@ -33,7 +34,8 @@ namespace Sentinella {
     //Tabela principal, recebe os registros para serem trabalhados
     //Para alimentação (importações) será usado apenas os campos: BIN, CPF, FILA_ID, DATA_ABERTURA, ID_ABERTURA
 
-    class importacoes {
+    class importacoes
+    {
 
         #region Variaveis 
         bool validacao = false;
@@ -148,7 +150,8 @@ namespace Sentinella {
         /// <param name="_Bin"></param>
         /// <param name="_Cpf"></param>
         /// <param name="_Fila_id"></param>
-        public importacoes(string _Bin, string _Cpf, DateTime dth_registro, int _Fila_id, DateTime dth_abertura, int idHistorico = 0, int idInfo = 0) {
+        public importacoes(string _Bin, string _Cpf, DateTime dth_registro, int _Fila_id, DateTime dth_abertura, int idHistorico = 0, int idInfo = 0)
+        {
             Bin = _Bin;
             Cpf = _Cpf;
             Data_registro = dth_registro;
@@ -159,12 +162,14 @@ namespace Sentinella {
             Id_Info = idInfo;
 
         }
-        public importacoes(int _Fila_id, DateTime dth_abertura, string id_abertura) {
+        public importacoes(int _Fila_id, DateTime dth_abertura, string id_abertura)
+        {
             Fila_id = _Fila_id;
             Data_abertura = dth_abertura;
             Id_abertura = id_abertura;
         }
-        public importacoes() {
+        public importacoes()
+        {
             //Construtor vazio
         }
         #endregion
@@ -177,35 +182,46 @@ namespace Sentinella {
         /// <param name="obj"></param>
         /// <param name="validarDataRegistro"></param>
         /// <returns></returns>
-        private bool _valorDuplicado(importacoes obj, bool validarDataRegistro = false, bool validarStausAberto = false, bool idInfo = false) {
-            try {
+        private bool _valorDuplicado(importacoes obj, bool validarDataRegistro = false, bool validarStausAberto = false, bool idInfo = false)
+        {
+            try
+            {
                 sql = "Select * from w_base ";
                 sql += "where bin = " + objCon.valorSql(obj.Bin) + " ";
                 sql += "and cpf = " + objCon.valorSql(obj.Cpf) + " ";
                 sql += "and Fila_id = " + objCon.valorSql(obj.Fila_id) + " ";
-                if (validarStausAberto) {
+                if (validarStausAberto)
+                {
                     sql += "and status_id = 0 ";
                 }
-                if (idInfo) {
+                if (idInfo)
+                {
                     sql += "and id_info = " + objCon.valorSql(obj.Id_Info) + " ";
                 }
                 sql += "order by data_Registro desc ";
 
-                if (validarDataRegistro) {
+                if (validarDataRegistro)
+                {
                     //se o registro que já está no sentinella for >= não necessita subir o registro atual, pois trata-se de um registro antigo
                     DataTable tb = new DataTable();
                     bool validacao = false;
                     tb = objCon.retornaDataTable(sql);
-                    if (tb.Rows.Count > 0) {
-                        foreach (DataRow ln in tb.Rows) {
-                            if (DateTime.Parse(ln["data_Registro"].ToString()) >= obj.Data_registro) {
+                    if (tb.Rows.Count > 0)
+                    {
+                        foreach (DataRow ln in tb.Rows)
+                        {
+                            if (DateTime.Parse(ln["data_Registro"].ToString()) >= obj.Data_registro)
+                            {
                                 validacao = true;
                                 break;
                             }
                         }
-                    } else { validacao = false; }
+                    }
+                    else { validacao = false; }
                     return validacao;
-                } else {//Validação direta pelo sql, já que não é necessário validar data do registro. Assim sendo, havendo retoro > 0 já caracteriza duplicidade.
+                }
+                else
+                {//Validação direta pelo sql, já que não é necessário validar data do registro. Assim sendo, havendo retoro > 0 já caracteriza duplicidade.
                     objCon.executaQuery(sql, ref retorno);
                     if (retorno < 0) { return true; } else { return false; }
                 }
@@ -213,7 +229,8 @@ namespace Sentinella {
 
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - VALIDAR DUPLICADO");
                 return false;
             }
@@ -224,8 +241,10 @@ namespace Sentinella {
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        private bool _insertBase(importacoes obj) {
-            try {
+        private bool _insertBase(importacoes obj)
+        {
+            try
+            {
                 sql = "Insert into w_base (";
                 sql += "bin, cpf, data_registro, fila_id, data_abertura, id_abertura, id_historico, id_info ";
                 sql += ") values (";
@@ -240,7 +259,8 @@ namespace Sentinella {
                 validacao = objCon.executaQuery(sql, ref retorno); //executando
                 return validacao;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO(fila_id " + Fila_id + ") - INSERIR NA BASE(DAL)");
                 return false;
             }
@@ -253,8 +273,10 @@ namespace Sentinella {
         /// <param name="obj"></param>
         /// <param name="volExcluido"></param>
         /// <returns></returns>
-        private bool _excluirBase(importacoes obj, ref long volExcluido) {
-            try {
+        private bool _excluirBase(importacoes obj, ref long volExcluido)
+        {
+            try
+            {
 
                 sql = "Delete from w_base ";
                 sql += "Where id_abertura = " + objCon.valorSql(obj.Id_abertura) + " ";
@@ -265,14 +287,16 @@ namespace Sentinella {
 
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - DELETAR DA BASE(DAL)");
                 return false;
             }
         }
 
         //_dlpConexao(diretorio, dtHora, fila_id, fila_nome, ref volImportado)
-        private bool _dlpConexao(string diretorio, DateTime dtHora, int fila_id, string fila_nome, ref long volAtualizado) {
+        private bool _dlpConexao(string diretorio, DateTime dtHora, int fila_id, string fila_nome, ref long volAtualizado)
+        {
 
             int volImportado = 0;
             DateTime data = new DateTime();
@@ -291,10 +315,16 @@ namespace Sentinella {
             frm.Show();
 
 
-            try {
+            try
+            {
 
                 string sheet = "";
                 DateTime dataHoraAtual = hlp.dataHoraAtual();
+                filas filas = new filas();
+                DataTable dtFilas = new DataTable();
+                dtFilas = filas.listaFilasDataTable("DLP");
+                Boolean importar = false;
+
                 foreach (DataRow row in dt.Rows)
                 {
 
@@ -315,7 +345,25 @@ namespace Sentinella {
                     while (dr.Read())
                     {
 
-                        if (!dr["Rule"].ToString().Contains("BV")
+
+                        //VALIDAÇÃO DE REGRA PARA IMPORTAÇÃO
+                        importar = false;
+                        fila_id = 0;
+                        fila_nome = "";
+
+                        foreach (DataRow item in dtFilas.Rows)
+                        {
+                            if (dr["Rule"].ToString().ToUpper().Replace("_", "").Replace(" ", "").Equals(item["regraImportacao"].ToString().ToUpper().Replace("_", "").Replace(" ", "")) && item["ATIVO"].ToString().ToUpper() == "TRUE")
+                            {
+
+                                importar = true;
+                                fila_id = int.Parse(item["id"].ToString());
+                                fila_nome = item["descricao"].ToString().ToUpper();
+                                break;
+                            }
+                        }
+
+                        if (!importar
                                 || dr["File"].ToString().Contains(".tmp")
                                 || dr["File"].ToString().Contains(".ini")
                                 || dr["File"].ToString().Contains(".contact")
@@ -400,6 +448,7 @@ namespace Sentinella {
                         sql += "action_, ";
                         sql += "incidents, ";
                         sql += "cloud_service_vendor, ";
+                        sql += "id_fila_trabalho, ";
                         sql += "chave_duplicidade, ";
                         sql += "data_importacao, ";
                         sql += "id_importacao ";
@@ -422,9 +471,9 @@ namespace Sentinella {
                         sql += objCon.valorSql(dr["Managing Server"].ToString().Replace("'", "")) + ",  ";
                         sql += objCon.valorSql(dr["Endpoint"].ToString().Replace("'", "")) + ",  ";
                         sql += objCon.valorSql(dr["Incident Source (AD Account)"].ToString().Replace("'", "")) + ",  ";
-                        sql += objCon.valorSql(dr["Incident Source (Sender)"].ToString().Replace("'", "")) + ",  ";
+                        sql += objCon.valorSql(dr["Incident Source (Sender)"].ToString().Replace("'", "").Replace(".", "").Replace(",", "")) + ",  ";
                         sql += objCon.valorSql(dr["WebSite"].ToString().Replace("'", "")) + ",  ";
-                        sql += objCon.valorSql(dr["Recipient"].ToString().Replace("'", "")) + ",  ";
+                        sql += objCon.valorSql(hlp.removerCharEspecial(dr["Recipient"].ToString().Replace("'", "").Replace(".", "").Replace(",", ""))) + ",  ";
                         sql += objCon.valorSql(dr["Subject"].ToString().Replace("'", "")) + ",  ";
                         sql += objCon.valorSql(dr["File Location"].ToString().Replace("'", "")) + ",  ";
                         sql += objCon.valorSql(dr["File"].ToString().Replace("'", "")) + ",  ";
@@ -436,6 +485,7 @@ namespace Sentinella {
                         sql += objCon.valorSql(dr["Action"].ToString().Replace("'", "")) + ",  ";
                         sql += objCon.valorSql(dr["Incidents"].ToString().Replace("'", "")) + ",  ";
                         sql += objCon.valorSql(dr["Cloud Service Vendor"].ToString().Replace("'", "")) + ",  ";
+                        sql += objCon.valorSql(fila_id) + ", ";
                         sql += objCon.valorSql(chaveDuplicidade) + ",  ";
                         sql += objCon.valorSql(dataHoraAtual) + ", ";
                         sql += objCon.valorSql(Constantes.idlogadoFerramenta) + " ";
@@ -448,98 +498,106 @@ namespace Sentinella {
                         #endregion
 
                     }
-
-                    //fechando conexão com o excel
-                    cnx.Close();
+                    
                 }
-                    //Atualizando cpfs dos casos importados com tabela AD
-                    //Chave: Usuário de rede
-                    sql = "Update dlp set ";
-                    sql += "cpf = ad.Cod_cpf, ";
-                    sql += "nome_completo = ad.Nom_Usuario, ";
-                    sql += "matricula = h.matricula ";
-                    sql += "from db_Sentinella.dbo.w_dlp dlp inner join db_ControleAD.dbo.Tbl_UsuariosAD ad ";
-                    sql += "on dlp.incident_source_ad_account = ad.Nom_login collate Latin1_General_CI_AS ";
-                    sql += "left join ";
-                    sql += "(select top 1 w.matricula, w.cpf ";
-                    sql += "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join db_Sentinella.dbo.w_funcionarios_historico w ";
-                    sql += "on w.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
-                    sql += "order by w.dataAtualizacao Desc) as h "; //selecionando apenas a ultima importação do CPF na base funcionários histórico
-                    sql += "on h.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
-                    objCon.executaQuery(sql, ref retorno);
+                //fechando conexão com o excel
+                cnx.Close();
 
-                    //fechando barra de carregamento para iniciar uma nova posteriormente
-                    frm.Close();
+                //Atualizando cpfs dos casos importados com tabela AD
+                //Chave: Usuário de rede
+                sql = "Update dlp set ";
+                sql += "cpf = ad.Cod_cpf, ";
+                sql += "nome_completo = ad.Nom_Usuario, ";
+                sql += "matricula = h.matricula ";
+                sql += "from db_Sentinella.dbo.w_dlp dlp inner join db_ControleAD.dbo.Tbl_UsuariosAD ad ";
+                sql += "on dlp.incident_source_ad_account = ad.Nom_login collate Latin1_General_CI_AS ";
+                sql += "left join ";
+                sql += "(select top 1 w.matricula, w.cpf ";
+                sql += "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join db_Sentinella.dbo.w_funcionarios_historico w ";
+                sql += "on w.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                sql += "order by w.dataAtualizacao Desc) as h "; //selecionando apenas a ultima importação do CPF na base funcionários histórico
+                sql += "on h.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                objCon.executaQuery(sql, ref retorno);
 
-                    //limpando casos que não foram encontrados o CPF/MATRICULA com o AD
-                    sql = "delete from w_dlp where cpf = '' or cpf is null";
-                    objCon.executaQuery(sql, ref retorno);
+                //fechando barra de carregamento para iniciar uma nova posteriormente
+                frm.Close();
 
-                    //capturando todos os casos importados e atualizados acima
-                    sql = "Select * from w_dlp where id_tbl_trabalho = 0 " +
-                            " and id_importacao = " + objCon.valorSql(Constantes.idlogadoFerramenta) + " " +
-                                " and incident_source_ad_account <> 'SISTEMA' ";
-                    dt = objCon.retornaDataTable(sql);
+                //limpando casos que não foram encontrados o CPF/MATRICULA com o AD
+                sql = "delete from w_dlp where cpf = '' or cpf is null";
+                objCon.executaQuery(sql, ref retorno);
 
-                    //Importar para tabela de trabalho
-                    if (dt.Rows.Count > 0) {
+                //capturando todos os casos importados e atualizados acima
+                sql = "Select * from w_dlp where id_tbl_trabalho = 0 " +
+                        " and id_importacao = " + objCon.valorSql(Constantes.idlogadoFerramenta) + " " +
+                            " and incident_source_ad_account <> 'SISTEMA' ";
+                dt = objCon.retornaDataTable(sql);
 
-                        //carregar form Barra de Progresso
-                        frmProgressBar frm2 = new frmProgressBar(dt.Rows.Count);
-                        volTotal = 0;
-                        frm2.Show();
+                //Importar para tabela de trabalho
+                if (dt.Rows.Count > 0)
+                {
 
-                        foreach (DataRow ln in dt.Rows) {
+                    //carregar form Barra de Progresso
+                    frmProgressBar frm2 = new frmProgressBar(dt.Rows.Count);
+                    volTotal = 0;
+                    frm2.Show();
 
-                            if (!ln["incident_source_ad_account"].ToString().ToUpper().Contains("SISTEMA")) {
-                                importacoes imp = new importacoes(
-                                                                    "000000",
-                                                                    ln["CPF"].ToString(),
-                                                                    DateTime.Parse(ln["generated_"].ToString()),
-                                                                    fila_id,
-                                                                    dtHora,
-                                                                    0,
-                                                                    int.Parse(ln["id"].ToString()));
+                    foreach (DataRow ln in dt.Rows)
+                    {
 
-                                if (!_valorDuplicado(imp, false, true, false)) { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho
-                                    _insertBase(imp);
-                                    volImportado += 1;
-                                }
+                        if (!ln["incident_source_ad_account"].ToString().ToUpper().Contains("SISTEMA"))
+                        {
+                            importacoes imp = new importacoes(
+                                                                "000000",
+                                                                ln["CPF"].ToString(),
+                                                                DateTime.Parse(ln["generated_"].ToString()),
+                                                                int.Parse(ln["id_fila_trabalho"].ToString()),
+                                                                dtHora,
+                                                                0,
+                                                                int.Parse(ln["id"].ToString()));
 
-                                //salvar volume para registro do total importado, sendo feito a manutenção na camada de negócio
-                                volAtualizado = volImportado;
+                            if (!_valorDuplicado(imp, false, true, false))
+                            { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho
+                                _insertBase(imp);
+                                volImportado += 1;
                             }
 
-                            volTotal += 1;
-                            frm2.atualizarBarra(volTotal);
+                            //salvar volume para registro do total importado, sendo feito a manutenção na camada de negócio
+                            volAtualizado = volImportado;
                         }
 
-                        //atualizar id da tbl w_base na tbl w_dlp, para futura captura dos detalhes dos registros para trabalho do analista
-                        sql = "Update d set ";
-                        sql += "d.id_tbl_trabalho = b.id ";
-                        sql += "from w_base b inner join w_dlp d on b.cpf = d.cpf ";
-                        sql += "where d.id_tbl_trabalho = 0 and b.fila_id = 6 ";
-                        sql += "and b.status_id = 0 and id_Abertura = " + objCon.valorSql(Constantes.idlogadoFerramenta) + " ";
-                        objCon.executaQuery(sql, ref retorno);
-
-                        frm2.Close();
+                        volTotal += 1;
+                        frm2.atualizarBarra(volTotal);
                     }
 
-                
+                    //atualizar id da tbl w_base na tbl w_dlp, para futura captura dos detalhes dos registros para trabalho do analista
+                    sql = "Update d set ";
+                    sql += "d.id_tbl_trabalho = b.id ";
+                    sql += "from w_base b inner join w_dlp d on b.cpf = d.cpf left join w_sysFilas f on b.fila_id = f.id ";
+                    sql += "where d.id_tbl_trabalho = 0 and f.grupo = 'DLP' ";
+                    sql += "and b.status_id = 0 and id_Abertura = " + objCon.valorSql(Constantes.idlogadoFerramenta) + " ";
+                    objCon.executaQuery(sql, ref retorno);
+
+                    frm2.Close();
+                }
+
+
 
                 return true;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - DLP (DAL)");
                 return false;
             }
-            finally {
+            finally
+            {
                 frm.Close();
                 cnx.Close();
             }
         }
 
-        private bool _cadastroGeralConexao(string diretorio, ref long volAtualizado) {
+        private bool _cadastroGeralConexao(string diretorio, ref long volAtualizado)
+        {
 
             //criar conexao ACCESS para utilizar funções SQL
             string provider = "Provider=Microsoft.ACE.OLEDB.12.0;";
@@ -551,19 +609,22 @@ namespace Sentinella {
             frmProgressBar frm = new frmProgressBar(50000);
             frm.Show();
 
-            try {
+            try
+            {
 
                 cnx.Open();
                 OleDbCommand comando = new OleDbCommand("Select * from [Planilha1$]", cnx);
                 OleDbDataReader dr = comando.ExecuteReader(); //carregando informações do excel
 
                 //Validando se a planilha está correta
-                if (!dr.GetName(0).ToString().Equals("COD# EMPRESA") || !dr.GetName(159).ToString().Equals("EMAIL_RESP_GH")) {
+                if (!dr.GetName(0).ToString().Equals("COD# EMPRESA") || !dr.GetName(159).ToString().Equals("EMAIL_RESP_GH"))
+                {
                     MessageBox.Show("Esta planilha não pode ser importada devido o layout ser diferente!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return false;
                 }
 
-                while (dr.Read()) {
+                while (dr.Read())
+                {
 
                     string matricula = dr["MATRICULA"].ToString();
 
@@ -635,14 +696,20 @@ namespace Sentinella {
                     sql += objCon.valorSql(dr["MATRICULA"].ToString()) + ",  ";
                     sql += objCon.valorSql("UB" + matricula.PadLeft(6, '0').ToString()) + ",  ";
                     sql += objCon.valorSql(dr["NOME ASSOCIADO"].ToString()) + ",  ";
-                    if (dr["DATA DE ADMISSÃO"].ToString().Equals("") || dr["DATA DE ADMISSÃO"].ToString().Length < 8) {
+                    if (dr["DATA DE ADMISSÃO"].ToString().Equals("") || dr["DATA DE ADMISSÃO"].ToString().Length < 8)
+                    {
                         sql += objCon.valorSql(DateTime.Parse("1900-01-01")) + ",  ";
-                    } else {
+                    }
+                    else
+                    {
                         sql += objCon.valorSql(DateTime.Parse(dr["DATA DE ADMISSÃO"].ToString().Insert(4, "-").Insert(7, "-"))) + ",  ";
                     }
-                    if (dr["DATA DEMISSAO"].ToString().Equals("") || dr["DATA DEMISSAO"].ToString().Length < 8) {
+                    if (dr["DATA DEMISSAO"].ToString().Equals("") || dr["DATA DEMISSAO"].ToString().Length < 8)
+                    {
                         sql += objCon.valorSql(DateTime.Parse("1900-01-01")) + ",  ";
-                    } else {
+                    }
+                    else
+                    {
                         sql += objCon.valorSql(DateTime.Parse(dr["DATA DEMISSAO"].ToString().Insert(4, "-").Insert(7, "-"))) + ",  ";
                     }
                     sql += objCon.valorSql(dr["COD#CENTRO DE CUSTO"].ToString()) + ",  ";
@@ -658,9 +725,12 @@ namespace Sentinella {
                     sql += objCon.valorSql(dr["CEP"].ToString()) + ",  ";
                     sql += objCon.valorSql(dr["PAÍS"].ToString().Trim()) + ",  ";
                     sql += objCon.valorSql(dr["CPF"].ToString()) + ",  ";
-                    if (dr["DATA DE NASCIMENTO"].ToString().Equals("") || dr["DATA DE NASCIMENTO"].ToString().Length < 8) {
+                    if (dr["DATA DE NASCIMENTO"].ToString().Equals("") || dr["DATA DE NASCIMENTO"].ToString().Length < 8)
+                    {
                         sql += objCon.valorSql(DateTime.Parse("1900-01-01")) + ",  ";
-                    } else {
+                    }
+                    else
+                    {
                         sql += objCon.valorSql(DateTime.Parse(dr["DATA DE NASCIMENTO"].ToString().Insert(4, "-").Insert(7, "-"))) + ",  ";
                     }
                     sql += objCon.valorSql(int.Parse(dr["NÚM# FILHOS"].ToString())) + ",  ";
@@ -966,17 +1036,20 @@ namespace Sentinella {
                 return true;
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - CADASTRO GERAL POR CONEXÃO (DAL)");
                 return false;
             }
-            finally {
+            finally
+            {
                 frm.Close();
                 cnx.Close();
             }
         }
 
-        private bool _cadastroGeralConexaoProcedure(ref long volAtualizado) {
+        private bool _cadastroGeralConexaoProcedure(ref long volAtualizado)
+        {
 
 
             //Cursor
@@ -984,7 +1057,8 @@ namespace Sentinella {
             bool importar = true;
             volAtualizado = 0;
 
-            try {
+            try
+            {
                 DataTable dt = new DataTable();
                 DataTable dt_w = new DataTable();
                 dt = objCon.retornaDataTable("EXECUTE IMP_CADASTRO_FUNCIONARIO N'" + Constantes.idlogadoFerramenta + "'");
@@ -994,7 +1068,8 @@ namespace Sentinella {
                 frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
                 frm.Show();
 
-                foreach (DataRow dr in dt.Rows) {
+                foreach (DataRow dr in dt.Rows)
+                {
                     importar = true;
                     // Filtrar DataTable Histórico (DT_W) pelos dados da DataTable com informações atuais (DT)
                     // Validar se duplicidade é permitida ou não, dados para validação:
@@ -1009,8 +1084,10 @@ namespace Sentinella {
                         );
 
                     //validando se a duplicidade é permitida ou não                    
-                    if (duplicidade.Length > 0) {
-                        foreach (DataRow item in duplicidade) {
+                    if (duplicidade.Length > 0)
+                    {
+                        foreach (DataRow item in duplicidade)
+                        {
                             if (item["cargo_do_associado"].ToString().ToUpper() == dr["Nom_Cargo"].ToString().ToUpper()
                                 && item["codcentro_de_custo"].ToString().ToUpper() == dr["num_Centro_Custo"].ToString().ToUpper()
                                 && item["matricula_gestor_1"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_1"].ToString().ToUpper()
@@ -1019,7 +1096,8 @@ namespace Sentinella {
                                 && item["matricula_gestor_4"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_4"].ToString().ToUpper()
                                 && item["matricula_gestor_5"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_5"].ToString().ToUpper()
                                 && item["data_demissao"].ToString().ToUpper() == dr["Dt_Demissao"].ToString().ToUpper()
-                                ) {
+                                )
+                            {
 
                                 importar = false;
                                 break;
@@ -1028,7 +1106,8 @@ namespace Sentinella {
                     }
 
                     //Fazendo a importação
-                    if (importar) {
+                    if (importar)
+                    {
                         #region Insert
                         sql = "Insert into w_funcionarios_historico ";
                         sql += "(NOME_EMPRESA, ";
@@ -1050,7 +1129,7 @@ namespace Sentinella {
                         sql += "CIDADE, ";
                         sql += "ESTADO, ";
                         sql += "CEP, ";
-                        sql += "DATA_DE_NASCIMENTO, ";                       
+                        sql += "DATA_DE_NASCIMENTO, ";
                         sql += "TELEFONE, ";
                         sql += "CELULAR, ";
                         sql += "EMAIL, ";
@@ -1092,8 +1171,8 @@ namespace Sentinella {
                         sql += objCon.valorSql(dr["NOM_BAIRRO"].ToString()) + ",  ";
                         sql += objCon.valorSql(dr["NOM_LOCALIDADE"].ToString()) + ",  ";
                         sql += objCon.valorSql(dr["UF_LOCALIDADE"].ToString()) + ",  ";
-                        sql += objCon.valorSql(dr["NUM_CEP"].ToString()) + ",  ";                        
-                        sql += objCon.valorSql(dr["DT_NASCIMENTO"].ToString()) + ",  ";                       
+                        sql += objCon.valorSql(dr["NUM_CEP"].ToString()) + ",  ";
+                        sql += objCon.valorSql(dr["DT_NASCIMENTO"].ToString()) + ",  ";
                         sql += objCon.valorSql(dr["IDT_TELEFONE_USUARIO"].ToString()) + ",  ";
                         sql += objCon.valorSql(dr["IDT_CELULAR_USUARIO"].ToString()) + ",  ";
                         sql += objCon.valorSql(dr["DES_EMAIL"].ToString()) + ",  ";
@@ -1133,7 +1212,8 @@ namespace Sentinella {
                 return true;
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - CADASTRO GERAL PROCEDURE (DAL)");
                 Cursor.Current = Cursors.Default;
                 return false;
@@ -1141,8 +1221,10 @@ namespace Sentinella {
 
         }
 
-        private bool _saquesCompulsivos(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado) {
-            try {
+        private bool _saquesCompulsivos(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado)
+        {
+            try
+            {
                 DataTable dt = new DataTable();
                 sql = "select a.bin, a.cpf, a.dataCorte, count(a.cartao) as qtde_saques ";
                 sql += "from w_autorizacoes a inner join w_sysProdutos c on a.bin = c.bin ";
@@ -1153,11 +1235,13 @@ namespace Sentinella {
                 dt = objCon.retornaDataTable(sql);
 
                 //Importando registros caso tenha algum volume para isso (DT.ROWS.COUNT > 0)
-                if (dt.Rows.Count > 0) {
+                if (dt.Rows.Count > 0)
+                {
                     frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
                     int volTotal = 0;
                     frm.Show();
-                    foreach (DataRow ln in dt.Rows) {
+                    foreach (DataRow ln in dt.Rows)
+                    {
                         importacoes imp = new importacoes(
                             ln["bin"].ToString(),
                             ln["cpf"].ToString(),
@@ -1165,7 +1249,8 @@ namespace Sentinella {
                             fila_id,
                             dtHora);
 
-                        if (!_valorDuplicado(imp, true, false)) { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho
+                        if (!_valorDuplicado(imp, true, false))
+                        { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho
                             _insertBase(imp);
                             volImportado += 1;
                         }
@@ -1180,7 +1265,8 @@ namespace Sentinella {
                 return true;
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - SAQUES COMPULSIVOS (DAL)");
                 return false;
             }
@@ -1194,8 +1280,10 @@ namespace Sentinella {
         /// <param name="fila_nome"></param>
         /// <param name="volImportado"></param>
         /// <returns></returns>
-        private bool _manutencaoPropria(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado) {
-            try {
+        private bool _manutencaoPropria(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado)
+        {
+            try
+            {
 
                 DataTable dt = new DataTable();
                 sql = "select m.bin, m.cpf, m.dataManutencao ";
@@ -1208,11 +1296,13 @@ namespace Sentinella {
                 dt = objCon.retornaDataTable(sql);
 
                 //Importando registros caso tenha algum volume para isso (DT.ROWS.COUNT > 0)
-                if (dt.Rows.Count > 0) {
+                if (dt.Rows.Count > 0)
+                {
                     frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
                     int volTotal = 0;
                     frm.Show();
-                    foreach (DataRow ln in dt.Rows) {
+                    foreach (DataRow ln in dt.Rows)
+                    {
                         importacoes imp = new importacoes(
                             ln["bin"].ToString(),
                             ln["cpf"].ToString(),
@@ -1220,7 +1310,8 @@ namespace Sentinella {
                             fila_id,
                             dtHora);
 
-                        if (!_valorDuplicado(imp, true, true)) {
+                        if (!_valorDuplicado(imp, true, true))
+                        {
                             _insertBase(imp);
                             volImportado += 1;
                         }
@@ -1235,7 +1326,8 @@ namespace Sentinella {
                 return true;
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - MANUTENCAO PROPRIA (DAL)");
                 return false;
             }
@@ -1246,8 +1338,10 @@ namespace Sentinella {
         /// Validando duplicidade de casos já disponibilizados para trabalho
         /// </summary>
         /// <returns></returns>
-        private bool _alteracaoLimite(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado) {
-            try {
+        private bool _alteracaoLimite(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado)
+        {
+            try
+            {
 
                 DataTable dt = new DataTable();
 
@@ -1267,8 +1361,10 @@ namespace Sentinella {
                 frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
                 frm.Show();
 
-                if (dt.Rows.Count > 0) {
-                    foreach (DataRow ln in dt.Rows) {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow ln in dt.Rows)
+                    {
                         importacoes imp = new importacoes(
                             ln["bin"].ToString(),
                             ln["cpf"].ToString(),
@@ -1286,7 +1382,8 @@ namespace Sentinella {
                 return true;
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - ALTERACAO_LIMITE(DAL)");
                 return false;
             }
@@ -1299,8 +1396,10 @@ namespace Sentinella {
         /// <param name="fila_nome"></param>
         /// <param name="volImportado"></param>
         /// <returns></returns>
-        private bool _alteracaoEndereco(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado) {
-            try {
+        private bool _alteracaoEndereco(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado)
+        {
+            try
+            {
 
                 DataTable dt = new DataTable();
 
@@ -1316,8 +1415,10 @@ namespace Sentinella {
                 frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
                 frm.Show();
 
-                if (dt.Rows.Count > 0) {
-                    foreach (DataRow ln in dt.Rows) {
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow ln in dt.Rows)
+                    {
                         importacoes imp = new importacoes(
                             ln["bin"].ToString(),
                             ln["cpf"].ToString(),
@@ -1335,7 +1436,8 @@ namespace Sentinella {
                 return true;
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - ALTERACAO_ENDERECO(DAL)");
                 return false;
             }
@@ -1344,8 +1446,10 @@ namespace Sentinella {
 
         #region Camada BLL - Negocio
 
-        public bool CadastroGeralProcedure() {
-            try {
+        public bool CadastroGeralProcedure()
+        {
+            try
+            {
                 long volAtualizado = 0;
                 bool validacaoImportacao;
                 validacaoImportacao = _cadastroGeralConexaoProcedure(ref volAtualizado);
@@ -1355,22 +1459,28 @@ namespace Sentinella {
                 logImp.incluir(logImp);
 
                 //Mensagem final sobre a importação..
-                if (validacaoImportacao) {
+                if (validacaoImportacao)
+                {
                     MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("Importação concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - CADASTRO GERAL POR PROCEDURE (BLL)");
                 return false;
             }
         }
 
-        public bool CadastroGeralConexao(string diretorio) {
-            try {
+        public bool CadastroGeralConexao(string diretorio)
+        {
+            try
+            {
                 long volAtualizado = 0;
                 bool validacaoImportacao;
                 validacaoImportacao = _cadastroGeralConexao(diretorio, ref volAtualizado);
@@ -1380,23 +1490,29 @@ namespace Sentinella {
                 logImp.incluir(logImp);
 
                 //Mensagem final sobre a importação..
-                if (validacaoImportacao) {
+                if (validacaoImportacao)
+                {
                     MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("Importação concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - CADASTRO GERAL POR CONEXÃO (BLL)");
                 return false;
             }
         }
 
-        public bool incluir(int fila_id, string diretorio = "") {
-            try {
+        public bool incluir(int fila_id, string diretorio = "")
+        {
+            try
+            {
 
                 //Variáveis de controles e de logs
                 bool validacaoImportacao = false;
@@ -1406,23 +1522,31 @@ namespace Sentinella {
                 string fila_nome = fila.Descricao.ToString();
                 long volImportado = 0;
 
-                //Lista de importações
-                switch (fila_id) {
-                    case 1:
-                        validacaoImportacao = _alteracaoLimite(dtHora, fila_id, fila_nome, ref volImportado);
-                        break;
-                    case 2:
-                        validacaoImportacao = _alteracaoEndereco(dtHora, fila_id, fila_nome, ref volImportado);
-                        break;
-                    case 3:
-                        validacaoImportacao = _manutencaoPropria(dtHora, fila_id, fila_nome, ref volImportado);
-                        break;
-                    case 4:
-                        validacaoImportacao = _saquesCompulsivos(dtHora, fila_id, fila_nome, ref volImportado);
-                        break;
-                    case 6:
-                        validacaoImportacao = _dlpConexao(diretorio, dtHora, fila_id, fila_nome, ref volImportado);
-                        break;
+
+                //DLP
+                if (fila_nome.Contains("DLP"))
+                {
+                    validacaoImportacao = _dlpConexao(diretorio, dtHora, fila_id, fila_nome, ref volImportado);
+                    fila_nome = "DLP";
+                }
+                else
+                {
+                    //Lista de importações
+                    switch (fila_id)
+                    {
+                        case 1:
+                            validacaoImportacao = _alteracaoLimite(dtHora, fila_id, fila_nome, ref volImportado);
+                            break;
+                        case 2:
+                            validacaoImportacao = _alteracaoEndereco(dtHora, fila_id, fila_nome, ref volImportado);
+                            break;
+                        case 3:
+                            validacaoImportacao = _manutencaoPropria(dtHora, fila_id, fila_nome, ref volImportado);
+                            break;
+                        case 4:
+                            validacaoImportacao = _saquesCompulsivos(dtHora, fila_id, fila_nome, ref volImportado);
+                            break;
+                    }
                 }
 
                 //Registrar loGs de importações
@@ -1430,22 +1554,28 @@ namespace Sentinella {
                 logImp.incluir(logImp);
 
                 //Mensagem final sobre a importação..
-                if (validacaoImportacao) {
+                if (validacaoImportacao)
+                {
                     MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("Importação concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO(fila_id " + fila_id + ") - INSERIR NA BASE(BLL)");
                 return false;
             }
         }
 
-        public bool excluir(importacoes obj, int id_logImp) {
-            try {
+        public bool excluir(importacoes obj, int id_logImp)
+        {
+            try
+            {
 
                 //Variáveis de controles e de logs
                 bool validacaoImportacao = false;
@@ -1462,26 +1592,33 @@ namespace Sentinella {
                 logImp.incluir(logImp);
 
                 //Mensagem final sobre a importação..
-                if (validacaoImportacao) {
+                if (validacaoImportacao)
+                {
                     MessageBox.Show("Exclusão concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("Exclusão concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO(fila_id " + obj.Fila_id + ") - DELETAR DA BASE(BLL)");
                 return false;
             }
         }
 
-        public bool inserirFup(importacoes obj) {
-            try {
+        public bool inserirFup(importacoes obj)
+        {
+            try
+            {
                 return _insertBase(obj);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 log.registrarLog(ex.ToString(), "IMPORTACAO(fila_id " + obj.Fila_id + ") - GERAR FUP(BLL)");
                 return false;
             }

@@ -138,11 +138,13 @@
             .macroExecutadaOK = 0
             .apenasCartoesAtivos = IIf(cb_2.Checked, False, True)
         End With
+
         'Validando checkbox marcados
         If cb_4.Checked Then
 
             'BuscaCartoesPorCpf
             execDTO.macroExecutadaNome = "BuscaCartoesPorCpf"
+            execDTO.prioridade = 1
             If execucao_bll.cadastrarProcessoExecucao(execDTO) Then
                 Me.status_label.Text = "Inclusão de processo realizada com sucesso!"
             End If
@@ -153,6 +155,7 @@
 
             'CapturarDadosCadastrais
             execDTO.macroExecutadaNome = "CapturarDadosCadastrais"
+            execDTO.prioridade = 2
             If execucao_bll.cadastrarProcessoExecucao(execDTO) Then
                 Me.status_label.Text = "Inclusão de processo realizada com sucesso!"
             End If
@@ -164,6 +167,7 @@
 
             'CapturarDadosCartaoConta
             execDTO.macroExecutadaNome = "CapturarDadosCartaoConta"
+            execDTO.prioridade = 3
             If execucao_bll.cadastrarProcessoExecucao(execDTO) Then
                 Me.status_label.Text = "Inclusão de processo realizada com sucesso!"
             End If
@@ -175,6 +179,7 @@
 
             'CapturarLogsManutencao
             execDTO.macroExecutadaNome = "CapturarLogsManutencao"
+            execDTO.prioridade = 4
             If execucao_bll.cadastrarProcessoExecucao(execDTO) Then
                 Me.status_label.Text = "Inclusão de processo realizada com sucesso!"
             End If
@@ -185,6 +190,7 @@
 
             'CapturarDadosFatura
             execDTO.macroExecutadaNome = "CapturarDadosFatura"
+            execDTO.prioridade = 5
             If execucao_bll.cadastrarProcessoExecucao(execDTO) Then
                 Me.status_label.Text = "Inclusão de processo realizada com sucesso!"
             End If

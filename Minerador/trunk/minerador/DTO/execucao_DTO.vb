@@ -2,6 +2,7 @@
 
     Public Property ID As Integer
     Public Property mainFrame As String
+    Public Property prioridade As Integer
     Public Property macroExecutadaNome As String
     Public Property usuarioMainFrame As String
     Public Property apenasCartoesAtivos As Boolean
@@ -14,6 +15,7 @@
     'CREATE TABLE [dbo].[w_execucao] (
     '    [id]                   INT             IDENTITY (1, 1) Not NULL,
     '     [mainFrame]           NCHAR (20)      NOT NULL,
+    '    [prioridade]     INT             Default ((0)) Not NULL,
     '    [macroExecutadaNome]   NVARCHAR(255)   NULL,
     '    [usuarioMainFrame]	    NCHAR (20)      not null,
     '    [macroExecutadaOK]     BIT             Default ((0)) Not NULL,

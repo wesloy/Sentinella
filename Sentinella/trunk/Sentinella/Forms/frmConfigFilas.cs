@@ -26,6 +26,7 @@ namespace Sentinella.Forms {
                 txtGrupoMIS.Text = "";
                 txtSla.Text = "";
                 txtRegraNegocio.Text = "";
+                txtRegraImport.Text = "";
                 txtID.Text = "";
             }
 
@@ -50,6 +51,7 @@ namespace Sentinella.Forms {
                 txtFila.Text,
                 txtGrupoMIS.Text,
                 txtRegraNegocio.Text,
+                txtRegraImport.Text,
                 ckboxAtivo.Checked,
                 int.Parse(txtSla.Text),
                 _id);
@@ -62,6 +64,7 @@ namespace Sentinella.Forms {
             txtGrupoMIS.Text = _obj.Grupo;
             txtSla.Text = _obj.Sla.ToString();
             txtRegraNegocio.Text = _obj.RegraNegocio;
+            txtRegraImport.Text = _obj.RegraImportacao;
             txtID.Text = _obj.Id.ToString();
         }
         #endregion

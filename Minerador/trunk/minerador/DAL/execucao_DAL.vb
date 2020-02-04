@@ -19,6 +19,7 @@
 
                 sql = "Insert into w_execucao "
                 sql += "(macroExecutadaNome, "
+                sql += "prioridade, "
                 sql += "mainframe, "
                 sql += "usuarioMainFrame, "
                 sql += "apenasCartoesAtivos, "
@@ -27,6 +28,7 @@
                 sql += "idRedePesquisa) "
                 sql += "values( "
                 sql += objCon.valorSql(.macroExecutadaNome) & ","
+                sql += objCon.valorSql(.prioridade) & ","
                 sql += objCon.valorSql(.mainFrame) & ","
                 sql += objCon.valorSql(.usuarioMainFrame) & ","
                 sql += objCon.valorSql(.apenasCartoesAtivos) & ","
