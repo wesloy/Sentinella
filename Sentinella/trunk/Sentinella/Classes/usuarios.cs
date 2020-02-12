@@ -401,11 +401,14 @@ namespace Sentinella {
             }
         }
 
-        private DataTable listarUsuarios(string filtro = "") {
+        private DataTable listarUsuarios(string filtro = "", Boolean somenteAtivo = false) {
             try {
                 sql = "Select u.id, u.idRede, u.idRedeBRA, u.ativo, u.nome, p.perfilAcesso, u.online, u.ultimoAcesso, u.idModificacao, u.dataModificacao ";
                 sql += "from w_sysUsuarios u inner join w_sysUsuariosPerfilDeAcesso p ON u.PerfilAcesso = p.id ";
                 sql += "where u.nome like '" + filtro + "%' order by id ";
+                if (somenteAtivo) {
+                    sql += "and u.ativo = 1";
+                }
                 return objCon.retornaDataTable(sql);
             } catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "USUARIO - LISTA USUARIOS");
@@ -455,7 +458,7 @@ namespace Sentinella {
         public ListView CarregarListViewParaConfiguracoes(ListView lst, string filtro = "") {
             try {
                 DataTable dt = new DataTable();
-                dt = listarUsuarios(filtro);
+                dt = listarUsuarios(filtro, true);
                 lst.Clear();
                 lst.View = View.Details;
                 lst.LabelEdit = false;
@@ -465,17 +468,17 @@ namespace Sentinella {
                 lst.FullRowSelect = true;
                 lst.HideSelection = false;
                 lst.MultiSelect = false;
-                lst.Columns.Add("ID", 100, HorizontalAlignment.Center);
+                lst.Columns.Add("ID", 60, HorizontalAlignment.Center);
+                lst.Columns.Add("NOME", 280, HorizontalAlignment.Left);
                 lst.Columns.Add("ID REDE", 100, HorizontalAlignment.Left);
-                lst.Columns.Add("ID REDE BRA", 100, HorizontalAlignment.Left);
-                lst.Columns.Add("NOME", 300, HorizontalAlignment.Left);                
+                lst.Columns.Add("ID REDE BRA", 100, HorizontalAlignment.Left);                        
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
                         item.Text = linha["id"].ToString();
+                        item.SubItems.Add(linha["nome"].ToString());
                         item.SubItems.Add(linha["idRede"].ToString());
-                        item.SubItems.Add(linha["idRedeBRA"].ToString());
-                        item.SubItems.Add(linha["nome"].ToString());                        
+                        item.SubItems.Add(linha["idRedeBRA"].ToString());                                       
                         if (linha["ativo"].Equals(false)) { item.ImageKey = "3"; } else { item.ImageKey = "1"; }
                         lst.Items.Add(item);
                     }

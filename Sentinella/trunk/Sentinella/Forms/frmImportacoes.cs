@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sentinella.Forms
-{
-    public partial class frmImportacoes : Form
-    {
-        public frmImportacoes()
-        {
+namespace Sentinella.Forms {
+    public partial class frmImportacoes : Form {
+        public frmImportacoes() {
             InitializeComponent();
         }
 
@@ -28,20 +19,15 @@ namespace Sentinella.Forms
         #endregion
 
         #region funcoes
-        private void carregarListView(string filtro = "")
-        {
+        private void carregarListView(string filtro = "") {
             objLog.CarregaListView(lvLista, filtro);
             user.CarregarListViewParaConfiguracoes(lvUsuarios, "");
         }
 
-        private void limparForm(bool limpezaParcial = false)
-        {
-            if (!limpezaParcial)
-            {
+        private void limparForm(bool limpezaParcial = false) {
+            if (!limpezaParcial) {
                 hlp.limparCampos(this);
-            }
-            else
-            {
+            } else {
                 txtFilaID.Text = "";
                 txtEnderecoArquivo.Text = "";
                 cbxSeletorFilaImportacao.Text = "";
@@ -60,66 +46,54 @@ namespace Sentinella.Forms
         #endregion
 
 
-        private void frmImportacoes_Load(object sender, EventArgs e)
-        {
+        private void frmImportacoes_Load(object sender, EventArgs e) {
             limparForm();
             carregarListView();
 
         }
 
         #region Botoes
-        private void btnProcurar_Click(object sender, EventArgs e)
-        {
+        private void btnProcurar_Click(object sender, EventArgs e) {
             txtEnderecoArquivo.Text = hlp.EnderecoArqCapturar();
         }
 
-        private void btnIncluir_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void btnIncluir_Click(object sender, EventArgs e) {
+            try {
 
                 //validando se algum analista foi selecionado para receber o volume da fila
+                List<int> listaUsuarios = new List<int>();                
                 for (int i = 0; i < lvUsuarios.Items.Count; i++) {
 
                     if (lvUsuarios.Items[i].Checked) {
-                        MessageBox.Show("Okay");
+                        listaUsuarios.Add(int.Parse(lvUsuarios.Items[i].SubItems[0].Text));
                     }
-
-                    //for (int s = 0; s < lvUsuarios.Items[i].SubItems.Count; s++) {
-                    //    MessageBox.Show(lvUsuarios.Items[i].SubItems[s].Text);
-                    //}
-
                 }
 
-
                 //validando campo obrigatorio
-                if (hlp.validaCamposObrigatorios(pnlConteudo, "cbxSeletorFilaImportacao"))
-                { 
-                    if (rbRobos.Checked)
-                    {
+                if (listaUsuarios.Count == 0) {
+                    MessageBox.Show("É necessário selecionar ao menos 1 analista para receber o volume de trabalho!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                } 
 
-                        if (cbxSeletorFilaImportacao.Text.Contains("OUVIDORIA"))
-                        {
+                if (hlp.validaCamposObrigatorios(pnlConteudo, "cbxSeletorFilaImportacao")) {
+                    if (rbRobos.Checked) {
+
+                        if (cbxSeletorFilaImportacao.Text.Contains("OUVIDORIA")) {
                             impOuv.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()));
-                        }                       
-                        else
-                        {
-                            imp.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()));
+                        } else {
+                            imp.incluir(int.Parse(cbxSeletorFilaImportacao.SelectedValue.ToString()), listaUsuarios.ToArray());
                         }
 
 
-                    }
-                    else
-                    {
+                    } else {
 
-                        switch (cbxSeletorFilaImportacao.Text.ToString())
-                        {
+                        switch (cbxSeletorFilaImportacao.Text.ToString()) {
 
-                            case "CADASTRO GERAL":                                
+                            case "CADASTRO GERAL":
                                 imp.CadastroGeralProcedure();
                                 break;
                             case "DLP":
-                                imp.dlp(txtEnderecoArquivo.Text.ToString());                                
+                                imp.dlp(txtEnderecoArquivo.Text.ToString(), listaUsuarios.ToArray());
                                 break;
                         }
                     }
@@ -128,24 +102,20 @@ namespace Sentinella.Forms
                     carregarListView();
                 }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - INCLUIR(FORM)");
             }
         }
 
-        private void btnExcluir_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        private void btnExcluir_Click(object sender, EventArgs e) {
+            try {
 
                 DialogResult resp = MessageBox.Show("Excluir registros terá duas consequências: " + Environment.NewLine +
                                                     " - Em uma nova importação os registros poderão ser disponbilizados outra vez." + Environment.NewLine +
                                                     " - Serão excluídos apenas os registros ainda não trabalhados." + Environment.NewLine + Environment.NewLine +
                                                     "Deseja continuar com a exclusão?", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
 
-                if (resp == DialogResult.Yes)
-                {
+                if (resp == DialogResult.Yes) {
                     //Função para excluir
                     importacoes del = new importacoes(int.Parse(txtFilaID.Text), DateTime.Parse(txtDthAbertura.Text), txtIdAbertura.Text);
                     del.excluir(del, int.Parse(txtID.Text));
@@ -155,29 +125,23 @@ namespace Sentinella.Forms
                 }
 
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - EXCLUIR(FORM)");
             }
         }
 
         #endregion
 
-        private void lvLista_DoubleClick(object sender, EventArgs e)
-        {
+        private void lvLista_DoubleClick(object sender, EventArgs e) {
             string id = lvLista.SelectedItems[0].SubItems[0].Text;
-            if ((string.IsNullOrEmpty(id)) || (id.ToString() == "0"))
-            {
+            if ((string.IsNullOrEmpty(id)) || (id.ToString() == "0")) {
                 MessageBox.Show("Nenhum registro foi selecionado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
+            } else {
 
                 // Validando se o registro que deseja ser exluído ou finalizado é uma IMPORTAÇÃO
                 // se for exclusão ou finalização não se pode permitir esta ação, visto que não terá referencias de registros ligados a estas ações
                 // outra validação é se a importação teve volume válido, ou seja, maior que ZERO registros.
-                if (lvLista.SelectedItems[0].SubItems[1].Text == "IMPORTACAO" && long.Parse(lvLista.SelectedItems[0].SubItems[5].Text) > 0)
-                {
+                if (lvLista.SelectedItems[0].SubItems[1].Text == "IMPORTACAO" && long.Parse(lvLista.SelectedItems[0].SubItems[5].Text) > 0) {
 
                     //Carregando campos
                     txtID.Text = lvLista.SelectedItems[0].SubItems[0].Text;
@@ -194,9 +158,7 @@ namespace Sentinella.Forms
 
                     MessageBox.Show("Item selecionado, tome uma das ações dos botões disponíveis abaixo!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                }
-                else
-                {
+                } else {
                     MessageBox.Show("AÇÃO de EXLCUÍR ou FINALIZAR necessita dos seguintes critérios: " + Environment.NewLine +
                                                     " - Ter volume válido, ou seja, maior que ZERO registros. " + Environment.NewLine +
                                                     " - Ser ação de IMPORTAÇÃO. " + Environment.NewLine,
@@ -210,8 +172,7 @@ namespace Sentinella.Forms
             }
         }
 
-        private void btnFinalizar_Click(object sender, EventArgs e)
-        {
+        private void btnFinalizar_Click(object sender, EventArgs e) {
             //Constantes.catEmMassa = true;
             //Constantes.catFilaID = int.Parse(txtFilaID.Text);
 
@@ -225,35 +186,28 @@ namespace Sentinella.Forms
             objForm.idImp = int.Parse(txtID.Text);
             hlp.abrirForm(objForm, true, false);
 
-            if (Constantes.finalizacaoOkay)
-            {
+            if (Constantes.finalizacaoOkay) {
                 carregarListView();
             }
         }
 
 
-        private void rbRobos_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbRobos.Checked)
-            {
+        private void rbRobos_CheckedChanged(object sender, EventArgs e) {
+            if (rbRobos.Checked) {
                 cbxSeletorFilaImportacao.Enabled = true;
                 txtEnderecoArquivo.Enabled = false;
                 btnProcurar.Enabled = false;
                 //Carregando combobox
                 objFilas.carregarComboboxFilas(this, cbxSeletorFilaImportacao, true);
                 txtEnderecoArquivo.Text = "";
-            }
-            else
-            {
+            } else {
                 cbxSeletorFilaImportacao.Enabled = false;
                 txtEnderecoArquivo.Enabled = false;
             }
         }
 
-        private void rbArquivos_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbArquivos.Checked)
-            {
+        private void rbArquivos_CheckedChanged(object sender, EventArgs e) {
+            if (rbArquivos.Checked) {
                 cbxSeletorFilaImportacao.Enabled = true;
                 txtEnderecoArquivo.Enabled = true;
                 btnProcurar.Enabled = true;
@@ -261,33 +215,25 @@ namespace Sentinella.Forms
                 cbxSeletorFilaImportacao.DataSource = null;
                 hlp.carregaComboBoxManualmente("CADASTRO GERAL;DLP", this, cbxSeletorFilaImportacao);
                 txtEnderecoArquivo.Text = "";
-            }
-            else
-            {
+            } else {
                 cbxSeletorFilaImportacao.Enabled = false;
                 txtEnderecoArquivo.Enabled = false;
             }
         }
-        private void cbxSeletorFilaImportacao_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            if (cbxSeletorFilaImportacao.Text.ToString().Contains("DLP"))
-            {
+        private void cbxSeletorFilaImportacao_SelectionChangeCommitted(object sender, EventArgs e) {
+            if (cbxSeletorFilaImportacao.Text.ToString().Contains("DLP")) {
                 txtEnderecoArquivo.Enabled = true;
                 btnProcurar.Enabled = true;
-            }
-            else
-            {
+            } else {
                 txtEnderecoArquivo.Enabled = false;
                 btnProcurar.Enabled = false;
             }
         }
-        private void btnProcurar_Click_1(object sender, EventArgs e)
-        {
+        private void btnProcurar_Click_1(object sender, EventArgs e) {
             txtEnderecoArquivo.Text = hlp.EnderecoArqCapturar();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
+        private void btnCancelar_Click(object sender, EventArgs e) {
             limparForm();
         }
 

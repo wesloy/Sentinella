@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sentinella {
@@ -58,7 +54,7 @@ namespace Sentinella {
         string _observacao;
         DateTime _data_Trabalho;
         DateTime _hora_Inicial;
-        DateTime _hora_Final;     
+        DateTime _hora_Final;
         double _tempo_Trabalho_Segundos;
         double _valor_Envolvido;
         bool _sla_cumprido;
@@ -289,14 +285,14 @@ namespace Sentinella {
                 _sla_meta = value;
             }
         }
-        
+
         #endregion
 
         #endregion
 
         #region Contrutores        
 
-        public categorizacoes() {}
+        public categorizacoes() { }
         /// <summary>
         /// Utilizado para finalizar registro a registro
         /// </summary>
@@ -306,10 +302,10 @@ namespace Sentinella {
         /// <param name="_subFinalizacao_id"></param>
         /// <param name="_valorEnvolvido"></param>
         /// <param name="_observacao"></param>
-        public categorizacoes(int _id,  int _finalizacao_id = 0, int _subFinalizacao_id = 0, double _valorEnvolvido = 0, string _observacao = "") {
+        public categorizacoes(int _id, int _finalizacao_id = 0, int _subFinalizacao_id = 0, double _valorEnvolvido = 0, string _observacao = "") {
             //DateTime dth_inicial, int _fila_id
             categorizacoes cat = new categorizacoes();
-            cat = _capturarRegistroPorID(_id);           
+            cat = _capturarRegistroPorID(_id);
 
             Id = _id;
             Status_id = 3;
@@ -348,7 +344,7 @@ namespace Sentinella {
         /// <param name="_finalizacao_id"></param>
         /// <param name="_subFinalizacao_id"></param>
         /// <param name="_observacao"></param>
-        public categorizacoes(int _Fila_id, DateTime _dth_abertura, string _id_abertura, int _finalizacao_id = 0, int _subFinalizacao_id = 0, string _observacao = "") {            
+        public categorizacoes(int _Fila_id, DateTime _dth_abertura, string _id_abertura, int _finalizacao_id = 0, int _subFinalizacao_id = 0, string _observacao = "") {
             Fila_id = _Fila_id;
             Data_Abertura = _dth_abertura;
             Id_Abertura = _id_abertura;
@@ -362,7 +358,7 @@ namespace Sentinella {
         private categorizacoes _capturarRegistroPorID(int _id) {
             try {
                 DataTable dt = new DataTable();
-                categorizacoes registro = new categorizacoes();                
+                categorizacoes registro = new categorizacoes();
                 sql = "Select * from w_base where id = " + objCon.valorSql(_id) + " ";
                 dt = objCon.retornaDataTable(sql);
                 if (dt.Rows.Count > 0) {
@@ -379,7 +375,7 @@ namespace Sentinella {
                         registro.Observacao = ln["Observacao"].ToString();
                         registro.Data_Trabalho = DateTime.Parse(ln["Data_Trabalho"].ToString());
                         registro.Hora_Inicial = DateTime.Parse(ln["Hora_Inicial"].ToString());
-                        registro.Hora_Final = DateTime.Parse(ln["Hora_Final"].ToString());                        
+                        registro.Hora_Final = DateTime.Parse(ln["Hora_Final"].ToString());
                         registro.Tempo_Trabalho_Segundos = double.Parse(ln["Tempo_Trabalho_Segundos"].ToString());
                         registro.Valor_Envolvido = double.Parse(ln["Valor_Envolvido"].ToString());
                         registro.Sla_cumprido = bool.Parse(ln["Sla_cumprido"].ToString());
@@ -391,7 +387,8 @@ namespace Sentinella {
                     }
                 }
                 return registro;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - CAPTURAR REGISTRO POR ID (DAL)");
                 return null;
             }
@@ -417,12 +414,12 @@ namespace Sentinella {
                 sql += "observacao = '" + obj.Observacao + "', ";
                 sql += "data_Trabalho = " + objCon.valorSql(obj.Data_Trabalho) + ", ";
                 sql += "hora_Inicial = " + objCon.valorSql(obj.Hora_Inicial) + ", ";
-                sql += "hora_Final = " + objCon.valorSql(obj.Hora_Final) + ", ";                
+                sql += "hora_Final = " + objCon.valorSql(obj.Hora_Final) + ", ";
                 sql += "tempo_Trabalho_Segundos = " + objCon.valorSql(obj.Tempo_Trabalho_Segundos) + ", ";
                 sql += "sla_cumprido = " + objCon.valorSql(obj.Sla_cumprido) + ", ";
                 sql += "Sla_meta = " + objCon.valorSql(obj.Sla_meta) + ", ";
                 sql += "gerado_fup = " + objCon.valorSql(fups) + " ";
-                sql += "Where id = " + objCon.valorSql(obj.Id) + " ";                
+                sql += "Where id = " + objCon.valorSql(obj.Id) + " ";
                 validacao = objCon.executaQuery(sql, ref volFinalizado);
 
 
@@ -459,10 +456,11 @@ namespace Sentinella {
                 }
 
                 //retorno 
-                if (validacao) {return true;} else { return false; }
+                if (validacao) { return true; } else { return false; }
 
-                } catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "CATEGORIZACOES - FINALIZACAO DE REGISTRO (DAL)");                
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CATEGORIZACOES - FINALIZACAO DE REGISTRO (DAL)");
                 return false;
             }
         }
@@ -488,7 +486,7 @@ namespace Sentinella {
                 sql += "observacao = " + objCon.valorSql(obj.Observacao) + ", ";
                 sql += "data_Trabalho = " + objCon.valorSql(hlp.dataAbreviada()) + ", ";
                 sql += "hora_Inicial = " + objCon.valorSql(hlp.dataHoraAtual()) + ", ";
-                sql += "hora_Final = " + objCon.valorSql(hlp.dataHoraAtual()) + ", ";                
+                sql += "hora_Final = " + objCon.valorSql(hlp.dataHoraAtual()) + ", ";
                 sql += "tempo_Trabalho_Segundos = " + objCon.valorSql(0) + ", ";
                 sql += "sla_cumprido = " + objCon.valorSql(true) + ", ";
                 sql += "gerado_fup = " + objCon.valorSql(fups) + " ";
@@ -543,7 +541,8 @@ namespace Sentinella {
 
                 return validacao;
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - FINALIZACAO EM MASSA (DAL)");
                 return false;
             }
@@ -573,8 +572,42 @@ namespace Sentinella {
                 registro = reg;
                 if (registro.Id == 0) { return false; } else { return true; }
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - VALIDACAO REGISTROS LOCADOS (DAL)");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Função criada após divisão de volume por operador
+        /// Objetivo de transformar os FUPs em pessoais, visto que é um volume não controlado pela importação
+        /// </summary>
+        /// <param name="registro"></param>
+        /// <returns></returns>
+        private bool _validacaoFollowUp(ref categorizacoes registro) {
+            try {
+                DataTable dt = new DataTable();
+                categorizacoes reg = new categorizacoes();
+
+                sql = "Select top 1 id from w_base where id_Abertura = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
+                sql += "and status_id <> 3 ";
+                sql += "and format(data_Abertura,'yyyy-MM-dd HH:mm:ss') >= " + objCon.valorSql(hlp.dataAbreviada()) + " ";
+                sql += "and id_historico > 0 ";
+                sql += "order by id";
+                dt = objCon.retornaDataTable(sql);
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow ln in dt.Rows) {
+                        reg = _capturarRegistroPorID(int.Parse(ln["id"].ToString()));
+                    }
+                }
+                //retorno
+                registro = reg;
+                if (registro.Id == 0) { return false; } else { return true; }
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CATEGORIZACOES - VALIDACAO FOLLOW UPS (DAL)");
                 return false;
             }
         }
@@ -589,6 +622,8 @@ namespace Sentinella {
         private bool _bloquearRegistro(int fila_id, ref categorizacoes registro, int id = 0) {
             try {
                 if (id > 0) {
+
+
                     //bloqueando registro específico
                     sql = "Update w_base set ";
                     sql += "status_id = 1, ";
@@ -598,16 +633,16 @@ namespace Sentinella {
                     sql += "and status_id = 0 ";
                     sql += "and id = " + objCon.valorSql(id) + " ";
                     validacao = objCon.executaQuery(sql, ref retorno);
+
                     if (retorno > 0) {
                         registro = _capturarRegistroPorID(id);
-                        return true;
                     } else {
-                        registro = null;
-                        return false;
+                        registro = null;                        
                     }
 
 
                 } else {
+
                     //percorrendo uma lista de registros para conseguir bloquear 1 para trabalho
                     DataTable dt = new DataTable();
                     int id_bloqueado;
@@ -627,8 +662,9 @@ namespace Sentinella {
                             validacao = objCon.executaQuery(sql, ref retorno);
                             if (retorno > 0) {
                                 registro = _capturarRegistroPorID(id_bloqueado);
-                                return true;
+                                break;
                             }
+                            
                         }
 
                     } else {
@@ -638,10 +674,46 @@ namespace Sentinella {
                 }
 
                 //retorno
-                if (registro == null) { return false; } else { return true; }
+                if (registro == null) { return false; } else {
 
+                    //verificando se existe volume disponível para trabalhar
+                    sql = "Select z.id,z.data_Hora,z.fila_id,z.qtde_registros,z.id_usuario, iif(z.vol_trabalhado is null,0,z.vol_trabalhado) as VolTrab from ( ";
+                    sql += "select * from w_sysUsuariosVolParaTrabalho vt left join ";
+                    sql += "(Select fila_id as fila, idCat, count(status_id) as vol_trabalhado, data_Abertura from w_base ";
+                    sql += "where status_id = 3 group by fila_id, idCat, data_Abertura) b ";
+                    sql += "on vt.data_Hora = b.data_Abertura and vt.fila_id = b.fila ) as z ";
+                    sql += "where z.id_usuario = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
+                    sql += "and fila_id = " + objCon.valorSql(registro.Fila_id) + " ";
+                    sql += "and data_Hora = " + objCon.valorSql(registro.Data_Abertura) + " ";
+                    DataTable dt = new DataTable();
+                    dt = objCon.retornaDataTable(sql);
+                    if (dt.Rows.Count > 0) {
+                        foreach (DataRow item in dt.Rows) {
+                            if (int.Parse(item["qtde_registros"].ToString()) == int.Parse(item["VolTrab"].ToString())) {
 
-            } catch (Exception ex) {
+                                //Liberar o registro para outro analista
+                                liberarRegistro(registro.Id);
+                                registro = null;
+                                return false;
+
+                            } else {
+                                return true;
+                            }
+
+                        }
+                    } else {
+                        //Liberar o registro para outro analista
+                        liberarRegistro(registro.Id);
+                        registro = null;
+                        return false;
+                    }
+
+                }
+
+                return false;
+
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - BLOQUEAR REGISTROS(DAL)");
                 return false;
             }
@@ -666,7 +738,8 @@ namespace Sentinella {
                 } else {
                     return false;
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - LIBERAR REGISTROS(DAL)");
                 return false;
             }
@@ -690,7 +763,8 @@ namespace Sentinella {
                     return false;
                 }
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACAO INDIVIDUAL (fila_id " + obj.Fila_id + ") - FINALIZAR NA BASE (BLL)");
                 return false;
             }
@@ -722,7 +796,8 @@ namespace Sentinella {
                     return false;
                 }
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACAO EM MASSA (fila_id " + obj.Fila_id + ") - FINALIZAR NA BASE(BLL)");
                 return false;
             }
@@ -733,7 +808,7 @@ namespace Sentinella {
                 bool validacao = false;
                 //Verificando se existe registro locado (preso) no id do solicitante..
                 //Se o usuário deseja continuar a análise neste momento
-                //disponibilizando para trabalho
+                //disponibilizar para trabalho
                 validacao = _validacaoRegistroLocado(ref registro);
                 if (validacao) {
                     DialogResult msg = MessageBox.Show("Existe um registro aguardando sua finalização desde: " + Environment.NewLine +
@@ -747,14 +822,34 @@ namespace Sentinella {
                     }
                 }
 
+
+                //verificando se exite FUP criado pelo usuário
+                //Se o usuário deseja continuar a análise neste momento
+                //disponibilizar para trabalho
+                validacao = _validacaoFollowUp(ref registro);
+                if (validacao) {
+                    DialogResult msg = MessageBox.Show("Existe Follow Up aguardando sua finalização desde: " + Environment.NewLine +
+                                                         DateTime.Parse(registro.Data_Abertura.ToString()).ToShortDateString() + Environment.NewLine + Environment.NewLine +
+                                                         "Deseja finalizar agora?", Constantes.Titulo_MSG, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (msg == DialogResult.Yes) {
+                        return true;
+                    } else {
+                        validacao = false;
+                        registro = null;
+                    }
+                }
+
+
+
                 //Buscando um novo registro da fila de trabalho
                 validacao = _bloquearRegistro(fila_id, ref registro, id);
                 if (!validacao) {
                     MessageBox.Show("Não foi possível selecionar nenhum registro para trabalho, possível motivo: " + Environment.NewLine +
-                                        " - Não há mais registros disponíveis para a fila selecionada!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                        " - Não há mais registros disponíveis para a fila selecionada ou você atingiu sua cota para esta fila. Parabéns!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
                 return validacao;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - BLOQUEAR REGISTROS(BLL)");
                 return false;
             }
@@ -763,7 +858,8 @@ namespace Sentinella {
         public bool liberarRegistro(int id) {
             try {
                 return _liberarRegistro(id);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - LIBERAR REGISTROS(BLL)");
                 return false;
             }
@@ -778,7 +874,8 @@ namespace Sentinella {
                 sql += "group by f.id, f.descricao ";
                 dt = objCon.retornaDataTable(sql);
                 hlp.carregaComboBox(dt, frm, cbx, false, "", "", true);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 MessageBox.Show("Não foi carregar a lista de filas para trabalho, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - CARREGAR COMBOBOX FILAS P/ TRABALHO (BLL)");
             }

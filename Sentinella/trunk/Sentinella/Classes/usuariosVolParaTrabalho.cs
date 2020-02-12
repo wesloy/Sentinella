@@ -49,7 +49,7 @@ namespace Sentinella {
         private bool _valorDuplicado(usuariosVolParaTrabalho _dto) {
             try {
 
-                sql = "Select * from sysUsuariosVolParaTrabalho ";
+                sql = "Select * from w_sysUsuariosVolParaTrabalho ";
                 sql += "where data_hora = " + objCon.valorSql(_dto.data_Hora) + " ";
                 sql += "and fila_id = " + objCon.valorSql(_dto.fila_id) + " ";
                 sql += "and id_usuario = " + objCon.valorSql(_dto.id_usuario) + " ";
@@ -78,7 +78,7 @@ namespace Sentinella {
                     return true; // registro duplicado. Não registra mas retorna TRUE pois não é erro.
                 }
 
-                sql = "Insert into sysUsuariosVolParaTrabalho (";
+                sql = "Insert into w_sysUsuariosVolParaTrabalho (";
                 sql += "data_hora, fila_id, qtde_registros, id_usuario) values (";
                 sql += objCon.valorSql(_dto.data_Hora) + ", ";
                 sql += objCon.valorSql(_dto.fila_id) + ", ";

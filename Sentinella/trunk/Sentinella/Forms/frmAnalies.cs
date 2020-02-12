@@ -57,6 +57,7 @@ namespace Sentinella.Forms {
             if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxFila")) {
                 string ultMatricula = ""; // capturar a última matrícula do cpf do registro
                 //Capturando registro para trabalho
+                categorizacoes cat = new categorizacoes(); //biblioteca para captura e finalização de casos        
                 cat.bloquearRegistro(int.Parse(cbxFila.SelectedValue.ToString()), ref cat);
                 //Tratando retorno nulo, que evidencia que não foi bloqueado nenhum registro
                 if (cat != null) {
@@ -166,7 +167,8 @@ namespace Sentinella.Forms {
 
         private void btnCancelar_Click(object sender, System.EventArgs e) {
 
-            if (txt_id.Text != "") {
+
+            if (!string.IsNullOrEmpty(txt_id.Text)) {
                 DialogResult msg = MessageBox.Show("Deseja abandonar o caso que está trabalhando?", Constantes.Titulo_MSG, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (msg == DialogResult.Yes) {
                     cat.liberarRegistro(int.Parse(txt_id.Text));
@@ -194,6 +196,10 @@ namespace Sentinella.Forms {
 
         private void btnSalvar_Click(object sender, EventArgs e) {
             frmCategorizacao objForm = new frmCategorizacao();
+            if (string.IsNullOrEmpty(txt_id.Text)) {
+                MessageBox.Show("Não há nenhum registro sendo trabalhado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
             objForm.id = int.Parse(txt_id.Text);
             objForm.filaId = int.Parse(cbxFila.SelectedValue.ToString());
             objForm.dataAbertura = DateTime.Parse(txt_inicio.Text);

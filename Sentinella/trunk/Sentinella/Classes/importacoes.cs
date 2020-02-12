@@ -1357,14 +1357,14 @@ namespace Sentinella {
                 return false;
             }
         }
-
-
+        
         private bool distribuicaoVolFilaporUsuario(DateTime dtHoraImp, int[] usuarios) {
             try {
-                sql = "Select fila_id, count(id) as vol from w_base where ";
+                sql = "Select fila_id, data_abertura, count(id) as vol from w_base where ";
                 sql += "data_Abertura = " + objCon.valorSql(dtHoraImp) + " ";
                 sql += "and id_Abertura = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
-                sql += "and status_id = 0";
+                sql += "and status_id = 0 ";
+                sql += "group by fila_id, data_abertura";
                 DataTable dt = new DataTable();
                 dt = objCon.retornaDataTable(sql);
 
@@ -1384,12 +1384,12 @@ namespace Sentinella {
                                 volDistribuido += volPorUsuario;
                                 usuariosVolParaTrabalho salvarVolPorUsuario = new usuariosVolParaTrabalho();
                                 usuariosVolParaTrabalho volume = new usuariosVolParaTrabalho(
-                                                            DateTime.Parse(item["dtHoraImp"].ToString()),
+                                                            DateTime.Parse(item["data_abertura"].ToString()),
                                                             int.Parse(item["fila_id"].ToString()),
                                                             volPorUsuario,
                                                             usuarios[i]
                                                             );
-
+                                
                                 if (volDistribuido + 1 == volTotal) {
                                     // se o volume distribuido +1 for igual ao total significa que o vol por usuário
                                     //deve ser acréscido de 1 pq trata-se da última parte da divisão
@@ -1445,11 +1445,14 @@ namespace Sentinella {
                 logImp.incluir(logImp);
 
 
-                //DISTRIBUIR VOLUME POR USUÁRIO
-
-
                 //Mensagem final sobre a importação..
                 if (validacaoImportacao) {
+
+                    //DISTRIBUIR VOLUME POR USUÁRIO
+                    if (!distribuicaoVolFilaporUsuario(dtHora, listaUsuarios)) {
+                        MessageBox.Show("Falha na distribuição de casos por analista!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 } else {
@@ -1462,7 +1465,6 @@ namespace Sentinella {
                 return false;
             }
         }
-
 
         public bool CadastroGeralProcedure() {
             try {
@@ -1544,16 +1546,19 @@ namespace Sentinella {
                 }
 
 
-                //DISTRIBUIR VOLUME POR USUÁRIO
-
-
-
                 //Registrar loGs de importações
                 logsImportacoes logImp = new logsImportacoes("IMPORTACAO", dtHora, fila_id, fila_nome.ToString(), volImportado);
                 logImp.incluir(logImp);
 
                 //Mensagem final sobre a importação..
                 if (validacaoImportacao) {
+
+
+                    //DISTRIBUIR VOLUME POR USUÁRIO
+                    if (!distribuicaoVolFilaporUsuario(dtHora, listaUsuarios)) {
+                        MessageBox.Show("Falha na distribuição de casos por analista!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 } else {
