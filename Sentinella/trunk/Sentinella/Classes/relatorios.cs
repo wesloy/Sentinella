@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
-namespace Sentinella
-{
+namespace Sentinella {
 #pragma warning disable IDE1006 // Estilos de Nomenclatura
     class relatorios
 #pragma warning restore IDE1006 // Estilos de Nomenclatura
@@ -25,11 +20,9 @@ namespace Sentinella
 
         #region CONSULTAS
 
-        public bool baseGeral(DateTime dataInicial, DateTime dataFinal, ListView lst, int protocolo = 0)
-        {
+        public bool baseGeral(DateTime dataInicial, DateTime dataFinal, ListView lst, int protocolo = 0) {
             {
-                try
-                {
+                try {
                     sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                     sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + ", ";
                     sql += "@id int = " + objCon.valorSql(protocolo) + " ";
@@ -63,32 +56,26 @@ namespace Sentinella
                     sql += "uImp.nome as ANALISTA_IMP ";
                     sql += "from w_base b ";
                     sql += "inner join w_sysFilas f on b.fila_id = f.id ";
-                    sql += "left join w_sysUsuarios uCat on b.idCat = uCat.idRede ";
+                    sql += "left join w_sysUsuarios uCat on b.idCat = uCat.id ";
                     sql += "left join w_sysFinalizacoes fin on b.finalizacao_id = fin.id ";
                     sql += "left join w_sysSubFinalizacoes sFin on b.subFinalizacao_id = sFin.id  ";
                     sql += "left join w_sysUsuarios uImp on b.id_Abertura = uImp.idRede ";
                     sql += "where 1 = 1 ";
                     sql += "and format(b.data_Abertura,'d') between @dataInicial and @dataFinal ";
-                    if (protocolo > 0 )
-                    {
+                    if (protocolo > 0) {
                         sql += "and b.id = @id ";
                     }
                     dt = objCon.retornaDataTable(sql);
                     return carregarListView(lst, dt, true);
                 }
-                catch (Exception ex)
-                {
+                catch (Exception ex) {
                     log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                     return false;
                 }
             }
         }
-#pragma warning disable IDE1006 // Estilos de Nomenclatura
-        public bool targetSlaLaudos(DateTime dataInicial, DateTime dataFinal, ListView lst)
-#pragma warning restore IDE1006 // Estilos de Nomenclatura
-        {
-            try
-            {
+        public bool targetSlaLaudos(DateTime dataInicial, DateTime dataFinal, ListView lst) {
+            try {
                 sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                 sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + " ";
 
@@ -97,7 +84,7 @@ namespace Sentinella
                 sql += "sum(iif(b.sla_cumprido = 0,1,0)) as SLA_NAO_CUMPRIDO, ";
                 sql += "format(sum(iif(b.sla_cumprido = 1,1,0))/Convert(decimal(7,2),count(b.id)),'P') as [TARGET 90%] ";
                 sql += "from w_base b ";
-                sql += "inner join w_sysUsuarios u on b.idCat = u.idRede ";
+                sql += "inner join w_sysUsuarios u on b.idCat = u.id ";
                 sql += "where 1=1 ";
                 sql += "and b.status_id = 3 ";
                 sql += "and b.data_Trabalho between @dataInicial and @dataFinal ";
@@ -106,16 +93,13 @@ namespace Sentinella
                 dt = objCon.retornaDataTable(sql);
                 return carregarListView(lst, dt, true);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }
         }
-        public bool devolutivaOuvidoria(DateTime dataInicial, DateTime dataFinal, ListView lst)
-        {
-            try
-            {
+        public bool devolutivaOuvidoria(DateTime dataInicial, DateTime dataFinal, ListView lst) {
+            try {
                 sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                 sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + " ";
 
@@ -148,67 +132,58 @@ namespace Sentinella
                 dt = objCon.retornaDataTable(sql);
                 return carregarListView(lst, dt, true);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }
         }
-        public bool resolucaoDiariaEvolutivaPorAnalistaFila(DateTime dataInicial, DateTime dataFinal, ListView lst)
-        {
-            try
-            {
+        public bool resolucaoDiariaEvolutivaPorAnalistaFila(DateTime dataInicial, DateTime dataFinal, ListView lst) {
+            try {
                 sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                 sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + " ";
 
                 sql += "select b.data_Trabalho as DATA_TRABALHO, ";
                 sql += "f.descricao as FILA, ";
-                sql += "u.nome, u.idRede, count(b.id) as VOLUME ";
+                sql += "u.nome, count(b.id) as VOLUME ";
                 sql += "from w_base b ";
-                sql += "inner join w_sysUsuarios u on b.idCat = u.idRede ";
+                sql += "inner join w_sysUsuarios u on b.idCat = u.id ";
                 sql += "inner join w_sysfilas f on b.fila_id = f.id ";
                 sql += "where 1=1 ";
                 sql += "and b.status_id = 3 ";
                 sql += "and b.data_Trabalho between @dataInicial and @dataFinal ";
-                sql += "group by u.nome, u.idRede, b.data_Trabalho, f.descricao ";
+                sql += "group by u.nome, b.data_Trabalho, f.descricao ";
                 sql += "order by b.data_Trabalho asc, f.descricao asc, u.nome asc ";
                 dt = objCon.retornaDataTable(sql);
                 return carregarListView(lst, dt, true);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }
         }
-        public bool percentualResolucaoPorAnalistaPeriodo(DateTime dataInicial, DateTime dataFinal, ListView lst)
-        {
-            try
-            {
+        public bool percentualResolucaoPorAnalistaPeriodo(DateTime dataInicial, DateTime dataFinal, ListView lst) {
+            try {
                 sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                 sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + " ";
 
-                sql += "select u.nome as Analista, u.idRede AS ID_REDE, count(b.id) as VOL_TRABALHADO, ";
+                sql += "select u.nome as Analista, count(b.id) as VOL_TRABALHADO, ";
                 sql += "format(count(b.id)/CONVERT(decimal(7,2),(select count(id) from w_base where data_Trabalho between @dataInicial and @dataFinal)),'P') as Percentual ";
                 sql += "from w_base b ";
-                sql += "inner join w_sysUsuarios u on b.idCat = u.idRede ";
+                sql += "inner join w_sysUsuarios u on b.idCat = u.id ";
                 sql += "where 1=1 ";
                 sql += "and b.status_id = 3 ";
                 sql += "and b.data_Trabalho between @dataInicial and @dataFinal ";
-                sql += "group by u.nome, u.idRede ";
+                sql += "group by u.nome";
                 dt = objCon.retornaDataTable(sql);
                 return carregarListView(lst, dt, true);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }
         }
-        public bool resolucaoDiariaEvolutiva(DateTime dataInicial, DateTime dataFinal, ListView lst)
-        {
-            try
-            {
+        public bool resolucaoDiariaEvolutiva(DateTime dataInicial, DateTime dataFinal, ListView lst) {
+            try {
 
                 sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                 sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + " ";
@@ -226,17 +201,14 @@ namespace Sentinella
                 return carregarListView(lst, dt, true);
 
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }
 
         }
-        public bool produtividadeFilaData(DateTime dataInicial, DateTime dataFinal, ListView lst)
-        {
-            try
-            {
+        public bool produtividadeFilaData(DateTime dataInicial, DateTime dataFinal, ListView lst) {
+            try {
                 //ENTRANTE 
                 sql = "declare @dataInicial date = " + objCon.valorSql(dataInicial) + ", ";
                 sql += "@dataFinal date = " + objCon.valorSql(dataFinal) + " ";
@@ -275,25 +247,42 @@ namespace Sentinella
                 return true;
                 //return carregarListView(lst, dt);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }
         }
-
-        public bool informacoesAD(DataGridView _dgv,  string _ou = "",string _cpf = "", string _nomeUsuario = "", string _matricula = "") {
+        public bool informacoesAD(DataGridView _dgv, List<string> _ou, string _cpf = "", string _nomeUsuario = "", string _matricula = "", string _campoPersonalizado = "", string _valorCampoPersonalizado = "") {
             try {
 
-                sql = "Select * from db_ControleAD.dbo.Tbl_UsuariosAD where ";
-                sql += "Nom_OUs like '%" + _ou + "%' ";
+                sql = "Select * from db_ControleAD.dbo.Tbl_UsuariosAD where 1=1 ";
+                foreach (string item in _ou) {
+                    sql += "and Nom_OUs like '%" + item.ToString() + "%' ";
+                }
                 sql += "and Cod_CPF like '%" + _cpf + "%' ";
                 sql += "and Nom_Usuario like '%" + _nomeUsuario + "%' ";
                 sql += "and Cod_Matricula like '%" + _matricula + "%' ";
+
+                if (!string.IsNullOrEmpty(_campoPersonalizado)) {
+                    //Validando o tipo do campo
+                    if (!_campoPersonalizado.ToString().ToUpper().Contains("DAT_")) {
+                        sql += "and " + _campoPersonalizado + " like '%" + _valorCampoPersonalizado + "%' ";
+                    } else {
+
+                        DateTime data1 = new DateTime();                        
+                        DateTime.TryParse(_valorCampoPersonalizado, out data1);
+
+                        string data2 = objCon.valorSql(data1).Replace("'", "").Substring(0, 10);
+
+                        sql += "and format(" + _campoPersonalizado + ",'yyyy-MM-dd') = '" + data2 + "' ";
+                    }
+
+                }
+
                 dt = objCon.retornaDataTable(sql);
                 if (dt.Rows.Count > 0) {
                     carregarDataGridView(_dgv, dt);
-                }else {
+                } else {
                     return false;
                 }
                 return true;
@@ -305,19 +294,33 @@ namespace Sentinella
         }
 
 
+        public List<string> colunasTabelaBD(string _nomeTabela) {
+            try {
+                sql = "select top 1 * from " + _nomeTabela + " ";
+                dt = objCon.retornaDataTable(sql);
+
+                List<string> colunas = new List<string>();
+                foreach (DataColumn c in dt.Columns) {
+                    colunas.Add(c.Caption.ToString().ToUpper().Trim());
+                }
+                return colunas;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
+                return null;
+            }
+        }
 
         #endregion
 
 
         #region PREENCHER_COMPONENTES
-        private bool carregarListView(ListView lst, DataTable dt, bool limparListview = true)
-        {
+        private bool carregarListView(ListView lst, DataTable dt, bool limparListview = true) {
 
             string primeiraColuna = "";
             int contador = 0;
 
-            try
-            {
+            try {
                 //Configuração do ListView
                 if (limparListview) { lst.Clear(); }
                 lst.View = View.Details;
@@ -330,46 +333,33 @@ namespace Sentinella
                 lst.MultiSelect = false;
 
                 //Carregando os nomes das colunas dentro do ListView
-                if (limparListview)
-                {
-                    foreach (DataColumn coluna in dt.Columns)
-                    {
+                if (limparListview) {
+                    foreach (DataColumn coluna in dt.Columns) {
                         lst.Columns.Add(coluna.ToString(), 100, HorizontalAlignment.Center);
-                        if (contador == 0)
-                        {
+                        if (contador == 0) {
                             primeiraColuna = coluna.ToString();
                         }
                         contador += 1;
                     }
-                }
-                else
-                {
-                    foreach (DataColumn coluna in dt.Columns)
-                    {
-                        if (contador == 0)
-                        {
+                } else {
+                    foreach (DataColumn coluna in dt.Columns) {
+                        if (contador == 0) {
                             primeiraColuna = coluna.ToString();
                         }
                         contador += 1;
                     }
                 }
 
-                if (dt.Rows.Count > 0)
-                {
+                if (dt.Rows.Count > 0) {
                     //Navegando por cada linha
-                    foreach (DataRow linha in dt.Rows)
-                    {
+                    foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
 
                         //Navegando por cada coluna
-                        foreach (DataColumn coluna in dt.Columns)
-                        {
-                            if (coluna.ToString() == primeiraColuna)
-                            {
+                        foreach (DataColumn coluna in dt.Columns) {
+                            if (coluna.ToString() == primeiraColuna) {
                                 item.Text = linha[coluna.ToString()].ToString();
-                            }
-                            else
-                            {
+                            } else {
                                 item.SubItems.Add(linha[coluna.ToString()].ToString());
                             }
                         }
@@ -381,8 +371,7 @@ namespace Sentinella
                 return true;
 
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "RELATORIOS - " + hlp.getCurrentMethodName());
                 return false;
             }

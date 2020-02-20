@@ -142,7 +142,10 @@ namespace Sentinella {
 
         private void dadosADToolStripMenuItem_Click(object sender, EventArgs e) {
             _objForm = new frmLocalizarInformacoesAD();
-            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+            hlp.abrirForm(_objForm, false, true);
+
+            //_objForm = new frmLocalizarInformacoesAD();
+            //hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
 
         private void mmOpenConsultasForm_Click(object sender, EventArgs e) {
