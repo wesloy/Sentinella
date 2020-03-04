@@ -106,12 +106,7 @@ namespace Sentinella.Forms {
                         txtDiretoria.Text = d_th.gestor_3.ToString().ToUpper();
                     }
 
-                    if (d_th.Cpf != null) {
-                        d_th.CarregarListviewSimplificado(lvCadastroGeralSimplificado, d_th.Cpf);
-                    } else {
-                        MessageBox.Show(Constantes.nomeAssociadoLogado + ", este usuário não foi localizado no Cadastro Geral", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    
+                    d_th.CarregarListviewSimplificado(lvCadastroGeralSimplificado, d_th.Cpf);
 
 
                 } else {
@@ -135,7 +130,5 @@ namespace Sentinella.Forms {
         private void btnCancelar_Click(object sender, EventArgs e) {
             hlp.limparCampos(this);
         }
-
-
     }
 }

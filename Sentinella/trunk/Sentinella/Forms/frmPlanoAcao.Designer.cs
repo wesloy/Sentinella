@@ -294,9 +294,9 @@
             this.lvPlanoAcao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvPlanoAcao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvPlanoAcao.HideSelection = false;
-            this.lvPlanoAcao.Location = new System.Drawing.Point(11, 198);
+            this.lvPlanoAcao.Location = new System.Drawing.Point(15, 198);
             this.lvPlanoAcao.Name = "lvPlanoAcao";
-            this.lvPlanoAcao.Size = new System.Drawing.Size(1058, 277);
+            this.lvPlanoAcao.Size = new System.Drawing.Size(1046, 277);
             this.lvPlanoAcao.TabIndex = 6;
             this.lvPlanoAcao.UseCompatibleStateImageBehavior = false;
             this.lvPlanoAcao.View = System.Windows.Forms.View.SmallIcon;

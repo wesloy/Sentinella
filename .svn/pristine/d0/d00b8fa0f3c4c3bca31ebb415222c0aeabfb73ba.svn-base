@@ -73,9 +73,8 @@ namespace Sentinella {
         }
         private DataTable _listarPlanosAcoesTrabalhados(DateTime _dtInicial, DateTime _dtFinal) {
             try {
-                sql = "Select * from w_basePlanoAcao where format(dataRegistro,'yyyy-MM-dd') between " +
-                        objCon.valorSql(_dtInicial.Year.ToString().PadLeft(4,'0') + "-" + _dtInicial.Month.ToString().PadLeft(2,'0') + "-" + _dtInicial.Day.ToString().PadLeft(2, '0')) + " and " +
-                        objCon.valorSql(_dtFinal.Year.ToString().PadLeft(4, '0') + "-" + _dtFinal.Month.ToString().PadLeft(2, '0') + "-" + _dtFinal.Day.ToString().PadLeft(2, '0')) + " ";
+                sql = "Select * from w_basePlanoAcao where format(dataRegistro,'yyyy-MM-dd') between  " +
+                        objCon.valorSql(_dtInicial) + " and " + objCon.valorSql(_dtFinal) + " ";
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {

@@ -40,6 +40,7 @@
             this.planosDeAçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConsultasForm = new System.Windows.Forms.ToolStripMenuItem();
             this.dadosCadastraisDeAssociadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dadosADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenExportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenImportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfiguracoesForm = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,7 +55,7 @@
             this.barraStatus = new System.Windows.Forms.StatusStrip();
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.dadosADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlMenuRight = new System.Windows.Forms.Panel();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -65,17 +66,19 @@
             // 
             // pnlPrincipal
             // 
+            this.pnlPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPrincipal.BackColor = System.Drawing.Color.White;
             this.pnlPrincipal.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPrincipal.Location = new System.Drawing.Point(52, 0);
             this.pnlPrincipal.Name = "pnlPrincipal";
-            this.pnlPrincipal.Size = new System.Drawing.Size(1079, 497);
+            this.pnlPrincipal.Size = new System.Drawing.Size(1067, 497);
             this.pnlPrincipal.TabIndex = 1;
             // 
             // pnlMenusLeft
             // 
-            this.pnlMenusLeft.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.pnlMenusLeft.BackColor = System.Drawing.Color.LightSkyBlue;
             this.pnlMenusLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlMenusLeft.Controls.Add(this.menuPrincipal);
             this.pnlMenusLeft.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -107,7 +110,7 @@
             this.menuPrincipal.Name = "menuPrincipal";
             this.menuPrincipal.Padding = new System.Windows.Forms.Padding(3, 2, 2, 2);
             this.menuPrincipal.ShowItemToolTips = true;
-            this.menuPrincipal.Size = new System.Drawing.Size(125, 467);
+            this.menuPrincipal.Size = new System.Drawing.Size(42, 467);
             this.menuPrincipal.TabIndex = 2;
             this.menuPrincipal.Text = "menuStrip1";
             // 
@@ -194,6 +197,13 @@
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Text = "Dados Cadastrais de Associados (F12)";
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Click += new System.EventHandler(this.dadosCadastraisDeAssociadosToolStripMenuItem_Click);
+            // 
+            // dadosADToolStripMenuItem
+            // 
+            this.dadosADToolStripMenuItem.Name = "dadosADToolStripMenuItem";
+            this.dadosADToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.dadosADToolStripMenuItem.Text = "Dados AD";
+            this.dadosADToolStripMenuItem.Click += new System.EventHandler(this.dadosADToolStripMenuItem_Click);
             // 
             // mmOpenExportacoesForm
             // 
@@ -304,6 +314,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.AutoScroll = true;
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.pnlMenuRight);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pnlPrincipal);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pnlMenusLeft);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1131, 497);
@@ -346,12 +357,15 @@
             this.lbStatus.Text = "Senttinela pronto para a ação...";
             this.lbStatus.ToolTipText = "Status de Processos";
             // 
-            // dadosADToolStripMenuItem
+            // pnlMenuRight
             // 
-            this.dadosADToolStripMenuItem.Name = "dadosADToolStripMenuItem";
-            this.dadosADToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.dadosADToolStripMenuItem.Text = "Dados AD";
-            this.dadosADToolStripMenuItem.Click += new System.EventHandler(this.dadosADToolStripMenuItem_Click);
+            this.pnlMenuRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlMenuRight.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pnlMenuRight.Location = new System.Drawing.Point(1110, -6);
+            this.pnlMenuRight.Name = "pnlMenuRight";
+            this.pnlMenuRight.Size = new System.Drawing.Size(22, 503);
+            this.pnlMenuRight.TabIndex = 0;
             // 
             // frmPrincipal
             // 
@@ -410,6 +424,7 @@
         private System.Windows.Forms.ToolStripMenuItem planosDeAçãoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dadosCadastraisDeAssociadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dadosADToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlMenuRight;
     }
 }
 
