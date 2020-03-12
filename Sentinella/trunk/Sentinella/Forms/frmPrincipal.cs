@@ -130,6 +130,12 @@ namespace Sentinella {
             _objForm = new frmPlanoAcao();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
+        private void envioEmailCobrançaTrilhasSGIToolStripMenuItem_Click(object sender, EventArgs e) {
+            atualizarStatus("Página de Envio de e-mail cobrança Trilhas SGI");
+            _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
+            _objForm = new frmTrilhasSGI();
+            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+        }
 
         private void dadosCadastraisDeAssociadosToolStripMenuItem_Click(object sender, EventArgs e) {
             _objForm = new frmLocalizarDadosAssociados();

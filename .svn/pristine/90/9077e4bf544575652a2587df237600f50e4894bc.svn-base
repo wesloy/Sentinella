@@ -38,7 +38,6 @@
             this.filasDeTrabalhoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devoluçõesOuvidoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planosDeAçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConsultasForm = new System.Windows.Forms.ToolStripMenuItem();
             this.dadosCadastraisDeAssociadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dadosADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +55,7 @@
             this.barraStatus = new System.Windows.Forms.StatusStrip();
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pnlMenuRight = new System.Windows.Forms.Panel();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -73,7 +73,7 @@
             this.pnlPrincipal.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.pnlPrincipal.Location = new System.Drawing.Point(52, 0);
             this.pnlPrincipal.Name = "pnlPrincipal";
-            this.pnlPrincipal.Size = new System.Drawing.Size(1079, 497);
+            this.pnlPrincipal.Size = new System.Drawing.Size(1067, 497);
             this.pnlPrincipal.TabIndex = 1;
             // 
             // pnlMenusLeft
@@ -134,8 +134,7 @@
             this.mmOpenAnalisesForm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filasDeTrabalhoToolStripMenuItem,
             this.devoluçõesOuvidoriaToolStripMenuItem,
-            this.planosDeAçãoToolStripMenuItem,
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem});
+            this.planosDeAçãoToolStripMenuItem});
             this.mmOpenAnalisesForm.Image = ((System.Drawing.Image)(resources.GetObject("mmOpenAnalisesForm.Image")));
             this.mmOpenAnalisesForm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.mmOpenAnalisesForm.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
@@ -149,7 +148,7 @@
             this.filasDeTrabalhoToolStripMenuItem.Name = "filasDeTrabalhoToolStripMenuItem";
             this.filasDeTrabalhoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
             this.filasDeTrabalhoToolStripMenuItem.ShowShortcutKeys = false;
-            this.filasDeTrabalhoToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.filasDeTrabalhoToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.filasDeTrabalhoToolStripMenuItem.Text = "Filas de Trabalho (F2)";
             this.filasDeTrabalhoToolStripMenuItem.ToolTipText = "Click F2";
             this.filasDeTrabalhoToolStripMenuItem.Click += new System.EventHandler(this.filasDeTrabalhoToolStripMenuItem_Click);
@@ -159,7 +158,7 @@
             this.devoluçõesOuvidoriaToolStripMenuItem.Name = "devoluçõesOuvidoriaToolStripMenuItem";
             this.devoluçõesOuvidoriaToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.devoluçõesOuvidoriaToolStripMenuItem.ShowShortcutKeys = false;
-            this.devoluçõesOuvidoriaToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.devoluçõesOuvidoriaToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.devoluçõesOuvidoriaToolStripMenuItem.Text = "Devoluções Ouvidoria (F3)";
             this.devoluçõesOuvidoriaToolStripMenuItem.ToolTipText = "Click F3";
             this.devoluçõesOuvidoriaToolStripMenuItem.Click += new System.EventHandler(this.devoluçõesOuvidoriaToolStripMenuItem_Click);
@@ -169,16 +168,9 @@
             this.planosDeAçãoToolStripMenuItem.Name = "planosDeAçãoToolStripMenuItem";
             this.planosDeAçãoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.planosDeAçãoToolStripMenuItem.ShowShortcutKeys = false;
-            this.planosDeAçãoToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.planosDeAçãoToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.planosDeAçãoToolStripMenuItem.Text = "Planos de Ação (F11)";
             this.planosDeAçãoToolStripMenuItem.Click += new System.EventHandler(this.planosDeAçãoToolStripMenuItem_Click);
-            // 
-            // envioEmailCobrançaTrilhasSGIToolStripMenuItem
-            // 
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Name = "envioEmailCobrançaTrilhasSGIToolStripMenuItem";
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Text = "Envio e-mail Cobrança Trilhas SGI";
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Click += new System.EventHandler(this.envioEmailCobrançaTrilhasSGIToolStripMenuItem_Click);
             // 
             // mmOpenConsultasForm
             // 
@@ -322,6 +314,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.AutoScroll = true;
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.pnlMenuRight);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pnlPrincipal);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.pnlMenusLeft);
             this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(1131, 497);
@@ -363,6 +356,16 @@
             this.lbStatus.Tag = "Status";
             this.lbStatus.Text = "Senttinela pronto para a ação...";
             this.lbStatus.ToolTipText = "Status de Processos";
+            // 
+            // pnlMenuRight
+            // 
+            this.pnlMenuRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlMenuRight.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pnlMenuRight.Location = new System.Drawing.Point(1110, -6);
+            this.pnlMenuRight.Name = "pnlMenuRight";
+            this.pnlMenuRight.Size = new System.Drawing.Size(22, 503);
+            this.pnlMenuRight.TabIndex = 0;
             // 
             // frmPrincipal
             // 
@@ -421,7 +424,7 @@
         private System.Windows.Forms.ToolStripMenuItem planosDeAçãoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dadosCadastraisDeAssociadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dadosADToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem envioEmailCobrançaTrilhasSGIToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlMenuRight;
     }
 }
 
