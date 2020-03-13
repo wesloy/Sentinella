@@ -136,7 +136,7 @@ namespace Sentinella {
                             "group by gestor_2 " +
                             "order by gestor_2 ";
                 return objCon.retornaDataTable(sql);
-               
+
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - LISTAR COORDENADORES (DAL)");
@@ -190,7 +190,6 @@ namespace Sentinella {
             }
         }
 
-
         private DataTable _capturarRegistroPorID(int id) {
             try {
                 sql = "Select * from w_trilhasTreinamentos where id = " + objCon.valorSql(id) + " ";
@@ -219,6 +218,55 @@ namespace Sentinella {
             }
         }
 
+        private bool _liberarRegistros() {
+            try {
+
+                sql = "Update w_trilhasTreinamentos set " +
+                                    "id_analista_seguranca = 0, " +
+                                    "data_envio_email = '1900-01-01 00:00:00' " +
+                                    "from w_trilhasTreinamentos where 1 = 1 " +
+                                    "and id_importacao = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) +
+                                    "and email_enviado = 0";
+
+                return objCon.executaQuery(sql, ref retorno);
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - LIBERAR REGISTROS (DAL)");
+                return false;
+            }
+        }
+
+        private DataTable _bloquearRegistros(DataTable dt) {
+            try {
+                if (dt.Rows.Count > 0) {
+
+                    foreach (DataRow item in dt.Rows) {
+
+                        sql = "Update w_trilhasTreinamentos set " +
+                                "id_analista_seguranca = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
+                                "from w_trilhasTreinamentos where id = " + objCon.valorSql(int.Parse(item["id"].ToString())) + " " +
+                                "and id_analista_seguranca = 0";
+                        objCon.executaQuery(sql, ref retorno);
+                    }
+
+                    //capturando os registros que foram bloqueados e ainda não foram trabalhados
+                    sql = "Select * from w_trilhasTreinamentos where 1 = 1 " +
+                            "and id_analista_seguranca = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
+                            "and data_envio_email = '1900-01-01 00:00:00' " +
+                            "and email_enviado = 0 " +
+                            "order by gestor_1, des_nome";
+                    return objCon.retornaDataTable(sql);
+                }
+
+                return null;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - REGISTRO EXCLUSIVO (DAL)");
+                return null;
+            }
+        }
+
         #endregion
 
         #region BLL
@@ -242,7 +290,7 @@ namespace Sentinella {
                     cursor = Cursors.Default;
 
                     return totalImportado;
-                    
+
                 } else {
                     MessageBox.Show("Abertura de produção cancelada!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -265,8 +313,12 @@ namespace Sentinella {
 
         public void preencherListViewAssociados(ListView lst, string _coordenador) {
             try {
-                DataTable dt = new DataTable();
-                dt = _listarRegistrosPorCoordenador(_coordenador);
+                DataTable dtCap, dt = new DataTable();
+                dtCap = _listarRegistrosPorCoordenador(_coordenador);
+
+                //bloqueando os registros antes de alimentar o listview
+                dt = _bloquearRegistros(dtCap);
+
                 lst.Clear();
                 lst.View = View.Details;
                 lst.LabelEdit = false;
@@ -297,16 +349,34 @@ namespace Sentinella {
                         item.SubItems.Add(linha["gestor_2"].ToString());
                         item.SubItems.Add(linha["gestor_3"].ToString());
                         item.SubItems.Add(linha["gestor_4"].ToString());
-                        item.SubItems.Add(linha["gestor_5"].ToString());                        
+                        item.SubItems.Add(linha["gestor_5"].ToString());
                         lst.Items.Add(item);
                     }
-                }                
+                }
+                dt.Clear();
+                dtCap.Clear();
             }
+
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER LISTVIEW ASSOCIADOS (BLL)");
             }
         }
 
+        public bool liberarRegistros() {
+            try {
+                if (_liberarRegistros()) {
+                    MessageBox.Show("Registros liberados!",Constantes.Titulo_MSG,MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    return true;
+                } else {
+                    MessageBox.Show("Não foi possível liberar os registros!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - LIBERAR REGISTROS (BLL)");
+                return false;
+            }
+        }
         #endregion
 
     }

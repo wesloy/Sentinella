@@ -117,6 +117,7 @@
     <Compile Include="Classes\relatorios.cs" />
     <Compile Include="Classes\retornoOuvidoria.cs" />
     <Compile Include="Classes\subFinalizacoes.cs" />
+    <Compile Include="Classes\trilhasSGI.cs" />
     <Compile Include="Classes\usuarios.cs" />
     <Compile Include="Classes\usuariosVolParaTrabalho.cs" />
     <Compile Include="Forms\frmAnalies.cs">
@@ -228,6 +229,12 @@
     <Compile Include="Forms\frmTeste.Designer.cs">
       <DependentUpon>frmTeste.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmTrilhasSGI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmTrilhasSGI.Designer.cs">
+      <DependentUpon>frmTrilhasSGI.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -284,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTeste.resx">
       <DependentUpon>frmTeste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmTrilhasSGI.resx">
+      <DependentUpon>frmTrilhasSGI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

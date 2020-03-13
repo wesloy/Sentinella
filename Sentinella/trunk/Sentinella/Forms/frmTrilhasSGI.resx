@@ -118,6 +118,17 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnImportar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAAWCAYAAAA1vze2AAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEHSURBVEhL7ZN9DcJADMVPAhImYRKQgIRJmAQkTMIk
+        IGESJmES5uDou/VI6fU+CITwByS/ZPda+nZt57z3Weg3EAuBQwTnwcrPYYvO9cRGyOIaxHvr/5pUOAx2
+        QhbMgbyqUSrUb6DZdA3N8+GYgSzQykrEl0tmpk30kN8BxifLRCZ9gvUbJmCIxbFRNxZLoO+vLgZG0Lyy
+        o7jxKPQWmm4wc3G81cLPMyFzSpiiJBrIopaWI7TLCkTCGhLW9wMNMeTomORKZNsVDS5C0yBWMsKsEXdn
+        FnQQC1FbipjX8XMSC23l3sJIrubEesu67pw7CQ2z6qA/TFoQBQI6XsIULf4mwBQtftzEuzvhCKjO87mm
+        ZwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="btnIniciar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -130,6 +141,11 @@
         sPNyXqFKAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Todo e-mail enviado o analista que enviar será copiado no e-mail.
+O disparo será realizado para todos os e-mails informados no campo "E-mail Destinatário". Para colocar mais de 1 e-mail basta separar cada um deles com ponto e vírgula (;).
+Serão listados no e-mail apenas os associados selecionados no campo "Selecionar os associados...".</value>
+  </data>
   <data name="btnCancelar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABoAAAARCAYAAADDjbwNAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -140,32 +156,15 @@
         PlsnwoEN1QAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="btnSalvar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnEnviar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAABNUlEQVRIS62UARWDMAxEJwEJ
-        k4CESZiESUACEiYBCZMwCZMwCXPQ3UFL03CUsUfe+3trez1KknIKIRwKogefESX4B8QFvAAHE0q4B0QD
-        7rPhUeaIG2AKrGkeq01bIM7gOZtk03cxpzbXQLBg2WCCxst5ZaBAsGDlyTId8OnRRhYEC/aYNyxh3n2K
-        JpRhAqFPlKExNWpt1bQF+jQZth91am3Cma73bMkQ9eWl8RjjK1grmCUZq67xjD1bK5iFJ+XbsXPUuqda
-        MEsyJr+8YZlzhRE3cTyYuTrezJOE8T/rkjdvYY0URsx0pBQyRezxenqUocWIU9/zAW1c4wPXu8abeRYb
-        kBqhUV/JUqRwG3qlSSDKu6JEllmIu6DWPQimit+bTgosCP6MPa7Wa8hJC4K5HAu4j3D6AqIs3oUUsfmR
-        AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Todo e-mail enviado o analista que enviar será copiado no e-mail.
-O disparo será realizado para todos os e-mails informados no campo "E-mail Destinatário". Para colocar mais de 1 e-mail basta separar cada um deles com ponto e vírgula (;).
-Serão listados no e-mail apenas os associados selecionados no campo "Selecionar os associados...".</value>
-  </data>
-  <data name="btnImportar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAWCAYAAAA1vze2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAABB0lEQVRIS+2TfQ3CQAzFTwIS
-        JmESkICESZgEJEzCJCBhEiZhEubg6Lv1SOn1PgiE8Ackv2T3Wvp2bee891noNxALgUME58HKz2GLzvXE
-        RsjiGsR76/+aVDgMdkIWzIG8qlEq1G+g2XQNzfPhmIEs0MpKxJdLZqZN9JDfAcYny0QmfYL1GyZgiMWx
-        UTcWS6Dvry4GRtC8sqO48Sj0FppuMHNxvNXCzzMhc0qYoiQayKKWliO0ywpEwhoS1vcDDTHk6JjkSmTb
-        FQ0uQtMgVjLCrBF3ZxZ0EAtRW4qY1/FzEgtt5d7CSK7mxHrLuu6cOwkNs+qgP0xaEAUCOl7CFC3+JsAU
-        LX7cxLs74QiozvO5pmcAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAE1SURBVEhLrZQBFYMwDEQnAQmTgIRJmIRJQAISJgEJ
+        kzAJkzAJc9DdQUvTcJSxR977e2t7PUqScgohHAqiB58RJfgHxAW8AAcTSrgHRAPus+FR5ogbYAqsaR6r
+        TVsgzuA5m2TTdzGnNtdAsGDZYILGy3lloECwYOXJMh3w6dFGFgQL9pg3LGHefYomlGECoU+UoTE1am3V
+        tAX6NBm2H3VqbcKZrvdsyRD15aXxGOMrWCuYJRmrrvGMPVsrmIUn5duxc9S6p1owSzImv7xhmXOFETdx
+        PJi5Ot7Mk4TxP+uSN29hjRRGzHSkFDJF7PF6epShxYhT3/MBbVzjA9e7xpt5FhuQGqFRX8lSpHAbeqVJ
+        IMq7okSWWYi7oNY9CKaK35tOCiwI/ow9rtZryEkLgrkcC7iPcPoCoizehRSx+ZEAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
