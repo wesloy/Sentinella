@@ -267,6 +267,42 @@ namespace Sentinella {
             }
         }
 
+
+        private string _capturarEmailAnalistaSeguranca() {
+            try {
+                sql = "select idrede from w_sysUsuarios where id = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
+                DataTable dt = new DataTable();
+                dt = objCon.retornaDataTable(sql);
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow item in dt.Rows) {
+                        return item["idrede"].ToString() + "@algartech.com";
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - CAPTURAR E-MAIL ANALISTA SEGURANÇA (DAL)");
+                return "";
+            }
+        }
+
+
+        private bool _finalizarRegistro(trilhasSGI t) {
+            try {
+                sql = "Update w_trilhasTreinamentos set " +
+                    "email_enviado = " + objCon.valorSql(t.email_enviado) + ", " +
+                    "data_envio_email = " + objCon.valorSql(t.data_envio_email) + ", " +
+                    "id_analista_seguranca = " + objCon.valorSql(t.id_analista_seguranca) + " " +
+                    "from w_trilhasTreinamentos where id = " + objCon.valorSql(t.id) + " ";
+                return objCon.executaQuery(sql, ref retorno);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - FINALIZAR REGISTROS (DAL)");
+                return false;
+            }
+        }
+
+
         #endregion
 
         #region BLL
@@ -313,9 +349,12 @@ namespace Sentinella {
 
         public void preencherListViewAssociados(ListView lst, string _coordenador) {
             try {
+
+                //garantindo que todo volume locado e não trabalhado esteja livre
+                _liberarRegistros();
+
                 DataTable dtCap, dt = new DataTable();
                 dtCap = _listarRegistrosPorCoordenador(_coordenador);
-
                 //bloqueando os registros antes de alimentar o listview
                 dt = _bloquearRegistros(dtCap);
 
@@ -328,6 +367,7 @@ namespace Sentinella {
                 lst.FullRowSelect = true;
                 lst.HideSelection = false;
                 lst.MultiSelect = false;
+                lst.Columns.Add("ID", 50, HorizontalAlignment.Center);
                 lst.Columns.Add("TRILHA", 250, HorizontalAlignment.Center);
                 lst.Columns.Add("ASSOCIADO", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("CPF", 150, HorizontalAlignment.Left);
@@ -341,7 +381,8 @@ namespace Sentinella {
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
-                        item.Text = linha["des_turma"].ToString();
+                        item.Text = linha["id"].ToString();
+                        item.SubItems.Add(linha["des_turma"].ToString());
                         item.SubItems.Add(linha["des_nome"].ToString());
                         item.SubItems.Add(linha["cpf"].ToString());
                         item.SubItems.Add(linha["percentual_concluido"].ToString());
@@ -362,21 +403,51 @@ namespace Sentinella {
             }
         }
 
-        public bool liberarRegistros() {
+        public bool liberarRegistros(bool enviarMsg = true) {
             try {
-                if (_liberarRegistros()) {
-                    MessageBox.Show("Registros liberados!",Constantes.Titulo_MSG,MessageBoxButtons.OK,MessageBoxIcon.Information);
-                    return true;
-                } else {
-                    MessageBox.Show("Não foi possível liberar os registros!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
+
+                bool validacao = _liberarRegistros();
+                if (enviarMsg) {
+                    if (validacao) {
+                        MessageBox.Show("Registros liberados!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return true;
+                    } else {
+                        MessageBox.Show("Não foi possível liberar os registros!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
                 }
+
+                return validacao;
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - LIBERAR REGISTROS (BLL)");
                 return false;
             }
         }
+
+        public string capturarEmailAnalistaSeguranca() {
+            try {
+                return _capturarEmailAnalistaSeguranca();
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - CAPTURAR E-MAIL ANALISTA SEGURANÇA (BLL)");
+                return "";
+            }
+        }
+
+        public bool finalizarRegistro(int id) {
+            try {
+                trilhasSGI t = new trilhasSGI(id,
+                                                true);
+                return _finalizarRegistro(t);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - FINALIZAR REGISTROS (BLL)");
+                return false;
+            }
+
+        }
+
         #endregion
 
     }

@@ -27,7 +27,6 @@
             this.pnlConteudo = new System.Windows.Forms.Panel();
             this.lkDesmarcarTodos = new System.Windows.Forms.LinkLabel();
             this.lkMarcarTodos = new System.Windows.Forms.LinkLabel();
-            this.btnImportar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMensagem = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -53,7 +52,6 @@
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
             this.pnlConteudo.Controls.Add(this.lkDesmarcarTodos);
             this.pnlConteudo.Controls.Add(this.lkMarcarTodos);
-            this.pnlConteudo.Controls.Add(this.btnImportar);
             this.pnlConteudo.Controls.Add(this.label4);
             this.pnlConteudo.Controls.Add(this.txtMensagem);
             this.pnlConteudo.Controls.Add(this.label3);
@@ -87,20 +85,6 @@
             this.lkMarcarTodos.TabStop = true;
             this.lkMarcarTodos.Text = "Marcar Todos";
             this.lkMarcarTodos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkMarcarTodos_LinkClicked);
-            // 
-            // btnImportar
-            // 
-            this.btnImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImportar.Image = ((System.Drawing.Image)(resources.GetObject("btnImportar.Image")));
-            this.btnImportar.Location = new System.Drawing.Point(949, 9);
-            this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(90, 40);
-            this.btnImportar.TabIndex = 6;
-            this.btnImportar.Text = "Impor&tar";
-            this.btnImportar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnImportar.UseVisualStyleBackColor = true;
-            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
             // 
             // label4
             // 
@@ -313,7 +297,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnEnviar;
-        private System.Windows.Forms.Button btnImportar;
         private System.Windows.Forms.LinkLabel lkDesmarcarTodos;
         private System.Windows.Forms.LinkLabel lkMarcarTodos;
     }
