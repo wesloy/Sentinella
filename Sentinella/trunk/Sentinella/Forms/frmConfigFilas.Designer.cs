@@ -25,6 +25,9 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConfigFilas));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.ckboxArqExt = new System.Windows.Forms.CheckBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtRegraImport = new System.Windows.Forms.TextBox();
             this.txtID = new System.Windows.Forms.TextBox();
@@ -58,9 +61,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.ckboxArqExt = new System.Windows.Forms.CheckBox();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
@@ -101,6 +101,38 @@
             this.pnlConteudo.Name = "pnlConteudo";
             this.pnlConteudo.Size = new System.Drawing.Size(1023, 513);
             this.pnlConteudo.TabIndex = 5;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.ForeColor = System.Drawing.SystemColors.ButtonShadow;
+            this.label15.Location = new System.Drawing.Point(125, 137);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(405, 13);
+            this.label15.TabIndex = 79;
+            this.label15.Text = "Quando a abertura de produção vier de um arquivo externo, como: sql, xls, csv e t" +
+    "xt.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Location = new System.Drawing.Point(14, 136);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(85, 13);
+            this.label16.TabIndex = 78;
+            this.label16.Text = "Arquivo Externo:";
+            // 
+            // ckboxArqExt
+            // 
+            this.ckboxArqExt.AutoSize = true;
+            this.ckboxArqExt.BackColor = System.Drawing.Color.Azure;
+            this.ckboxArqExt.Location = new System.Drawing.Point(104, 136);
+            this.ckboxArqExt.Name = "ckboxArqExt";
+            this.ckboxArqExt.Size = new System.Drawing.Size(15, 14);
+            this.ckboxArqExt.TabIndex = 77;
+            this.ckboxArqExt.UseVisualStyleBackColor = false;
             // 
             // label13
             // 
@@ -492,37 +524,6 @@
             this.btnIncluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnIncluir.UseVisualStyleBackColor = true;
             this.btnIncluir.Click += new System.EventHandler(this.btnIncluir_Click);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label15.Location = new System.Drawing.Point(125, 137);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(386, 13);
-            this.label15.TabIndex = 79;
-            this.label15.Text = "Quando a abertura de produção vier de um arquivo externo, como: xls, csv e txt.";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Location = new System.Drawing.Point(14, 136);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(85, 13);
-            this.label16.TabIndex = 78;
-            this.label16.Text = "Arquivo Externo:";
-            // 
-            // ckboxArqExt
-            // 
-            this.ckboxArqExt.AutoSize = true;
-            this.ckboxArqExt.BackColor = System.Drawing.Color.Azure;
-            this.ckboxArqExt.Location = new System.Drawing.Point(104, 136);
-            this.ckboxArqExt.Name = "ckboxArqExt";
-            this.ckboxArqExt.Size = new System.Drawing.Size(15, 14);
-            this.ckboxArqExt.TabIndex = 77;
-            this.ckboxArqExt.UseVisualStyleBackColor = false;
             // 
             // frmConfigFilas
             // 

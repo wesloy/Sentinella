@@ -517,7 +517,6 @@ namespace Sentinella {
                     #endregion
 
 
-
                 }
 
                 //fechando conexão com o excel
@@ -558,6 +557,7 @@ namespace Sentinella {
                     //carregar form Barra de Progresso
                     frmProgressBar frm2 = new frmProgressBar(dt.Rows.Count);
                     volTotal = 0;
+                    frm2.atualizarBarra(0);
                     frm2.Show();
 
                     foreach (DataRow ln in dt.Rows) {
@@ -609,6 +609,260 @@ namespace Sentinella {
                 //cnx.Close();
             }
         }
+
+
+        private bool _tamnunConexao(DateTime dtHora, ref long volAtualizado) {
+            try {
+
+                //carregar form Barra de Progresso de preparação dos dados
+                frmProgressBar frm = new frmProgressBar(3);
+                frm.atualizarBarra(0);
+                frm.Show();
+
+
+                //carregar os filtros para busca na tabela Tamnun
+                DataTable dt_filtros = new DataTable();
+                sql = "Select * from w_tamnun_filtros";
+                dt_filtros = objCon.retornaDataTable(sql);
+                frm.atualizarBarra(1);
+
+                //carregar os últimos 7 dias da base Tamnun URL
+                DataTable dt_t_url = new DataTable();
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')";
+                dt_t_url = objCon.retornaDataTable(sql);
+                frm.atualizarBarra(2);
+
+                //carregar os últimos 7 dias da base Tamnun URL
+                DataTable dt_t_process = new DataTable();
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                                "and prod not like '%Trend%' " +
+                                "and prod not like '%OfficeScan%' " +
+                                "and prod not like '%Microsoft%' " +
+                                "and prod not like '%Tamnun%'" +
+                                "and prod not like '%Adobe%'" +
+                                "and prod not like '%CA %'" +
+                                "and prod not like '%CA-%'" +
+                                "and prod not like '%TeamViewer%'" +
+                                "and prod not like '%Realtek%'" +
+                                "and prod not like '%Intel(R)%'" +
+                                "and prod not like '%NICE%'" +
+                                "and prod not like '%Citrix%'" +
+                                "and prod not like '%Internet Explorer%'" +
+                                "and prod not like '%Google Chrome%'" +
+                                "and prod not like '%Lenovo%'";
+                dt_t_process = objCon.retornaDataTable(sql);
+                frm.atualizarBarra(3);
+                frm.Close();
+
+
+                //carregar form Barra de Progresso de importação
+                frmProgressBar frm2 = new frmProgressBar(dt_filtros.Rows.Count);
+                frm2.atualizarBarra(0);
+                int volTotal = 0;
+                frm2.Show();
+
+                //filtrar registros e acrescentar na w_tamnun_base
+                foreach (DataRow filtro in dt_filtros.Rows) {
+
+                    volTotal += 1;
+
+                    string expressao = "";
+                    DataRow[] resultado = null;
+
+                    if (filtro["fonte"].ToString().Contains("URL")) {
+
+                        //filtrando registros pelo valor de busca atual
+                        expressao = "HostDest like '%" + filtro["valorBusca"] + "%'";
+                        resultado = dt_t_url.Select(expressao);
+
+                    } else if (filtro["fonte"].ToString().Contains("EXE")) {
+                        //filtrando registros pelo valor de busca atual
+                        expressao = "Name like '%" + filtro["valorBusca"] + "%' or Prod like '%" + filtro["valorBusca"] + "%'";
+                        resultado = dt_t_url.Select(expressao);
+                    }
+
+                    foreach (DataRow item in resultado) {
+
+                        sql = "Insert into w_tamun_base (" +
+                                "fonte, " +
+                                "categoria, " +
+                                "caminho, " +
+                                "dominio, " +
+                                "id_rede, " +
+                                "nome_tbl_tamnun, " +
+                                "data_registro, " +
+                                "data_importacao, " +
+                                "id_importacao, " +
+                                "id_tbl_tamnun " +
+                                ") Select " +
+                                filtro["fonte"] + ", " +
+                                filtro["categoria"] + ", ";
+
+                        if (filtro["fonte"].ToString().Contains("URL")) {
+
+
+                            if (!item["VirtualDirectory"].ToString().Equals("NULL")) {
+                                sql += item["HostDest"] + "/" + item["VirtualDirectory"] + ", ";
+                            } else {
+                                sql += item["HostDest"] + "/" + ", ";
+                            }
+
+                            string[] rede = item["users"].ToString().Split('\\');
+                            if (rede.Length >= 2) {
+                                sql += rede[0] + ", ";
+                                sql += rede[1] + ", ";
+                            } else {
+                                sql += rede[0] + ", ";
+                                sql += rede[0] + ", ";
+                            }
+
+                            sql += "ut9_Url, ";
+
+                        } else if (filtro["fonte"].ToString().Contains("EXE")) {
+
+                            sql += item["PATH"] + ", ";
+                            string[] rede = item["user"].ToString().Split('\\');
+                            if (rede.Length >= 2) {
+                                sql += rede[0] + ", ";
+                                sql += rede[1] + ", ";
+                            } else {
+                                sql += rede[0] + ", ";
+                                sql += rede[0] + ", ";
+                            }
+                            sql += "ut_ProcessAll_csv, ";
+                        }
+
+                        sql += item["Date"] + ", ";
+                        sql += dtHora + ", ";
+                        sql += Constantes.id_BD_logadoFerramenta + ", ";
+                        sql += int.Parse(item["id"].ToString());
+
+                        sql += " WHERE NOT EXISTS (Select 1 from w_tamun_base WHERE id = " + int.Parse(item["id"].ToString()) + ")";
+                        objCon.executaQuery(sql, ref volAtualizado);
+                    }
+
+                    volTotal += 1;
+                    frm2.atualizarBarra(volTotal);
+                }
+
+                frm2.Close();
+
+                //carregar form Barra de Progresso de importação
+                frmProgressBar frm3 = new frmProgressBar(5);
+                frm3.atualizarBarra(0);
+                volTotal = 0;
+                frm3.Show();
+
+
+                // ----------Atualizando cpfs dos casos importados com tabela AD-----------------
+                //Chave: Usuário de rede
+                sql = "Update tamnun set ";
+                sql += "cpf = ad.Cod_cpf, ";
+                sql += "nome_completo = ad.Nom_Usuario, ";
+                sql += "matricula = h.matricula ";
+                sql += "from db_Sentinella.dbo.w_tamnun_base tamnun inner join db_ControleAD.dbo.Tbl_UsuariosAD ad ";
+                sql += "on tamnun.id_rede = ad.Nom_login collate Latin1_General_CI_AS ";
+                sql += "left join ";
+                sql += "(select top 1 w.matricula, w.cpf ";
+                sql += "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join db_Sentinella.dbo.w_funcionarios_historico w ";
+                sql += "on w.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                sql += "order by w.dataAtualizacao Desc) as h "; //selecionando apenas a ultima importação do CPF na base funcionários histórico
+                sql += "on h.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                objCon.executaQuery(sql, ref retorno);
+                frm3.atualizarBarra(1);
+
+                // ----------Atualizando cpfs dos casos importados com tabela AD-----------------
+                //Chave: Matrícula
+                sql = "Update tamnun set ";
+                sql += "cpf = h.cpf, ";
+                sql += "nome_completo = h.nome_associado, ";
+                sql += "matricula = replace(tamnun.id_rede,'a','') ";
+                sql += "from db_Sentinella.dbo.w_tamnun_base tamnun ";
+                sql += "left join w_funcionarios_historico f ";
+                sql += "on replace(tamnun.id_rede,'a','') = f.matricula ";
+                sql += "where tamnun.dominio <> 'ACS'";
+                objCon.executaQuery(sql, ref retorno);
+                frm3.atualizarBarra(2);
+
+                //limpando casos que não foram encontrados o CPF/MATRICULA com o AD
+                sql = "delete from w_tamnun_base where cpf = '' or cpf is null";
+                objCon.executaQuery(sql, ref retorno);
+                frm3.atualizarBarra(3);
+
+                //marcar os blindados (White list) para não subir para trabalho
+
+
+                frm3.atualizarBarra(4);
+
+                //capturando todos os casos importados e atualizados acima
+                sql = "Select * from w_tamnun_base where id_tbl_trabalho = 0 " +
+                        " and id_importacao = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " " +
+                            " and white_list = 0 ";
+                DataTable dt = new DataTable();
+                dt = objCon.retornaDataTable(sql);
+                frm3.atualizarBarra(5);
+
+                frm3.Close();
+
+                //Importar para tabela de trabalho
+                if (dt.Rows.Count > 0) {
+
+                    //carregar form Barra de Progresso
+                    frmProgressBar frm4 = new frmProgressBar(dt.Rows.Count);
+                    volTotal = 0;
+                    frm4.atualizarBarra(0);
+                    frm4.Show();
+
+                    foreach (DataRow ln in dt.Rows) {
+                        long volImportado = 0;
+
+                        if (!ln["white_list"].ToString().Equals("0")) {
+                            importacoes imp = new importacoes(
+                                                                "000000",
+                                                                ln["CPF"].ToString(),
+                                                                DateTime.Parse(ln["data_registro"].ToString()),
+                                                                int.Parse(ln["id_fila_trabalho"].ToString()),
+                                                                dtHora,
+                                                                0,
+                                                                int.Parse(ln["id"].ToString()));
+
+                            if (!_valorDuplicado(imp, false, true, false)) { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho
+                                _insertBase(imp);
+                                volImportado += 1;
+                            }
+
+                            //salvar volume para registro do total importado, sendo feito a manutenção na camada de negócio
+                            volAtualizado = volImportado;
+                        }
+
+                        volTotal += 1;
+                        frm4.atualizarBarra(volTotal);
+                    }
+
+                    //atualizar id da tbl w_base na tbl w_tamnun_base, para futura captura dos detalhes dos registros para trabalho do analista
+                    sql = "Update t set ";
+                    sql += "t.id_tbl_trabalho = b.id ";
+                    sql += "from w_base b inner join w_tamnun_base t on b.cpf = t.cpf left join w_sysFilas f on b.fila_id = f.id ";
+                    sql += "where d.id_tbl_trabalho = 0 and f.grupo = 'TAMNUN' ";
+                    sql += "and b.status_id = 0 and id_Abertura = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
+                    objCon.executaQuery(sql, ref retorno);
+
+
+                    frm4.atualizarBarra(volTotal);
+                }
+                return true;
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "IMPORTACAO - TAMNUN (DAL)");
+                return false;
+            }
+            finally {
+
+            }
+        }
+
+
 
         private bool _cadastroGeralConexao(string diretorio, ref long volAtualizado) {
 
@@ -1543,6 +1797,40 @@ namespace Sentinella {
             }
         }
 
+        public bool tamnun(int[] listaUsuarios) {
+            try {
+
+                long volAtualizado = 0;
+                bool validacaoImportacao;
+                DateTime dtHora = hlp.dataHoraAtual();
+                validacaoImportacao = _tamnunConexao(dtHora, ref volAtualizado);
+
+                //Registrar loGs de importações
+                logsImportacoes logImp = new logsImportacoes("IMPORTACAO", hlp.dataHoraAtual(), 0, "TAMNUN", volAtualizado);
+                logImp.incluir(logImp);
+
+                //Mensagem final sobre a importação..
+                if (validacaoImportacao) {
+
+                    //DISTRIBUIR VOLUME POR USUÁRIO
+                    if (!distribuicaoVolFilaporUsuario(dtHora, listaUsuarios)) {
+                        MessageBox.Show("Falha na distribuição de casos por analista!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                } else {
+                    MessageBox.Show("Importação concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "IMPORTACAO - TAMNUN (BLL)");
+                return false;
+            }
+
+        }
         public bool CadastroGeralProcedure() {
             try {
                 long volAtualizado = 0;
