@@ -628,11 +628,16 @@ namespace Sentinella {
 
                 //carregar os últimos 7 dias da base Tamnun URL
                 DataTable dt_t_url = new DataTable();
-                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')";
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                                    "and HostDest not like '%algar%' " +
+                                    "and HostDest not like '%sinergy%' " +
+                                    "and HostDest not like '%serviceview%' " +
+                                    "and HostDest not like '%mail.google.com%' " +
+                                    "and HostDest not like '%bradesco%' ";
                 dt_t_url = objCon.retornaDataTable(sql);
                 frm.atualizarBarra(2);
 
-                //carregar os últimos 7 dias da base Tamnun URL
+                //carregar os últimos 7 dias da base Tamnun PROCESSOS
                 DataTable dt_t_process = new DataTable();
                 sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
                                 "and prod not like '%Trend%' " +
@@ -676,14 +681,14 @@ namespace Sentinella {
                         resultado = dt_t_url.Select(expressao);
 
                     } else if (filtro["fonte"].ToString().Contains("EXE")) {
-                        //filtrando registros pelo valor de busca atual
-                        expressao = "Name like '%" + filtro["valorBusca"] + "%' or Prod like '%" + filtro["valorBusca"] + "%'";
-                        resultado = dt_t_url.Select(expressao);
+                        //filtrando registros pelo valor de busca atual                        
+                        expressao = "Name like '%" + filtro["valorBusca"] + "%' or Prod like '%" + filtro["valorBusca"] + "%'";                        
+                        resultado = dt_t_process.Select(expressao);                        
                     }
 
                     foreach (DataRow item in resultado) {
 
-                        sql = "Insert into w_tamun_base (" +
+                        sql = "Insert into w_tamnun_base (" +
                                 "fonte, " +
                                 "categoria, " +
                                 "caminho, " +
@@ -695,49 +700,50 @@ namespace Sentinella {
                                 "id_importacao, " +
                                 "id_tbl_tamnun " +
                                 ") Select " +
-                                filtro["fonte"] + ", " +
-                                filtro["categoria"] + ", ";
+                                objCon.valorSql(filtro["fonte"]) + ", " +
+                                objCon.valorSql(filtro["categoria"]) + ", ";
 
                         if (filtro["fonte"].ToString().Contains("URL")) {
 
 
                             if (!item["VirtualDirectory"].ToString().Equals("NULL")) {
-                                sql += item["HostDest"] + "/" + item["VirtualDirectory"] + ", ";
+                                sql += objCon.valorSql(item["HostDest"] + "/" + item["VirtualDirectory"]) + ", ";
                             } else {
-                                sql += item["HostDest"] + "/" + ", ";
+                                sql += objCon.valorSql(item["HostDest"] + "/") + ", ";
                             }
 
                             string[] rede = item["users"].ToString().Split('\\');
                             if (rede.Length >= 2) {
-                                sql += rede[0] + ", ";
-                                sql += rede[1] + ", ";
+                                sql += objCon.valorSql(rede[0]) + ", ";
+                                sql += objCon.valorSql(rede[1]) + ", ";
                             } else {
-                                sql += rede[0] + ", ";
-                                sql += rede[0] + ", ";
+                                sql += objCon.valorSql(rede[0]) + ", ";
+                                sql += objCon.valorSql(rede[0]) + ", ";
                             }
 
-                            sql += "ut9_Url, ";
+                            sql += objCon.valorSql("ut9_Url") + ", ";
 
                         } else if (filtro["fonte"].ToString().Contains("EXE")) {
 
-                            sql += item["PATH"] + ", ";
+                            sql += objCon.valorSql(item["PATH"]) + ", ";
+
                             string[] rede = item["user"].ToString().Split('\\');
                             if (rede.Length >= 2) {
-                                sql += rede[0] + ", ";
-                                sql += rede[1] + ", ";
+                                sql += objCon.valorSql(rede[0]) + ", ";
+                                sql += objCon.valorSql(rede[1]) + ", ";
                             } else {
-                                sql += rede[0] + ", ";
-                                sql += rede[0] + ", ";
+                                sql += objCon.valorSql(rede[0]) + ", ";
+                                sql += objCon.valorSql(rede[0]) + ", ";
                             }
-                            sql += "ut_ProcessAll_csv, ";
+                            sql += objCon.valorSql("ut_ProcessAll_csv") + ", ";
                         }
 
-                        sql += item["Date"] + ", ";
-                        sql += dtHora + ", ";
-                        sql += Constantes.id_BD_logadoFerramenta + ", ";
-                        sql += int.Parse(item["id"].ToString());
+                        sql += objCon.valorSql(item["Date"]) + ", ";
+                        sql += objCon.valorSql(dtHora) + ", ";
+                        sql += objCon.valorSql(Constantes.id_BD_logadoFerramenta) + ", ";
+                        sql += objCon.valorSql(int.Parse(item["id"].ToString()));
 
-                        sql += " WHERE NOT EXISTS (Select 1 from w_tamun_base WHERE id = " + int.Parse(item["id"].ToString()) + ")";
+                        sql += " WHERE NOT EXISTS (Select 1 from w_tamnun_base WHERE id_tbl_tamnun = " + objCon.valorSql(int.Parse(item["id"].ToString())) + ")";
                         objCon.executaQuery(sql, ref volAtualizado);
                     }
 

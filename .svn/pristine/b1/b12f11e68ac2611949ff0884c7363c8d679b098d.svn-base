@@ -66,7 +66,7 @@ namespace Sentinella.Forms {
                 }
 
 
-                if ((rbRobos.Checked) || (rbArquivos.Checked && cbxSeletorFilaImportacao.Text == "DLP")) {
+                if ((rbRobos.Checked) || (rbArquivos.Checked && cbxSeletorFilaImportacao.Text == "DLP" || rbArquivos.Checked && cbxSeletorFilaImportacao.Text == "TAMNUN")) {
 
                     //validando se algum analista foi selecionado para receber o volume da fila
 
@@ -110,6 +110,9 @@ namespace Sentinella.Forms {
                     imp.TrilhasSGI();
                 }
 
+                if (cbxSeletorFilaImportacao.Text.Contains("TAMNUN")) {
+                    imp.tamnun(listaUsuarios.ToArray());
+                }
 
                 carregarListView();
             }
@@ -225,7 +228,7 @@ namespace Sentinella.Forms {
                 btnProcurar.Enabled = true;
                 //Carregando Combobox
                 cbxSeletorFilaImportacao.DataSource = null;
-                hlp.carregaComboBoxManualmente("CADASTRO GERAL;DLP;TRILHAS SGI", this, cbxSeletorFilaImportacao);
+                hlp.carregaComboBoxManualmente("CADASTRO GERAL;DLP;TAMNUN;TRILHAS SGI", this, cbxSeletorFilaImportacao);
                 txtEnderecoArquivo.Text = "";
             } else {
                 cbxSeletorFilaImportacao.Enabled = false;
