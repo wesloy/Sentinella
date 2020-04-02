@@ -114,6 +114,7 @@
     <Compile Include="Classes\relatorios.cs" />
     <Compile Include="Classes\retornoOuvidoria.cs" />
     <Compile Include="Classes\subFinalizacoes.cs" />
+    <Compile Include="Classes\tamnun.cs" />
     <Compile Include="Classes\trilhasSGI.cs" />
     <Compile Include="Classes\usuarios.cs" />
     <Compile Include="Classes\usuariosVolParaTrabalho.cs" />

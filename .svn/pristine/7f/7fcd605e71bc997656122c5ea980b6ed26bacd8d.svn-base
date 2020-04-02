@@ -669,6 +669,8 @@ namespace Sentinella {
                 //filtrar registros e acrescentar na w_tamnun_base
                 foreach (DataRow filtro in dt_filtros.Rows) {
 
+                    volTotal += 1;
+
                     string expressao = "";
                     DataRow[] resultado = null;
 
@@ -738,7 +740,7 @@ namespace Sentinella {
 
                         sql += objCon.valorSql(item["Date"]) + ", ";
                         sql += objCon.valorSql(dtHora) + ", ";
-                        sql += objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + ", ";
+                        sql += objCon.valorSql(Constantes.id_BD_logadoFerramenta) + ", ";
                         sql += objCon.valorSql(int.Parse(item["id"].ToString()));
 
                         sql += " WHERE NOT EXISTS (Select 1 from w_tamnun_base WHERE id_tbl_tamnun = " + objCon.valorSql(int.Parse(item["id"].ToString())) + ")";
@@ -778,8 +780,8 @@ namespace Sentinella {
                 // ----------Atualizando cpfs dos casos importados com tabela AD-----------------
                 //Chave: Matrícula
                 sql = "Update tamnun set ";
-                sql += "cpf = f.cpf, ";
-                sql += "nome_completo = f.nome_associado, ";
+                sql += "cpf = h.cpf, ";
+                sql += "nome_completo = h.nome_associado, ";
                 sql += "matricula = replace(tamnun.id_rede,'a','') ";
                 sql += "from db_Sentinella.dbo.w_tamnun_base tamnun ";
                 sql += "left join w_funcionarios_historico f ";
@@ -794,11 +796,8 @@ namespace Sentinella {
                 frm3.atualizarBarra(3);
 
                 //marcar os blindados (White list) para não subir para trabalho
-                sql = "update t set " +
-                            "t.white_list = 1 " +
-                            "from w_tamnun_base t inner " +
-                            "join w_tamnun_white_list wl on t.cpf = wl.cpf  ";
-                objCon.executaQuery(sql, ref retorno);
+
+
                 frm3.atualizarBarra(4);
 
                 //capturando todos os casos importados e atualizados acima
@@ -819,10 +818,9 @@ namespace Sentinella {
                     volTotal = 0;
                     frm4.atualizarBarra(0);
                     frm4.Show();
-                    long volImportado = 0;
 
                     foreach (DataRow ln in dt.Rows) {
-                       
+                        long volImportado = 0;
 
                         if (!ln["white_list"].ToString().Equals("0")) {
                             importacoes imp = new importacoes(
@@ -846,27 +844,17 @@ namespace Sentinella {
                         volTotal += 1;
                         frm4.atualizarBarra(volTotal);
                     }
-                    frm4.Close();
-
-                    //carregar form Barra de Progresso
-                    frmProgressBar frm5 = new frmProgressBar(1);
-                    volTotal = 0;
-                    frm5.atualizarBarra(0);
-                    frm5.Show();
-
 
                     //atualizar id da tbl w_base na tbl w_tamnun_base, para futura captura dos detalhes dos registros para trabalho do analista
                     sql = "Update t set ";
                     sql += "t.id_tbl_trabalho = b.id ";
                     sql += "from w_base b inner join w_tamnun_base t on b.cpf = t.cpf left join w_sysFilas f on b.fila_id = f.id ";
-                    sql += "where t.id_tbl_trabalho = 0 and f.grupo = 'TAMNUN' ";
+                    sql += "where d.id_tbl_trabalho = 0 and f.grupo = 'TAMNUN' ";
                     sql += "and b.status_id = 0 and id_Abertura = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
                     objCon.executaQuery(sql, ref retorno);
-                    frm5.atualizarBarra(1);
-
-                    frm5.Close();
 
 
+                    frm4.atualizarBarra(volTotal);
                 }
                 return true;
 
@@ -876,7 +864,7 @@ namespace Sentinella {
                 return false;
             }
             finally {
-                
+
             }
         }
 

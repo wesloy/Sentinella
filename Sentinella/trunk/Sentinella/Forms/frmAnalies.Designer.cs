@@ -407,7 +407,7 @@
             this.tbInfos.Padding = new System.Windows.Forms.Padding(3);
             this.tbInfos.Size = new System.Drawing.Size(1273, 526);
             this.tbInfos.TabIndex = 6;
-            this.tbInfos.Text = "DLP";
+            this.tbInfos.Text = "Inf. Adicionais";
             this.tbInfos.UseVisualStyleBackColor = true;
             // 
             // lvInfoAdc

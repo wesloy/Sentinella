@@ -79,13 +79,17 @@ namespace Sentinella.Forms {
                     dadosCadastraisTH th = new dadosCadastraisTH();
                     th.CarregaListView(lvHistoricoTH, cat.Cpf);
 
-                    //Informações adicionais
+                    if (cbxFila.Text.Contains("DLP")) {
+                        //Informações adicionais
                         dlp dlp = new dlp();
                         dlp.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()));
+                    } else if (cbxFila.Text.Contains("TAMNUN")) {
+                        //Informações adicionais
+                        tamnun tamnun = new tamnun();
+                        tamnun.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()));
+                    }
 
-
-
-                    //Carregando os dados do Cartão, se BIM for diferente de 000000
+                    //Carregando os dados do Cartão, se BIN for diferente de 000000
                     if (cat.Bin != "000000") {
 
                         cartoes cards = new cartoes(); //dados de cartões e contas
@@ -157,7 +161,6 @@ namespace Sentinella.Forms {
                         txtGerenciaLaudo.Text = d_th.gestor_3.ToString().Trim();
                         txtDiretoriaLaudo.Text = d_th.gestor_4.ToString().Trim();
                     }
-
 
                     #endregion
                 }
@@ -451,22 +454,18 @@ namespace Sentinella.Forms {
         }
 
         private void lvInfoAdc_DoubleClick(object sender, EventArgs e) {
+
+            this.Cursor = Cursors.WaitCursor;
+            string caminho = "";
+
             if (cbxFila.Text.Contains("DLP")) {
-
-                this.Cursor = Cursors.WaitCursor;
-
-                try {
-                    System.Diagnostics.Process.Start(@lvInfoAdc.SelectedItems[0].SubItems[6].Text);
-                    this.Cursor = Cursors.Default;
-                }
-                catch (Exception ex) {
-
-                    this.Cursor = Cursors.Default;
-                    MessageBox.Show("Acesso Negado \n" + ex.ToString(), Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-
+                caminho = @lvInfoAdc.SelectedItems[0].SubItems[6].Text;
+            } else if (cbxFila.Text.Contains("TAMNUN")) {
+                caminho = @lvInfoAdc.SelectedItems[0].SubItems[3].Text;
             }
+
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("Endereço copiado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
