@@ -252,6 +252,10 @@ namespace Sentinella.Forms {
             limparForm();
         }
 
+        private void button1_Click(object sender, EventArgs e) {
+            imp._importarGruposAD();
+        }
+
         //private void btnTeste_Click(object sender, EventArgs e) {
         //    List<int> listaUsuarios = new List<int>();
         //    listaUsuarios.Add(2);

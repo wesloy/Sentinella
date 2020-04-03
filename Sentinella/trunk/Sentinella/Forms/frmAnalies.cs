@@ -459,13 +459,16 @@ namespace Sentinella.Forms {
             string caminho = "";
 
             if (cbxFila.Text.Contains("DLP")) {
-                caminho = @lvInfoAdc.SelectedItems[0].SubItems[6].Text;
+                caminho = @lvInfoAdc.SelectedItems[0].SubItems[7].Text;
             } else if (cbxFila.Text.Contains("TAMNUN")) {
                 caminho = @lvInfoAdc.SelectedItems[0].SubItems[3].Text;
             }
 
+            Clipboard.Clear();
+            Clipboard.SetText(caminho);
+
             this.Cursor = Cursors.Default;
-            MessageBox.Show("Endereço copiado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("Endereço: " +  Environment.NewLine + caminho + Environment.NewLine + "--COPIADO--", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

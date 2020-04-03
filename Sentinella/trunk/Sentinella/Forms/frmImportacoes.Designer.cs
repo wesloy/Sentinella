@@ -61,6 +61,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtEnderecoArquivo = new System.Windows.Forms.TextBox();
             this.Label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
@@ -69,6 +70,7 @@
             // pnlBotoes
             // 
             this.pnlBotoes.BackColor = System.Drawing.Color.White;
+            this.pnlBotoes.Controls.Add(this.button1);
             this.pnlBotoes.Controls.Add(this.btnExcluir);
             this.pnlBotoes.Controls.Add(this.btnCancelar);
             this.pnlBotoes.Controls.Add(this.btnFinalizar);
@@ -503,6 +505,23 @@
             this.Label2.TabIndex = 58;
             this.Label2.Text = "Endereço do Arquivo:";
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.button1.Location = new System.Drawing.Point(525, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 30);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Importar";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.button1, "Importar Registros");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmImportacoes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,5 +575,6 @@
         internal System.Windows.Forms.Label label24;
         internal System.Windows.Forms.Label label9;
         private System.Windows.Forms.ListView lvUsuarios;
+        internal System.Windows.Forms.Button button1;
     }
 }

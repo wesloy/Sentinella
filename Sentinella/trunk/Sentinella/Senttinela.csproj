@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ad.cs" />
     <Compile Include="Classes\autorizacoes.cs" />
     <Compile Include="Classes\cartoes.cs" />
     <Compile Include="Classes\categorizacoes.cs" />

@@ -319,6 +319,7 @@ namespace Sentinella {
             rd.Close();
             //carregar form Barra de Progresso
             frmProgressBar frm = new frmProgressBar(volTotal);
+            frm.atualizarBarra(0);
             frm.Show();
 
 
@@ -610,7 +611,6 @@ namespace Sentinella {
             }
         }
 
-
         private bool _tamnunConexao(DateTime dtHora, ref long volAtualizado) {
             try {
 
@@ -680,8 +680,8 @@ namespace Sentinella {
 
                     } else if (filtro["fonte"].ToString().Contains("EXE")) {
                         //filtrando registros pelo valor de busca atual                        
-                        expressao = "Name like '%" + filtro["valorBusca"] + "%' or Prod like '%" + filtro["valorBusca"] + "%'";                        
-                        resultado = dt_t_process.Select(expressao);                        
+                        expressao = "Name like '%" + filtro["valorBusca"] + "%' or Prod like '%" + filtro["valorBusca"] + "%'";
+                        resultado = dt_t_process.Select(expressao);
                     }
 
                     foreach (DataRow item in resultado) {
@@ -701,13 +701,18 @@ namespace Sentinella {
                                 objCon.valorSql(filtro["fonte"]) + ", " +
                                 objCon.valorSql(filtro["categoria"]) + ", ";
 
+                        string caminho = "";
                         if (filtro["fonte"].ToString().Contains("URL")) {
 
 
                             if (!item["VirtualDirectory"].ToString().Equals("NULL")) {
-                                sql += objCon.valorSql(item["HostDest"] + "/" + item["VirtualDirectory"]) + ", ";
+                                caminho = objCon.valorSql(item["HostDest"] + "/" + item["VirtualDirectory"]);
+                                caminho = caminho.Replace("'", "");
+                                sql += caminho + ", ";
                             } else {
-                                sql += objCon.valorSql(item["HostDest"] + "/") + ", ";
+                                caminho = objCon.valorSql(item["HostDest"] + "/") + ", ";
+                                caminho = caminho.Replace("'", "");
+                                sql += caminho + ", ";
                             }
 
                             string[] rede = item["users"].ToString().Split('\\');
@@ -723,7 +728,9 @@ namespace Sentinella {
 
                         } else if (filtro["fonte"].ToString().Contains("EXE")) {
 
-                            sql += objCon.valorSql(item["PATH"]) + ", ";
+                            caminho = objCon.valorSql(item["PATH"]);
+                            caminho = caminho.Replace("'", "");
+                            sql += caminho + ", ";
 
                             string[] rede = item["user"].ToString().Split('\\');
                             if (rede.Length >= 2) {
@@ -822,7 +829,7 @@ namespace Sentinella {
                     long volImportado = 0;
 
                     foreach (DataRow ln in dt.Rows) {
-                       
+
 
                         if (!ln["white_list"].ToString().Equals("0")) {
                             importacoes imp = new importacoes(
@@ -876,11 +883,9 @@ namespace Sentinella {
                 return false;
             }
             finally {
-                
+
             }
         }
-
-
 
         private bool _cadastroGeralConexao(string diretorio, ref long volAtualizado) {
 
@@ -1684,7 +1689,7 @@ namespace Sentinella {
             }
         }
 
-        public bool distribuicaoVolFilaporUsuario(DateTime dtHoraImp, int[] usuarios) {
+        private bool distribuicaoVolFilaporUsuario(DateTime dtHoraImp, int[] usuarios) {
             try {
                 sql = "Select fila_id, data_abertura, count(id) as vol from w_base where ";
                 sql += "data_Abertura = " + objCon.valorSql(dtHoraImp) + " ";
@@ -1776,6 +1781,7 @@ namespace Sentinella {
                 return false;
             }
         }
+
 
         #endregion
 
