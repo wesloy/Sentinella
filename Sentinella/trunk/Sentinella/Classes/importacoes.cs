@@ -706,13 +706,13 @@ namespace Sentinella {
 
 
                             if (!item["VirtualDirectory"].ToString().Equals("NULL")) {
-                                caminho = objCon.valorSql(item["HostDest"] + "/" + item["VirtualDirectory"]);
+                                caminho = item["HostDest"] + "/" + item["VirtualDirectory"];
                                 caminho = caminho.Replace("'", "");
-                                sql += caminho + ", ";
+                                sql += objCon.valorSql(caminho) + ", ";
                             } else {
-                                caminho = objCon.valorSql(item["HostDest"] + "/") + ", ";
+                                caminho = item["HostDest"] + "/";
                                 caminho = caminho.Replace("'", "");
-                                sql += caminho + ", ";
+                                sql += objCon.valorSql(caminho) + ", ";
                             }
 
                             string[] rede = item["users"].ToString().Split('\\');
@@ -728,9 +728,9 @@ namespace Sentinella {
 
                         } else if (filtro["fonte"].ToString().Contains("EXE")) {
 
-                            caminho = objCon.valorSql(item["PATH"]);
+                            caminho = item["PATH"].ToString();
                             caminho = caminho.Replace("'", "");
-                            sql += caminho + ", ";
+                            sql += objCon.valorSql(caminho) + ", ";
 
                             string[] rede = item["user"].ToString().Split('\\');
                             if (rede.Length >= 2) {
@@ -873,6 +873,10 @@ namespace Sentinella {
 
                     frm5.Close();
 
+
+                    //atualizar grupos AD
+                    ad AD = new ad();
+                    AD.importarGruposAD();
 
                 }
                 return true;

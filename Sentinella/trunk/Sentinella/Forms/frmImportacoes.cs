@@ -251,21 +251,6 @@ namespace Sentinella.Forms {
         private void btnCancelar_Click(object sender, EventArgs e) {
             limparForm();
         }
-
-        private void button1_Click(object sender, EventArgs e) {
-            imp._importarGruposAD();
-        }
-
-        //private void btnTeste_Click(object sender, EventArgs e) {
-        //    List<int> listaUsuarios = new List<int>();
-        //    listaUsuarios.Add(2);
-        //    listaUsuarios.Add(3);
-        //    listaUsuarios.Add(4);
-        //    listaUsuarios.Add(5);
-        //    listaUsuarios.Add(6);
-
-
-        //    imp.distribuicaoVolFilaporUsuario(DateTime.Parse("2020-03-24 16:26:28"), listaUsuarios.ToArray());
-        //}
+               
     }
 }

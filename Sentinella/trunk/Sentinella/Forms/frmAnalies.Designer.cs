@@ -158,6 +158,9 @@
             this.label67 = new System.Windows.Forms.Label();
             this.dtpDataCriacaoLaudo = new System.Windows.Forms.DateTimePicker();
             this.label68 = new System.Windows.Forms.Label();
+            this.ltvAD = new System.Windows.Forms.ListView();
+            this.lbInfAdicionais = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
@@ -401,6 +404,9 @@
             // 
             // tbInfos
             // 
+            this.tbInfos.Controls.Add(this.label3);
+            this.tbInfos.Controls.Add(this.lbInfAdicionais);
+            this.tbInfos.Controls.Add(this.ltvAD);
             this.tbInfos.Controls.Add(this.lvInfoAdc);
             this.tbInfos.Location = new System.Drawing.Point(4, 25);
             this.tbInfos.Name = "tbInfos";
@@ -419,9 +425,9 @@
             this.lvInfoAdc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvInfoAdc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvInfoAdc.HideSelection = false;
-            this.lvInfoAdc.Location = new System.Drawing.Point(1, 6);
+            this.lvInfoAdc.Location = new System.Drawing.Point(2, 123);
             this.lvInfoAdc.Name = "lvInfoAdc";
-            this.lvInfoAdc.Size = new System.Drawing.Size(1271, 510);
+            this.lvInfoAdc.Size = new System.Drawing.Size(1271, 403);
             this.lvInfoAdc.TabIndex = 2;
             this.lvInfoAdc.UseCompatibleStateImageBehavior = false;
             this.lvInfoAdc.DoubleClick += new System.EventHandler(this.lvInfoAdc_DoubleClick);
@@ -1162,9 +1168,10 @@
             // 
             // txtTemaLaudo
             // 
+            this.txtTemaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTemaLaudo.Location = new System.Drawing.Point(195, 41);
             this.txtTemaLaudo.Name = "txtTemaLaudo";
-            this.txtTemaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtTemaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtTemaLaudo.TabIndex = 0;
             this.txtTemaLaudo.Tag = "Tema do Laudo";
             // 
@@ -1173,7 +1180,7 @@
             this.label73.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(947, 470);
+            this.label73.Location = new System.Drawing.Point(1029, 465);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(202, 13);
             this.label73.TabIndex = 92;
@@ -1181,9 +1188,10 @@
             // 
             // txtCargoLaudo
             // 
+            this.txtCargoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargoLaudo.Location = new System.Drawing.Point(195, 181);
             this.txtCargoLaudo.Name = "txtCargoLaudo";
-            this.txtCargoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtCargoLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtCargoLaudo.TabIndex = 5;
             this.txtCargoLaudo.Tag = "Cargo";
             // 
@@ -1199,9 +1207,10 @@
             // 
             // txtMatriculaLaudo
             // 
+            this.txtMatriculaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMatriculaLaudo.Location = new System.Drawing.Point(195, 207);
             this.txtMatriculaLaudo.Name = "txtMatriculaLaudo";
-            this.txtMatriculaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtMatriculaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtMatriculaLaudo.TabIndex = 6;
             this.txtMatriculaLaudo.Tag = "Matrícula";
             // 
@@ -1217,11 +1226,12 @@
             // 
             // dtpDataAdmissaoLaudo
             // 
+            this.dtpDataAdmissaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDataAdmissaoLaudo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDataAdmissaoLaudo.Location = new System.Drawing.Point(195, 156);
             this.dtpDataAdmissaoLaudo.Name = "dtpDataAdmissaoLaudo";
             this.dtpDataAdmissaoLaudo.ShowUpDown = true;
-            this.dtpDataAdmissaoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.dtpDataAdmissaoLaudo.Size = new System.Drawing.Size(288, 20);
             this.dtpDataAdmissaoLaudo.TabIndex = 4;
             this.dtpDataAdmissaoLaudo.Tag = "Data da Ocorrência";
             // 
@@ -1242,7 +1252,7 @@
             this.lvEvidenciasLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvEvidenciasLaudo.HideSelection = false;
-            this.lvEvidenciasLaudo.Location = new System.Drawing.Point(803, 255);
+            this.lvEvidenciasLaudo.Location = new System.Drawing.Point(885, 250);
             this.lvEvidenciasLaudo.Name = "lvEvidenciasLaudo";
             this.lvEvidenciasLaudo.Size = new System.Drawing.Size(346, 212);
             this.lvEvidenciasLaudo.TabIndex = 21;
@@ -1274,7 +1284,7 @@
             this.btnAdicionarEvidenciaLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAdicionarEvidenciaLaudo.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnAdicionarEvidenciaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdicionarEvidenciaLaudo.Location = new System.Drawing.Point(1069, 201);
+            this.btnAdicionarEvidenciaLaudo.Location = new System.Drawing.Point(1151, 196);
             this.btnAdicionarEvidenciaLaudo.Name = "btnAdicionarEvidenciaLaudo";
             this.btnAdicionarEvidenciaLaudo.Size = new System.Drawing.Size(77, 22);
             this.btnAdicionarEvidenciaLaudo.TabIndex = 20;
@@ -1286,7 +1296,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(800, 25);
+            this.label53.Location = new System.Drawing.Point(882, 20);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(142, 13);
             this.label53.TabIndex = 79;
@@ -1297,7 +1307,7 @@
             this.btnLocalizarImagemLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnLocalizarImagemLaudo.BackColor = System.Drawing.Color.LemonChiffon;
             this.btnLocalizarImagemLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLocalizarImagemLaudo.Location = new System.Drawing.Point(991, 201);
+            this.btnLocalizarImagemLaudo.Location = new System.Drawing.Point(1073, 196);
             this.btnLocalizarImagemLaudo.Name = "btnLocalizarImagemLaudo";
             this.btnLocalizarImagemLaudo.Size = new System.Drawing.Size(77, 22);
             this.btnLocalizarImagemLaudo.TabIndex = 19;
@@ -1309,7 +1319,7 @@
             // 
             this.label54.AutoSize = true;
             this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(798, 237);
+            this.label54.Location = new System.Drawing.Point(880, 232);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(122, 13);
             this.label54.TabIndex = 76;
@@ -1317,7 +1327,7 @@
             // 
             // txtResultadoAnaliseLaudo
             // 
-            this.txtResultadoAnaliseLaudo.Location = new System.Drawing.Point(422, 255);
+            this.txtResultadoAnaliseLaudo.Location = new System.Drawing.Point(504, 250);
             this.txtResultadoAnaliseLaudo.Multiline = true;
             this.txtResultadoAnaliseLaudo.Name = "txtResultadoAnaliseLaudo";
             this.txtResultadoAnaliseLaudo.Size = new System.Drawing.Size(363, 212);
@@ -1326,7 +1336,7 @@
             // 
             // txtSumarioExecutivoLaudo
             // 
-            this.txtSumarioExecutivoLaudo.Location = new System.Drawing.Point(422, 41);
+            this.txtSumarioExecutivoLaudo.Location = new System.Drawing.Point(504, 36);
             this.txtSumarioExecutivoLaudo.Multiline = true;
             this.txtSumarioExecutivoLaudo.Name = "txtSumarioExecutivoLaudo";
             this.txtSumarioExecutivoLaudo.Size = new System.Drawing.Size(363, 184);
@@ -1335,81 +1345,91 @@
             // 
             // txtAreaLaudo
             // 
+            this.txtAreaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAreaLaudo.Location = new System.Drawing.Point(195, 259);
             this.txtAreaLaudo.Name = "txtAreaLaudo";
-            this.txtAreaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtAreaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtAreaLaudo.TabIndex = 8;
             this.txtAreaLaudo.Tag = "Área";
             // 
             // txtIDFerramentaLaudo
             // 
+            this.txtIDFerramentaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIDFerramentaLaudo.Location = new System.Drawing.Point(195, 233);
             this.txtIDFerramentaLaudo.Name = "txtIDFerramentaLaudo";
-            this.txtIDFerramentaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtIDFerramentaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtIDFerramentaLaudo.TabIndex = 7;
             this.txtIDFerramentaLaudo.Tag = "ID na Ferramenta do Cliente";
             // 
             // txtProdutoLaudo
             // 
+            this.txtProdutoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtProdutoLaudo.Location = new System.Drawing.Point(195, 418);
             this.txtProdutoLaudo.Name = "txtProdutoLaudo";
-            this.txtProdutoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtProdutoLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtProdutoLaudo.TabIndex = 14;
             this.txtProdutoLaudo.Tag = "Produto";
             // 
             // txtCPFLaudo
             // 
+            this.txtCPFLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCPFLaudo.Location = new System.Drawing.Point(195, 130);
             this.txtCPFLaudo.Name = "txtCPFLaudo";
-            this.txtCPFLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtCPFLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtCPFLaudo.TabIndex = 3;
             this.txtCPFLaudo.Tag = "CPF";
             // 
             // txtNomeAnalistaLaudo
             // 
+            this.txtNomeAnalistaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNomeAnalistaLaudo.Location = new System.Drawing.Point(195, 104);
             this.txtNomeAnalistaLaudo.Name = "txtNomeAnalistaLaudo";
-            this.txtNomeAnalistaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtNomeAnalistaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtNomeAnalistaLaudo.TabIndex = 2;
             this.txtNomeAnalistaLaudo.Tag = "Nome do Analista";
             // 
             // txtDiretoriaLaudo
             // 
+            this.txtDiretoriaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDiretoriaLaudo.Location = new System.Drawing.Point(195, 391);
             this.txtDiretoriaLaudo.Name = "txtDiretoriaLaudo";
-            this.txtDiretoriaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtDiretoriaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtDiretoriaLaudo.TabIndex = 13;
             this.txtDiretoriaLaudo.Tag = "Diretoria";
             // 
             // txtGerenciaLaudo
             // 
+            this.txtGerenciaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGerenciaLaudo.Location = new System.Drawing.Point(195, 365);
             this.txtGerenciaLaudo.Name = "txtGerenciaLaudo";
-            this.txtGerenciaLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtGerenciaLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtGerenciaLaudo.TabIndex = 12;
             this.txtGerenciaLaudo.Tag = "Gerência";
             // 
             // txtCoordenacaoLaudo
             // 
+            this.txtCoordenacaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCoordenacaoLaudo.Location = new System.Drawing.Point(195, 339);
             this.txtCoordenacaoLaudo.Name = "txtCoordenacaoLaudo";
-            this.txtCoordenacaoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtCoordenacaoLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtCoordenacaoLaudo.TabIndex = 11;
             this.txtCoordenacaoLaudo.Tag = "Coordenação";
             // 
             // txtSupervisaoLaudo
             // 
+            this.txtSupervisaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSupervisaoLaudo.Location = new System.Drawing.Point(195, 313);
             this.txtSupervisaoLaudo.Name = "txtSupervisaoLaudo";
-            this.txtSupervisaoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtSupervisaoLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtSupervisaoLaudo.TabIndex = 10;
             this.txtSupervisaoLaudo.Tag = "Supervisão";
             // 
             // txtOperacaoLaudo
             // 
+            this.txtOperacaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOperacaoLaudo.Location = new System.Drawing.Point(195, 287);
             this.txtOperacaoLaudo.Name = "txtOperacaoLaudo";
-            this.txtOperacaoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.txtOperacaoLaudo.Size = new System.Drawing.Size(288, 20);
             this.txtOperacaoLaudo.TabIndex = 9;
             this.txtOperacaoLaudo.Tag = "Operação";
             // 
@@ -1417,7 +1437,7 @@
             // 
             this.txtEvidenciaLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEvidenciaLaudo.Location = new System.Drawing.Point(803, 41);
+            this.txtEvidenciaLaudo.Location = new System.Drawing.Point(885, 36);
             this.txtEvidenciaLaudo.Multiline = true;
             this.txtEvidenciaLaudo.Name = "txtEvidenciaLaudo";
             this.txtEvidenciaLaudo.Size = new System.Drawing.Size(346, 184);
@@ -1428,7 +1448,7 @@
             // 
             this.label55.AutoSize = true;
             this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label55.Location = new System.Drawing.Point(419, 239);
+            this.label55.Location = new System.Drawing.Point(501, 234);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(131, 13);
             this.label55.TabIndex = 73;
@@ -1438,7 +1458,7 @@
             // 
             this.label56.AutoSize = true;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(419, 25);
+            this.label56.Location = new System.Drawing.Point(501, 20);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(269, 13);
             this.label56.TabIndex = 71;
@@ -1476,11 +1496,12 @@
             // 
             // dtpDataOcorrencia
             // 
+            this.dtpDataOcorrencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDataOcorrencia.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDataOcorrencia.Location = new System.Drawing.Point(195, 70);
             this.dtpDataOcorrencia.Name = "dtpDataOcorrencia";
             this.dtpDataOcorrencia.ShowUpDown = true;
-            this.dtpDataOcorrencia.Size = new System.Drawing.Size(209, 23);
+            this.dtpDataOcorrencia.Size = new System.Drawing.Size(288, 20);
             this.dtpDataOcorrencia.TabIndex = 1;
             this.dtpDataOcorrencia.Tag = "Data da Ocorrência";
             // 
@@ -1566,11 +1587,12 @@
             // 
             // dtpDataCriacaoLaudo
             // 
+            this.dtpDataCriacaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDataCriacaoLaudo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDataCriacaoLaudo.Location = new System.Drawing.Point(195, 444);
             this.dtpDataCriacaoLaudo.Name = "dtpDataCriacaoLaudo";
             this.dtpDataCriacaoLaudo.ShowUpDown = true;
-            this.dtpDataCriacaoLaudo.Size = new System.Drawing.Size(209, 23);
+            this.dtpDataCriacaoLaudo.Size = new System.Drawing.Size(288, 20);
             this.dtpDataCriacaoLaudo.TabIndex = 15;
             this.dtpDataCriacaoLaudo.Tag = "Data de Criação do Laudo";
             // 
@@ -1583,6 +1605,40 @@
             this.label68.Size = new System.Drawing.Size(99, 13);
             this.label68.TabIndex = 45;
             this.label68.Text = "Tema do Laudo:";
+            // 
+            // ltvAD
+            // 
+            this.ltvAD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ltvAD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ltvAD.HideSelection = false;
+            this.ltvAD.Location = new System.Drawing.Point(2, 23);
+            this.ltvAD.Name = "ltvAD";
+            this.ltvAD.Size = new System.Drawing.Size(1271, 77);
+            this.ltvAD.TabIndex = 3;
+            this.ltvAD.UseCompatibleStateImageBehavior = false;
+            // 
+            // lbInfAdicionais
+            // 
+            this.lbInfAdicionais.AutoSize = true;
+            this.lbInfAdicionais.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInfAdicionais.ForeColor = System.Drawing.Color.DarkRed;
+            this.lbInfAdicionais.Location = new System.Drawing.Point(6, 103);
+            this.lbInfAdicionais.Name = "lbInfAdicionais";
+            this.lbInfAdicionais.Size = new System.Drawing.Size(196, 17);
+            this.lbInfAdicionais.TabIndex = 4;
+            this.lbInfAdicionais.Text = "Informações Adicionais - :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.DarkRed;
+            this.label3.Location = new System.Drawing.Point(6, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(297, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Grupos AD que o analista está incluído:";
             // 
             // frmAnalies
             // 
@@ -1605,6 +1661,7 @@
             this.tcDados.ResumeLayout(false);
             this.tbHistoricoTH.ResumeLayout(false);
             this.tbInfos.ResumeLayout(false);
+            this.tbInfos.PerformLayout();
             this.tbDadosCartao.ResumeLayout(false);
             this.tbDadosCartao.PerformLayout();
             this.tbManutencoes.ResumeLayout(false);
@@ -1747,5 +1804,8 @@
         private System.Windows.Forms.ListView lvHistoricoTH;
         private System.Windows.Forms.TabPage tbInfos;
         private System.Windows.Forms.ListView lvInfoAdc;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbInfAdicionais;
+        private System.Windows.Forms.ListView ltvAD;
     }
 }

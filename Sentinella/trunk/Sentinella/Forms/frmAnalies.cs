@@ -38,6 +38,8 @@ namespace Sentinella.Forms {
             lvEvidenciasLaudo.Columns.Add("Descrição Evidência:", 200, HorizontalAlignment.Left);
             lvEvidenciasLaudo.Columns.Add("Possui Imagem?", 150, HorizontalAlignment.Center);
             lvEvidenciasLaudo.Columns.Add("Endereço da Imagem:", 300, HorizontalAlignment.Left);
+
+            lbInfAdicionais.Text = "Informações Adicionais - : ";
         }
 
         private void frmAnalies_Load(object sender, System.EventArgs e) {
@@ -83,11 +85,14 @@ namespace Sentinella.Forms {
                         //Informações adicionais
                         dlp dlp = new dlp();
                         dlp.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()));
+                        lbInfAdicionais.Text = "Informações Adicionais - DPL: ";
                     } else if (cbxFila.Text.Contains("TAMNUN")) {
                         //Informações adicionais
                         tamnun tamnun = new tamnun();
                         tamnun.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()));
+                        lbInfAdicionais.Text = "Informações Adicionais - TAMNUN: ";
                     }
+
 
                     //Carregando os dados do Cartão, se BIN for diferente de 000000
                     if (cat.Bin != "000000") {
@@ -161,6 +166,10 @@ namespace Sentinella.Forms {
                         txtGerenciaLaudo.Text = d_th.gestor_3.ToString().Trim();
                         txtDiretoriaLaudo.Text = d_th.gestor_4.ToString().Trim();
                     }
+                                                         
+                    //carregando grupos AD se o mesmo tiver...
+                    ad AD = new ad();
+                    AD.CarregaListView(ltvAD, d_th.Nome_associado);
 
                     #endregion
                 }
@@ -214,6 +223,7 @@ namespace Sentinella.Forms {
                 limparForm();
                 cbxFila.Enabled = true;
                 btnIniciar.Enabled = true;
+                
             }
         }
 
