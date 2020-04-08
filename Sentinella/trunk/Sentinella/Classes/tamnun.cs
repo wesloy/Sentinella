@@ -105,7 +105,7 @@ namespace Sentinella {
             }
         }
 
-        public ListView CarregaListView(ListView lst, int _id) {
+        public ListView CarregaListView(ListView lst, int _id, ref string _nomeAssociadoTamnun) {
             try {
                 DataTable dt = new DataTable();
                 dt = _listarTodosRegistrosPorIDBase(_id);
@@ -143,6 +143,7 @@ namespace Sentinella {
                         item.ImageKey = "9";
                         lst.Items.Add(item);
 
+                        _nomeAssociadoTamnun = linha["nome_completo"].ToString();
                     }
                 }
                 return lst;

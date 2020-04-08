@@ -48,6 +48,9 @@
             this.tbHistoricoTH = new System.Windows.Forms.TabPage();
             this.lvHistoricoTH = new System.Windows.Forms.ListView();
             this.tbInfos = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lbInfAdicionais = new System.Windows.Forms.Label();
+            this.ltvAD = new System.Windows.Forms.ListView();
             this.lvInfoAdc = new System.Windows.Forms.ListView();
             this.tbDadosCartao = new System.Windows.Forms.TabPage();
             this.label51 = new System.Windows.Forms.Label();
@@ -158,9 +161,6 @@
             this.label67 = new System.Windows.Forms.Label();
             this.dtpDataCriacaoLaudo = new System.Windows.Forms.DateTimePicker();
             this.label68 = new System.Windows.Forms.Label();
-            this.ltvAD = new System.Windows.Forms.ListView();
-            this.lbInfAdicionais = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
@@ -416,6 +416,40 @@
             this.tbInfos.Text = "Inf. Adicionais";
             this.tbInfos.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.DarkRed;
+            this.label3.Location = new System.Drawing.Point(6, 3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(297, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Grupos AD que o analista está incluído:";
+            // 
+            // lbInfAdicionais
+            // 
+            this.lbInfAdicionais.AutoSize = true;
+            this.lbInfAdicionais.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbInfAdicionais.ForeColor = System.Drawing.Color.DarkRed;
+            this.lbInfAdicionais.Location = new System.Drawing.Point(6, 135);
+            this.lbInfAdicionais.Name = "lbInfAdicionais";
+            this.lbInfAdicionais.Size = new System.Drawing.Size(196, 17);
+            this.lbInfAdicionais.TabIndex = 4;
+            this.lbInfAdicionais.Text = "Informações Adicionais - :";
+            // 
+            // ltvAD
+            // 
+            this.ltvAD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ltvAD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ltvAD.HideSelection = false;
+            this.ltvAD.Location = new System.Drawing.Point(2, 23);
+            this.ltvAD.Name = "ltvAD";
+            this.ltvAD.Size = new System.Drawing.Size(1271, 109);
+            this.ltvAD.TabIndex = 3;
+            this.ltvAD.UseCompatibleStateImageBehavior = false;
+            // 
             // lvInfoAdc
             // 
             this.lvInfoAdc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -425,9 +459,9 @@
             this.lvInfoAdc.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvInfoAdc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvInfoAdc.HideSelection = false;
-            this.lvInfoAdc.Location = new System.Drawing.Point(2, 123);
+            this.lvInfoAdc.Location = new System.Drawing.Point(2, 155);
             this.lvInfoAdc.Name = "lvInfoAdc";
-            this.lvInfoAdc.Size = new System.Drawing.Size(1271, 403);
+            this.lvInfoAdc.Size = new System.Drawing.Size(1271, 371);
             this.lvInfoAdc.TabIndex = 2;
             this.lvInfoAdc.UseCompatibleStateImageBehavior = false;
             this.lvInfoAdc.DoubleClick += new System.EventHandler(this.lvInfoAdc_DoubleClick);
@@ -1605,40 +1639,6 @@
             this.label68.Size = new System.Drawing.Size(99, 13);
             this.label68.TabIndex = 45;
             this.label68.Text = "Tema do Laudo:";
-            // 
-            // ltvAD
-            // 
-            this.ltvAD.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ltvAD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ltvAD.HideSelection = false;
-            this.ltvAD.Location = new System.Drawing.Point(2, 23);
-            this.ltvAD.Name = "ltvAD";
-            this.ltvAD.Size = new System.Drawing.Size(1271, 77);
-            this.ltvAD.TabIndex = 3;
-            this.ltvAD.UseCompatibleStateImageBehavior = false;
-            // 
-            // lbInfAdicionais
-            // 
-            this.lbInfAdicionais.AutoSize = true;
-            this.lbInfAdicionais.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbInfAdicionais.ForeColor = System.Drawing.Color.DarkRed;
-            this.lbInfAdicionais.Location = new System.Drawing.Point(6, 103);
-            this.lbInfAdicionais.Name = "lbInfAdicionais";
-            this.lbInfAdicionais.Size = new System.Drawing.Size(196, 17);
-            this.lbInfAdicionais.TabIndex = 4;
-            this.lbInfAdicionais.Text = "Informações Adicionais - :";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.DarkRed;
-            this.label3.Location = new System.Drawing.Point(6, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(297, 17);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Grupos AD que o analista está incluído:";
             // 
             // frmAnalies
             // 

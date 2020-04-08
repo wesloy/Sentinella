@@ -876,10 +876,12 @@ namespace Sentinella
         {
             try
             {
+                // retirando os zeros a esquerda para testar as duas formas de busca, visto falta de padrão CSC
+                long cpf_sem_zeros_esq = long.Parse(_cpf);
 
                 if (_cpf != "") {
                     sql = "Select * from w_funcionarios_historico Where 1 = 1 ";
-                    sql += "and Cpf like '%" + _cpf + "%' ";
+                    sql += "and (Cpf like '%" + _cpf + "%' or Cpf like '%" + cpf_sem_zeros_esq.ToString() + "%') ";
                     sql += "Order by id desc ";
                     return objCon.retornaDataTable(sql);
                 }

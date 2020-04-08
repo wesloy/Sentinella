@@ -25,6 +25,7 @@ namespace Sentinella.Forms {
             lvFaturas.Clear();
             lvHistoricoTH.Clear();
             lvInfoAdc.Clear();
+            ltvAD.Clear();
 
             //criando colunas do listView de evidências            
             lvEvidenciasLaudo.Clear();
@@ -50,6 +51,8 @@ namespace Sentinella.Forms {
         }
 
         private void btnIniciar_Click(object sender, System.EventArgs e) {
+
+            string nomeAssociadoTamnun = "";
 
             if (cbxFila.Text == "NÃO SE APLICA") {
                 return;
@@ -89,7 +92,7 @@ namespace Sentinella.Forms {
                     } else if (cbxFila.Text.Contains("TAMNUN")) {
                         //Informações adicionais
                         tamnun tamnun = new tamnun();
-                        tamnun.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()));
+                        tamnun.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()), ref nomeAssociadoTamnun);
                         lbInfAdicionais.Text = "Informações Adicionais - TAMNUN: ";
                     }
 
@@ -169,7 +172,12 @@ namespace Sentinella.Forms {
                                                          
                     //carregando grupos AD se o mesmo tiver...
                     ad AD = new ad();
-                    AD.CarregaListView(ltvAD, d_th.Nome_associado);
+                    if (d_th.Nome_associado != null) {
+                        AD.CarregaListView(ltvAD, d_th.Nome_associado);
+                    } else {
+                        AD.CarregaListView(ltvAD, nomeAssociadoTamnun);
+                    }
+                    
 
                     #endregion
                 }

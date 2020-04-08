@@ -342,6 +342,19 @@
     <Content Include="qrys\queryCA.sql" />
     <Content Include="qrys\querysObjetivos.sql" />
     <Content Include="qrys\sinergy.sql" />
+    <Content Include="qrys\tamnun\Administradores.sql" />
+    <Content Include="qrys\tamnun\Compartilhamento.sql" />
+    <Content Include="qrys\tamnun\Connections.sql" />
+    <Content Include="qrys\tamnun\CPU.sql" />
+    <Content Include="qrys\tamnun\DispositivosMoveis.sql" />
+    <Content Include="qrys\tamnun\Hardware.sql" />
+    <Content Include="qrys\tamnun\importacao_tamnun.sql" />
+    <Content Include="qrys\tamnun\Inventario_Software.sql" />
+    <Content Include="qrys\tamnun\MáquinasMonitoradas.sql" />
+    <Content Include="qrys\tamnun\Processos.sql" />
+    <Content Include="qrys\tamnun\Services.sql" />
+    <Content Include="qrys\tamnun\SistemaOperacional.sql" />
+    <Content Include="qrys\tamnun\Url.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

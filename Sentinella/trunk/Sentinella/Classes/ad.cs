@@ -138,8 +138,10 @@ namespace Sentinella {
         private DataTable _listarTodosRegistrosPorIDBase(string _nomeAssociado) {
 
             try {
+                //buscar todos com o primeiro nome igual
+                string[] nomes = _nomeAssociado.Split(' ');
                 sql = "select l.nome_associado, l.grupo, d.descricoes from w_AD_grupos_lista_associados l inner join w_AD_grupos_descricoes d on l.grupo = d.grupo " +
-                        "where l.nome_associado like '%" + _nomeAssociado + "%' and l.ativo = 1 " +
+                        "where l.nome_associado like '" + nomes[0] + "%' and l.ativo = 1 " +
                         "group by l.grupo, l.nome_associado, d.descricoes, l.nome_associado";
                 return objCon.retornaDataTable(sql);
             }
@@ -187,7 +189,7 @@ namespace Sentinella {
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
-                        item.Text = hlp.retornaDataTextBox(linha["nome_associado"].ToString());
+                        item.Text = linha["nome_associado"].ToString();
                         item.SubItems.Add(linha["grupo"].ToString());
                         item.SubItems.Add(linha["descricoes"].ToString());
                         item.ImageKey = "11";
