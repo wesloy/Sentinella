@@ -654,6 +654,7 @@ namespace Sentinella {
                                 "and prod not like '%Citrix%'" +
                                 "and prod not like '%Internet Explorer%'" +
                                 "and prod not like '%Google Chrome%'" +
+                                "and prod not like '%Explorer GUI Classes 3.0%'" +
                                 "and prod not like '%Lenovo%'";
                 dt_t_process = objCon.retornaDataTable(sql);
                 frm.atualizarBarra(3);
@@ -838,7 +839,7 @@ namespace Sentinella {
                                                                 DateTime.Parse(ln["data_registro"].ToString()),
                                                                 int.Parse(ln["id_fila_trabalho"].ToString()),
                                                                 dtHora,
-                                                                0,
+                                                                12,
                                                                 int.Parse(ln["id"].ToString()));
 
                             if (!_valorDuplicado(imp, false, true, false)) { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho
@@ -864,7 +865,8 @@ namespace Sentinella {
 
                     //atualizar id da tbl w_base na tbl w_tamnun_base, para futura captura dos detalhes dos registros para trabalho do analista
                     sql = "Update t set ";
-                    sql += "t.id_tbl_trabalho = b.id ";
+                    sql += "t.id_tbl_trabalho = b.id, ";
+                    sql += "t.id_fila_trabalho = b.fila_id ";
                     sql += "from w_base b inner join w_tamnun_base t on b.cpf = t.cpf left join w_sysFilas f on b.fila_id = f.id ";
                     sql += "where t.id_tbl_trabalho = 0 and f.grupo = 'TAMNUN' ";
                     sql += "and b.status_id = 0 and id_Abertura = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";

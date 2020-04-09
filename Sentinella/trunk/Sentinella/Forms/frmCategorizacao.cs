@@ -116,6 +116,11 @@ namespace Sentinella.Forms
                 dlp.finalizarRegistrosTrabalho(id);
             }
 
+            if (filaId == 12) { //transferindo informações para tabela TAMNUN
+                tamnun t = new tamnun();
+                t.finalizarRegistrosTrabalho(id);
+            }
+
             Constantes.finalizacaoOkay = finalizadoRegistro;
             hlp.fecharForm(this);
         }
