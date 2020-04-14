@@ -628,7 +628,7 @@ namespace Sentinella {
 
                 //carregar os últimos 7 dias da base Tamnun URL
                 DataTable dt_t_url = new DataTable();
-                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-16,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
                                     "and HostDest not like '%algar%' " +
                                     "and HostDest not like '%sinergy%' " +
                                     "and HostDest not like '%serviceview%' " +
@@ -639,7 +639,7 @@ namespace Sentinella {
 
                 //carregar os últimos 7 dias da base Tamnun PROCESSOS
                 DataTable dt_t_process = new DataTable();
-                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv where Date Between FORMAT(DATEADD(day,-10,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv where Date Between FORMAT(DATEADD(day,-8,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
                                 "and prod not like '%Trend%' " +
                                 "and prod not like '%OfficeScan%' " +
                                 "and prod not like '%Microsoft%' " +
@@ -768,26 +768,31 @@ namespace Sentinella {
 
                 // ----------Atualizando cpfs dos casos importados com tabela AD-----------------
                 //Chave: Usuário de rede
-                sql = "Update tamnun set " + 
-                        "cpf = ad.Cod_cpf, " +
-                        "nome_completo = ad.Nom_Usuario, " +
-                        "matricula = ad.Cod_Matricula " +
-                        "from db_Sentinella.dbo.w_tamnun_base tamnun inner " +
-                        "join db_ControleAD.dbo.Tbl_UsuariosAD ad " +
-                        "on tamnun.id_rede = ad.Nom_login collate Latin1_General_CI_AS " +
-                        "where tamnun.matricula is null  ";
+                sql = "Update tamnun set ";
+                sql += "cpf = ad.Cod_cpf, ";
+                sql += "nome_completo = ad.Nom_Usuario, ";
+                sql += "matricula = h.matricula ";
+                sql += "from db_Sentinella.dbo.w_tamnun_base tamnun inner join db_ControleAD.dbo.Tbl_UsuariosAD ad ";
+                sql += "on tamnun.id_rede = ad.Nom_login collate Latin1_General_CI_AS ";
+                sql += "left join ";
+                sql += "(select top 1 w.matricula, w.cpf ";
+                sql += "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join db_Sentinella.dbo.w_funcionarios_historico w ";
+                sql += "on w.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                sql += "order by w.dataAtualizacao Desc) as h "; //selecionando apenas a ultima importação do CPF na base funcionários histórico
+                sql += "on h.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
                 objCon.executaQuery(sql, ref retorno);
                 frm3.atualizarBarra(1);
 
                 // ----------Atualizando cpfs dos casos importados com tabela AD-----------------
                 //Chave: Matrícula
-                sql = "Update t set " +
-                        "t.cpf = ad.Cod_CPF, " +
-                        "t.nome_completo = ad.Nom_Usuario, " +
-                        "t.matricula = ad.Cod_Matricula " +
-                        "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join w_tamnun_base t on replace(t.id_rede, 'a', '') = ad.Cod_Matricula collate Latin1_General_CI_AS " +
-                        "where t.dominio <> 'ACS' " +
-                        "and t.matricula is null";
+                sql = "Update tamnun set ";
+                sql += "cpf = f.cpf, ";
+                sql += "nome_completo = f.nome_associado, ";
+                sql += "matricula = replace(tamnun.id_rede,'a','') ";
+                sql += "from db_Sentinella.dbo.w_tamnun_base tamnun ";
+                sql += "left join w_funcionarios_historico f ";
+                sql += "on replace(tamnun.id_rede,'a','') = f.matricula ";
+                sql += "where tamnun.dominio <> 'ACS'";
                 objCon.executaQuery(sql, ref retorno);
                 frm3.atualizarBarra(2);
 
@@ -832,9 +837,9 @@ namespace Sentinella {
                                                                 "000000",
                                                                 ln["CPF"].ToString(),
                                                                 DateTime.Parse(ln["data_registro"].ToString()),
-                                                                12,
+                                                                int.Parse(ln["id_fila_trabalho"].ToString()),
                                                                 dtHora,
-                                                                0,
+                                                                12,
                                                                 int.Parse(ln["id"].ToString()));
 
                             if (!_valorDuplicado(imp, false, true, false)) { //validação de status não é preciso, pq depende da data de corte, ciclos diferentes sobe para trabalho

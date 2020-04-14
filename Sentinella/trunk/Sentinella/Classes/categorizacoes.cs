@@ -692,6 +692,7 @@ namespace Sentinella
                     //percorrendo uma lista de registros para conseguir bloquear 1 para trabalho
                     DataTable dt = new DataTable();
                     int id_bloqueado;
+                     
 
                     sql = "Select * from w_base where fila_id = " + objCon.valorSql(fila_id) + " and status_id = 0";
                     dt = objCon.retornaDataTable(sql);
@@ -699,6 +700,9 @@ namespace Sentinella
                     {
                         foreach (DataRow ln in dt.Rows)
                         {
+
+
+                            //Usando o ID atual para bloquear o registro para trabalho
                             id_bloqueado = int.Parse(ln["id"].ToString());
                             sql = "Update w_base set ";
                             sql += "status_id = 1, ";
@@ -706,12 +710,52 @@ namespace Sentinella
                             sql += "hora_Inicial =  " + objCon.valorSql(hlp.dataHoraAtual()) + " ";
                             sql += "where 1 = 1 ";
                             sql += "and status_id = 0 ";
-                            sql += "and id = " + objCon.valorSql(id_bloqueado) + " ";
+                            sql += "and id = " + objCon.valorSql(id_bloqueado) + " ";                            
                             validacao = objCon.executaQuery(sql, ref retorno);
+
+                            //se o bloqueio do registro foi possível, validar se a qtde de registros trabalhado pelo analista já atingiu a proporção distribuiada para o mesmo
+                            //caso não tenha atingido, retornar com o registro
+                            //caso tenha atingido, testar outros registros, pois pode haver uma outra importação, na qual o analista tenha cota de registros para trabalhar
                             if (retorno > 0)
                             {
+                                
                                 registro = _capturarRegistroPorID(id_bloqueado);
-                                break;
+
+                                if (registro != null) {
+
+                                    //verificando se existe volume disponível para trabalhar
+                                    sql = "Select z.id,z.data_Hora,z.fila_id,z.qtde_registros,z.id_usuario, iif(z.vol_trabalhado is null,0,z.vol_trabalhado) as VolTrab from ( ";
+                                    sql += "select * from w_sysUsuariosVolParaTrabalho vt left join ";
+                                    sql += "(Select fila_id as fila, idCat, count(status_id) as vol_trabalhado, data_Abertura from w_base ";
+                                    sql += "where status_id = 3 and data_Abertura = " + objCon.valorSql(registro.Data_Abertura) + " and idCat = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
+                                    sql += "group by fila_id, idCat, data_Abertura) b ";
+                                    sql += "on vt.data_Hora = b.data_Abertura and vt.fila_id = b.fila ) as z ";
+                                    sql += "where z.id_usuario = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
+                                    sql += "and fila_id = " + objCon.valorSql(registro.Fila_id) + " ";
+                                    sql += "and data_Hora = " + objCon.valorSql(registro.Data_Abertura) + " ";
+                                    DataTable dt_loc = new DataTable();
+                                    dt_loc = objCon.retornaDataTable(sql);
+                                    if (dt_loc.Rows.Count > 0) {
+                                        foreach (DataRow item in dt_loc.Rows) {
+                                            if (int.Parse(item["qtde_registros"].ToString()) == int.Parse(item["VolTrab"].ToString())) {
+
+                                                //Liberar o registro para outro analista
+                                                liberarRegistro(registro.Id);
+                                                registro = null;
+                                                
+                                            } else {
+                                                //Retorno com registro locado
+                                                return true;
+                                            }
+
+                                        }
+                                    } else {
+                                        //Liberar o registro para outro analista
+                                        liberarRegistro(registro.Id);
+                                        registro = null;                                        
+                                    }
+
+                                }
                             }
 
                         }
@@ -721,6 +765,7 @@ namespace Sentinella
                     {
                         id_bloqueado = 0;
                         registro = null;
+                        return false;
                     }
                 }
 
