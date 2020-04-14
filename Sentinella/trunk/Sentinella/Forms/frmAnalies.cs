@@ -54,6 +54,8 @@ namespace Sentinella.Forms {
 
             string nomeAssociadoTamnun = "";
 
+
+
             if (cbxFila.Text == "NÃO SE APLICA") {
                 return;
             }
@@ -61,6 +63,9 @@ namespace Sentinella.Forms {
             //Validando se o campos obrigatórios foram preenchidos
             if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxFila")) {
                 string ultMatricula = ""; // capturar a última matrícula do cpf do registro
+
+                Cursor c = Cursors.WaitCursor;
+
                 //Capturando registro para trabalho
                 categorizacoes cat = new categorizacoes(); //biblioteca para captura e finalização de casos        
                 cat.bloquearRegistro(int.Parse(cbxFila.SelectedValue.ToString()), ref cat);
@@ -181,6 +186,8 @@ namespace Sentinella.Forms {
 
                     #endregion
                 }
+                
+                c = Cursors.Default;
 
             }
         }

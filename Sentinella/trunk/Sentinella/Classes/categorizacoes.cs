@@ -751,7 +751,7 @@ namespace Sentinella
                                         }
                                     } else {
                                         //Liberar o registro para outro analista
-                                        liberarRegistro(registro.Id);
+                                        liberarRegistro(id_bloqueado);
                                         registro = null;                                        
                                     }
 
@@ -769,7 +769,8 @@ namespace Sentinella
                     }
                 }
 
-                //retorno
+                //Confirmação de registro locado corretamente para casos de filas 
+                //E validação de registro para casos de busca por um ID específico
                 if (registro == null) { return false; }
                 else
                 {
