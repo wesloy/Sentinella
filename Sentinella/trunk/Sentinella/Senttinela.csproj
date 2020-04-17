@@ -337,11 +337,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="11.ico" />
-    <Content Include="qrys\abrirProducaoTrilhasSGI.sql" />
+    <Content Include="qrys\AD\qrys_BD_adaptacoes_SI.sql" />
+    <Content Include="qrys\Sinergy\abrirProducaoTrilhasSGI.sql" />
     <Content Include="qrys\buscarTodasTabelasPorCPF.sql" />
-    <Content Include="qrys\queryCA.sql" />
+    <Content Include="qrys\CA\tickets_Geral.sql" />
+    <Content Include="qrys\CA\tickets_SI.sql" />
     <Content Include="qrys\querysObjetivos.sql" />
-    <Content Include="qrys\sinergy.sql" />
+    <Content Include="qrys\Sinergy\sinergy.sql" />
     <Content Include="qrys\tamnun\Administradores.sql" />
     <Content Include="qrys\tamnun\Compartilhamento.sql" />
     <Content Include="qrys\tamnun\Connections.sql" />

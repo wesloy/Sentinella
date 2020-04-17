@@ -628,7 +628,7 @@ namespace Sentinella {
 
                 //carregar os últimos 7 dias da base Tamnun URL
                 DataTable dt_t_url = new DataTable();
-                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-16,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-10,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
                                     "and HostDest not like '%algar%' " +
                                     "and HostDest not like '%sinergy%' " +
                                     "and HostDest not like '%serviceview%' " +
