@@ -615,7 +615,7 @@ namespace Sentinella {
             try {
 
                 //carregar form Barra de Progresso de preparação dos dados
-                frmProgressBar frm = new frmProgressBar(3);
+                frmProgressBar frm = new frmProgressBar(4);
                 frm.atualizarBarra(0);
                 frm.Show();
 

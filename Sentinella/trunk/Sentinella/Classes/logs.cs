@@ -178,7 +178,7 @@ namespace Sentinella {
                 sql += objCon.valorSql(obj.Data) + ", ";
                 sql += objCon.valorSql(obj.IdRede) + ", ";
                 sql += objCon.valorSql(obj.IdFerramenta) + ", ";
-                sql += objCon.valorSql(obj.Log) + ", ";
+                sql += objCon.valorSql(hlp.removerCharEspecial(hlp.RemoverSimbolos(obj.Log))) + ", ";
                 sql += objCon.valorSql(obj.FuncaoExecutada) + ", ";
                 sql += objCon.valorSql(obj.VersaoSistema) + ", ";
                 sql += objCon.valorSql(obj.Idioma) + ", ";

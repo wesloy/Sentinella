@@ -338,12 +338,14 @@
   <ItemGroup>
     <Content Include="11.ico" />
     <Content Include="qrys\AD\qrys_BD_adaptacoes_SI.sql" />
+    <Content Include="qrys\CA\queryCA.sql" />
     <Content Include="qrys\Sinergy\abrirProducaoTrilhasSGI.sql" />
     <Content Include="qrys\buscarTodasTabelasPorCPF.sql" />
     <Content Include="qrys\CA\tickets_Geral.sql" />
     <Content Include="qrys\CA\tickets_SI.sql" />
     <Content Include="qrys\querysObjetivos.sql" />
     <Content Include="qrys\Sinergy\sinergy.sql" />
+    <Content Include="qrys\tamnun\tamnun.sql" />
     <Content Include="qrys\tamnun\Administradores.sql" />
     <Content Include="qrys\tamnun\Compartilhamento.sql" />
     <Content Include="qrys\tamnun\Connections.sql" />
@@ -357,6 +359,8 @@
     <Content Include="qrys\tamnun\Services.sql" />
     <Content Include="qrys\tamnun\SistemaOperacional.sql" />
     <Content Include="qrys\tamnun\Url.sql" />
+    <Content Include="qrys\tamnun\Volumes_URLs.sql" />
+    <Content Include="qrys\Vol_Entrante_X_Vol_Trabalhado.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

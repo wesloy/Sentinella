@@ -93,9 +93,16 @@ namespace Sentinella.Forms {
                 if (item.Checked) {
                     email.Mensagem += item.SubItems[1].Text + "<br />";
                     email.Mensagem += item.SubItems[2].Text + "<br />";
-                    email.Mensagem += "Percentual concluíddo: " + item.SubItems[4].Text + "% <br />";
-                    email.Mensagem += "Supervisão: " + item.SubItems[5].Text + "<br />";
-                    email.Mensagem += "Coordenação: " + item.SubItems[6].Text + "<br /><br />";
+                    email.Mensagem += "Percentual concluído: " + item.SubItems[5].Text + "% <br />";
+
+                    if (int.Parse(item.SubItems[4].Text) < 0) {
+                        email.Mensagem += "Período de conclusão vencido: " + int.Parse(item.SubItems[4].Text) *-1 + " dias. <br />";
+                    } else {
+                        email.Mensagem += "Período de conclusão irá vencer: " + item.SubItems[4].Text + " dias. <br />";
+                    }
+                    
+                    email.Mensagem += "Supervisão: " + item.SubItems[10].Text + "<br />";
+                    email.Mensagem += "Coordenação: " + item.SubItems[11].Text + "<br /><br />";
                 }
             }
 
@@ -126,7 +133,7 @@ namespace Sentinella.Forms {
             //email.Anexos = listaAnexos;
 
             //Assinatura
-            email.Mensagem += "Coordenação de Segurança da Informação e Complince Algar Tech! <br />";
+            email.Mensagem += "Coordenação de Segurança da Informação e Compliance Algar Tech! <br />";
             email.Mensagem += "Dúvidas contatar: " + txtCCo;
 
 
@@ -135,7 +142,7 @@ namespace Sentinella.Forms {
                 //Finalizar registros
                 foreach (ListViewItem item in lvAssociados.Items) {
                     if (item.Checked) {
-                        trilhas.finalizarRegistro(int.Parse(item.SubItems[0].Text));
+                        trilhas.finalizarRegistro(int.Parse(item.SubItems[0].Text), txtEmailDestinatario.Text);
                     }
                 }
 
@@ -143,8 +150,8 @@ namespace Sentinella.Forms {
                 trilhas.liberarRegistros(false);
                 cbxCoordenador.Enabled = true;
                 lvAssociados.Clear();
+                hlp.limparCampos(pnlFiltros);
                 trilhas.preencherComboBoxCoordenadores(this, cbxCoordenador);
-
                 MessageBox.Show("E-mail enviado com sucesso!", "Envio de E-mail");
             } else {
                 MessageBox.Show("Falha no envio de E-mail!", "Envio de E-mail");

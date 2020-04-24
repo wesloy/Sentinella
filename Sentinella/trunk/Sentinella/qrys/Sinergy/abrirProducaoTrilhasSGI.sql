@@ -28,5 +28,5 @@ and (t.id is null or t.email_enviado = 1)
 group by c.des_turma, c.des_nome, c.cod_cpf 
 having sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) < 100 
 ) a  
-where a.data_demissao = '1900-01-01' 
+where a.data_demissao = '1900-01-01' or a.data_demissao is null
 
