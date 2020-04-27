@@ -61,13 +61,13 @@
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 57);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1240, 416);
+            this.pnlConteudo.Size = new System.Drawing.Size(1240, 469);
             this.pnlConteudo.TabIndex = 5;
             // 
             // lkDesmarcarTodos
             // 
             this.lkDesmarcarTodos.AutoSize = true;
-            this.lkDesmarcarTodos.Location = new System.Drawing.Point(409, 134);
+            this.lkDesmarcarTodos.Location = new System.Drawing.Point(409, 168);
             this.lkDesmarcarTodos.Name = "lkDesmarcarTodos";
             this.lkDesmarcarTodos.Size = new System.Drawing.Size(91, 13);
             this.lkDesmarcarTodos.TabIndex = 8;
@@ -78,7 +78,7 @@
             // lkMarcarTodos
             // 
             this.lkMarcarTodos.AutoSize = true;
-            this.lkMarcarTodos.Location = new System.Drawing.Point(330, 134);
+            this.lkMarcarTodos.Location = new System.Drawing.Point(330, 168);
             this.lkMarcarTodos.Name = "lkMarcarTodos";
             this.lkMarcarTodos.Size = new System.Drawing.Size(73, 13);
             this.lkMarcarTodos.TabIndex = 7;
@@ -89,7 +89,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 134);
+            this.label4.Location = new System.Drawing.Point(12, 168);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(311, 13);
             this.label4.TabIndex = 5;
@@ -102,7 +102,7 @@
             this.txtMensagem.Location = new System.Drawing.Point(12, 66);
             this.txtMensagem.Multiline = true;
             this.txtMensagem.Name = "txtMensagem";
-            this.txtMensagem.Size = new System.Drawing.Size(1216, 65);
+            this.txtMensagem.Size = new System.Drawing.Size(1216, 99);
             this.txtMensagem.TabIndex = 4;
             this.txtMensagem.Tag = "Mensagem";
             // 
@@ -138,9 +138,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvAssociados.HideSelection = false;
-            this.lvAssociados.Location = new System.Drawing.Point(12, 150);
+            this.lvAssociados.Location = new System.Drawing.Point(12, 184);
             this.lvAssociados.Name = "lvAssociados";
-            this.lvAssociados.Size = new System.Drawing.Size(1216, 245);
+            this.lvAssociados.Size = new System.Drawing.Size(1216, 264);
             this.lvAssociados.TabIndex = 0;
             this.lvAssociados.UseCompatibleStateImageBehavior = false;
             // 
@@ -196,9 +196,9 @@
             // btnIniciar
             // 
             this.btnIniciar.Image = ((System.Drawing.Image)(resources.GetObject("btnIniciar.Image")));
-            this.btnIniciar.Location = new System.Drawing.Point(354, 9);
+            this.btnIniciar.Location = new System.Drawing.Point(341, 9);
             this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(90, 40);
+            this.btnIniciar.Size = new System.Drawing.Size(103, 40);
             this.btnIniciar.TabIndex = 2;
             this.btnIniciar.Text = "&Iniciar";
             this.btnIniciar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -213,7 +213,7 @@
             this.pnlBotoes.Controls.Add(this.btnCancelar);
             this.pnlBotoes.Controls.Add(this.btnEnviar);
             this.pnlBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBotoes.Location = new System.Drawing.Point(0, 473);
+            this.pnlBotoes.Location = new System.Drawing.Point(0, 526);
             this.pnlBotoes.Name = "pnlBotoes";
             this.pnlBotoes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.pnlBotoes.Size = new System.Drawing.Size(1240, 57);
@@ -261,7 +261,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 530);
+            this.ClientSize = new System.Drawing.Size(1240, 583);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.pnlFiltros);
             this.Controls.Add(this.pnlBotoes);

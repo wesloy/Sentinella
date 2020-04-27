@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sentinella.Forms {
@@ -14,34 +8,45 @@ namespace Sentinella.Forms {
         trilhasSGI trilhas = new trilhasSGI();
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
 
+
+        private void limpezaForm() {
+            cbxCoordenador.Enabled = true;
+            lvAssociados.Clear();
+            hlp.limparCampos(pnlFiltros);
+            hlp.limparCampos(pnlConteudo);
+            trilhas.preencherComboBoxCoordenadores(this, cbxCoordenador);
+
+            txtMensagem.Text = "Caro gestor, bom dia!" + Environment.NewLine + 
+            "Os associados abaixo, não realizaram os treinamentos anuais mandatórios da Algar Tech localizados dentro da Trilha SGI, sendo eles: Segurança da Informação, Código de Conduta e Sistema de Gestão Ambiental." + Environment.NewLine +
+            "Portanto, solicitamos seu apoio para que os cursos sejam realizados e evitemos os bloqueios nos usuários do(a) associado(a)." + Environment.NewLine + Environment.NewLine +
+            "Contamos com seu suporte, dúvidas estamos à disposição!";
+
+        }
+
         public frmTrilhasSGI() {
             InitializeComponent();
         }
 
 
         private void frmTrilhasSGI_Load(object sender, EventArgs e) {
-            trilhas.preencherComboBoxCoordenadores(this, cbxCoordenador);
-
+            limpezaForm();
         }
 
         private void btnIniciar_Click(object sender, EventArgs e) {
             cbxCoordenador.Enabled = false;
 
-            if (hlp.validaCamposObrigatorios(pnlFiltros,"cbxCoordenador")) {
+            if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxCoordenador")) {
                 trilhas.preencherListViewAssociados(lvAssociados, cbxCoordenador.Text);
             }
-            
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e) {
-            
+
             if (trilhas.liberarRegistros()) {
-                cbxCoordenador.Enabled = true;
-                lvAssociados.Clear();
-                trilhas.preencherComboBoxCoordenadores(this, cbxCoordenador);
+                limpezaForm();
             }
             
-
         }
 
         private void btnImportar_Click(object sender, EventArgs e) {
@@ -85,7 +90,7 @@ namespace Sentinella.Forms {
             //envio pelo Dynamics e baixa do registro
             email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
 
-            email.Assunto = "Ref. aos treinamentos mandatórios obrigatórios - TRILHA SGI";
+            email.Assunto = "TREINAMENTOS MANDATÓRIOS - TRILHA SGI";
             email.Mensagem = txtMensagem.Text.Replace("\r\n", "<br />") + " <br /><br />";
             email.Mensagem += "Lista de associados com pendência: <br /><br />";
 
@@ -96,11 +101,11 @@ namespace Sentinella.Forms {
                     email.Mensagem += "Percentual concluído: " + item.SubItems[5].Text + "% <br />";
 
                     if (int.Parse(item.SubItems[4].Text) < 0) {
-                        email.Mensagem += "Período de conclusão vencido: " + int.Parse(item.SubItems[4].Text) *-1 + " dias. <br />";
+                        email.Mensagem += "Período de conclusão vencido: " + int.Parse(item.SubItems[4].Text) * -1 + " dia(s). <br />";
                     } else {
-                        email.Mensagem += "Período de conclusão irá vencer: " + item.SubItems[4].Text + " dias. <br />";
+                        email.Mensagem += "Período de conclusão irá vencer: " + item.SubItems[4].Text + " dia(s). <br />";
                     }
-                    
+
                     email.Mensagem += "Supervisão: " + item.SubItems[10].Text + "<br />";
                     email.Mensagem += "Coordenação: " + item.SubItems[11].Text + "<br /><br />";
                 }
@@ -114,7 +119,7 @@ namespace Sentinella.Forms {
             email.Para = para;
 
             //CC
-            string txtCC = "si@algartech.com";
+            string txtCC = "marianesg@algartech.com;deborahvhw@algartech.com;nataliadda@algartech.com;isabelladab@algartech.com;mayraneapl@algartech.com;wesleyel@algartech.com";
             List<string> cc = new List<string>();
             string[] _cc = txtCC.Split(';');
             foreach (var item in _cc) { cc.Add(item); }
@@ -148,10 +153,7 @@ namespace Sentinella.Forms {
 
                 //liberando registros que podem não ter sido selecionados para envio e limpando o formulário
                 trilhas.liberarRegistros(false);
-                cbxCoordenador.Enabled = true;
-                lvAssociados.Clear();
-                hlp.limparCampos(pnlFiltros);
-                trilhas.preencherComboBoxCoordenadores(this, cbxCoordenador);
+                limpezaForm();
                 MessageBox.Show("E-mail enviado com sucesso!", "Envio de E-mail");
             } else {
                 MessageBox.Show("Falha no envio de E-mail!", "Envio de E-mail");
