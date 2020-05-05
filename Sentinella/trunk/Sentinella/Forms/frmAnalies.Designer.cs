@@ -161,6 +161,8 @@
             this.label67 = new System.Windows.Forms.Label();
             this.dtpDataCriacaoLaudo = new System.Windows.Forms.DateTimePicker();
             this.label68 = new System.Windows.Forms.Label();
+            this.tbHistoricoSentinella = new System.Windows.Forms.TabPage();
+            this.lvHistoricoSentinella = new System.Windows.Forms.ListView();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
@@ -171,6 +173,7 @@
             this.tbManutencoes.SuspendLayout();
             this.tbFaturas.SuspendLayout();
             this.tbLaudo.SuspendLayout();
+            this.tbHistoricoSentinella.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBotoes
@@ -362,6 +365,7 @@
             this.tcDados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tcDados.Controls.Add(this.tbHistoricoSentinella);
             this.tcDados.Controls.Add(this.tbHistoricoTH);
             this.tcDados.Controls.Add(this.tbInfos);
             this.tcDados.Controls.Add(this.tbDadosCartao);
@@ -1640,6 +1644,32 @@
             this.label68.TabIndex = 45;
             this.label68.Text = "Tema do Laudo:";
             // 
+            // tbHistoricoSentinella
+            // 
+            this.tbHistoricoSentinella.Controls.Add(this.lvHistoricoSentinella);
+            this.tbHistoricoSentinella.Location = new System.Drawing.Point(4, 25);
+            this.tbHistoricoSentinella.Name = "tbHistoricoSentinella";
+            this.tbHistoricoSentinella.Padding = new System.Windows.Forms.Padding(3);
+            this.tbHistoricoSentinella.Size = new System.Drawing.Size(1273, 526);
+            this.tbHistoricoSentinella.TabIndex = 7;
+            this.tbHistoricoSentinella.Text = "Histórico Sentinella";
+            this.tbHistoricoSentinella.UseVisualStyleBackColor = true;
+            // 
+            // lvHistoricoSentinella
+            // 
+            this.lvHistoricoSentinella.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvHistoricoSentinella.BackColor = System.Drawing.Color.White;
+            this.lvHistoricoSentinella.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvHistoricoSentinella.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvHistoricoSentinella.HideSelection = false;
+            this.lvHistoricoSentinella.Location = new System.Drawing.Point(1, 2);
+            this.lvHistoricoSentinella.Name = "lvHistoricoSentinella";
+            this.lvHistoricoSentinella.Size = new System.Drawing.Size(1271, 523);
+            this.lvHistoricoSentinella.TabIndex = 3;
+            this.lvHistoricoSentinella.UseCompatibleStateImageBehavior = false;
+            // 
             // frmAnalies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1669,6 +1699,7 @@
             this.tbFaturas.PerformLayout();
             this.tbLaudo.ResumeLayout(false);
             this.tbLaudo.PerformLayout();
+            this.tbHistoricoSentinella.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1807,5 +1838,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbInfAdicionais;
         private System.Windows.Forms.ListView ltvAD;
+        private System.Windows.Forms.TabPage tbHistoricoSentinella;
+        private System.Windows.Forms.ListView lvHistoricoSentinella;
     }
 }

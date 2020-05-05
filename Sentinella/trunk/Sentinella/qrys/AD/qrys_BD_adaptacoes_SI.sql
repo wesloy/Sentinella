@@ -79,3 +79,37 @@ INTO #TMP_Terceiro_Falha
   where Cod_TicketCriacao = ''
 
 
+
+------------------------------------------------------------------------
+--Qry para capturar FICHA DE RISCO - Criação X Ticket
+------------------------------------------------------------------------
+DECLARE @dataInicial varchar(10) = '2020-04-01'
+DECLARE @dataFinal varchar(10) = '2020-04-30'
+
+  
+ -- Busca Associados Brasil
+select 'Associado BR' as Tipo, *  
+from db_ControleAD.dbo.Vw_UsrAD_Associados 
+where format(Dat_Criacao,'yyyy-MM-dd') between @dataInicial and @dataFinal
+
+union all 
+
+  -- Busca associados Latam
+ select 'Associado Latam' as Tipo, *  
+ from db_ControleAD.dbo.Vw_UsrAD_AssociadosLatam 
+where format(Dat_Criacao,'yyyy-MM-dd') between @dataInicial and @dataFinal
+
+union all 
+
+  -- Busca contas de serviço
+select 'Conta Serviço' as Tipo, *  
+from db_ControleAD.dbo.Vw_UsrAD_ContasServico 
+where format(Dat_Criacao,'yyyy-MM-dd') between @dataInicial and @dataFinal
+
+union all 
+
+  -- Busca contas de Terceiros
+select 'Terceiro' as Tipo, *  
+from db_ControleAD.dbo.Vw_UsrAD_Terceiros 
+where format(Dat_Criacao,'yyyy-MM-dd') between @dataInicial and @dataFinal
+

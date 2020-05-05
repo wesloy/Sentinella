@@ -40,20 +40,101 @@ namespace Sentinella {
 
         #region Camada DAL - Dados
 
-        private bool _importarGruposAD() {
+        private bool _importarGruposAD(bool importacaoMensal = false) {
             try {
 
 
-                string diretorio = "H:\\TI CORPORATIVA\\07 - SGSI\\51 - SENTINELLA\\AD\\";
+                string diretorio = "";
+
+                //validando qual diretorio deve ser feita a importacao
+                if (!importacaoMensal) {
+
+                    //importação para fila TAMNUN
+                    diretorio = "H:\\TI CORPORATIVA\\07 - SGSI\\51 - SENTINELLA\\AD\\";
+                } else {
+
+                    //importação para validações Ficha de Risco - Alt e Criação AD sem ticket
+
+                    //Atualização dos nomes do grupos
+                    string linha = "";
+                    StreamReader rd = new StreamReader("H:\\TI Corporativa\\07 - SGSI\\51 - Sentinella\\GRUPOS\\Grupos_AD.txt");
+
+                    //carregar a lista atual dos grupos para validar se deve permanecer ativo ou cadastrar um novo associado
+                    DataTable dt_lista_atual_grupos = new DataTable();
+                    sql = "Select * from w_AD_grupos_descricoes";
+                    dt_lista_atual_grupos = objCon.retornaDataTable(sql);
+
+                    //carregar form Barra de Progresso de preparação dos dados
+                    frmProgressBar frmG = new frmProgressBar(13000);
+                    frmG.atualizarBarra(0);
+                    int contador = 0;
+                    frmG.Show();
+
+
+                    while ((linha = rd.ReadLine()) != null) {
+
+
+                        DataRow[] resultado = null;
+                        string expressao = "grupo = '" + linha.ToString() + "'";
+                        resultado = dt_lista_atual_grupos.Select(expressao);
+
+                        if (resultado.Length > 0) {
+                            //atualizando a data do bd
+                            foreach (var item in resultado) {
+                                //sql = "Update AD set " +
+                                //        "ativo = " + objCon.valorSql(true) + ", " +
+                                //        "dataAtualizacao = " + objCon.valorSql(hlp.dataHoraAtual()) + ", " +
+                                //        "idAtualizacao = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " " +
+                                //        "from w_AD_grupos_descricoes AD where 1 = 1 " +
+                                //        "and grupo = " + objCon.valorSql(linha.ToString()) + " ";
+                                //objCon.executaQuery(sql, ref retorno);
+                            }
+
+                        } else {
+                            //inserindo novo registro
+                            sql = "Insert into w_AD_grupos_descricoes (" +
+                                    "grupo, " +
+                                    "ativo, " +
+                                    "dataAtualizacao, " +
+                                    "idAtualizacao) " +
+                                    "select " +
+                                    objCon.valorSql(linha.ToString()) + ", " +
+                                    objCon.valorSql(true) + ", " +
+                                    objCon.valorSql(hlp.dataHoraAtual()) + ", " +
+                                    objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
+                            objCon.executaQuery(sql, ref retorno);
+                        }
+
+                        contador += 1;
+                        frmG.atualizarBarra(contador);
+
+                    }
+
+                    frmG.Close();
+
+                    //diretorio para leitura dos nomes relacionados
+                    diretorio = "H:\\TI CORPORATIVA\\07 - SGSI\\51 - SENTINELLA\\GRUPOS\\GRUPOS_AD";
+
+                }
+
+
+
                 string[] arquivos = Directory.GetFiles(@diretorio, "*.csv", SearchOption.AllDirectories);
                 int volAtualizado = 0;
+
+
 
                 //carregar form Barra de Progresso de preparação dos dados
                 frmProgressBar frm = new frmProgressBar(arquivos.Length);
                 frm.atualizarBarra(0);
                 frm.Show();
 
-                foreach (string arq in arquivos) {                    
+                //carregar a lista atual dos associados para validar se deve permanecer ativo ou cadastrar um novo associado
+                DataTable dt_lista_atual_associados = new DataTable();
+                sql = "Select * from w_AD_grupos_lista_associados";
+                dt_lista_atual_associados = objCon.retornaDataTable(sql);
+
+                foreach (string arq in arquivos) {
 
                     //lendo cada um dos arquivos
                     string linha = "";
@@ -62,32 +143,27 @@ namespace Sentinella {
                     string nomeArquivo = file.Name;
                     nomeArquivo = nomeArquivo.Replace("Relatorio_", "").Replace(".csv", "");
                     StreamReader rd = new StreamReader(arq);
-
-                    //carregar a lista atual dos associados para validar se deve permanecer ativo ou cadastrar um novo associado
-                    DataTable dt_lista_atual = new DataTable();
-                    sql = "Select * from w_AD_grupos_lista_associados";
-                    dt_lista_atual = objCon.retornaDataTable(sql);
-
+                                       
                     while ((linha = rd.ReadLine()) != null) {
 
                         String[] infos = linha.Replace("\"", "").Split(delimitador.ToCharArray());
                         if (!infos[0].ToString().ToUpper().Contains("#TYPE") && !infos[0].ToString().ToUpper().Contains("NAME")) {
 
                             DataRow[] resultado = null;
-                            string expressao = "nome_associado = '" + infos[0] + "' and grupo = '" + nomeArquivo + "'";
-                            resultado = dt_lista_atual.Select(expressao);
+                            string expressao = "nome_associado = '" + infos[0].Replace("'", "") + "' and grupo = '" + nomeArquivo + "'";
+                            resultado = dt_lista_atual_associados.Select(expressao);
 
                             if (resultado.Length > 0) {
                                 //atualizando a data do bd
                                 foreach (var item in resultado) {
-                                    sql = "Update AD set " +
-                                            "ativo = " + objCon.valorSql(true) + ", " +
-                                            "dataAtualizacao = " + objCon.valorSql(hlp.dataHoraAtual()) + ", " +
-                                            "idAtualizacao = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " " +
-                                            "from w_AD_grupos_lista_associados AD where 1 = 1 " +
-                                            "and nome_associado = " + objCon.valorSql(item["nome_associado"]) + " " +
-                                            "and grupo = " + objCon.valorSql(nomeArquivo) + " ";
-                                    objCon.executaQuery(sql, ref retorno);
+                                    //sql = "Update AD set " +
+                                    //        "ativo = " + objCon.valorSql(true) + ", " +
+                                    //        "dataAtualizacao = " + objCon.valorSql(hlp.dataHoraAtual()) + ", " +
+                                    //        "idAtualizacao = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " " +
+                                    //        "from w_AD_grupos_lista_associados AD where 1 = 1 " +
+                                    //        "and nome_associado = " + objCon.valorSql(item["nome_associado"]) + " " +
+                                    //        "and grupo = " + objCon.valorSql(nomeArquivo) + " ";
+                                    //objCon.executaQuery(sql, ref retorno);
                                 }
 
                             } else {
@@ -99,11 +175,11 @@ namespace Sentinella {
                                         "dataAtualizacao, " +
                                         "idAtualizacao) " +
                                         "select " +
-                                        objCon.valorSql(infos[0].ToUpper()) + ", " +
+                                        objCon.valorSql(infos[0].ToUpper().Replace("'", "")) + ", " +
                                         objCon.valorSql(nomeArquivo) + ", " +
                                         objCon.valorSql(true) + ", " +
                                         objCon.valorSql(hlp.dataHoraAtual()) + ", " +
-                                        objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
+                                        objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + "";
                                 objCon.executaQuery(sql, ref retorno);
                             }
 
@@ -111,13 +187,13 @@ namespace Sentinella {
                         }
 
                     }
-
+                    //atualização da barra é a respeito de qtos arquivos foram lidos
                     volAtualizado += 1;
                     frm.atualizarBarra(volAtualizado);
                     rd.Close();
                 }
 
-                //Desativando todos os que tem data de atualização > que hoje
+                //Desativando todos os que tem data de atualização < que hoje
                 sql = "update l set " +
                         "l.ativo = 0 " +
                         "from w_AD_grupos_lista_associados l where l.dataAtualizacao < DATEADD(day, -1, getdate()) ";
@@ -139,10 +215,11 @@ namespace Sentinella {
 
             try {
                 //buscar todos com o primeiro nome igual
-                string[] nomes = _nomeAssociado.Split(' ');
+                string[] nomes = _nomeAssociado.Split(' '); //nomes[0]
                 sql = "select l.nome_associado, l.grupo, d.descricoes from w_AD_grupos_lista_associados l inner join w_AD_grupos_descricoes d on l.grupo = d.grupo " +
-                        "where l.nome_associado like '" + nomes[0] + "%' and l.ativo = 1 " +
-                        "group by l.grupo, l.nome_associado, d.descricoes, l.nome_associado";
+                        "where l.nome_associado like '" + _nomeAssociado + "%' and l.ativo = 1 " +
+                        "group by l.grupo, l.nome_associado, d.descricoes, l.nome_associado " +
+                        "order by descricoes DESC";
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
@@ -157,9 +234,9 @@ namespace Sentinella {
 
         #region Camada BLL - Negócio
 
-        public bool importarGruposAD() {
+        public bool importarGruposAD(bool importacaoMensal = false) {
             try {
-                return _importarGruposAD();
+                return _importarGruposAD(importacaoMensal);
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - GRUPOS AD (BLL)");

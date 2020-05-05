@@ -45,6 +45,7 @@ namespace Sentinella.Forms {
 
         private void frmAnalies_Load(object sender, System.EventArgs e) {
             limparForm();
+            cat.liberarRegistrosGeralDoUsuarioAtual();
             cat.carregarComboboxFilasComVolumeParaTrabalho(this, cbxFila);
 
 
@@ -53,7 +54,6 @@ namespace Sentinella.Forms {
         private void btnIniciar_Click(object sender, System.EventArgs e) {
 
             string nomeAssociadoTamnun = "";
-
 
 
             if (cbxFila.Text == "NÃO SE APLICA") {
@@ -84,6 +84,9 @@ namespace Sentinella.Forms {
 
                     #region "CARREGANDO INFORMAÇÕES"
 
+                    //carregamento Histórico Sentinella
+                    categorizacoes hist = new categorizacoes();
+                    hist.CarregaListView(lvHistoricoSentinella, cat.Cpf);
 
                     //Carregando Histórico TH
                     dadosCadastraisTH th = new dadosCadastraisTH();

@@ -35,6 +35,8 @@ namespace Sentinella.Forms {
         private void btnIniciar_Click(object sender, EventArgs e) {
             cbxCoordenador.Enabled = false;
 
+            Clipboard.Clear();
+
             if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxCoordenador")) {
                 trilhas.preencherListViewAssociados(lvAssociados, cbxCoordenador.Text);
             }

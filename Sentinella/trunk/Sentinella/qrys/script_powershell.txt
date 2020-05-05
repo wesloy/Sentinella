@@ -1,0 +1,35 @@
+
+Esse script busca no arquivo "Grupos_AD.txt" o nome do grupo e pesquisa todos os usuários membros deste grupo, gravando um arquivo com o resultado (Por grupo).
+
+
+
+net use T: "\\acsfs\deptos\TI Corporativa\07 - SGSI\51 - Sentinella\GRUPOS"
+
+T:
+
+powershell -Command  "foreach($i in $(cat .\Grupos_AD.txt)){Get-ADGroupMember -Identity $i | select name | Export-Csv .\Grupos_AD\$i.csv}"
+
+pause
+
+
+*********************************************************************************************************************************************************************
+
+
+Segue script que busca nos diretórios do ACSFS, listando o nome da pasta e grupos de acesso.
+
+Em teste foi executado no disco I:\ do ACSFS, retornando o resultado no arquivo CSV em anexo.
+Script:
+
+$FolderPath = Get-ChildItem -Directory -Path "\\10.200.48.103\i$" -Recurse -Force
+
+$Output = @()
+ForEach ($Folder in $FolderPath) {
+    $Acl = Get-Acl -Path $Folder.FullName
+    ForEach ($Access in $Acl.Access) {
+$Properties = [ordered]@{'Folder Name'=$Folder.FullName;'Group/User'=$Access.IdentityReference;'Permissions'=$Access.FileSystemRights;'Inherited'=$Access.IsInherited}
+$Output += New-Object -TypeName PSObject -Property $Properties            
+}
+}
+$Output | Export-Csv C:\it\Grupos_I_28042020.csv
+
+**********************************************************************************************************************************************************************

@@ -114,6 +114,16 @@ namespace Sentinella.Forms {
                     imp.tamnun(listaUsuarios.ToArray());
                 }
 
+
+                if (cbxSeletorFilaImportacao.Text.Contains("AD")) {
+                    ad AD = new ad();
+                    if (cbxSeletorFilaImportacao.Text.Contains("TODOS")) {
+                        AD.importarGruposAD(true);
+                    } else {
+                        AD.importarGruposAD(false);
+                    }
+                }
+
                 carregarListView();
             }
 
@@ -228,7 +238,7 @@ namespace Sentinella.Forms {
                 btnProcurar.Enabled = true;
                 //Carregando Combobox
                 cbxSeletorFilaImportacao.DataSource = null;
-                hlp.carregaComboBoxManualmente("CADASTRO GERAL;DLP;TAMNUN;TRILHAS SGI", this, cbxSeletorFilaImportacao);
+                hlp.carregaComboBoxManualmente("AD GRUPOS MONITORADAS SI;AD TODOS OS GRUPOS;CADASTRO GERAL;DLP;TAMNUN;TRILHAS SGI", this, cbxSeletorFilaImportacao);
                 txtEnderecoArquivo.Text = "";
             } else {
                 cbxSeletorFilaImportacao.Enabled = false;
