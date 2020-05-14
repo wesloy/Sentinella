@@ -145,12 +145,37 @@ namespace Sentinella {
 
         #region DAL
 
-        private DataTable _listarCoordenadoresPendencias() {
+        private DataTable _listarPendenciasPorLider(string filtro) {
             try {
-                sql = "select 1, iif(gestor_2 is null,'SEM INFO',gestor_2) as g2 from w_trilhasTreinamentos " +
-                            "where email_enviado = 0 " +
-                            "group by gestor_2 " +
-                            "order by gestor_2 ";
+                sql = "select 1, ";
+
+                switch (filtro) {
+                    case "GESTOR 2":
+                        sql += "iif(gestor_2 is null,'SEM INFO', gestor_2) as lider ";
+                        sql += "from w_trilhasTreinamentos ";
+                        sql += "group by gestor_2 ";
+                        sql += "order by gestor_2 ";
+                        break;
+                    case "GESTOR 3":
+                        sql += "iif(gestor_3 is null,'SEM INFO',gestor_3) as lider ";
+                        sql += "from w_trilhasTreinamentos ";
+                        sql += "group by gestor_3 ";
+                        sql += "order by gestor_3 ";
+                        break;
+                    case "GESTOR 4":
+                        sql += "iif(gestor_4 is null,'SEM INFO',gestor_4) as lider ";
+                        sql += "from w_trilhasTreinamentos ";
+                        sql += "group by gestor_4 ";
+                        sql += "order by gestor_4 ";
+                        break;
+                    case "GESTOR 5":
+                        sql += "iif(gestor_5 is null,'SEM INFO',gestor_5) as lider ";
+                        sql += "from w_trilhasTreinamentos ";
+                        sql += "group by gestor_5 ";
+                        sql += "order by gestor_5 ";
+                        break;
+                }
+
                 return objCon.retornaDataTable(sql);
 
             }
@@ -166,93 +191,264 @@ namespace Sentinella {
 
                 long volAtualizado = 0;
 
+                #region documentacao
+                //01 - atualizar historico de funcionarios
+                //garantir que esteja atualizado a base de henriquecimento de informações
+
+                //02 - capturar todos os registros da base Sinergy das trilhas:
+                //646722 #SouAlgar Operações (Atendentes e operadores)
+                //646350 #SouAlgar (demais cargos)
+                //640280 Trilhas SGI
+
+                //03 - calculuar percentual concluído dos cursos ligados a SGI
+
+                //04 - henriquecimento de informação com a tabela imp_associados
+                //Hierarquia, data admissao, data demissao, afastamento, férias
+
+                //05 - Carregar base w_trilhasTreinamento
+                //validar se deve ser insert (novo registro) ou update (registro que ainda não teve a trilha concluída na vigencia atual)
+
+                //06 - seperar os novatos 
+                //até 10 meses - devem ter feito os cursos SGI dentro das trilhas #SouAlgar ou #SouAlgar Operações
+                //entre 10 e 12 meses, já se pode fazer alerta a respeito da trilha SGI, que dever ser feita anualmente no aniversário de empresa do associado
+                //mais que 1 ano, refazer o curso anualmente (TRILHA SGI), com vencimento no aniversário do associado
+
+                //07 - importar ou atualizar
+
+
+                //Observações:
+                //período inicial de cobrança/alerta à partir de 60 dias antes do aniversário de empresa
+                //futuramente terá o prazo máximo de 30 dias pós aniversário para cobrança, depois disto laudo de incidente de segurança
+                //este controle ficará na tela de análise e categorização
+                #endregion
+
                 //carregar form Barra de Progresso de preparação dos dados
-                frmProgressBar frm = new frmProgressBar(1);
-                frm.atualizarBarra(0);
+                frmProgressBar frm = new frmProgressBar(3);
                 frm.Show();
 
 
-                //Selecionando informações do banco de dados com filtro de usuários que ainda não finalizaram a trilha SGI
-                sql = "Select c.des_turma, c.des_nome, " +
-                            "replace(replace(c.cod_cpf, '.', ''), '-', '') as cpf, " +
-                            "count(c.des_conteudo) as total_cursos, " +
-                            "sum(iif(c.num_conclusao = '0', 1, 0)) as vol_nao_concluido, " +
-                            "sum(iif(c.num_conclusao = '100', 1, 0)) as vol_concluido, " +
-                            "sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) as percentual_concluido, " +
-                            "(select top 1 gestor_1 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_1, " +
-                            "(select top 1 gestor_2 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_2, " +
-                            "(select top 1 gestor_3 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_3, " +
-                            "(select top 1 gestor_4 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_4, " +
-                            "(select top 1 gestor_5 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_5, " +
-                            "(select top 1 data_de_admissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_admissao, " +
-                            "(select top 1 data_demissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_demissao, " +
-                            "GETDATE() as data_importacao, " +
-                            Constantes.id_BD_logadoFerramenta + " as id_importacao " +
-                            "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c left join w_trilhasTreinamentos t on c.des_nome = t.des_nome and c.des_turma = t.des_turma and t.cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') " +
-                            "where c.des_turma like '%TRILHA SGI%' and c.des_status = 'Ativo' and(t.id is null or t.email_enviado = 1) " +
-                            "group by c.des_turma, c.des_nome, c.cod_cpf " +
-                            "having sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) < 100 ";
-                DataTable dt_Trilhas = new DataTable();
-                dt_Trilhas = objCon.retornaDataTable(sql);
+                //passo 01
+                importacoes imp = new importacoes();
+                imp.CadastroGeralProcedure(false);
                 frm.atualizarBarra(1);
-                frm.Close();
+
+                //passo 02 a 04
+
+                sql = "select c.cod_trilha, c.des_trilha, c.des_nome, ";
+                sql += "replace(replace(c.cod_cpf, '.', ''), '-', '') as cpf, ";
+                sql += "count(c.des_conteudo) as total_cursos, ";
+                sql += "sum(iif(c.num_conclusao = '0', 1, 0)) as vol_nao_concluido, ";
+                sql += "sum(iif(c.num_conclusao = '100', 1, 0)) as vol_concluido, ";
+                sql += "sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) as percentual_concluido, "; //calculo de percentual concluído
+                sql += "max(dt_fim) as data_conclusao_ultimo_curso_trilha, "; //data do último curso da trilha feito, usar para validar se trilha concluída dentro da vigencia atual
+                sql += "(select top 1 gestor_1 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_1, "; //inicio do henriquecimento
+                sql += "(select top 1 gestor_2 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_2, ";
+                sql += "(select top 1 gestor_3 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_3, ";
+                sql += "(select top 1 gestor_4 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_4, ";
+                sql += "(select top 1 gestor_5 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_5, ";
+                sql += "(select top 1 data_de_admissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_admissao, ";
+                sql += "(select top 1 data_demissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_demissao, ";
+                sql += "(select top 1 data_inicio_ferias from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_ferias_inicio, ";
+                sql += "(select top 1 data_fim_ferias from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_ferias_fim, ";
+                sql += "(select top 1 data_inicio_afastamento from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_afastamento_inicio, ";
+                sql += "(select top 1 data_fim_afastamento from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_afastamento_fim, "; //fim do henriquecimento
+                sql += "GETDATE() as data_importacao, "; //data-hora única de importação
+                sql += Constantes.id_BD_logadoFerramenta + " as id_importacao "; //setando o id do importador
+                sql += "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c ";
+                sql += "inner join w_trilhasTreinamentos_cursos f on c.Id_Conteudo = f.cod_curso "; //Garantindo que sejam apenas os cursos SGI                
+                sql += "inner join w_trilhasTreinamentos_trilhas t on c.cod_trilha = t.cod_trilha "; //Garantindo que sejam apenas os Trilhas monitoradas 
+                sql += "where c.des_status = 'Ativo' ";
+                sql += "group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf ";
+
+
+                #region DECOMISSIONADO_06052020
+                //Selecionando informações do banco de dados com filtro de usuários que ainda não finalizaram a trilha SGI
+                //sql = "Select c.des_turma, c.des_nome, " +
+                //            "replace(replace(c.cod_cpf, '.', ''), '-', '') as cpf, " +
+                //            "count(c.des_conteudo) as total_cursos, " +
+                //            "sum(iif(c.num_conclusao = '0', 1, 0)) as vol_nao_concluido, " +
+                //            "sum(iif(c.num_conclusao = '100', 1, 0)) as vol_concluido, " +
+                //            "sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) as percentual_concluido, " +
+                //            "(select top 1 gestor_1 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_1, " +
+                //            "(select top 1 gestor_2 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_2, " +
+                //            "(select top 1 gestor_3 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_3, " +
+                //            "(select top 1 gestor_4 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_4, " +
+                //            "(select top 1 gestor_5 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_5, " +
+                //            "(select top 1 data_de_admissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_admissao, " +
+                //            "(select top 1 data_demissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_demissao, " +
+                //            "GETDATE() as data_importacao, " +
+                //            Constantes.id_BD_logadoFerramenta + " as id_importacao " +
+                //            "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c left join w_trilhasTreinamentos t on c.des_nome = t.des_nome and c.des_turma = t.des_turma and t.cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') " +
+                //            "where c.cod_trilha in(646722, 646350, 640280) and c.des_status = 'Ativo' and (t.id is null or t.email_enviado = 1) " +
+                //            "group by c.des_turma, c.des_nome, c.cod_cpf " +
+                //            "having sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) < 100 ";
+                #endregion
+
+                DataTable dt_TrilhasSGI = new DataTable();
+                dt_TrilhasSGI = objCon.retornaDataTable(sql);
+                frm.atualizarBarra(2);
 
                 //Validando se tem vol para trabalhar
-                if (dt_Trilhas.Rows.Count == 0) {
+                if (dt_TrilhasSGI.Rows.Count == 0) {
                     return 0;
                 }
 
 
+                //passo 05
+                sql = "Select * from w_trilhasTreinamentos ";
+                sql += "Where 1 = 1 ";
+                sql += "and vigencia_ano = " + objCon.valorSql(DateTime.Today.Year);
+                DataTable dt_base = new DataTable();
+                dt_base = objCon.retornaDataTable(sql);
+                frm.atualizarBarra(3);
+
+                frm.Close();
+
+
+
+                //passo 06 e 07
                 //carregar form Barra de Progresso de preparação dos dados
-                frmProgressBar frm2 = new frmProgressBar(dt_Trilhas.Rows.Count);
-                frm2.atualizarBarra(0);
+                frmProgressBar frm2 = new frmProgressBar(dt_TrilhasSGI.Rows.Count);
+                //frm2.atualizarBarra(0);
                 frm2.Show();
 
                 //Passando por cada linha das trilhas para importar ou não
                 int totalRegistros = 0;
-                foreach (DataRow item in dt_Trilhas.Rows) {
+                foreach (DataRow item in dt_TrilhasSGI.Rows) {
 
-                    string filaImp = "NÃO IMPORTAR";
+
+                    totalRegistros += 1;
 
                     //sem data de admissião
-                    if (item["data_admissao"] is null) {
-                        totalRegistros += 1;
+                    if (item["data_admissao"].ToString().Equals("")) {
                         frm2.atualizarBarra(totalRegistros);
                         continue;
                     }
 
-                    //demitido
-                    if (!item["data_demissao"].ToString().Contains("1900-01-01")) {
-                        totalRegistros += 1;
-                        frm2.atualizarBarra(totalRegistros);
-                        continue;
-                    }
 
-                    //calculando o hoje para o anivesário do associado no ano atual
-                    TimeSpan intervalo = Convert.ToDateTime((DateTime.Today.Year + "- " + DateTime.Parse(item["data_admissao"].ToString()).Month + "- " + DateTime.Parse(item["data_admissao"].ToString()).Day))- DateTime.Today;
 
-                    if (intervalo.Days > 90) {
-                        filaImp = "NÃO IMPORTAR";
-                        frm2.atualizarBarra(totalRegistros);
-                        continue;
-                    } else if (intervalo.Days < 0) {
-                        filaImp = "PRAZO VENCIDO";
+                    TimeSpan intervaloContratacao = DateTime.Today - DateTime.Parse(item["data_admissao"].ToString());
+                    int vigencia_ano = DateTime.Today.Year;
+                    DateTime vigencia_inicio = new DateTime();
+                    DateTime vigencia_fim = new DateTime();
+                    bool importar = false;
+
+                    if (intervaloContratacao.Days < 301) {
+                        //se até 10 meses cobrar trilhas:
+                        //646722 #SouAlgar Operações (Atendentes e operadores)
+                        //646350 #SouAlgar (demais cargos)
+                        //data de inicio e fim de vigência é diferente
+
+                        if (int.Parse(item["cod_trilha"].ToString()).Equals(646722) || int.Parse(item["cod_trilha"].ToString()).Equals(646350)) {
+                            //validando se a trilha que esta sendo lida no momento é equivalente ao tempo de contratação
+
+                            vigencia_inicio = DateTime.Parse(item["data_admissao"].ToString());
+                            vigencia_fim = DateTime.Parse(item["data_admissao"].ToString()).AddMonths(10);
+
+                            importar = true;
+                        }
+
                     } else {
-                        filaImp = "DENTRO PRAZO";
+                        //Mais que 10 meses cobrar trilha:
+                        //640280 Trilhas SGI
+                        //data de inicio e fim de vigência é diferente
+
+                        if (int.Parse(item["cod_trilha"].ToString()).Equals(640280)) {
+                            //validando se a trilha que esta sendo lida no momento é equivalente ao tempo de contratação
+
+                            vigencia_inicio = Convert.ToDateTime(((DateTime.Today.Year - 1) + "- " + DateTime.Parse(item["data_admissao"].ToString()).Month + "- " + DateTime.Parse(item["data_admissao"].ToString()).Day));
+                            vigencia_fim = Convert.ToDateTime((DateTime.Today.Year + "- " + DateTime.Parse(item["data_admissao"].ToString()).Month + "- " + DateTime.Parse(item["data_admissao"].ToString()).Day));
+
+                            importar = true;
+                        }
+
+
                     }
 
-                    if (filaImp != "NÃO IMPORTAR") {
 
+                    if (!importar) {
+                        // continuando caso não seja um registro à ser importado
+                        frm2.atualizarBarra(totalRegistros);
+                        continue;
+                    }
+
+
+                    //filtrar registro na base já importada para o Sentinella e determinar se é um INSERT ou UPDATE
+                    string expressao = "";
+                    DataRow[] resultado = null;
+                    expressao = "vigencia_ano = " + vigencia_ano + " and cpf = '" + item["cpf"].ToString() + "' and des_trilha = '" + item["des_trilha"].ToString() + "'";
+                    resultado = dt_base.Select(expressao);
+                    DateTime valorData = new DateTime();
+
+                    if (resultado.Length > 0) {
+
+                        // se foi localizado algum registro deve ser feito atualização DESDE QUE o registro da base não esteja 100% concluído  
+
+                        foreach (DataRow filtro in resultado) {
+                            // passando por cada item da lista de resultado, geralmente é apenas 1 registro
+
+                            if (int.Parse(filtro["percentual_concluido"].ToString()) < 100) {
+                                //validando se a trilha já não fora concluída
+
+                                sql = "Update w_trilhasTreinamentos set ";
+                                sql += "total_cursos = " + objCon.valorSql(int.Parse(item["total_cursos"].ToString())) + ", ";
+                                sql += "vol_nao_concluido = " + objCon.valorSql(int.Parse(item["vol_nao_concluido"].ToString())) + ", ";
+                                sql += "vol_concluido = " + objCon.valorSql(int.Parse(item["vol_concluido"].ToString())) + ", ";
+                                sql += "percentual_concluido = " + objCon.valorSql(int.Parse(item["percentual_concluido"].ToString())) + ", ";
+
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["data_conclusao_ultimo_curso_trilha"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_conclusao_ultimo_curso_trilha"].ToString()); };
+                                sql += "data_ult_conteudo_cursado = " + objCon.valorSql(valorData) + ", ";
+
+                                sql += "gestor_1 = " + objCon.valorSql(item["gestor_1"].ToString()) + ", ";
+                                sql += "gestor_2 = " + objCon.valorSql(item["gestor_2"].ToString()) + ", ";
+                                sql += "gestor_3 = " + objCon.valorSql(item["gestor_3"].ToString()) + ", ";
+                                sql += "gestor_4 = " + objCon.valorSql(item["gestor_4"].ToString()) + ", ";
+                                sql += "gestor_5 = " + objCon.valorSql(item["gestor_5"].ToString()) + ", ";
+
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["data_demissao"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_demissao"].ToString()); };
+                                sql += "data_demissao = " + objCon.valorSql(valorData) + ", ";
+
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["data_ferias_inicio"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_ferias_inicio"].ToString()); };
+                                sql += "data_ferias_inicio = " + objCon.valorSql(valorData) + ", ";
+
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["data_ferias_fim"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_ferias_fim"].ToString()); };
+                                sql += "data_ferias_fim = " + objCon.valorSql(valorData) + ", ";
+
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["data_afastamento_inicio"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_afastamento_inicio"].ToString()); };
+                                sql += "data_afastamento_inicio = " + objCon.valorSql(valorData) + ", ";
+
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["data_afastamento_fim"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_afastamento_fim"].ToString()); };
+                                sql += "data_afastamento_fim = " + objCon.valorSql(valorData) + ", ";
+
+                                sql += "data_importacao = " + objCon.valorSql(DateTime.Parse(item["data_importacao"].ToString())) + ", ";
+                                sql += "id_importacao = " + objCon.valorSql(int.Parse(item["id_importacao"].ToString())) + " ";
+                                sql += "where id = " + objCon.valorSql(filtro["id"]) + " ";
+                                objCon.executaQuery(sql, ref retorno);
+                                volAtualizado += 1;
+                            }
+
+                        }
+
+
+                    } else {
                         sql = "insert into w_trilhasTreinamentos (" +
-                                      "fila, " +
-                                      "periodoCobranca, " +
-                                      "des_turma, " +
+                                      "vigencia_ano, " +
+                                      "vigencia_inicio_data, " +
+                                      "vigencia_fim_data, " +
+                                      "des_trilha, " +
                                       "des_nome, " +
                                       "cpf, " +
                                       "total_cursos, " +
                                       "vol_nao_concluido, " +
                                       "vol_concluido, " +
                                       "percentual_concluido, " +
+                                      "data_ult_conteudo_cursado, " +
                                       "gestor_1, " +
                                       "gestor_2, " +
                                       "gestor_3, " +
@@ -260,48 +456,73 @@ namespace Sentinella {
                                       "gestor_5, " +
                                       "data_admissao, " +
                                       "data_demissao, " +
+                                      "data_ferias_inicio, " +
+                                      "data_ferias_fim, " +
+                                      "data_afastamento_inicio, " +
+                                      "data_afastamento_fim, " +
                                       "data_importacao, " +
                                       "id_importacao " +
                                       ") values (";
-                        sql += objCon.valorSql(filaImp) + ", ";
-                        sql += objCon.valorSql(intervalo.Days) + ", ";
-                        sql += objCon.valorSql(item["des_turma"].ToString()) + ", ";
+                        sql += objCon.valorSql(vigencia_ano) + ", ";
+                        sql += objCon.valorSql(vigencia_inicio) + ", ";
+                        sql += objCon.valorSql(vigencia_fim) + ", ";
+                        sql += objCon.valorSql(item["des_trilha"].ToString()) + ", ";
                         sql += objCon.valorSql(item["des_nome"].ToString()) + ", ";
                         sql += objCon.valorSql(item["cpf"].ToString()) + ", ";
                         sql += objCon.valorSql(int.Parse(item["total_cursos"].ToString())) + ", ";
                         sql += objCon.valorSql(int.Parse(item["vol_nao_concluido"].ToString())) + ", ";
                         sql += objCon.valorSql(int.Parse(item["vol_concluido"].ToString())) + ", ";
                         sql += objCon.valorSql(int.Parse(item["percentual_concluido"].ToString())) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_conclusao_ultimo_curso_trilha"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_conclusao_ultimo_curso_trilha"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
                         sql += objCon.valorSql(item["gestor_1"].ToString()) + ", ";
                         sql += objCon.valorSql(item["gestor_2"].ToString()) + ", ";
                         sql += objCon.valorSql(item["gestor_3"].ToString()) + ", ";
                         sql += objCon.valorSql(item["gestor_4"].ToString()) + ", ";
                         sql += objCon.valorSql(item["gestor_5"].ToString()) + ", ";
-                        sql += objCon.valorSql(DateTime.Parse(item["data_admissao"].ToString())) + ", ";
-                        sql += objCon.valorSql(DateTime.Parse(item["data_demissao"].ToString())) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_admissao"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_admissao"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_demissao"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_demissao"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_ferias_inicio"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_ferias_inicio"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_ferias_fim"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_ferias_fim"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_afastamento_inicio"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_afastamento_inicio"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["data_afastamento_fim"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_afastamento_fim"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+
                         sql += objCon.valorSql(DateTime.Parse(item["data_importacao"].ToString())) + ", ";
                         sql += objCon.valorSql(int.Parse(item["id_importacao"].ToString())) + " ";
                         sql += ")";
-
                         objCon.executaQuery(sql, ref retorno);
                         volAtualizado += 1;
                     }
 
-
-                    totalRegistros += 1;
-                    frm2.atualizarBarra(totalRegistros);                    
-
+                    frm2.atualizarBarra(totalRegistros);
                 }
-                               
-                //Atualização de campos para facilitar a visualização das auditoras
-                sql = "update w_trilhasTreinamentos set " +
-                        "data_demissao = iif(data_demissao = '1900-01-01 00:00:00.000', null, data_demissao), " +
-                        "data_admissao = iif(data_admissao = '1900-01-01 00:00:00.000', null, data_admissao) ";
-                objCon.executaQuery(sql, ref retorno);
 
                 frm2.Close();
                 return volAtualizado;
+
             }
+
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - ABERTURA PRODUÇÃO (DAL)");
                 return 0;
@@ -319,20 +540,39 @@ namespace Sentinella {
             }
         }
 
-        private DataTable _listarRegistrosPorCoordenador(string _coordenador) {
+        private DataTable _listarRegistrosPorLider(string _lider, string _hierarquia) {
+
             try {
-                sql = "Select a.*, " +
-                            "(select count(id) qtde_cobrancas from w_trilhasTreinamentos H where H.des_nome = A.des_nome And h.data_importacao < a.data_importacao) as qtde_emails_enviados, " +
-                            "(select top 1 H.emails_enderecos from w_trilhasTreinamentos H where H.des_nome = A.des_nome And h.data_importacao < a.data_importacao order by id desc) as End_Ult_Email_Enviado, " +
-                            "(select top 1 H.data_envio_email from w_trilhasTreinamentos H where H.des_nome = A.des_nome And h.data_importacao < a.data_importacao order by id desc) as Data_Ult_Email_Enviado " +
-                            "from w_trilhasTreinamentos A where A.gestor_2 ";
-                if (_coordenador == "SEM INFO") {
+                sql = "select * from w_trilhasTreinamentos ";
+                sql += "where 1 = 1 ";
+                sql += "and data_demissao = '1900-01-01' ";
+                sql += "and locado_analise = 0 ";
+
+                //selecionando qual coluna deve ser filtrada
+                switch (_hierarquia) {
+                    case "GESTOR 2":
+                        sql += "and gestor_2 ";
+                        break;
+                    case "GESTOR 3":
+                        sql += "and gestor_3 ";
+                        break;
+                    case "GESTOR 4":
+                        sql += "and gestor_4 ";
+                        break;
+                    case "GESTOR 5":
+                        sql += "and gestor_5 ";
+                        break;
+                }
+
+                //Tratando situação de falta de informações de gestores
+                if (_lider == "SEM INFO") {
                     sql += " is null ";
                 } else {
-                    sql += " = " + objCon.valorSql(_coordenador) + " ";
+                    sql += " = " + objCon.valorSql(_lider) + " ";
                 }
-                sql += "and A.id_analista_seguranca = 0 ";
-                sql += "and A.data_demissao is null";
+
+                sql += objCon.valorSql(_lider) + " ";
+                sql += "order by des_nome";
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
@@ -345,12 +585,10 @@ namespace Sentinella {
             try {
 
                 sql = "Update w_trilhasTreinamentos set " +
-                                    "id_analista_seguranca = 0, " +
-                                    "data_envio_email = '1900-01-01 00:00:00' " +
+                                    "cat_status = 0, cat_id_analista = 0 " +
                                     "from w_trilhasTreinamentos where 1 = 1 " +
-                                    "and id_importacao = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) +
-                                    "and email_enviado = 0";
-
+                                    "and cat_status = 1 " +
+                                    "and cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta);
                 return objCon.executaQuery(sql, ref retorno);
 
             }
@@ -362,27 +600,34 @@ namespace Sentinella {
 
         private DataTable _bloquearRegistros(DataTable dt) {
             try {
+
+                //status:
+                // 0 - disponível
+                // 1 - trabalhando - locado
+                // 2 - finalizado
+
                 if (dt.Rows.Count > 0) {
 
                     foreach (DataRow item in dt.Rows) {
 
                         sql = "Update w_trilhasTreinamentos set " +
-                                "id_analista_seguranca = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
+                                "cat_status = 1, " +
+                                "cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
                                 "from w_trilhasTreinamentos where id = " + objCon.valorSql(int.Parse(item["id"].ToString())) + " " +
-                                "and id_analista_seguranca = 0";
+                                "and cat_status = 0";
                         objCon.executaQuery(sql, ref retorno);
                     }
 
                     //capturando os registros que foram bloqueados e ainda não foram trabalhados
-                    sql = "Select A.*, " +
-                            "(select count(id) qtde_cobrancas from w_trilhasTreinamentos H where H.des_nome = A.des_nome And h.data_importacao < a.data_importacao) as qtde_emails_enviados, " +
-                            "(select top 1 H.emails_enderecos from w_trilhasTreinamentos H where H.des_nome = A.des_nome And h.data_importacao < a.data_importacao order by id desc) as End_Ult_Email_Enviado, " +
-                            "(select top 1 H.data_envio_email from w_trilhasTreinamentos H where H.des_nome = A.des_nome And h.data_importacao < a.data_importacao order by id desc) as Data_Ult_Email_Enviado " +
-                            "from w_trilhasTreinamentos A where 1 = 1 " +
-                            "and A.id_analista_seguranca = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
-                            "and A.data_envio_email = '1900-01-01 00:00:00' " +
-                            "and A.email_enviado = 0 " +
-                            "order by gestor_1, des_nome";
+                    //anexando histórico de envio de e-mails
+                    sql = "select  ";
+                    sql += "(select count(id) from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf) as qtde_emails_enviados, ";
+                    sql += "(select top 1 b.des_trilha from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as ult_trilha_cobrada, ";
+                    sql += "(select top 1 b.emails_enderecos from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as End_Ult_Email_Enviado, ";
+                    sql += "(select top 1 b.data_envio_email from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as Data_Ult_Email_Enviado, ";
+                    sql += "a.* ";
+                    sql += "from w_trilhasTreinamentos a ";
+                    sql += "where a.cat_status = 1 and a.cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
                     return objCon.retornaDataTable(sql);
                 }
 
@@ -393,7 +638,6 @@ namespace Sentinella {
                 return null;
             }
         }
-
 
         private string _capturarEmailAnalistaSeguranca() {
             try {
@@ -412,7 +656,6 @@ namespace Sentinella {
                 return "";
             }
         }
-
 
         private bool _finalizarRegistro(trilhasSGI t) {
             try {
@@ -466,23 +709,23 @@ namespace Sentinella {
             }
         }
 
-        public void preencherComboBoxCoordenadores(Form frm, ComboBox cbx) {
+        public void preencherComboBoxLideres(Form frm, ComboBox cbx, string filtro) {
             try {
-                hlp.carregaComboBox(_listarCoordenadoresPendencias(), frm, cbx, false);
+                hlp.carregaComboBox(_listarPendenciasPorLider(filtro), frm, cbx, false);
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER COMBOBOX COORDENADORES (BLL)");
             }
         }
 
-        public void preencherListViewAssociados(ListView lst, string _coordenador) {
+        public void preencherListViewAssociados(ListView lst, string _lider, string _hierarquia) {
             try {
 
                 //garantindo que todo volume locado e não trabalhado esteja livre
                 _liberarRegistros();
 
                 DataTable dtCap, dt = new DataTable();
-                dtCap = _listarRegistrosPorCoordenador(_coordenador);
+                dtCap = _listarRegistrosPorLider(_lider, _hierarquia);
                 //bloqueando os registros antes de alimentar o listview
                 dt = _bloquearRegistros(dtCap);
 
@@ -490,21 +733,30 @@ namespace Sentinella {
                 lst.View = View.Details;
                 lst.LabelEdit = false;
                 lst.CheckBoxes = true;
-                //lst.SmallImageList = Constantes.imglist();
+                lst.SmallImageList = Constantes.imglist();
                 lst.GridLines = true;
                 lst.FullRowSelect = true;
                 lst.HideSelection = false;
                 lst.MultiSelect = false;
-                lst.Columns.Add("ID", 50, HorizontalAlignment.Center);
-                lst.Columns.Add("TRILHA", 250, HorizontalAlignment.Center);
+                lst.Columns.Add("ID", 80, HorizontalAlignment.Center);
+                lst.Columns.Add("TRILHA", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("ASSOCIADO", 250, HorizontalAlignment.Left);
-                lst.Columns.Add("CPF", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("ANO DE VIGÊNCIA", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("INÍCIO DA VIGÊNCIA", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("FIM DA VIGÊNCIA", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("CPF", 80, HorizontalAlignment.Left);
                 lst.Columns.Add("PERÍODO DE COBRANÇA", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("AGING DE COBRANÇA", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("% CONCLUÍDO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("# E-MAILS JÁ ENVIADOS", 120, HorizontalAlignment.Left);
+                lst.Columns.Add("ÚLT. TRILHA COBRADA", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("ÚLT. END. DE E-MAIL ENVIADO", 120, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA ÚLT E-MAIL", 120, HorizontalAlignment.Left);
-                lst.Columns.Add("DATA ADMISSÃO", 100, HorizontalAlignment.Left);                
+                lst.Columns.Add("DATA ADMISSÃO", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA FÉRIAS INICIO", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA FÉRIAS FIM", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA AFASTAMENTO INICIO", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA AFASTAMENTO FIM", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("SUPERVISÃO", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("COORDENADOR", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("GERENTE", 250, HorizontalAlignment.Left);
@@ -515,20 +767,76 @@ namespace Sentinella {
                     foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
                         item.Text = linha["id"].ToString();
-                        item.SubItems.Add(linha["des_turma"].ToString());
+                        item.SubItems.Add(linha["des_trilha"].ToString().ToUpper());
                         item.SubItems.Add(linha["des_nome"].ToString());
+                        item.SubItems.Add(linha["vigencia_ano"].ToString().ToUpper());
+                        item.SubItems.Add(linha["vigencia_inicio_data"].ToString().ToUpper());
+                        item.SubItems.Add(linha["vigencia_fim_data"].ToString().ToUpper());
                         item.SubItems.Add(linha["cpf"].ToString());
-                        item.SubItems.Add(linha["periodoCobranca"].ToString());
-                        item.SubItems.Add(linha["percentual_concluido"].ToString());
+
+                        TimeSpan calculoAging = DateTime.Today - DateTime.Parse(linha["vigencia_fim_data"].ToString());
+
+                        if (calculoAging.Days > 60) {
+                            item.SubItems.Add(linha["FORA DO PERÍODO"].ToString());
+                            item.SubItems.Add(calculoAging.Days.ToString());
+                        } else {
+                            if (calculoAging.Days < 0) {
+                                item.SubItems.Add(linha["VENCIDO"].ToString());
+                                item.SubItems.Add(calculoAging.Days.ToString());
+                            } else {
+                                item.SubItems.Add(linha["À VENCER"].ToString());
+                                item.SubItems.Add(calculoAging.Days.ToString());
+                            }
+                        }
+                        item.SubItems.Add(linha["percentual_concluido"].ToString() + "%");
                         item.SubItems.Add(linha["qtde_emails_enviados"].ToString());
+                        item.SubItems.Add(linha["ult_trilha_cobrada"].ToString());
                         item.SubItems.Add(linha["End_Ult_Email_Enviado"].ToString());
                         item.SubItems.Add(linha["Data_Ult_Email_Enviado"].ToString());
                         item.SubItems.Add(linha["data_admissao"].ToString());
+                        item.SubItems.Add(linha["data_ferias_inicio"].ToString());
+                        item.SubItems.Add(linha["data_ferias_fim"].ToString());
+                        item.SubItems.Add(linha["data_afastamento_inicio"].ToString());
+                        item.SubItems.Add(linha["data_afastamento_fim"].ToString());
                         item.SubItems.Add(linha["gestor_1"].ToString());
                         item.SubItems.Add(linha["gestor_2"].ToString());
                         item.SubItems.Add(linha["gestor_3"].ToString());
                         item.SubItems.Add(linha["gestor_4"].ToString());
                         item.SubItems.Add(linha["gestor_5"].ToString());
+
+
+                        //ANÁLISE DE STATUS DE CONCLUSÃO
+                        if (calculoAging.Days <= 60 && int.Parse(linha["percentual_concluido"].ToString()) < 100) {
+                            item.ImageKey = "3";
+                        } else if (calculoAging.Days <= 60 && int.Parse(linha["percentual_concluido"].ToString()).Equals(100)) {
+                            item.ImageKey = "1";
+                        } else {
+                            item.ImageKey = "4";
+                        }
+
+
+                        //EXCEÇÕES PARA O STATUS DE COBRANÇA QUE NÃO DEVERÃO SER ENVIADOS E-MAILS
+
+                        //FÉRIAS
+                        if (!linha["data_ferias_inicio"].ToString().Equals("") && !linha["data_ferias_fim"].ToString().Equals("")) {
+                            if (DateTime.Parse(linha["data_ferias_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_ferias_fim"].ToString()) > DateTime.Today) {
+                                item.ImageKey = "2";
+                            }
+                        }
+
+                        //AFASTAMENTO
+                        if (!linha["data_afastamento_inicio"].ToString().Equals("") && !linha["data_afastamento_fim"].ToString().Equals("")) {
+                            if (DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today) {
+                                item.ImageKey = "5";
+                            }
+                        }
+
+                        //DEMITIDOS
+                        if (!linha["data_demissao"].ToString().Equals("") && !linha["data_demissao"].ToString().Equals("1900-01-01")) {
+                            item.ImageKey = "14";
+                        }
+
+
                         lst.Items.Add(item);
                     }
                 }

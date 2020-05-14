@@ -346,7 +346,6 @@
     <Content Include="qrys\CA\tickets_Geral.sql" />
     <Content Include="qrys\CA\tickets_SI.sql" />
     <Content Include="qrys\querysObjetivos.sql" />
-    <Content Include="qrys\Sinergy\sinergy.sql" />
     <Content Include="qrys\tamnun\tamnun.sql" />
     <Content Include="qrys\tamnun\Administradores.sql" />
     <Content Include="qrys\tamnun\Compartilhamento.sql" />

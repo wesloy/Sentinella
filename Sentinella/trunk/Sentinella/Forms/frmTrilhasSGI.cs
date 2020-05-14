@@ -10,16 +10,19 @@ namespace Sentinella.Forms {
 
 
         private void limpezaForm() {
-            cbxCoordenador.Enabled = true;
+            cbxLideranca.Enabled = true;
             lvAssociados.Clear();
             hlp.limparCampos(pnlFiltros);
             hlp.limparCampos(pnlConteudo);
-            trilhas.preencherComboBoxCoordenadores(this, cbxCoordenador);
+            cbxHierarquia.Enabled = true;
+            cbxLideranca.DataSource = null;
+            cbxLideranca.Enabled = false;
 
-            txtMensagem.Text = "Caro gestor, bom dia!" + Environment.NewLine + 
-            "Os associados abaixo, não realizaram os treinamentos anuais mandatórios da Algar Tech localizados dentro da Trilha SGI, sendo eles: Segurança da Informação, Código de Conduta e Sistema de Gestão Ambiental." + Environment.NewLine +
-            "Portanto, solicitamos seu apoio para que os cursos sejam realizados e evitemos os bloqueios nos usuários do(a) associado(a)." + Environment.NewLine + Environment.NewLine +
-            "Contamos com seu suporte, dúvidas estamos à disposição!";
+
+            txtMensagem.Text = "Gestor," + Environment.NewLine +
+            "Os associados abaixo apresentam pendências nos treinamentos anuais mandatórios da Algar Tech." + Environment.NewLine +
+            "Solicitamos a gentileza de seu apoio para que os cursos sejam realizados, a fim de evitar o bloqueio nos usuários do(a) associado(a)." + Environment.NewLine + Environment.NewLine +
+            "Dúvidas estamos à disposição!";
 
         }
 
@@ -33,12 +36,12 @@ namespace Sentinella.Forms {
         }
 
         private void btnIniciar_Click(object sender, EventArgs e) {
-            cbxCoordenador.Enabled = false;
+            cbxLideranca.Enabled = false;
 
             Clipboard.Clear();
 
-            if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxCoordenador")) {
-                trilhas.preencherListViewAssociados(lvAssociados, cbxCoordenador.Text);
+            if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxHierarquia")) {
+                trilhas.preencherListViewAssociados(lvAssociados, cbxLideranca.Text, cbxHierarquia.Text);
             }
 
         }
@@ -48,7 +51,7 @@ namespace Sentinella.Forms {
             if (trilhas.liberarRegistros()) {
                 limpezaForm();
             }
-            
+
         }
 
         private void btnImportar_Click(object sender, EventArgs e) {
@@ -164,5 +167,15 @@ namespace Sentinella.Forms {
 
 
         }
+
+        private void cbxHierarquia_SelectionChangeCommitted(object sender, EventArgs e) {
+
+            if (cbxHierarquia.Text != "SELEÇÃO DE TODOS") {
+                trilhas.preencherComboBoxLideres(this, cbxLideranca,cbxHierarquia.Text);
+                cbxLideranca.Enabled = true;
+            }
+            
+        }
+
     }
 }

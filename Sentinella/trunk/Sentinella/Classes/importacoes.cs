@@ -628,7 +628,7 @@ namespace Sentinella {
 
                 //carregar os últimos 7 dias da base Tamnun URL
                 DataTable dt_t_url = new DataTable();
-                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-10,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut9_Url where Date Between FORMAT(DATEADD(day,-7,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
                                     "and HostDest not like '%algar%' " +
                                     "and HostDest not like '%sinergy%' " +
                                     "and HostDest not like '%serviceview%' " +
@@ -639,7 +639,7 @@ namespace Sentinella {
 
                 //carregar os últimos 7 dias da base Tamnun PROCESSOS
                 DataTable dt_t_process = new DataTable();
-                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv where Date Between FORMAT(DATEADD(day,-10,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
+                sql = "Select * from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv where Date Between FORMAT(DATEADD(day,-7,getdate()),'yyyy-MM-dd') and format(getdate(),'yyyy-MM-dd')" +
                                 "and prod not like '%Trend%' " +
                                 "and prod not like '%OfficeScan%' " +
                                 "and prod not like '%Microsoft%' " +
@@ -768,7 +768,7 @@ namespace Sentinella {
 
                 // ----------Atualizando cpfs dos casos importados com tabela AD-----------------
                 //Chave: Usuário de rede
-                sql = "Update tamnun set " + 
+                sql = "Update tamnun set " +
                         "cpf = ad.Cod_cpf, " +
                         "nome_completo = ad.Nom_Usuario, " +
                         "matricula = ad.Cod_Matricula " +
@@ -1343,6 +1343,8 @@ namespace Sentinella {
                 frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
                 frm.Show();
 
+
+
                 foreach (DataRow dr in dt.Rows) {
                     importar = true;
                     // Filtrar DataTable Histórico (DT_W) pelos dados da DataTable com informações atuais (DT)
@@ -1471,9 +1473,24 @@ namespace Sentinella {
                     }
 
                     volTotal += 1;
-                    frm.atualizarBarra(volTotal);
 
                 }
+
+
+                //atualizar datas de estabilidade, férias e afastamento para todo o histórico
+                sql = "update h set " +
+                        "h.data_estabilidade_inicio = iif(imp.Dt_Inicio_Estabilidade_CIPA is null, '1900-01-01', convert(date, imp.Dt_Inicio_Estabilidade_CIPA, 109)),  " +
+                        "h.data_estabilidade_fim = iif(imp.Dt_fim_Estabilidade_CIPA is null, '1900-01-01', convert(date, imp.Dt_fim_Estabilidade_CIPA, 109)), " +
+                        "h.data_inicio_ferias = iif(imp.Dt_inicio_ferias is null, '1900-01-01', convert(date, imp.Dt_inicio_ferias, 109)), " +
+                        "h.data_fim_ferias = iif(imp.Dt_fim_ferias is null, '1900-01-01', convert(date, imp.Dt_fim_ferias, 109)), " +
+                        "h.data_inicio_afastamento = iif(imp.Dt_inicio_afastamento is null, '1900-01-01', convert(date, imp.Dt_inicio_afastamento, 109)), " +
+                        "h.data_fim_afastamento = iif(Dt_fim_afastamento is null, '1900-01-01', convert(date, imp.Dt_fim_afastamento, 109)) " +
+                        "from db_Corporate_V3.dbo.tb_Imp_Associado imp " +
+                        "inner " +
+                        "join w_funcionarios_historico h " +
+                        "on imp.Cod_Cpf = h.cpf";
+                objCon.executaQuery(sql, ref retorno);
+
 
                 frm.Close();
                 dt.Clear();
@@ -1856,7 +1873,7 @@ namespace Sentinella {
             }
 
         }
-        public bool CadastroGeralProcedure() {
+        public bool CadastroGeralProcedure(bool msgInformacao = true) {
             try {
                 long volAtualizado = 0;
                 bool validacaoImportacao;
@@ -1866,14 +1883,21 @@ namespace Sentinella {
                 logsImportacoes logImp = new logsImportacoes("IMPORTACAO", hlp.dataHoraAtual(), 0, "CADASTRO GERAL PROCEDURE", volAtualizado);
                 logImp.incluir(logImp);
 
-                //Mensagem final sobre a importação..
-                if (validacaoImportacao) {
-                    MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (msgInformacao) {
+                    //Mensagem final sobre a importação..
+                    if (validacaoImportacao) {
+                        MessageBox.Show("Importação concluída com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } else {
+                        MessageBox.Show("Importação concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if (validacao) {
                     return true;
                 } else {
-                    MessageBox.Show("Importação concluída com falha!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+               
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - CADASTRO GERAL POR PROCEDURE (BLL)");
