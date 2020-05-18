@@ -115,6 +115,7 @@
     <Compile Include="Classes\relatorios.cs" />
     <Compile Include="Classes\retornoOuvidoria.cs" />
     <Compile Include="Classes\subFinalizacoes.cs" />
+    <Compile Include="Classes\sys_ordenarListViews.cs" />
     <Compile Include="Classes\tamnun.cs" />
     <Compile Include="Classes\trilhasSGI.cs" />
     <Compile Include="Classes\usuarios.cs" />
@@ -340,6 +341,7 @@
     <Content Include="qrys\AD\qrys_BD_adaptacoes_SI.sql" />
     <Content Include="qrys\AD\qrys_pesquisas_AD_bd_Sentinella.sql" />
     <Content Include="qrys\CA\queryCA.sql" />
+    <Content Include="qrys\historico_sentinella.sql" />
     <Content Include="qrys\script_powershell.txt" />
     <Content Include="qrys\Sinergy\abrirProducaoTrilhasSGI.sql" />
     <Content Include="qrys\buscarTodasTabelasPorCPF.sql" />

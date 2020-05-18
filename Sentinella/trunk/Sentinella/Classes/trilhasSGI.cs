@@ -145,6 +145,24 @@ namespace Sentinella {
 
         #region DAL
 
+
+        private DataTable _listarAnoVigencia() {
+            try {
+                sql = "select 1, vigencia_ano ";
+                sql += "from w_trilhasTreinamentos ";
+                sql += "group by vigencia_ano ";
+                sql += "order by vigencia_ano ";
+                return objCon.retornaDataTable(sql);
+            }
+
+
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - LISTAR ANO VIGENCIA (DAL)");
+                return null;
+            }
+
+        }
+
         private DataTable _listarPendenciasPorLider(string filtro) {
             try {
                 sql = "select 1, ";
@@ -180,7 +198,7 @@ namespace Sentinella {
 
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "TRILHAS SGI - LISTAR COORDENADORES (DAL)");
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - LISTAR LIDERES (DAL)");
                 return null;
             }
 
@@ -540,38 +558,40 @@ namespace Sentinella {
             }
         }
 
-        private DataTable _listarRegistrosPorLider(string _lider, string _hierarquia) {
+        private DataTable _listarRegistrosPorLider(string _lider, string _hierarquia, int anoVigencia) {
 
             try {
                 sql = "select * from w_trilhasTreinamentos ";
                 sql += "where 1 = 1 ";
-                sql += "and data_demissao = '1900-01-01' ";
-                sql += "and locado_analise = 0 ";
+                sql += "and (data_demissao = '1900-01-01' or data_demissao is null) ";
+                sql += "and vigencia_ano = " + objCon.valorSql(anoVigencia) + " ";
 
-                //selecionando qual coluna deve ser filtrada
-                switch (_hierarquia) {
-                    case "GESTOR 2":
-                        sql += "and gestor_2 ";
-                        break;
-                    case "GESTOR 3":
-                        sql += "and gestor_3 ";
-                        break;
-                    case "GESTOR 4":
-                        sql += "and gestor_4 ";
-                        break;
-                    case "GESTOR 5":
-                        sql += "and gestor_5 ";
-                        break;
+                if (_hierarquia != "SELEÇÃO DE TODOS") {
+                    //selecionando qual coluna deve ser filtrada
+                    switch (_hierarquia) {
+                        case "GESTOR 2":
+                            sql += "and gestor_2 ";
+                            break;
+                        case "GESTOR 3":
+                            sql += "and gestor_3 ";
+                            break;
+                        case "GESTOR 4":
+                            sql += "and gestor_4 ";
+                            break;
+                        case "GESTOR 5":
+                            sql += "and gestor_5 ";
+                            break;
+                    }
+
+                    //Tratando situação de falta de informações de gestores
+                    if (_lider == "SEM INFO") {
+                        sql += " is null ";
+                    } else {
+                        sql += " = " + objCon.valorSql(_lider) + " ";
+                    }
                 }
 
-                //Tratando situação de falta de informações de gestores
-                if (_lider == "SEM INFO") {
-                    sql += " is null ";
-                } else {
-                    sql += " = " + objCon.valorSql(_lider) + " ";
-                }
 
-                sql += objCon.valorSql(_lider) + " ";
                 sql += "order by des_nome";
                 return objCon.retornaDataTable(sql);
             }
@@ -598,7 +618,7 @@ namespace Sentinella {
             }
         }
 
-        private DataTable _bloquearRegistros(DataTable dt) {
+        private DataTable _bloquearRegistros(DataTable dt, bool listarTodos = false, int anoVigente = 0) {
             try {
 
                 //status:
@@ -608,27 +628,45 @@ namespace Sentinella {
 
                 if (dt.Rows.Count > 0) {
 
-                    foreach (DataRow item in dt.Rows) {
+                    if (!listarTodos) {
 
-                        sql = "Update w_trilhasTreinamentos set " +
-                                "cat_status = 1, " +
-                                "cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
-                                "from w_trilhasTreinamentos where id = " + objCon.valorSql(int.Parse(item["id"].ToString())) + " " +
-                                "and cat_status = 0";
-                        objCon.executaQuery(sql, ref retorno);
+                        foreach (DataRow item in dt.Rows) {
+
+                            sql = "Update w_trilhasTreinamentos set " +
+                                    "cat_status = 1, " +
+                                    "cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " " +
+                                    "from w_trilhasTreinamentos where id = " + objCon.valorSql(int.Parse(item["id"].ToString())) + " " +
+                                    "and cat_status = 0";
+                            objCon.executaQuery(sql, ref retorno);
+                        }
+
+                        //capturando os registros que foram bloqueados e ainda não foram trabalhados
+                        //anexando histórico de envio de e-mails
+                        sql = "select  ";
+                        sql += "(select count(id) from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf) as qtde_emails_enviados, ";
+                        sql += "(select top 1 b.des_trilha from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as ult_trilha_cobrada, ";
+                        sql += "(select top 1 b.emails_enderecos from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as End_Ult_Email_Enviado, ";
+                        sql += "(select top 1 b.data_envio_email from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as Data_Ult_Email_Enviado, ";
+                        sql += "a.* ";
+                        sql += "from w_trilhasTreinamentos a ";
+                        sql += "where a.cat_status = 1 and a.cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
+                        return objCon.retornaDataTable(sql);
+                    } else {
+                        //capturando todos os registros SEM necessidade de estarem bloqueados, visto que será usado apenas para leitura
+                        //anexando histórico de envio de e-mails
+                        sql = "select  ";
+                        sql += "(select count(id) from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf) as qtde_emails_enviados, ";
+                        sql += "(select top 1 b.des_trilha from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as ult_trilha_cobrada, ";
+                        sql += "(select top 1 b.emails_enderecos from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as End_Ult_Email_Enviado, ";
+                        sql += "(select top 1 b.data_envio_email from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as Data_Ult_Email_Enviado, ";
+                        sql += "a.* ";
+                        sql += "from w_trilhasTreinamentos a ";
+                        sql += "where (a.data_demissao = '1900-01-01' or a.data_demissao is null) and vigencia_ano = " + objCon.valorSql(anoVigente) + " ";
+                        return objCon.retornaDataTable(sql);
                     }
 
-                    //capturando os registros que foram bloqueados e ainda não foram trabalhados
-                    //anexando histórico de envio de e-mails
-                    sql = "select  ";
-                    sql += "(select count(id) from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf) as qtde_emails_enviados, ";
-                    sql += "(select top 1 b.des_trilha from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as ult_trilha_cobrada, ";
-                    sql += "(select top 1 b.emails_enderecos from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as End_Ult_Email_Enviado, ";
-                    sql += "(select top 1 b.data_envio_email from w_trilhasTreinamentos_categorizacoes b where b.cpf = a.cpf order by b.data_envio_email desc) as Data_Ult_Email_Enviado, ";
-                    sql += "a.* ";
-                    sql += "from w_trilhasTreinamentos a ";
-                    sql += "where a.cat_status = 1 and a.cat_id_analista = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
-                    return objCon.retornaDataTable(sql);
+
+
                 }
 
                 return null;
@@ -714,20 +752,39 @@ namespace Sentinella {
                 hlp.carregaComboBox(_listarPendenciasPorLider(filtro), frm, cbx, false);
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER COMBOBOX COORDENADORES (BLL)");
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER COMBOBOX LIDERES (BLL)");
             }
         }
 
-        public void preencherListViewAssociados(ListView lst, string _lider, string _hierarquia) {
+        public void preencherComboBoxAnoVigencia(Form frm, ComboBox cbx) {
+            try {
+                hlp.carregaComboBox(_listarAnoVigencia(), frm, cbx, false);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER COMBOBOX ANO VIGENCIA (BLL)");
+            }
+        }
+
+        public bool preencherListViewAssociados(ListView lst, string _lider, string _hierarquia, int _anoVigencia, string _filtroPorStatus = "") {
             try {
 
                 //garantindo que todo volume locado e não trabalhado esteja livre
                 _liberarRegistros();
 
                 DataTable dtCap, dt = new DataTable();
-                dtCap = _listarRegistrosPorLider(_lider, _hierarquia);
+                dtCap = _listarRegistrosPorLider(_lider, _hierarquia, _anoVigencia);
+
+
                 //bloqueando os registros antes de alimentar o listview
-                dt = _bloquearRegistros(dtCap);
+                //Qdo a seleção é de todos os registro, não se deve bloquear, deve ser apenas para visualização
+                bool importarTodosLideres = false;
+                if (_hierarquia != "SELEÇÃO DE TODOS") {
+                    importarTodosLideres = false;
+                } else {
+                    importarTodosLideres = true;
+                }
+
+                dt = _bloquearRegistros(dtCap, importarTodosLideres);
 
                 lst.Clear();
                 lst.View = View.Details;
@@ -745,7 +802,7 @@ namespace Sentinella {
                 lst.Columns.Add("INÍCIO DA VIGÊNCIA", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("FIM DA VIGÊNCIA", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("CPF", 80, HorizontalAlignment.Left);
-                lst.Columns.Add("PERÍODO DE COBRANÇA", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("STATUS", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("AGING DE COBRANÇA", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("% CONCLUÍDO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("# E-MAILS JÁ ENVIADOS", 120, HorizontalAlignment.Left);
@@ -770,21 +827,21 @@ namespace Sentinella {
                         item.SubItems.Add(linha["des_trilha"].ToString().ToUpper());
                         item.SubItems.Add(linha["des_nome"].ToString());
                         item.SubItems.Add(linha["vigencia_ano"].ToString().ToUpper());
-                        item.SubItems.Add(linha["vigencia_inicio_data"].ToString().ToUpper());
+                        item.SubItems.Add(linha["vigencia_inicio_data"].ToString().ToUpper().Substring(0,10));
                         item.SubItems.Add(linha["vigencia_fim_data"].ToString().ToUpper());
                         item.SubItems.Add(linha["cpf"].ToString());
 
-                        TimeSpan calculoAging = DateTime.Today - DateTime.Parse(linha["vigencia_fim_data"].ToString());
+                        TimeSpan calculoAging = DateTime.Parse(linha["vigencia_fim_data"].ToString()) - DateTime.Today;
 
                         if (calculoAging.Days > 60) {
-                            item.SubItems.Add(linha["FORA DO PERÍODO"].ToString());
+                            item.SubItems.Add("FORA DO PERIODO");
                             item.SubItems.Add(calculoAging.Days.ToString());
                         } else {
                             if (calculoAging.Days < 0) {
-                                item.SubItems.Add(linha["VENCIDO"].ToString());
+                                item.SubItems.Add("VENCIDO");
                                 item.SubItems.Add(calculoAging.Days.ToString());
                             } else {
-                                item.SubItems.Add(linha["À VENCER"].ToString());
+                                item.SubItems.Add("À VENCER");
                                 item.SubItems.Add(calculoAging.Days.ToString());
                             }
                         }
@@ -832,20 +889,75 @@ namespace Sentinella {
                         }
 
                         //DEMITIDOS
-                        if (!linha["data_demissao"].ToString().Equals("") && !linha["data_demissao"].ToString().Equals("1900-01-01")) {
+                        if (!linha["data_demissao"].ToString().Equals("") && !linha["data_demissao"].ToString().Contains("1900")) {
                             item.ImageKey = "14";
                         }
 
+                        if (_filtroPorStatus != "") {
 
-                        lst.Items.Add(item);
+                            switch (_filtroPorStatus.ToUpper()) {
+                                case "CONCLUIDOS":
+                                    if (item.ImageKey == "1") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "FORA DO PERIODO":
+                                    if (item.ImageKey == "4") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "PENDENTES":
+                                    if (item.ImageKey == "3") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "FERIAS":
+                                    if (item.ImageKey == "2") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "AFASTADOS":
+                                    if (item.ImageKey == "5") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "DEMITIDOS":
+                                    if (item.ImageKey == "14") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "TODOS":
+                                    lst.Items.Add(item);
+                                    break;
+
+                                default:
+                                    item.ImageKey = "13";
+                                    lst.Items.Add(item);
+                                    break;
+                            }
+                        } else {
+
+                            lst.Items.Add(item);
+                        }
+
+
+
                     }
                 }
                 dt.Clear();
                 dtCap.Clear();
+                return true;
             }
 
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER LISTVIEW ASSOCIADOS (BLL)");
+                return false;
             }
         }
 

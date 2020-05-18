@@ -690,6 +690,7 @@ namespace Sentinella {
                         sql = "Insert into w_tamnun_base (" +
                                 "fonte, " +
                                 "categoria, " +
+                                "filtro, " +
                                 "caminho, " +
                                 "dominio, " +
                                 "id_rede, " +
@@ -700,7 +701,8 @@ namespace Sentinella {
                                 "id_tbl_tamnun " +
                                 ") Select " +
                                 objCon.valorSql(filtro["fonte"]) + ", " +
-                                objCon.valorSql(filtro["categoria"]) + ", ";
+                                objCon.valorSql(filtro["categoria"]) + ", " +
+                                objCon.valorSql(filtro["valorBusca"]) + ", ";
 
                         string caminho = "";
                         if (filtro["fonte"].ToString().Contains("URL")) {
@@ -1897,7 +1899,7 @@ namespace Sentinella {
                 } else {
                     return false;
                 }
-               
+
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "IMPORTACAO - CADASTRO GERAL POR PROCEDURE (BLL)");

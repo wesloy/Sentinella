@@ -31,6 +31,7 @@
             this.txtSaida = new System.Windows.Forms.TextBox();
             this.txtEntrada = new System.Windows.Forms.TextBox();
             this.btnTesteConexao = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.gbSenhas.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -111,11 +112,22 @@
             this.btnTesteConexao.UseVisualStyleBackColor = true;
             this.btnTesteConexao.Click += new System.EventHandler(this.btnTesteConexao_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(36, 241);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "Teste de Conexão";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmTeste
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(636, 349);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnTesteConexao);
             this.Controls.Add(this.gbSenhas);
             this.Name = "frmTeste";
@@ -136,5 +148,6 @@
         private System.Windows.Forms.TextBox txtSaida;
         private System.Windows.Forms.TextBox txtEntrada;
         private System.Windows.Forms.Button btnTesteConexao;
+        private System.Windows.Forms.Button button1;
     }
 }

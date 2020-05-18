@@ -13,6 +13,8 @@ namespace Sentinella.Forms {
 
         Algar.Utils.Conexao con = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        string sql = "";
+        long retorno = 0;
 
         public frmTeste() {
             InitializeComponent();
@@ -30,6 +32,27 @@ namespace Sentinella.Forms {
 
         private void btnDecriptar_Click(object sender, EventArgs e) {
             txtSaida.Text = hlp.Decrypt(txtEntrada.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+
+            DataTable dt_filtro = new DataTable();
+            dt_filtro = con.retornaDataTable("Select * from w_tamnun_filtros");
+
+            foreach (DataRow item in dt_filtro.Rows) {
+
+                sql = "Update a set ";
+                sql += "a.filtro = '" + item["valorBusca"].ToString() + "' ";
+                sql += "from w_tamnun_base a ";
+                sql += "where a.caminho like '%" + item["valorBusca"].ToString() + "%' and a.categoria = '" + item["categoria"].ToString() + "' and a.fonte = '" + item["fonte"].ToString() + "'";
+                con.executaQuery(sql, ref retorno);
+
+            }
+
+            MessageBox.Show("Acabou!");
+
+
+
         }
     }
 }

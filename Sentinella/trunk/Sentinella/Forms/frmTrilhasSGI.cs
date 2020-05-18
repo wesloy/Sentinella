@@ -8,21 +8,24 @@ namespace Sentinella.Forms {
         trilhasSGI trilhas = new trilhasSGI();
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
 
-
         private void limpezaForm() {
+            trilhas.preencherComboBoxAnoVigencia(this, cbxAnoVigencia);
             cbxLideranca.Enabled = true;
             lvAssociados.Clear();
             hlp.limparCampos(pnlFiltros);
             hlp.limparCampos(pnlConteudo);
             cbxHierarquia.Enabled = true;
+            cbxAnoVigencia.Enabled = true;
             cbxLideranca.DataSource = null;
             cbxLideranca.Enabled = false;
-
-
+            lbFiltroPorStatus.Text = "(Clique sobre o item da legenda para filtrar)";
+            lbFiltroAplicado.Text = "TODOS";
             txtMensagem.Text = "Gestor," + Environment.NewLine +
             "Os associados abaixo apresentam pendências nos treinamentos anuais mandatórios da Algar Tech." + Environment.NewLine +
             "Solicitamos a gentileza de seu apoio para que os cursos sejam realizados, a fim de evitar o bloqueio nos usuários do(a) associado(a)." + Environment.NewLine + Environment.NewLine +
             "Dúvidas estamos à disposição!";
+
+            btnEnviar.Enabled = true;
 
         }
 
@@ -41,7 +44,18 @@ namespace Sentinella.Forms {
             Clipboard.Clear();
 
             if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxHierarquia")) {
-                trilhas.preencherListViewAssociados(lvAssociados, cbxLideranca.Text, cbxHierarquia.Text);
+
+                if (lbFiltroAplicado.Text.ToUpper() != "TODOS") {
+                    lbFiltroPorStatus.Text = "(Clique aqui para retirar o filtro aplicado)";
+                } else {
+                    lbFiltroPorStatus.Text = "(Clique sobre o item da legenda para filtrar)";
+                }
+
+                if (trilhas.preencherListViewAssociados(lvAssociados, cbxLideranca.Text, cbxHierarquia.Text, int.Parse(cbxAnoVigencia.Text), lbFiltroAplicado.Text)) {
+                    cbxHierarquia.Enabled = false;
+                    cbxLideranca.Enabled = false;
+                }
+
             }
 
         }
@@ -171,11 +185,93 @@ namespace Sentinella.Forms {
         private void cbxHierarquia_SelectionChangeCommitted(object sender, EventArgs e) {
 
             if (cbxHierarquia.Text != "SELEÇÃO DE TODOS") {
-                trilhas.preencherComboBoxLideres(this, cbxLideranca,cbxHierarquia.Text);
+                trilhas.preencherComboBoxLideres(this, cbxLideranca, cbxHierarquia.Text);
                 cbxLideranca.Enabled = true;
+                btnEnviar.Enabled = true;
+            } else {
+                btnEnviar.Enabled = false;
             }
-            
+
+            cbxAnoVigencia.Enabled = false;
+
         }
 
+        private void pbVermelhoPendente_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "PENDENTES";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void Label11_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "PENDENTES";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void pbAmareloFerias_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "FERIAS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void label6_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "FERIAS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void pbPretoAfastado_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "AFASTADOS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void Label9_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "AFASTADOS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void pbAzulForaPeriodo_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "FORA DO PERIODO";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void label8_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "FORA DO PERIODO";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void pbVerdeConcluido_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "CONCLUIDOS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void label12_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "CONCLUIDOS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void lbFiltroPorStatus_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "TODOS";
+            btnIniciar_Click(sender, e);
+        }
+
+        private void lvAssociados_ColumnClick(object sender, ColumnClickEventArgs e) {
+
+            ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
+            this.lvAssociados.ListViewItemSorter = lvwColumnSorter;
+
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn) {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending) {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                } else {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            } else {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.lvAssociados.Sort();
+        }
     }
 }
