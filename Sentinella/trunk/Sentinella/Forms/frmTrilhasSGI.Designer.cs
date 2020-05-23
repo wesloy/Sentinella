@@ -25,6 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTrilhasSGI));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lbFiltroAplicado = new System.Windows.Forms.Label();
             this.lbFiltroPorStatus = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pbVerdeConcluido = new System.Windows.Forms.PictureBox();
@@ -46,6 +48,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lvAssociados = new System.Windows.Forms.ListView();
             this.pnlFiltros = new System.Windows.Forms.Panel();
+            this.cbxAnoVigencia = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.cbxHierarquia = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -56,10 +60,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnEnviar = new System.Windows.Forms.Button();
-            this.lbFiltroAplicado = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.cbxAnoVigencia = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVerdeConcluido)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbAzulForaPeriodo)).BeginInit();
@@ -101,12 +101,35 @@
             this.pnlConteudo.Size = new System.Drawing.Size(1240, 440);
             this.pnlConteudo.TabIndex = 5;
             // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Location = new System.Drawing.Point(1044, 420);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 13);
+            this.label14.TabIndex = 58;
+            this.label14.Text = "Filtro aplicado:";
+            // 
+            // lbFiltroAplicado
+            // 
+            this.lbFiltroAplicado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbFiltroAplicado.AutoSize = true;
+            this.lbFiltroAplicado.BackColor = System.Drawing.Color.Transparent;
+            this.lbFiltroAplicado.ForeColor = System.Drawing.Color.Red;
+            this.lbFiltroAplicado.Location = new System.Drawing.Point(1118, 420);
+            this.lbFiltroAplicado.Name = "lbFiltroAplicado";
+            this.lbFiltroAplicado.Size = new System.Drawing.Size(45, 13);
+            this.lbFiltroAplicado.TabIndex = 57;
+            this.lbFiltroAplicado.Text = "TODOS";
+            // 
             // lbFiltroPorStatus
             // 
             this.lbFiltroPorStatus.AutoSize = true;
             this.lbFiltroPorStatus.BackColor = System.Drawing.Color.Transparent;
             this.lbFiltroPorStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbFiltroPorStatus.Location = new System.Drawing.Point(999, 168);
+            this.lbFiltroPorStatus.Location = new System.Drawing.Point(840, 168);
             this.lbFiltroPorStatus.Name = "lbFiltroPorStatus";
             this.lbFiltroPorStatus.Size = new System.Drawing.Size(207, 13);
             this.lbFiltroPorStatus.TabIndex = 56;
@@ -117,7 +140,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Location = new System.Drawing.Point(944, 168);
+            this.label12.Location = new System.Drawing.Point(778, 168);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(56, 13);
             this.label12.TabIndex = 55;
@@ -129,7 +152,7 @@
             this.pbVerdeConcluido.BackColor = System.Drawing.Color.Transparent;
             this.pbVerdeConcluido.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pbVerdeConcluido.Image = ((System.Drawing.Image)(resources.GetObject("pbVerdeConcluido.Image")));
-            this.pbVerdeConcluido.Location = new System.Drawing.Point(930, 166);
+            this.pbVerdeConcluido.Location = new System.Drawing.Point(764, 166);
             this.pbVerdeConcluido.Name = "pbVerdeConcluido";
             this.pbVerdeConcluido.Size = new System.Drawing.Size(18, 15);
             this.pbVerdeConcluido.TabIndex = 54;
@@ -140,7 +163,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Location = new System.Drawing.Point(781, 168);
+            this.label8.Location = new System.Drawing.Point(615, 168);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(148, 13);
             this.label8.TabIndex = 53;
@@ -152,7 +175,7 @@
             this.pbAzulForaPeriodo.BackColor = System.Drawing.Color.Transparent;
             this.pbAzulForaPeriodo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pbAzulForaPeriodo.Image = ((System.Drawing.Image)(resources.GetObject("pbAzulForaPeriodo.Image")));
-            this.pbAzulForaPeriodo.Location = new System.Drawing.Point(767, 166);
+            this.pbAzulForaPeriodo.Location = new System.Drawing.Point(601, 166);
             this.pbAzulForaPeriodo.Name = "pbAzulForaPeriodo";
             this.pbAzulForaPeriodo.Size = new System.Drawing.Size(18, 15);
             this.pbAzulForaPeriodo.TabIndex = 52;
@@ -163,7 +186,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Location = new System.Drawing.Point(659, 168);
+            this.label6.Location = new System.Drawing.Point(493, 168);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 51;
@@ -175,7 +198,7 @@
             this.pbAmareloFerias.BackColor = System.Drawing.Color.Transparent;
             this.pbAmareloFerias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pbAmareloFerias.Image = ((System.Drawing.Image)(resources.GetObject("pbAmareloFerias.Image")));
-            this.pbAmareloFerias.Location = new System.Drawing.Point(645, 166);
+            this.pbAmareloFerias.Location = new System.Drawing.Point(479, 166);
             this.pbAmareloFerias.Name = "pbAmareloFerias";
             this.pbAmareloFerias.Size = new System.Drawing.Size(18, 15);
             this.pbAmareloFerias.TabIndex = 50;
@@ -186,7 +209,7 @@
             // 
             this.Label9.AutoSize = true;
             this.Label9.BackColor = System.Drawing.Color.Transparent;
-            this.Label9.Location = new System.Drawing.Point(714, 168);
+            this.Label9.Location = new System.Drawing.Point(548, 168);
             this.Label9.Name = "Label9";
             this.Label9.Size = new System.Drawing.Size(49, 13);
             this.Label9.TabIndex = 49;
@@ -198,7 +221,7 @@
             this.pbPretoAfastado.BackColor = System.Drawing.Color.Transparent;
             this.pbPretoAfastado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pbPretoAfastado.Image = ((System.Drawing.Image)(resources.GetObject("pbPretoAfastado.Image")));
-            this.pbPretoAfastado.Location = new System.Drawing.Point(700, 166);
+            this.pbPretoAfastado.Location = new System.Drawing.Point(534, 166);
             this.pbPretoAfastado.Name = "pbPretoAfastado";
             this.pbPretoAfastado.Size = new System.Drawing.Size(18, 15);
             this.pbPretoAfastado.TabIndex = 48;
@@ -210,7 +233,7 @@
             this.Label10.AutoSize = true;
             this.Label10.BackColor = System.Drawing.Color.Transparent;
             this.Label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label10.Location = new System.Drawing.Point(520, 168);
+            this.Label10.Location = new System.Drawing.Point(354, 168);
             this.Label10.Name = "Label10";
             this.Label10.Size = new System.Drawing.Size(60, 13);
             this.Label10.TabIndex = 47;
@@ -220,7 +243,7 @@
             // 
             this.Label11.AutoSize = true;
             this.Label11.BackColor = System.Drawing.Color.Transparent;
-            this.Label11.Location = new System.Drawing.Point(593, 168);
+            this.Label11.Location = new System.Drawing.Point(427, 168);
             this.Label11.Name = "Label11";
             this.Label11.Size = new System.Drawing.Size(53, 13);
             this.Label11.TabIndex = 46;
@@ -232,7 +255,7 @@
             this.pbVermelhoPendente.BackColor = System.Drawing.Color.Transparent;
             this.pbVermelhoPendente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pbVermelhoPendente.Image = ((System.Drawing.Image)(resources.GetObject("pbVermelhoPendente.Image")));
-            this.pbVermelhoPendente.Location = new System.Drawing.Point(576, 166);
+            this.pbVermelhoPendente.Location = new System.Drawing.Point(410, 166);
             this.pbVermelhoPendente.Name = "pbVermelhoPendente";
             this.pbVermelhoPendente.Size = new System.Drawing.Size(18, 15);
             this.pbVermelhoPendente.TabIndex = 45;
@@ -241,8 +264,9 @@
             // 
             // lkDesmarcarTodos
             // 
+            this.lkDesmarcarTodos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lkDesmarcarTodos.AutoSize = true;
-            this.lkDesmarcarTodos.Location = new System.Drawing.Point(409, 168);
+            this.lkDesmarcarTodos.Location = new System.Drawing.Point(91, 420);
             this.lkDesmarcarTodos.Name = "lkDesmarcarTodos";
             this.lkDesmarcarTodos.Size = new System.Drawing.Size(91, 13);
             this.lkDesmarcarTodos.TabIndex = 8;
@@ -252,8 +276,9 @@
             // 
             // lkMarcarTodos
             // 
+            this.lkMarcarTodos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lkMarcarTodos.AutoSize = true;
-            this.lkMarcarTodos.Location = new System.Drawing.Point(330, 168);
+            this.lkMarcarTodos.Location = new System.Drawing.Point(12, 420);
             this.lkMarcarTodos.Name = "lkMarcarTodos";
             this.lkMarcarTodos.Size = new System.Drawing.Size(73, 13);
             this.lkMarcarTodos.TabIndex = 7;
@@ -337,6 +362,33 @@
             this.pnlFiltros.Name = "pnlFiltros";
             this.pnlFiltros.Size = new System.Drawing.Size(1240, 86);
             this.pnlFiltros.TabIndex = 4;
+            // 
+            // cbxAnoVigencia
+            // 
+            this.cbxAnoVigencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxAnoVigencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxAnoVigencia.FormattingEnabled = true;
+            this.cbxAnoVigencia.Items.AddRange(new object[] {
+            "GESTOR 2",
+            "GESTOR 3",
+            "GESTOR 4",
+            "GESTOR 5",
+            "SELEÇÃO DE TODOS"});
+            this.cbxAnoVigencia.Location = new System.Drawing.Point(103, 3);
+            this.cbxAnoVigencia.Name = "cbxAnoVigencia";
+            this.cbxAnoVigencia.Size = new System.Drawing.Size(300, 24);
+            this.cbxAnoVigencia.TabIndex = 78;
+            this.cbxAnoVigencia.Tag = "Fila de Trabalho";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(6, 6);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(91, 16);
+            this.label13.TabIndex = 77;
+            this.label13.Text = "Ano Vigência:";
             // 
             // cbxHierarquia
             // 
@@ -464,56 +516,6 @@
             this.btnEnviar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEnviar.UseVisualStyleBackColor = true;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
-            // 
-            // lbFiltroAplicado
-            // 
-            this.lbFiltroAplicado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbFiltroAplicado.AutoSize = true;
-            this.lbFiltroAplicado.BackColor = System.Drawing.Color.Transparent;
-            this.lbFiltroAplicado.ForeColor = System.Drawing.Color.Red;
-            this.lbFiltroAplicado.Location = new System.Drawing.Point(1118, 420);
-            this.lbFiltroAplicado.Name = "lbFiltroAplicado";
-            this.lbFiltroAplicado.Size = new System.Drawing.Size(45, 13);
-            this.lbFiltroAplicado.TabIndex = 57;
-            this.lbFiltroAplicado.Text = "TODOS";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Location = new System.Drawing.Point(1044, 420);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 13);
-            this.label14.TabIndex = 58;
-            this.label14.Text = "Filtro aplicado:";
-            // 
-            // cbxAnoVigencia
-            // 
-            this.cbxAnoVigencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxAnoVigencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxAnoVigencia.FormattingEnabled = true;
-            this.cbxAnoVigencia.Items.AddRange(new object[] {
-            "GESTOR 2",
-            "GESTOR 3",
-            "GESTOR 4",
-            "GESTOR 5",
-            "SELEÇÃO DE TODOS"});
-            this.cbxAnoVigencia.Location = new System.Drawing.Point(103, 3);
-            this.cbxAnoVigencia.Name = "cbxAnoVigencia";
-            this.cbxAnoVigencia.Size = new System.Drawing.Size(300, 24);
-            this.cbxAnoVigencia.TabIndex = 78;
-            this.cbxAnoVigencia.Tag = "Fila de Trabalho";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(6, 6);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(91, 16);
-            this.label13.TabIndex = 77;
-            this.label13.Text = "Ano Vigência:";
             // 
             // frmTrilhasSGI
             // 

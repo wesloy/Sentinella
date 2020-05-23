@@ -5,33 +5,60 @@ using System.Windows.Forms;
 
 namespace Sentinella {
 
+    #region TABELAS
 
     //CREATE TABLE [dbo].[w_trilhasTreinamentos] (
+    //    [id]                        INT            IDENTITY (1, 1) NOT NULL,
+    //    [vigencia_ano]              INT            DEFAULT ((1900)) NOT NULL,
+    //    [vigencia_inicio_data]      DATETIME       NULL,
+    //    [vigencia_fim_data]         DATETIME       NULL,
+    //    [data_admissao]             DATETIME       NULL,
+    //    [data_demissao]             DATETIME       NULL,
+    //    [des_trilha]                NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
+    //    [des_nome]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
+    //    [cpf]                       NVARCHAR (15)  DEFAULT ('SEM INFO') NOT NULL,
+    //    [total_cursos]              INT            DEFAULT ((0)) NOT NULL,
+    //    [vol_nao_concluido]         INT            DEFAULT ((0)) NOT NULL,
+    //    [vol_concluido]             INT            DEFAULT ((0)) NOT NULL,
+    //    [percentual_concluido]      INT            DEFAULT ((0)) NOT NULL,
+    //    [data_ult_conteudo_cursado] DATETIME       NULL,
+    //    [gestor_1]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+    //    [gestor_2]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+    //    [gestor_3]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+    //    [gestor_4]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+    //    [gestor_5]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+    //    [data_ferias_inicio]        DATETIME       NULL,
+    //    [data_ferias_fim]           DATETIME       NULL,
+    //    [data_afastamento_inicio]   DATETIME       NULL,
+    //    [data_afastamento_fim]      DATETIME       NULL,
+    //    [cat_status]                INT            DEFAULT ((0)) NOT NULL,
+    //    [cat_id_analista]           INT            DEFAULT ((0)) NOT NULL,
+    //    [data_importacao]           DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
+    //    [id_importacao]             INT            DEFAULT ((0)) NOT NULL
+    //);
+
+    //CREATE TABLE [dbo].[w_trilhasTreinamentos_categorizacoes] (
     //    [id]                    INT            IDENTITY (1, 1) NOT NULL,
-    //    [fila]                  NVARCHAR (100) DEFAULT ('SEM INFO') NOT NULL,
-    //    [periodoCobranca]       INT            NULL,
-    //    [des_turma]             NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
-    //    [des_nome]              NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
     //    [cpf]                   NVARCHAR (15)  DEFAULT ('SEM INFO') NOT NULL,
-    //    [total_cursos]          INT            DEFAULT ((0)) NOT NULL,
-    //    [vol_nao_concluido]     INT            DEFAULT ((0)) NOT NULL,
-    //    [vol_concluido]         INT            DEFAULT ((0)) NOT NULL,
-    //    [percentual_concluido]  INT            DEFAULT ((0)) NOT NULL,
-    //    [gestor_1]              NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_2]              NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_3]              NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_4]              NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_5]              NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [data_admissao]         DATETIME       NULL,
-    //    [data_demissao]         DATETIME       NULL,
-    //    [data_importacao]       DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
-    //    [id_importacao]         INT            DEFAULT ((0)) NOT NULL,
+    //    [vigencia_ano]          INT            DEFAULT ((1900)) NOT NULL,
+    //    [des_trilha]            NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
     //    [email_enviado]         BIT            DEFAULT ((0)) NOT NULL,
     //    [emails_enderecos]      NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
     //    [data_envio_email]      DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
     //    [id_analista_seguranca] INT            DEFAULT ((0)) NOT NULL
     //);
 
+    //CREATE TABLE [dbo].[w_trilhasTreinamentos_cursos] (
+    //    [cod_curso] INT            DEFAULT ((0)) NOT NULL,
+    //    [des_curso] NVARCHAR (500) DEFAULT ('SEM INFO') NOT NULL
+    //);
+
+    //CREATE TABLE [dbo].[w_trilhasTreinamentos_trilhas] (
+    //    [cod_trilha] INT            DEFAULT ((0)) NOT NULL,
+    //    [des_trilha] NVARCHAR (500) DEFAULT ('SEM INFO') NOT NULL
+    //);
+
+    #endregion
 
     class trilhasSGI {
 
@@ -45,28 +72,39 @@ namespace Sentinella {
 
         #region DTO
         public int id { get; set; }
-        public string fila { get; set; }
-        public int periodoCobranca { get; set; }
-        public string des_turma { get; set; }
+        public int vigencia_ano { get; set; }
+        public DateTime vigencia_inicio_data { get; set; }
+        public DateTime vigencia_fim_data { get; set; }
+        public DateTime data_admissao { get; set; }
+        public DateTime data_demissao { get; set; }
+        public string des_trilha { get; set; }
         public string des_nome { get; set; }
         public string cpf { get; set; }
         public int total_cursos { get; set; }
         public int vol_nao_concluido { get; set; }
         public int vol_concluido { get; set; }
         public int percentual_concluido { get; set; }
+        public DateTime data_ult_conteudo_cursado { get; set; }
         public string gestor_1 { get; set; }
         public string gestor_2 { get; set; }
         public string gestor_3 { get; set; }
         public string gestor_4 { get; set; }
         public string gestor_5 { get; set; }
-        public DateTime data_admissao { get; set; }
-        public DateTime data_demissao { get; set; }
+        public DateTime data_ferias_inicio { get; set; }
+        public DateTime data_ferias_fim { get; set; }
+        public DateTime data_afastamento_inicio { get; set; }
+        public DateTime data_afastamento_fim { get; set; }
+        public bool cat_status { get; set; }
+        public int cat_id_analista { get; set; }
         public DateTime data_importacao { get; set; }
         public int id_importacao { get; set; }
+
+
         public bool email_enviado { get; set; }
         public string emails_enderecos { get; set; }
         public DateTime data_envio_email { get; set; }
-        public int id_analista_seguranca { get; set; }
+
+
         #endregion
 
         #region CONSTRUTORES
@@ -82,7 +120,7 @@ namespace Sentinella {
             if (dt.Rows.Count > 0) {
                 foreach (DataRow item in dt.Rows) {
                     id = int.Parse(item["id"].ToString());
-                    des_turma = item["des_turma"].ToString();
+                    des_trilha = item["des_trilha"].ToString();
                     des_nome = item["des_nome"].ToString();
                     cpf = item["cpf"].ToString();
                     total_cursos = int.Parse(item["total_cursos"].ToString());
@@ -98,7 +136,7 @@ namespace Sentinella {
                     id_importacao = int.Parse(item["id_importacao"].ToString());
                     email_enviado = bool.Parse(item["email_enviado"].ToString());
                     data_envio_email = DateTime.Parse(item["data_envio_email"].ToString());
-                    id_analista_seguranca = int.Parse(item["id_analista_seguranca"].ToString());
+                    cat_id_analista = int.Parse(item["cat_id_analista"].ToString());
                 }
 
             }
@@ -117,9 +155,8 @@ namespace Sentinella {
             if (dt.Rows.Count > 0) {
                 foreach (DataRow item in dt.Rows) {
                     id = int.Parse(item["id"].ToString());
-                    fila = item["fila"].ToString();
-                    periodoCobranca = int.Parse(item["periodoCobranca"].ToString());
-                    des_turma = item["des_turma"].ToString();
+                    vigencia_ano = int.Parse(item["vigencia_ano"].ToString());
+                    des_trilha = item["des_trilha"].ToString();
                     des_nome = item["des_nome"].ToString();
                     cpf = item["cpf"].ToString();
                     total_cursos = int.Parse(item["total_cursos"].ToString());
@@ -136,7 +173,7 @@ namespace Sentinella {
                     email_enviado = _email_enviado;
                     emails_enderecos = _emails_enderecos;
                     data_envio_email = hlp.dataHoraAtual();
-                    id_analista_seguranca = Constantes.id_BD_logadoFerramenta;
+                    cat_id_analista = Constantes.id_BD_logadoFerramenta;
                 }
 
             }
@@ -697,12 +734,15 @@ namespace Sentinella {
 
         private bool _finalizarRegistro(trilhasSGI t) {
             try {
-                sql = "Update w_trilhasTreinamentos set " +
-                            "email_enviado = " + objCon.valorSql(t.email_enviado) + ", " +
-                            "data_envio_email = " + objCon.valorSql(t.data_envio_email) + ", " +
-                            "id_analista_seguranca = " + objCon.valorSql(t.id_analista_seguranca) + ", " +
-                            "emails_enderecos = " + objCon.valorSql(t.emails_enderecos) + " " +
-                            "from w_trilhasTreinamentos where id = " + objCon.valorSql(t.id) + " ";
+                sql = "Insert into w_trilhasTreinamentos_categorizacoes (cpf, vigencia_ano, des_trilha, email_enviado, emails_enderecos, data_envio_email, id_analista_seguranca) values (" +
+                            objCon.valorSql(t.cpf) + ", " +
+                            objCon.valorSql(t.vigencia_ano) + ", " +
+                            objCon.valorSql(t.des_trilha) + ", " +
+                            objCon.valorSql(t.email_enviado) + ", " +
+                            objCon.valorSql(t.emails_enderecos) + ", " +
+                            objCon.valorSql(t.data_envio_email) + ", " +
+                            objCon.valorSql(t.cat_id_analista) + ") ";
+
                 return objCon.executaQuery(sql, ref retorno);
             }
             catch (Exception ex) {
@@ -768,12 +808,18 @@ namespace Sentinella {
         public bool preencherListViewAssociados(ListView lst, string _lider, string _hierarquia, int _anoVigencia, string _filtroPorStatus = "") {
             try {
 
+
+                //carregar form Barra de Progresso de preparação dos dados
+                frmProgressBar frm = new frmProgressBar(3);
+                frm.Show();
+
                 //garantindo que todo volume locado e não trabalhado esteja livre
                 _liberarRegistros();
+                frm.atualizarBarra(1);
 
                 DataTable dtCap, dt = new DataTable();
                 dtCap = _listarRegistrosPorLider(_lider, _hierarquia, _anoVigencia);
-
+                frm.atualizarBarra(2);
 
                 //bloqueando os registros antes de alimentar o listview
                 //Qdo a seleção é de todos os registro, não se deve bloquear, deve ser apenas para visualização
@@ -784,13 +830,15 @@ namespace Sentinella {
                     importarTodosLideres = true;
                 }
 
-                dt = _bloquearRegistros(dtCap, importarTodosLideres);
+                dt = _bloquearRegistros(dtCap, importarTodosLideres, _anoVigencia);
+                frm.atualizarBarra(3);
 
                 lst.Clear();
                 lst.View = View.Details;
                 lst.LabelEdit = false;
                 lst.CheckBoxes = true;
                 lst.SmallImageList = Constantes.imglist();
+                lst.Sorting = SortOrder.Ascending;
                 lst.GridLines = true;
                 lst.FullRowSelect = true;
                 lst.HideSelection = false;
@@ -805,6 +853,7 @@ namespace Sentinella {
                 lst.Columns.Add("STATUS", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("AGING DE COBRANÇA", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("% CONCLUÍDO", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA ÚLT CONTEÚDO CURSADO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("# E-MAILS JÁ ENVIADOS", 120, HorizontalAlignment.Left);
                 lst.Columns.Add("ÚLT. TRILHA COBRADA", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("ÚLT. END. DE E-MAIL ENVIADO", 120, HorizontalAlignment.Left);
@@ -819,33 +868,166 @@ namespace Sentinella {
                 lst.Columns.Add("GERENTE", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("DIRETORIA", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("DIRETORIA", 250, HorizontalAlignment.Left);
+                frm.Close();
 
                 if (dt.Rows.Count > 0) {
+
+                    //carregar form Barra de Progresso de preparação dos dados
+                    frmProgressBar frm2 = new frmProgressBar(dt.Rows.Count);
+                    frm2.Show();
+                    int contador = 0;
+
                     foreach (DataRow linha in dt.Rows) {
+
+                        contador += 1;
+                        frm2.atualizarBarra(contador);
+
                         ListViewItem item = new ListViewItem();
                         item.Text = linha["id"].ToString();
                         item.SubItems.Add(linha["des_trilha"].ToString().ToUpper());
                         item.SubItems.Add(linha["des_nome"].ToString());
                         item.SubItems.Add(linha["vigencia_ano"].ToString().ToUpper());
-                        item.SubItems.Add(linha["vigencia_inicio_data"].ToString().ToUpper().Substring(0,10));
-                        item.SubItems.Add(linha["vigencia_fim_data"].ToString().ToUpper());
+                        item.SubItems.Add(linha["vigencia_inicio_data"].ToString().Substring(0, 10));
+                        item.SubItems.Add(linha["vigencia_fim_data"].ToString().Substring(0, 10));
                         item.SubItems.Add(linha["cpf"].ToString());
 
                         TimeSpan calculoAging = DateTime.Parse(linha["vigencia_fim_data"].ToString()) - DateTime.Today;
+                        bool _validar = true;
+                        string _imageKey = "13";
+                        string _status = "ERRO VALIDACAO";
+                        string _aging = "0";
 
-                        if (calculoAging.Days > 60) {
-                            item.SubItems.Add("FORA DO PERIODO");
-                            item.SubItems.Add(calculoAging.Days.ToString());
-                        } else {
-                            if (calculoAging.Days < 0) {
-                                item.SubItems.Add("VENCIDO");
-                                item.SubItems.Add(calculoAging.Days.ToString());
-                            } else {
-                                item.SubItems.Add("À VENCER");
-                                item.SubItems.Add(calculoAging.Days.ToString());
+
+
+                        //DEMITIDOS
+                        if (_validar) {
+
+                            if (!linha["data_demissao"].ToString().Equals("") && !linha["data_demissao"].ToString().Contains("1900")) {
+                                _status = "DESLIGADO";
+                                _aging = "0";
+                                _imageKey = "14";
+                                _validar = false;
                             }
                         }
+
+
+
+                        //CONCLUÍDOS / FORA DO PRAZO / PENDENTES
+                        if (_validar) {
+
+
+                            //SEPARANDO AS TRILHAS
+                            //TRILHA SOU ALGAR, COBRAR ATÉ 10 MESES APÓS CONTRATAÇÃO
+                            //TRILHA SGI, COBRAR À PARTIR DE 60 DIAS ANTES DO ANIVERSÁRIO DA EMPRESA
+
+                            if (linha["des_trilha"].ToString().ToUpper().Contains("SOUALGAR")) {
+
+                                //TRILHA SOU ALGAR
+
+                                if (int.Parse(linha["percentual_concluido"].ToString()) < 100) {
+
+                                    if (calculoAging.Days <= 30) {
+
+                                        _status = "PENDENTE - À VENCER";
+                                        _aging = calculoAging.Days.ToString();
+                                        _imageKey = "3";
+                                    }
+
+                                    if (calculoAging.Days > 30) {
+                                        //como é uma trilha obrigatória de contratação, considerado 30 dias para ser finalizada
+                                        _status = "PENDENTE - VENCIDO";
+                                        _aging = calculoAging.Days.ToString();
+                                        _imageKey = "3";
+                                    }
+
+                                    if (calculoAging.Days > 300) {
+                                        //cobrança já deve ser da trilha SGI
+                                        _status = "FORA PERIODO";
+                                        _aging = calculoAging.Days.ToString();
+                                        _imageKey = "4";
+
+                                    }
+
+                                } else if (int.Parse(linha["percentual_concluido"].ToString()) >= 100) {
+                                    _status = "CONCLUIDO";
+                                    _aging = "0";
+                                    _imageKey = "1";
+                                    _validar = false;
+                                }
+
+                            } else {
+
+                                //TRILHA SGI
+
+                                if (int.Parse(linha["percentual_concluido"].ToString()) < 100) {
+
+                                    if (calculoAging.Days <= 60 && calculoAging.Days >= 0) {
+
+                                        _status = "PENDENTE - À VENCER";
+                                        _aging = calculoAging.Days.ToString();
+                                        _imageKey = "3";
+                                    }
+
+                                    if (calculoAging.Days < 0) {
+                                        _status = "PENDENTE - VENCIDO";
+                                        _aging = calculoAging.Days.ToString();
+                                        _imageKey = "3";
+                                    }
+
+                                    if (calculoAging.Days > 60) {
+                                        _status = "FORA PERIODO";
+                                        _aging = calculoAging.Days.ToString();
+                                        _imageKey = "4";
+
+                                    }
+
+                                } else if (int.Parse(linha["percentual_concluido"].ToString()) >= 100) {
+                                    _status = "CONCLUIDO";
+                                    _aging = "0";
+                                    _imageKey = "1";
+                                    _validar = false;
+                                }
+
+                            }
+
+
+                        }
+
+                        //AFASTAMENTO
+                        if (_validar) {
+                            if (!linha["data_afastamento_inicio"].ToString().Equals("") && !linha["data_afastamento_fim"].ToString().Equals("")) {
+                                if (DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today) {
+
+                                    _status = "AFASTADO";
+                                    _aging = calculoAging.Days.ToString();
+                                    _imageKey = "5";
+                                    _validar = false;
+
+                                }
+                            }
+                        }
+
+                        //FÉRIAS
+                        if (_validar) {
+                            if (!linha["data_ferias_inicio"].ToString().Equals("") && !linha["data_ferias_fim"].ToString().Equals("")) {
+                                if (DateTime.Parse(linha["data_ferias_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_ferias_fim"].ToString()) > DateTime.Today) {
+
+                                    _status = "FÉRIAS";
+                                    _aging = calculoAging.Days.ToString();
+                                    _imageKey = "2";
+                                    _validar = false;
+                                }
+                            }
+
+                        }
+
+
+                        item.SubItems.Add(_status);
+                        item.SubItems.Add(_aging);
+                        item.ImageKey = _imageKey;
+
                         item.SubItems.Add(linha["percentual_concluido"].ToString() + "%");
+                        item.SubItems.Add(linha["data_ult_conteudo_cursado"].ToString());
                         item.SubItems.Add(linha["qtde_emails_enviados"].ToString());
                         item.SubItems.Add(linha["ult_trilha_cobrada"].ToString());
                         item.SubItems.Add(linha["End_Ult_Email_Enviado"].ToString());
@@ -860,38 +1042,6 @@ namespace Sentinella {
                         item.SubItems.Add(linha["gestor_3"].ToString());
                         item.SubItems.Add(linha["gestor_4"].ToString());
                         item.SubItems.Add(linha["gestor_5"].ToString());
-
-
-                        //ANÁLISE DE STATUS DE CONCLUSÃO
-                        if (calculoAging.Days <= 60 && int.Parse(linha["percentual_concluido"].ToString()) < 100) {
-                            item.ImageKey = "3";
-                        } else if (calculoAging.Days <= 60 && int.Parse(linha["percentual_concluido"].ToString()).Equals(100)) {
-                            item.ImageKey = "1";
-                        } else {
-                            item.ImageKey = "4";
-                        }
-
-
-                        //EXCEÇÕES PARA O STATUS DE COBRANÇA QUE NÃO DEVERÃO SER ENVIADOS E-MAILS
-
-                        //FÉRIAS
-                        if (!linha["data_ferias_inicio"].ToString().Equals("") && !linha["data_ferias_fim"].ToString().Equals("")) {
-                            if (DateTime.Parse(linha["data_ferias_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_ferias_fim"].ToString()) > DateTime.Today) {
-                                item.ImageKey = "2";
-                            }
-                        }
-
-                        //AFASTAMENTO
-                        if (!linha["data_afastamento_inicio"].ToString().Equals("") && !linha["data_afastamento_fim"].ToString().Equals("")) {
-                            if (DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today) {
-                                item.ImageKey = "5";
-                            }
-                        }
-
-                        //DEMITIDOS
-                        if (!linha["data_demissao"].ToString().Equals("") && !linha["data_demissao"].ToString().Contains("1900")) {
-                            item.ImageKey = "14";
-                        }
 
                         if (_filtroPorStatus != "") {
 
@@ -926,7 +1076,7 @@ namespace Sentinella {
                                     }
                                     break;
 
-                                case "DEMITIDOS":
+                                case "DESLIGADOS":
                                     if (item.ImageKey == "14") {
                                         lst.Items.Add(item);
                                     }
@@ -946,9 +1096,9 @@ namespace Sentinella {
                             lst.Items.Add(item);
                         }
 
-
-
                     }
+
+                    frm2.Close();
                 }
                 dt.Clear();
                 dtCap.Clear();

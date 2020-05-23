@@ -7,9 +7,11 @@ namespace Sentinella.Forms {
 
         trilhasSGI trilhas = new trilhasSGI();
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
 
         private void limpezaForm() {
             trilhas.preencherComboBoxAnoVigencia(this, cbxAnoVigencia);
+            btnIniciar.Enabled = true;
             cbxLideranca.Enabled = true;
             lvAssociados.Clear();
             hlp.limparCampos(pnlFiltros);
@@ -40,7 +42,7 @@ namespace Sentinella.Forms {
 
         private void btnIniciar_Click(object sender, EventArgs e) {
             cbxLideranca.Enabled = false;
-
+            
             Clipboard.Clear();
 
             if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxHierarquia")) {
@@ -54,6 +56,7 @@ namespace Sentinella.Forms {
                 if (trilhas.preencherListViewAssociados(lvAssociados, cbxLideranca.Text, cbxHierarquia.Text, int.Parse(cbxAnoVigencia.Text), lbFiltroAplicado.Text)) {
                     cbxHierarquia.Enabled = false;
                     cbxLideranca.Enabled = false;
+                    btnIniciar.Enabled = false;
                 }
 
             }
@@ -83,7 +86,9 @@ namespace Sentinella.Forms {
 
         private void lkMarcarTodos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             foreach (ListViewItem item in lvAssociados.Items) {
-                item.Checked = true;
+                if (item.SubItems[7].Text.ToUpper().Contains("PENDENTE")) {
+                    item.Checked = true;
+                }
             }
         }
 
@@ -96,8 +101,16 @@ namespace Sentinella.Forms {
             bool validacao = false;
             foreach (ListViewItem item in lvAssociados.Items) {
                 if (item.Checked) {
-                    validacao = true;
-                    break;
+                    if (item.SubItems[7].Text.ToUpper().Contains("PENDENTE")) {
+                        validacao = true;
+                    } else {
+                        MessageBox.Show("Pode-se enviar e-mails apenas para itens com status PENDENTE. Favor revise os itens selecionados e tem outra vez!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        validacao = false;
+                        return;
+                    }
+
+                    
+                    
                 }
             }
 
@@ -109,24 +122,29 @@ namespace Sentinella.Forms {
             //envio pelo Dynamics e baixa do registro
             email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
 
-            email.Assunto = "TREINAMENTOS MANDATÓRIOS - TRILHA SGI";
+            email.Assunto = "TREINAMENTOS MANDATÓRIOS - TRILHA SGI <<<<<<<<<<<<<<<<<<<<<<< TESTES";
             email.Mensagem = txtMensagem.Text.Replace("\r\n", "<br />") + " <br /><br />";
             email.Mensagem += "Lista de associados com pendência: <br /><br />";
 
             foreach (ListViewItem item in lvAssociados.Items) {
                 if (item.Checked) {
-                    email.Mensagem += item.SubItems[1].Text + "<br />";
-                    email.Mensagem += item.SubItems[2].Text + "<br />";
-                    email.Mensagem += "Percentual concluído: " + item.SubItems[5].Text + "% <br />";
+                    email.Mensagem += "<b>TRILHA:</b> " + item.SubItems[1].Text + "<br />";
+                    email.Mensagem += "<b>ANO DE VIGÊNCIA:</b> " + item.SubItems[3].Text + "<br />";
+                    email.Mensagem += "<b>ASSOCIADO:</b> " + item.SubItems[2].Text + "<br />";
+                    email.Mensagem += "<b>Percentual concluído:</b> " + item.SubItems[9].Text + " <br />";
 
-                    if (int.Parse(item.SubItems[4].Text) < 0) {
-                        email.Mensagem += "Período de conclusão vencido: " + int.Parse(item.SubItems[4].Text) * -1 + " dia(s). <br />";
+                    if (item.SubItems[1].Text.Contains("TRILHA SGI")) {
+                        if (int.Parse(item.SubItems[8].Text) < 0) {
+                            email.Mensagem += "<b>Período de conclusão vencido:</b> " + int.Parse(item.SubItems[8].Text) * -1 + " dia(s). <br />";
+                        } else {
+                            email.Mensagem += "<b>Período de conclusão irá vencer:</b> " + item.SubItems[8].Text + " dia(s). <br />";
+                        }
+                        email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[20].Text + "<br />";
                     } else {
-                        email.Mensagem += "Período de conclusão irá vencer: " + item.SubItems[4].Text + " dia(s). <br />";
+                        email.Mensagem += "<b>Período de conclusão vencido:</b> " + int.Parse(item.SubItems[8].Text) + " dia(s). <br />";
                     }
 
-                    email.Mensagem += "Supervisão: " + item.SubItems[10].Text + "<br />";
-                    email.Mensagem += "Coordenação: " + item.SubItems[11].Text + "<br /><br />";
+                    email.Mensagem += "<br />";
                 }
             }
 
@@ -251,9 +269,13 @@ namespace Sentinella.Forms {
             btnIniciar_Click(sender, e);
         }
 
+        private void pbProibidoDesligado_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "DESLIGADOS";
+            btnIniciar_Click(sender, e);
+        }
         private void lvAssociados_ColumnClick(object sender, ColumnClickEventArgs e) {
 
-            ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
+            //ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter(); <<<<<<<<<<<< declarado no escopo principal do form
             this.lvAssociados.ListViewItemSorter = lvwColumnSorter;
 
             // Determine if clicked column is already the column that is being sorted.
@@ -267,11 +289,21 @@ namespace Sentinella.Forms {
             } else {
                 // Set the column number that is to be sorted; default to ascending.
                 lvwColumnSorter.SortColumn = e.Column;
-                lvwColumnSorter.Order = SortOrder.Ascending;
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending) {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                } else {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+
+
+                //lvwColumnSorter.Order = SortOrder.Ascending;
             }
 
             // Perform the sort with these new sort options.
             this.lvAssociados.Sort();
         }
+
+
     }
 }

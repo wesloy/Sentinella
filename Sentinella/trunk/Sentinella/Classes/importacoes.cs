@@ -299,6 +299,11 @@ namespace Sentinella {
             //OleDbDataReader dr = comando.ExecuteReader(); //carregando informações do excel
 
 
+            //carregar form Barra de Progresso de carregamento de dados
+            frmProgressBar frm1 = new frmProgressBar(3);
+            frm1.Show();
+
+
             //LEITURA CSV
             StreamReader rd = new StreamReader(diretorio);
             while ((linha = rd.ReadLine()) != null) {
@@ -317,13 +322,13 @@ namespace Sentinella {
                 volTotal += 1;
             }
             rd.Close();
-            //carregar form Barra de Progresso
-            frmProgressBar frm = new frmProgressBar(volTotal);
-            frm.atualizarBarra(0);
-            frm.Show();
+
+            frm1.atualizarBarra(1);
 
 
             try {
+
+
 
                 rd = new StreamReader(diretorio);
                 DateTime dataHoraAtual = hlp.dataHoraAtual();
@@ -332,7 +337,39 @@ namespace Sentinella {
                 dtFilas = filas.listaFilasDataTable("DLP");
                 Boolean importar = false;
 
+                //DataTable de tratativas
+                DataTable baseDLP = new DataTable();
+                //últimos 30 dias coletados, visto que fazemos importações de 7 ou 14 dias é mais que suficiente.
+                sql = "Select * from w_dlp where generated_ > " + objCon.valorSql(DateTime.Today.AddDays(-30)) + " ";
+                baseDLP = objCon.retornaDataTable(sql);
+                frm1.atualizarBarra(2);
+
+                //Ad e Histórico funcionários - para henriquecimento de informações
+                DataTable baseAD = new DataTable();
+                sql = "Select * from db_ControleAD.dbo.Tbl_UsuariosAD";
+                baseAD = objCon.retornaDataTable(sql);
+                frm1.atualizarBarra(3);
+
+                #region DECOMISSIONADO DEVIDO A LENTIDÃO 23-05-2020
+                //Fazer qry de update após importação
+                //DataTable baseHistoricoAssociados = new DataTable();
+                //sql = "Select * from w_funcionarios_historico";
+                //baseHistoricoAssociados = objCon.retornaDataTable(sql);
+                //frm1.atualizarBarra(4);
+                #endregion
+
+                frm1.Close();
+
+
+                //carregar form Barra de Progresso de importação
+                frmProgressBar frm = new frmProgressBar(volTotal);
+                int contador = 0;
+                frm.atualizarBarra(contador);
+                frm.Show();
+
                 while ((linha = rd.ReadLine()) != null) {
+
+                    contador += 1;
 
                     String[] infos = linha.Split(delimitador.ToCharArray());
                     for (int i = 0; i < infos.Length; i++) {
@@ -377,8 +414,6 @@ namespace Sentinella {
                     #endregion
 
 
-
-
                     foreach (DataRow item in dtFilas.Rows) {
                         if (infos[22].ToString().ToUpper().Replace("_", "").Replace(" ", "").Equals(item["regraImportacao"].ToString().ToUpper().Replace("_", "").Replace(" ", "")) && item["ATIVO"].ToString().ToUpper() == "TRUE") {
 
@@ -396,8 +431,8 @@ namespace Sentinella {
                             || infos[20].ToString().ToUpper().Contains("CLIPBOARD")
                             || infos[14].ToString().ToUpper().Contains("SISTEMA")
                             || (!infos[23].ToString().ToUpper().Contains("CPF") && !infos[23].ToString().ToUpper().Contains("CARTAO"))) {
-                        volTotal += 1;
-                        frm.atualizarBarra(volTotal);
+
+                        frm.atualizarBarra(contador);
                         continue;
                     }
 
@@ -411,8 +446,7 @@ namespace Sentinella {
                     if (DateTime.TryParse(dataMontada, out dateValue)) {
                         data = dateValue;
                     } else {
-                        volTotal += 1;
-                        frm.atualizarBarra(volTotal);
+                        frm.atualizarBarra(contador);
                         continue;
                     }
 
@@ -423,13 +457,21 @@ namespace Sentinella {
                     if (DateTime.TryParse(dataMontada, out dateValue)) {
                         data = dateValue;
                     } else {
-                        volTotal += 1;
-                        frm.atualizarBarra(volTotal);
+
+                        frm.atualizarBarra(contador);
                         continue;
                     }
 
-                    #region Insert
+
+                    #region VALIDACOES FINAIS E HENRIQUECIMENTO
+
+                    //duplicidade
                     string[] dataFull = infos[1].ToString().Split(' ');
+                    string expressao = "";
+                    DataRow[] resultado = null;
+                    string cpf = "";
+                    string nome_completo = "";
+                    string matricula = "";
 
                     string chaveDuplicidade = hlp.removerCharEspecial(dataFull[0] +
                                 infos[8].ToString() +
@@ -439,6 +481,84 @@ namespace Sentinella {
                                 infos[23].ToString() +
                                 infos[25].ToString()).Replace(" ", "").ToUpper();
 
+
+                    //filtrando registros pelo valor de busca atual
+                    expressao = "chave_duplicidade = '" + chaveDuplicidade + "'";
+                    resultado = baseDLP.Select(expressao);
+
+                    if (resultado.Length > 0) {
+                        frm.atualizarBarra(contador);
+                        continue;
+                    }
+                    resultado = null;
+
+
+                    //HENRIQUECIMENTO
+                    //- tentar a busca por id de rede, caso não localize, buscar por matrícula
+                    // id de rede - control algar
+                    // matricula - control bradesco
+                    expressao = "Nom_login = '" + hlp.removerCharEspecial(infos[14].ToString().Replace("'", "")) + "'";
+                    resultado = baseAD.Select(expressao);
+
+                    if (resultado.Length > 0) {
+                        foreach (DataRow item in resultado) {
+                            cpf = item["Cod_cpf"].ToString();
+                            nome_completo = item["Nom_Usuario"].ToString();
+                            break;
+                        }
+                    }
+
+                    if (cpf == "") {
+
+                        expressao = "Cod_Matricula = '" + hlp.apenasNumeros(hlp.removerCharEspecial(infos[14].ToString().Replace("'", ""))) + "'";
+                        resultado = baseAD.Select(expressao);
+
+                        if (resultado.Length > 0) {
+                            foreach (DataRow item in resultado) {
+                                cpf = item["Cod_cpf"].ToString();
+                                nome_completo = item["Nom_Usuario"].ToString();
+                                break;
+                            }
+                        }
+
+                    }
+
+
+                    //Se mesmo após a busca por id de rede e por matrícula o cpf continua vazio, continuar pois o associado não poderá ser localizado ou é uma conexão sistemica
+                    if (cpf == "") {
+                        frm.atualizarBarra(contador);
+                        continue;
+                    } else {
+
+                        #region DECOMISSIONADO DEVIDO A LENTIDÃO DE CARREGAMENTO DO DATATABLE 23-05-2020
+                        //////Fazer qry de update após importação
+
+
+                        ////// capturar informação da matricula na base histórico de funcionários, visto que o AD nem sempre trás esta informação preenchida
+                        ////resultado = null;
+
+                        ////expressao = "cpf = '" + cpf + "'";
+                        ////resultado = baseHistoricoAssociados.Select(expressao);
+                        ////DateTime dataRegCapturado = new DateTime();
+
+                        ////foreach (DataRow item in resultado) {
+
+                        ////    if (dataRegCapturado == null || dataRegCapturado < DateTime.Parse(item["dataAtualizacao"].ToString())) {
+
+                        ////        matricula = item["matricula"].ToString();
+                        ////        dataRegCapturado = DateTime.Parse(item["dataAtualizacao"].ToString());
+                        ////    }
+
+                        ////}
+
+
+                        #endregion
+                    }
+
+                    #endregion
+
+
+                    #region Insert
                     sql = "Insert into w_dlp (";
                     sql += "generated_, ";
                     sql += "received, ";
@@ -470,6 +590,9 @@ namespace Sentinella {
                     sql += "cloud_service_vendor, ";
                     sql += "id_fila_trabalho, ";
                     sql += "chave_duplicidade, ";
+                    sql += "matricula, ";
+                    sql += "nome_completo, ";
+                    sql += "cpf, ";
                     sql += "data_importacao, ";
                     sql += "id_importacao ";
                     sql += ") Select ";
@@ -507,50 +630,78 @@ namespace Sentinella {
                     sql += objCon.valorSql(hlp.removerCharEspecial(infos[28].ToString().Replace("'", ""))) + ",  ";
                     sql += objCon.valorSql(fila_id) + ", ";
                     sql += objCon.valorSql(chaveDuplicidade) + ",  ";
-                    sql += objCon.valorSql(dataHoraAtual) + ", ";
+                    sql += objCon.valorSql(matricula) + ", ";
+                    sql += objCon.valorSql(nome_completo) + ", ";
+                    sql += objCon.valorSql(cpf) + ", ";
+                    sql += objCon.valorSql(hlp.dataHoraAtual()) + ", ";
                     sql += objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
-                    sql += "Where Not Exists (Select 1 from w_dlp where chave_duplicidade = " + objCon.valorSql(chaveDuplicidade) + ") ";
+                    //sql += "Where Not Exists (Select 1 from w_dlp where chave_duplicidade = " + objCon.valorSql(chaveDuplicidade) + " and data_importacao > " + objCon.valorSql(DateTime.Today.AddDays(-21)) + ") ";                    
                     objCon.executaQuery(sql, ref retorno);
 
 
-                    volTotal += 1;
-                    frm.atualizarBarra(volTotal);
+                    //adicionando ao datatable a chave de duplicidade inserida na tabela SQL
+                    //evitar fazer WHERE NOT EXISTS devido ao tempo de consulta
+                    DataRow row = baseDLP.NewRow();
+                    row["chave_duplicidade"] = chaveDuplicidade;
+                    baseDLP.Rows.Add(row);
+                    
+                    frm.atualizarBarra(contador);
                     #endregion
-
 
                 }
 
-                //fechando conexão com o excel
-                //cnx.Close();
 
-                //Atualizando cpfs dos casos importados com tabela AD
-                //Chave: Usuário de rede
+                #region DECOMISSIONADO 23-05-2020
+
+                ////fechando conexão com o excel
+                ////cnx.Close();
+
+                ////Atualizando cpfs dos casos importados com tabela AD
+                ////Chave: Usuário de rede - PARA CONTROL ALGAR
+                ////Chave: Matrícula (apenas números) - PARA CONTROL BRADESCO
+
+                //sql = "Update dlp set ";
+                //sql += "cpf = ad.Cod_cpf, ";
+                //sql += "nome_completo = ad.Nom_Usuario, ";
+                //sql += "matricula = h.matricula ";
+                //sql += "from db_Sentinella.dbo.w_dlp dlp inner ";
+                //sql += "join db_ControleAD.dbo.Tbl_UsuariosAD ad ";
+                ////esta opção de conexão é para o CONTROL Algar
+                //sql += "on dlp.incident_source_ad_account = ad.Nom_login collate Latin1_General_CI_AS ";
+                ////esta opção de conexão é devido ao CONTROL BRA, como a matrícula de 2 tipos poassíveis: A000111 ou A000111A, necessário tratar para ter base comparativa igual, retirando as letras
+                //sql += "or SUBSTRING(dlp.incident_source_ad_account, 2, iif(isnumeric(RIGHT(dlp.incident_source_ad_account, 1)) = 0, len(dlp.incident_source_ad_account) - 1, len(dlp.incident_source_ad_account) - 2)) = ad.Cod_Matricula collate Latin1_General_CI_AS ";
+                //sql += "left join ";
+                //sql += "(select top 1 w.matricula, w.cpf ";
+                //sql += "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join db_Sentinella.dbo.w_funcionarios_historico w ";
+                //sql += "on w.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                //sql += "order by w.dataAtualizacao Desc) as h ";
+                //sql += "on h.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
+                //sql += "where dlp.cpf is null or dlp.nome_completo is null or dlp.matricula is null ";
+                //objCon.executaQuery(sql, ref retorno);
+
+                ////limpando casos que não foram encontrados o CPF/MATRICULA com o AD
+                //sql = "delete from w_dlp where cpf = '' or cpf is null";
+                //objCon.executaQuery(sql, ref retorno);
+
+                #endregion
+
+                //Qry de update de matríucla
                 sql = "Update dlp set ";
-                sql += "cpf = ad.Cod_cpf, ";
-                sql += "nome_completo = ad.Nom_Usuario, ";
-                sql += "matricula = h.matricula ";
-                sql += "from db_Sentinella.dbo.w_dlp dlp inner join db_ControleAD.dbo.Tbl_UsuariosAD ad ";
-                sql += "on dlp.incident_source_ad_account = ad.Nom_login collate Latin1_General_CI_AS ";
-                sql += "left join ";
-                sql += "(select top 1 w.matricula, w.cpf ";
-                sql += "from db_ControleAD.dbo.Tbl_UsuariosAD ad inner join db_Sentinella.dbo.w_funcionarios_historico w ";
-                sql += "on w.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
-                sql += "order by w.dataAtualizacao Desc) as h "; //selecionando apenas a ultima importação do CPF na base funcionários histórico
-                sql += "on h.cpf = ad.Cod_CPF collate Latin1_General_CI_AS ";
-                objCon.executaQuery(sql, ref retorno);
+                sql += "dlp.matricula = (select top 1 w.matricula from w_funcionarios_historico w where w.cpf = dlp.cpf order by w.id desc) ";
+                sql += "from db_Sentinella.dbo.w_dlp dlp ";
+                sql += "where dlp.matricula is null ";
+                dt = objCon.retornaDataTable(sql);
 
-                //fechando barra de carregamento para iniciar uma nova posteriormente
-                frm.Close();
-
-                //limpando casos que não foram encontrados o CPF/MATRICULA com o AD
-                sql = "delete from w_dlp where cpf = '' or cpf is null";
-                objCon.executaQuery(sql, ref retorno);
 
                 //capturando todos os casos importados e atualizados acima
                 sql = "Select * from w_dlp where id_tbl_trabalho = 0 " +
                         " and id_importacao = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " " +
                             " and incident_source_ad_account <> 'SISTEMA' ";
                 dt = objCon.retornaDataTable(sql);
+
+
+                //fechando barra de carregamento para iniciar uma nova posteriormente
+                frm.Close();
 
                 //Importar para tabela de trabalho
                 if (dt.Rows.Count > 0) {
@@ -606,7 +757,7 @@ namespace Sentinella {
                 return false;
             }
             finally {
-                frm.Close();
+                frm1.Close();
                 //cnx.Close();
             }
         }

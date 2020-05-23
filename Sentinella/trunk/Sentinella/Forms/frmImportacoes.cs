@@ -98,6 +98,9 @@ namespace Sentinella.Forms {
                 }
 
                 if (cbxSeletorFilaImportacao.Text.Contains("DLP")) {
+                    if (!hlp.validaCamposObrigatorios(pnlConteudo, "txtEnderecoArquivo")) {
+                        return;
+                    }
                     imp.dlp(txtEnderecoArquivo.Text.ToString(), listaUsuarios.ToArray());
                 }
 
