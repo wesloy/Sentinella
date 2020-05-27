@@ -27,6 +27,19 @@ namespace Sentinella {
         //    [idAtualizacao]   NCHAR (10)     NULL,
         //    CONSTRAINT [PK_w_AD_grupos_descricoes] PRIMARY KEY CLUSTERED ([id] ASC)
         //);
+
+        //CREATE TABLE [dbo].[w_AD_file_serve] (
+        //    [id]              INT            IDENTITY (1, 1) NOT NULL,
+        //    [disco]           NVARCHAR (MAX) NULL,
+        //    [diretorio]       NVARCHAR (MAX) NULL,
+        //    [pasta]           NVARCHAR (MAX) NULL,
+        //    [grupo]           NVARCHAR (MAX) NULL,
+        //    [ativo]           BIT            DEFAULT ((0)) NOT NULL,
+        //    [dataAtualizacao] DATETIME       DEFAULT (getdate()) NULL,
+        //    [idAtualizacao]   NVARCHAR (150) NULL,
+        //    CONSTRAINT [PK_w_AD_file_serve] PRIMARY KEY CLUSTERED ([id] ASC)
+        //);
+
         #endregion
 
         #region Variaveis 
@@ -42,7 +55,6 @@ namespace Sentinella {
 
         private bool _importarGruposAD(bool importacaoMensal = false) {
             try {
-
 
                 string diretorio = "";
 
@@ -143,7 +155,7 @@ namespace Sentinella {
                     string nomeArquivo = file.Name;
                     nomeArquivo = nomeArquivo.Replace("Relatorio_", "").Replace(".csv", "");
                     StreamReader rd = new StreamReader(arq);
-                                       
+
                     while ((linha = rd.ReadLine()) != null) {
 
                         String[] infos = linha.Replace("\"", "").Split(delimitador.ToCharArray());
@@ -210,6 +222,122 @@ namespace Sentinella {
             }
         }
 
+        private bool _importarFileSever(string _diretorio) {
+            try {
+
+
+                frmProgressBar frm = new frmProgressBar(2);
+                frm.Show();
+
+                //Atualização dos nomes do grupos
+                string linha = "";
+                int contador = 0;
+                StreamReader rd = new StreamReader(_diretorio);
+
+                //carregar a lista atual dos grupos para validar se deve permanecer ativo ou cadastrar um novo associado
+                DataTable dt_fs_atual = new DataTable();
+                sql = "Select * from w_AD_file_serve";
+                dt_fs_atual = objCon.retornaDataTable(sql);
+                frm.atualizarBarra(1);
+
+                while (rd.ReadLine() != null) {
+                    contador += 1;
+                }
+                rd.Close();
+                frm.atualizarBarra(2);
+                frm.Close();
+
+                //carregar form Barra de Progresso de preparação dos dados
+                frmProgressBar frmG = new frmProgressBar(contador);
+                contador = 0;
+                frmG.Show();
+                rd = new StreamReader(_diretorio);
+
+
+                while ((linha = rd.ReadLine()) != null) {
+
+                    contador += 1;
+                    frmG.atualizarBarra(contador);
+
+                    //validações
+                    if (!linha.ToString().Contains("ACS")) {
+                        continue;
+                    }
+
+                    if (linha.ToString().Contains("$RECYCLE.BIN")) {
+                        continue;
+                    }
+
+                    linha = linha.Replace("\"", "").Replace("'","");
+                    DataRow[] resultado = null;
+                    char[] separador = new char[] { ',' };
+                    string[] info = linha.Split(separador);
+                    separador = new char[] { '\\' };
+                    string[] disco = @info[0].ToString().Split(separador);
+                    string[] grupo = new string[1000];
+
+                    foreach (string item in info) {
+                        if (item.Contains("ACS")) {
+                            grupo = item.Split(separador);
+                            break;
+                        }
+
+                    }
+
+
+                    string expressao = "disco = '" + disco[2] + "' and diretorio = '" + disco[3] + "' and pasta = '" + info[0] + "' and grupo = '" + grupo[1] + "'";
+                    resultado = dt_fs_atual.Select(expressao);
+
+                    if (resultado.Length > 0) {
+                        //atualizando a data do bd
+                        foreach (var item in resultado) {
+
+                            continue;
+
+                            //sql = "Update FS set " +
+                            //        "ativo = " + objCon.valorSql(true) + ", " +
+                            //        "dataAtualizacao = " + objCon.valorSql(hlp.dataHoraAtual()) + ", " +
+                            //        "idAtualizacao = " + objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " " +
+                            //        "from w_AD_file_serve FS where 1 = 1 " +
+                            //        "and disco = " + objCon.valorSql(disco[2]) + " " +
+                            //        "and diretorio = " + objCon.valorSql(disco[3]) + " " +
+                            //        "and pasta = " + objCon.valorSql(info[0]) + " " +
+                            //        "and grupo = " + objCon.valorSql(grupo[1]) + " ";
+                            //objCon.executaQuery(sql, ref retorno);
+                        }
+
+                    } else {
+                        //inserindo novo registro
+                        sql = "Insert into w_AD_file_serve (" +
+                                "disco, " +
+                                "diretorio, " +
+                                "pasta, " +
+                                "grupo, " +
+                                "ativo, " +
+                                "dataAtualizacao, " +
+                                "idAtualizacao) " +
+                                "select " +
+                                objCon.valorSql(disco[2]) + ", " +
+                                objCon.valorSql(disco[3]) + ", " +
+                                objCon.valorSql(info[0]) + ", " +
+                                objCon.valorSql(grupo[1]) + ", " +
+                                objCon.valorSql(true) + ", " +
+                                objCon.valorSql(hlp.dataHoraAtual()) + ", " +
+                                objCon.valorSql(Constantes.id_REDE_logadoFerramenta) + " ";
+                        objCon.executaQuery(sql, ref retorno);
+                    }
+
+                }
+
+                frmG.Close();
+                return true;
+            }
+
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "IMPORTACAO - FILE SERVE (DAL)");
+                return false;
+            }
+        }
 
         private DataTable _listarTodosRegistrosPorIDBase(string _nomeAssociado) {
 
@@ -244,6 +372,23 @@ namespace Sentinella {
             }
         }
 
+        public bool importarFileSever(string _diretorio) {
+            try {
+
+                if (_importarFileSever(_diretorio)) {
+                    MessageBox.Show("Importação realizada com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                } else {
+                    MessageBox.Show("Erro ou tentar importar arquivo File Serve", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "IMPORTACAO - FILE SERVE (BLL)");
+                return false;
+            }
+        }
 
         public ListView CarregaListView(ListView lst, string _nomeAssociado) {
 

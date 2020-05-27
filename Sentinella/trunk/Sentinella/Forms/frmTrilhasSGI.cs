@@ -122,7 +122,7 @@ namespace Sentinella.Forms {
             //envio pelo Dynamics e baixa do registro
             email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
 
-            email.Assunto = "TREINAMENTOS MANDATÓRIOS - TRILHA SGI <<<<<<<<<<<<<<<<<<<<<<< TESTES";
+            email.Assunto = "TREINAMENTOS MANDATÓRIOS - TRILHA SGI";
             email.Mensagem = txtMensagem.Text.Replace("\r\n", "<br />") + " <br /><br />";
             email.Mensagem += "Lista de associados com pendência: <br /><br />";
 
@@ -156,7 +156,7 @@ namespace Sentinella.Forms {
             email.Para = para;
 
             //CC
-            string txtCC = "marianesg@algartech.com;deborahvhw@algartech.com;nataliadda@algartech.com;isabelladab@algartech.com;mayraneapl@algartech.com;wesleyel@algartech.com";
+            string txtCC = "marianesg@algartech.com;deborahvhw@algartech.com;nataliadda@algartech.com;isabelladab@algartech.com;mayraneapl@algartech.com;talienelv@algartech.com;wesleyel@algartech.com";
             List<string> cc = new List<string>();
             string[] _cc = txtCC.Split(';');
             foreach (var item in _cc) { cc.Add(item); }

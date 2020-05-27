@@ -122,6 +122,14 @@ namespace Sentinella.Forms {
                     ad AD = new ad();
                     if (cbxSeletorFilaImportacao.Text.Contains("TODOS")) {
                         AD.importarGruposAD(true);
+                    } else if (cbxSeletorFilaImportacao.Text.Contains("FILE SERVE")) {
+
+                        //validando se foi selecionado o arquivo
+                        if (!hlp.validaCamposObrigatorios(pnlConteudo, "txtEnderecoArquivo")) {
+                            return;
+                        }
+
+                        AD.importarFileSever(txtEnderecoArquivo.Text);
                     } else {
                         AD.importarGruposAD(false);
                     }
@@ -241,7 +249,7 @@ namespace Sentinella.Forms {
                 btnProcurar.Enabled = true;
                 //Carregando Combobox
                 cbxSeletorFilaImportacao.DataSource = null;
-                hlp.carregaComboBoxManualmente("AD GRUPOS MONITORADAS SI;AD TODOS OS GRUPOS;CADASTRO GERAL;DLP;TAMNUN;TRILHAS SGI", this, cbxSeletorFilaImportacao);
+                hlp.carregaComboBoxManualmente("AD GRUPOS MONITORADAS SI;AD TODOS OS GRUPOS;AD FILE SERVE;CADASTRO GERAL;DLP;TAMNUN;TRILHAS SGI", this, cbxSeletorFilaImportacao);
                 txtEnderecoArquivo.Text = "";
             } else {
                 cbxSeletorFilaImportacao.Enabled = false;
@@ -249,7 +257,7 @@ namespace Sentinella.Forms {
             }
         }
         private void cbxSeletorFilaImportacao_SelectionChangeCommitted(object sender, EventArgs e) {
-            if (cbxSeletorFilaImportacao.Text.ToString().Contains("DLP")) {
+            if (cbxSeletorFilaImportacao.Text.ToString().Contains("DLP") || cbxSeletorFilaImportacao.Text.ToString().Contains("FILE SERVE")) {
                 txtEnderecoArquivo.Enabled = true;
                 btnProcurar.Enabled = true;
             } else {
