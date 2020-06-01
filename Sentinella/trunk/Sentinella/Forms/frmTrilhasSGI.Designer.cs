@@ -344,6 +344,7 @@
             this.lvAssociados.TabIndex = 0;
             this.lvAssociados.UseCompatibleStateImageBehavior = false;
             this.lvAssociados.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvAssociados_ColumnClick);
+            this.lvAssociados.DoubleClick += new System.EventHandler(this.lvAssociados_DoubleClick);
             // 
             // pnlFiltros
             // 

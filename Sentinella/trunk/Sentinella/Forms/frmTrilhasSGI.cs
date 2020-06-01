@@ -304,6 +304,10 @@ namespace Sentinella.Forms {
             this.lvAssociados.Sort();
         }
 
-
+        private void lvAssociados_DoubleClick(object sender, EventArgs e) {
+            frmTrilhasSGI_detalhesSinergy objForm = new frmTrilhasSGI_detalhesSinergy();
+            objForm._infoSinergy = trilhas.consultaBaseSinergy(lvAssociados.SelectedItems[0].SubItems[2].Text, lvAssociados.SelectedItems[0].SubItems[1].Text);            
+            hlp.abrirForm(objForm, true, false);
+        }
     }
 }

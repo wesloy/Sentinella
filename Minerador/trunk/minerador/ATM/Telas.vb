@@ -1285,7 +1285,8 @@ REINICIAR:
             Do While Not tela.GetString(22, 2, 30).trim().Equals("TECLA PF1 INATIVA") _
                         And Not tela.GetString(22, 2, 30).trim().Equals("NAO CONSTA FAT. ANTERIOR") _
                             And Not tela.GetString(22, 2, 30).trim().Equals("ARQ FATURA INDISPONIVEL") _
-                                And Not tela.GetString(22, 2, 30).trim().Equals("REG AGENDA N/ ENCONT")   'FIM DAS FATURAS
+                                And Not tela.GetString(22, 2, 30).trim().Equals("REG AGENDA N/ ENCONT") _
+                                    And Not tela.GetString(22, 2, 30).trim().Equals("NRO CTA N/ ENCONTRADO") 'FIM DAS FATURAS
 
                 'Iniciando objetos
                 Dim fatura = New fatura_DTO()
@@ -1298,9 +1299,9 @@ REINICIAR:
                 ' - ao finalizar a coleta das autorizações de um ciclo, clicar <F1> e passar para o ciclo seguinte..
                 ' - validar a data limite para captura das faturas/transacoes
 
-                If numCartao = "4551821001673874" Then
-                    MsgBox("PARADA PARA ANÁLISE")
-                End If
+                'If numCartao = "4551821001673874" Then
+                '    MsgBox("PARADA PARA ANÁLISE")
+                'End If
 
                 With fatura
                     .cartao = Replace(numCartao, " ", "")

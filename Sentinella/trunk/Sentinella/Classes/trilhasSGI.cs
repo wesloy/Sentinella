@@ -182,6 +182,22 @@ namespace Sentinella {
 
         #region DAL
 
+        private DataTable _consultaBaseSinergy (string _nomeAssociado, string _trilha) {
+            try {
+
+                sql = "select cod_trilha, des_trilha, des_nome, des_email, num_conclusao, Id_Conteudo, des_conteudo, dt_inicio, dt_fim, des_status, dt_Importacao " +
+                        "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS " +
+                        "where des_nome = " + objCon.valorSql(_nomeAssociado) + " " +
+                        "AND des_trilha = " + objCon.valorSql(_trilha) + " " +
+                        "order by Id_Conteudo ";
+                return objCon.retornaDataTable(sql);
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - CONSULTA BASE SINERGY (DAL)");
+                return null;
+            }
+        }
 
         private DataTable _listarAnoVigencia() {
             try {
@@ -1153,6 +1169,16 @@ namespace Sentinella {
                 return false;
             }
 
+        }
+
+        public DataTable consultaBaseSinergy (string _nomeAssociado, string _trilha) {
+            try {
+                return _consultaBaseSinergy(_nomeAssociado, _trilha);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - CONSULTA BASE SINERGY (BLL)");
+                return null;
+            }
         }
 
         #endregion

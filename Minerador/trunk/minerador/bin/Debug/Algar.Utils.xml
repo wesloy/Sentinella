@@ -90,6 +90,20 @@ campoDeData = objCon.retornaVazioParaValorNulo(drRow("data_inicial_viagem"), Not
 <member name="M:Algar.Utils.Helpers.UnixToTime(System.String)">
  Converter DataJson em Datetime
 </member>
+<member name="M:Algar.Utils.Helpers.ConverterImagemEmByte(System.String)">
+ <summary>
+ converter um arquivo para byte digite
+ </summary>
+ <param name="caminhoArquivo"></param>
+ <returns></returns>
+</member>
+<member name="M:Algar.Utils.Helpers.ConverterByteEmImagem(System.String,System.Byte[])">
+ <summary>
+ Gravar array Bytes em arquivo denovo após a conversão
+ </summary>
+ <param name="caminhoArquivo"></param>
+ <returns></returns>
+</member>
 <member name="M:Algar.Utils.Tridirecional.validaTelefone(System.String)">
  <summary>
  Consistencia de nroTelefone

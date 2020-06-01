@@ -299,7 +299,7 @@
             this.lvPlanoAcao.Size = new System.Drawing.Size(1046, 277);
             this.lvPlanoAcao.TabIndex = 6;
             this.lvPlanoAcao.UseCompatibleStateImageBehavior = false;
-            this.lvPlanoAcao.View = System.Windows.Forms.View.SmallIcon;
+            this.lvPlanoAcao.View = System.Windows.Forms.View.SmallIcon;            
             this.lvPlanoAcao.DoubleClick += new System.EventHandler(this.lvPlanoAcao_DoubleClick);
             // 
             // pnlFiltros

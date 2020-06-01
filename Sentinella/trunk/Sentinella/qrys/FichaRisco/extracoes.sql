@@ -30,6 +30,12 @@ from db_ControleAD.dbo.Vw_UsrAD_Terceiros
 where format(Dat_Criacao,'yyyy-MM-dd') between @dataInicial and @dataFinal
 
 
+------------------------------------------------------------------------------------------------TICKETS VPN 
+select * from  [UDPITSMCLSDB].[mdb].[dbo].[z_ServiceDesk]
+where [categoria] like '%VPN%'
+AND format(DATA_ABERTURA,'yyyy-MM-dd') between @dataInicial and @dataFinal
+
+
 --------------------------------------------------------------------------------------------------PROCESSOS HOMOLOGADOS
 Select prod from [UDPTAMNUNDB01].tamnun.dbo.ut_ProcessAll_csv 
 where format([Date],'yyyy-MM-dd') between @dataInicial and @dataFinal
@@ -37,7 +43,3 @@ group by prod
 
 
 
-------------------------------------------------------------------------------------------------TICKETS VPN 
-select * from  [UDPITSMCLSDB].[mdb].[dbo].[z_ServiceDesk]
-where [categoria] like '%VPN%'
-AND format(DATA_ABERTURA,'yyyy-MM-dd') between @dataInicial and @dataFinal

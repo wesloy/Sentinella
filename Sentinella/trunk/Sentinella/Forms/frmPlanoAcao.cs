@@ -92,7 +92,7 @@ namespace Sentinella.Forms {
                 if (lvPlanoAcao.SelectedItems[0].SubItems[3].Text == "") {
                     //buscar dados da hieraquia através do registro mais recente do cadastro geral
                     dadosCadastraisTH d_th = new dadosCadastraisTH();
-                    d_th = d_th.infoMaisRecentePorNomeEspecifico(lvPlanoAcao.SelectedItems[0].SubItems[11].Text);
+                    d_th = d_th.infoMaisRecentePorNomeEspecifico(lvPlanoAcao.SelectedItems[0].SubItems[12].Text);
 
                     if (d_th.gestor_1 != null) {
                         txtCoordenacao.Text = d_th.gestor_1.ToString().ToUpper();
@@ -121,7 +121,7 @@ namespace Sentinella.Forms {
                     txtDiretoria.Text = lvPlanoAcao.SelectedItems[0].SubItems[5].Text;
                 }
 
-                txtID.Text = lvPlanoAcao.SelectedItems[0].SubItems[28].Text;
+                txtID.Text = lvPlanoAcao.SelectedItems[0].SubItems[29].Text;
                 txt_protocolo.Text = lvPlanoAcao.SelectedItems[0].SubItems[0].Text;
                 txt_dataRegistro.Text = lvPlanoAcao.SelectedItems[0].SubItems[16].Text;
                 txtSolicitante.Text = lvPlanoAcao.SelectedItems[0].SubItems[2].Text;
@@ -135,7 +135,6 @@ namespace Sentinella.Forms {
         private void btnCancelar_Click(object sender, EventArgs e) {
             hlp.limparCampos(this);
         }
-
 
     }
 }
