@@ -42,7 +42,7 @@
             this.dgvInfoAssociados.BackgroundColor = System.Drawing.Color.White;
             this.dgvInfoAssociados.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvInfoAssociados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInfoAssociados.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.dgvInfoAssociados.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.dgvInfoAssociados.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInfoAssociados.GridColor = System.Drawing.Color.PaleTurquoise;
             this.dgvInfoAssociados.Location = new System.Drawing.Point(0, 74);

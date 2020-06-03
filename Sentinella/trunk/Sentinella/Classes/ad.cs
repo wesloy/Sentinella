@@ -217,7 +217,7 @@ namespace Sentinella {
 
             catch (Exception ex) {
 
-                log.registrarLog(ex.ToString(), "IMPORTACAO - GRUPOS AD (DAL)");
+                log.registrarLog(ex.ToString(), "AD - GRUPOS AD IMPORTACAO (DAL)");
                 return false;
             }
         }
@@ -268,7 +268,7 @@ namespace Sentinella {
                         continue;
                     }
 
-                    linha = linha.Replace("\"", "").Replace("'","");
+                    linha = linha.Replace("\"", "").Replace("'", "");
                     DataRow[] resultado = null;
                     char[] separador = new char[] { ',' };
                     string[] info = linha.Split(separador);
@@ -334,12 +334,12 @@ namespace Sentinella {
             }
 
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "IMPORTACAO - FILE SERVE (DAL)");
+                log.registrarLog(ex.ToString(), "AD - FILE SERVE IMPORTACAO (DAL)");
                 return false;
             }
         }
 
-        private DataTable _listarTodosRegistrosPorIDBase(string _nomeAssociado) {
+        private DataTable _listarTodosGruposPorAssociado(string _nomeAssociado) {
 
             try {
                 //buscar todos com o primeiro nome igual
@@ -356,6 +356,97 @@ namespace Sentinella {
             }
         }
 
+        private DataTable _carregarComboboxInfoTabela(string _filtroBusca) {
+            try {
+
+                sql = "";
+
+                switch (_filtroBusca) {
+                    case "NOME DO GRUPO":
+                        sql = "select 1, grupo from w_AD_grupos_descricoes group by grupo order by grupo asc";
+                        break;
+
+                    case "NOME DO ASSOCIADO":
+                        sql = "select 1, nome_associado from w_AD_grupos_lista_associados group by nome_associado order by nome_associado asc";
+                        break;
+
+                    case "DISCO":
+                        sql = "select 1, disco from w_AD_file_serve group by disco order by disco asc";
+                        break;
+
+                    case "DIRETORIO":
+                        sql = "select 1, diretorio from w_AD_file_serve group by diretorio order by diretorio asc";
+                        break;
+
+                    case "PASTA":
+                        sql = "select 1, pasta from w_AD_file_serve group by pasta order by pasta asc";
+                        break;
+                }
+
+                return objCon.retornaDataTable(sql);
+
+
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "AD - CARREGAR COMBOBOX INFO FILTRO DINAMICO TBL (DAL)");
+                return null;
+            }
+
+        }
+
+        private DataTable _listarGruposAssociadosPastas(bool _pasta = false, string _campoFiltro = "", string _valorFiltro = "") {
+            try {
+
+                //se _pasta preenchido necessário consultar w_AD_File_Serve
+                //se _associado preenchido necessário consultar w_AD_grupos_lista_associados
+                //se _grupo preenchido necessário consultar w_AD_grupos_descricoes
+
+
+                sql = "select G.grupo, A.nome_associado, OU.Nom_Cargo_AD, OU.Nom_OUs, OU.Cod_Matricula, OU.Cod_CPF ";                
+                if (_pasta) {
+                    sql += ", F.disco, F.diretorio, F.pasta ";
+                }
+                
+                sql += "from w_AD_grupos_descricoes G ";
+                sql += "left join w_AD_grupos_lista_associados A on A.grupo = G.grupo ";
+                sql += "left join db_ControleAD.dbo.Tbl_UsuariosAD OU on A.nome_associado = OU.Nom_Usuario collate Latin1_General_CI_AS ";                
+                if (_pasta) {
+                    sql += "left join w_AD_file_serve F on G.grupo = F.grupo ";
+                }                
+                sql += "Where 1 = 1 ";
+
+                switch (_campoFiltro) {
+                    case "NOME DO GRUPO":
+                        sql += "and G.grupo = " + objCon.valorSql(_valorFiltro) + " ";
+                        break;
+
+                    case "NOME DO ASSOCIADO":
+                        sql += "and A.nome_associado = " + objCon.valorSql(_valorFiltro) + " ";
+                        break;
+
+                    case "DISCO":
+                        sql += "and F.disco = " + objCon.valorSql(_valorFiltro) + " ";
+                        break;
+
+                    case "DIRETORIO":
+                        sql += "and F.diretorio = " + objCon.valorSql(_valorFiltro) + " ";
+                        break;
+
+                    case "PASTA":
+                        sql += "and F.pasta = " + objCon.valorSql(_valorFiltro) + " ";
+                        break;
+                }
+                sql += "order by G.grupo, A.nome_associado ";
+
+
+                return objCon.retornaDataTable(sql);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "AD - LISTAR GRUPOS, ASSOCIADOS E PASTAS (DAL)");
+                return null;
+            }
+        }
 
 
         #endregion
@@ -367,7 +458,7 @@ namespace Sentinella {
                 return _importarGruposAD(importacaoMensal);
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "IMPORTACAO - GRUPOS AD (BLL)");
+                log.registrarLog(ex.ToString(), "AD - GRUPOS AD IMPORTACAO (BLL)");
                 return false;
             }
         }
@@ -385,7 +476,7 @@ namespace Sentinella {
 
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "IMPORTACAO - FILE SERVE (BLL)");
+                log.registrarLog(ex.ToString(), "AD - FILE SERVE IMPORTACAO (BLL)");
                 return false;
             }
         }
@@ -394,7 +485,7 @@ namespace Sentinella {
 
             try {
                 DataTable dt = new DataTable();
-                dt = _listarTodosRegistrosPorIDBase(_nomeAssociado);
+                dt = _listarTodosGruposPorAssociado(_nomeAssociado);
                 lst.Clear();
                 lst.View = View.Details;
                 lst.LabelEdit = false;
@@ -426,6 +517,30 @@ namespace Sentinella {
                 return null;
             }
         }
+
+        public void carregarComboboxInfoTabela(string _filtroBusca, Form frm, ComboBox cb) {
+            try {
+                DataTable dt = new DataTable();
+                dt = _carregarComboboxInfoTabela(_filtroBusca);
+                hlp.carregaComboBox(dt, frm, cb);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "AD - CARREGAR COMBOBOX INFO FILTRO DINAMICO TBL (BLL)");
+            }
+
+        }
+
+        public DataTable listarGruposAssociadosPastas(bool _pasta = false, string _campoFiltro = "", string _valorFiltro = "") {
+            try {
+
+                return _listarGruposAssociadosPastas(_pasta, _campoFiltro, _valorFiltro);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "AD - LISTAR GRUPOS, ASSOCIADOS E PASTAS (BLL)");
+                return null;
+            }
+        }
+
 
         #endregion
     }

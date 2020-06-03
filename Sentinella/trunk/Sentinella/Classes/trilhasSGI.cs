@@ -1012,7 +1012,8 @@ namespace Sentinella {
                         //AFASTAMENTO
                         if (_validar) {
                             if (!linha["data_afastamento_inicio"].ToString().Equals("") && !linha["data_afastamento_fim"].ToString().Equals("")) {
-                                if (DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today) {
+                                if ((DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_inicio"].ToString()) != DateTime.Parse("1900-01-01 00:00:00")) && 
+                                    (DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today || DateTime.Parse(linha["data_afastamento_fim"].ToString())  == DateTime.Parse("1900-01-01 00:00:00"))) {
 
                                     _status = "AFASTADO";
                                     _aging = calculoAging.Days.ToString();
