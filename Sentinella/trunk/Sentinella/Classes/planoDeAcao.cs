@@ -22,7 +22,7 @@ namespace Sentinella {
 
 
         #region Variaveis 
-        
+
         long retorno = 0;
         string sql = "";
         Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
@@ -71,11 +71,14 @@ namespace Sentinella {
                 return null;
             }
         }
-        private DataTable _listarPlanosAcoesTrabalhados(DateTime _dtInicial, DateTime _dtFinal) {
+        private DataTable _listarPlanosAcoesTrabalhados() {
             try {
-                sql = "Select * from w_basePlanoAcao where format(dataRegistro,'yyyy-MM-dd') between " +
-                        objCon.valorSql(_dtInicial.Year.ToString().PadLeft(4,'0') + "-" + _dtInicial.Month.ToString().PadLeft(2,'0') + "-" + _dtInicial.Day.ToString().PadLeft(2, '0')) + " and " +
-                        objCon.valorSql(_dtFinal.Year.ToString().PadLeft(4, '0') + "-" + _dtFinal.Month.ToString().PadLeft(2, '0') + "-" + _dtFinal.Day.ToString().PadLeft(2, '0')) + " ";
+                sql = "select " +
+                            "(select count(id) from w_planosAcao_categorizacoes where protocolo = p1.protocolo) qte_emails_enviados, " +
+                            "p1.*, u.nome nome_analista_seguranca from w_planosAcao_categorizacoes p1 " +
+                            "inner join w_sysUsuarios u on p1.id_analista_seguranca = u.id " +
+                            "left join w_planosAcao_categorizacoes p2 on p1.protocolo = p2.protocolo and p1.id < p2.id " +
+                            "where p2.id is null";
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
@@ -186,17 +189,25 @@ namespace Sentinella {
         public ListView CarregaListView(ListView lst, DateTime _dtInicial, DateTime _dtFinal) {
             try {
 
-                string solicitante = "";
-                string coordenador = "";
-                string gerente = "";
-                string diretor = "";
-                string observacao = "";
-                string idSentinella = "";
+
+                dadosCadastraisTH th = new dadosCadastraisTH();
+
+                string gestor_1 = "";
+                string gestor_2 = "";
+                string gestor_3 = "";
+                string gestor_4 = "";
+
+                int qtde_emails = 0;
+                DateTime data_ultimo_envio_email = DateTime.Parse("1900-01-01");
+                string ult_end_email_enviado = "";
+
 
                 DataTable dt = new DataTable();
-                DataTable dt_w = new DataTable();
                 dt = _listarPlanosAcoes(_dtInicial, _dtFinal);
-                dt_w = _listarPlanosAcoesTrabalhados(_dtInicial, _dtFinal);
+
+                DataTable dt_w = new DataTable();
+                dt_w = _listarPlanosAcoesTrabalhados();
+
                 lst.Clear();
                 lst.View = View.Details;
                 lst.LabelEdit = false;
@@ -206,19 +217,22 @@ namespace Sentinella {
                 lst.FullRowSelect = true;
                 lst.HideSelection = false;
                 lst.MultiSelect = false;
+                lst.Columns.Add("FILA", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("PROTOCOLO", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("QTDE E-MAILS ENVIADOS", 140, HorizontalAlignment.Left);
+                lst.Columns.Add("ÚLT END. E-MAIL ENVIADO", 140, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA ÚLT ENVIO DE E-MAIL", 140, HorizontalAlignment.Left);
                 lst.Columns.Add("STATUS DA SOLICITAÇÃO", 140, HorizontalAlignment.Left);
                 lst.Columns.Add("SOLICITANTE", 140, HorizontalAlignment.Left);
-                lst.Columns.Add("COORDENADOR", 140, HorizontalAlignment.Left);
-                lst.Columns.Add("GERENTE", 140, HorizontalAlignment.Left);
-                lst.Columns.Add("DIRETOR", 140, HorizontalAlignment.Left);
-                lst.Columns.Add("OBSERVAÇÃO", 140, HorizontalAlignment.Left);
+                lst.Columns.Add("RESPONSÁVEL", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("GESTOR 1", 140, HorizontalAlignment.Left);
+                lst.Columns.Add("GESTOR 2", 140, HorizontalAlignment.Left);
+                lst.Columns.Add("GESTOR 3", 140, HorizontalAlignment.Left);
+                lst.Columns.Add("GESTOR 4", 140, HorizontalAlignment.Left);
                 lst.Columns.Add("ETAPA NO FLUXO", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("TIPO DOCUMENTO", 150, HorizontalAlignment.Left);
-                lst.Columns.Add("SOLICITANTE", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("TÍTULO", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("ORIGEM", 150, HorizontalAlignment.Left);
-                lst.Columns.Add("RESPONSÁVEL", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("CR", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("NORMA", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("REQUISITO", 150, HorizontalAlignment.Left);
@@ -235,43 +249,100 @@ namespace Sentinella {
                 lst.Columns.Add("INCIDENTE", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("CLASSIFICAÇÃO", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("PRIORIDADE", 150, HorizontalAlignment.Left);
-                lst.Columns.Add("ID_SENTINELLA", 100, HorizontalAlignment.Left);
 
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
+
                         ListViewItem item = new ListViewItem();
 
+                        #region ENRIQUECIMENTO_DADOS
                         DataRow[] w_Plan = dt_w.Select("protocolo = " + int.Parse(linha["PROTOCOLO"].ToString()));
 
                         if (w_Plan.Length > 0) {
-                            solicitante = w_Plan[0][2].ToString();
-                            coordenador = w_Plan[0][3].ToString();
-                            gerente = w_Plan[0][4].ToString();
-                            diretor = w_Plan[0][5].ToString();
-                            observacao = w_Plan[0][6].ToString();
-                            idSentinella = w_Plan[0][0].ToString();
+                            qtde_emails = int.Parse(w_Plan[0][0].ToString());
+                            ult_end_email_enviado = w_Plan[0][6].ToString();
+                            data_ultimo_envio_email = DateTime.Parse(w_Plan[0][7].ToString());
                         } else {
-                            solicitante = "";
-                            coordenador = "";
-                            gerente = "";
-                            diretor = "";
-                            observacao = "";
-                            idSentinella = "";
+                            qtde_emails = 0;
+                            ult_end_email_enviado = "N/D";
+                            data_ultimo_envio_email = DateTime.Parse("1900-01-01");
                         }
 
-                        item.Text = linha["PROTOCOLO"].ToString();
+                        if (linha["RESPONSÁVEL"].ToString() != "") {
+                            dadosCadastraisTH infoTh = new dadosCadastraisTH();
+                            infoTh = th.infoMaisRecentePorNomeEspecifico(linha["RESPONSÁVEL"].ToString());
+
+                            gestor_1 = infoTh.gestor_1;
+                            gestor_2 = infoTh.gestor_2;
+                            gestor_3 = infoTh.gestor_3;
+                            gestor_4 = infoTh.gestor_4;
+
+
+                        } else {
+                            gestor_1 = "";
+                            gestor_2 = "";
+                            gestor_3 = "";
+                            gestor_4 = "";
+                        }
+
+                        string fila_trabalho = "";
+                        if (linha["STATUS DA SOLICITAÇÃO"].ToString().ToUpper() == "FINALIZADO") {
+
+                            fila_trabalho = "PLANO FINALIZADO";
+                            item.ImageKey = "1";
+
+                        } else {fila_trabalho = "PLANO DENTRO DO PRAZO";
+                            if (int.Parse(linha["DIAS EM ATRASO"].ToString()) < 0) {
+                                fila_trabalho = "PLANO DENTRO DO PRAZO";
+                                item.ImageKey = "4";
+
+                            } else if (int.Parse(linha["DIAS EM ATRASO"].ToString()) >= 0 && int.Parse(linha["DIAS EM ATRASO"].ToString()) <= 7) {
+                                fila_trabalho = "PLANO VENCIDO - D<7";
+                                item.ImageKey = "2";
+
+                            } else if (int.Parse(linha["DIAS EM ATRASO"].ToString()) > 7 && int.Parse(linha["DIAS EM ATRASO"].ToString()) <= 14) {
+                                fila_trabalho = "PLANO VENCIDO - D7+";
+                                item.ImageKey = "3";
+
+                            } else if (int.Parse(linha["DIAS EM ATRASO"].ToString()) > 14 && int.Parse(linha["DIAS EM ATRASO"].ToString()) <= 21) {
+                                fila_trabalho = "PLANO VENCIDO - D14+";
+                                item.ImageKey = "3";
+
+                            } else if (int.Parse(linha["DIAS EM ATRASO"].ToString()) > 21 && int.Parse(linha["DIAS EM ATRASO"].ToString()) <= 28) {
+                                fila_trabalho = "PLANO VENCIDO - D21+";
+                                item.ImageKey = "3";
+
+                            } else if (int.Parse(linha["DIAS EM ATRASO"].ToString()) > 28) {
+                                fila_trabalho = "PLANO VENCIDO - D28+";
+                                item.ImageKey = "5";
+
+                            } else {
+                                fila_trabalho = "NÃO CLASSIFICADO";
+                                item.ImageKey = "14";
+                            }
+                        }
+
+
+
+                        #endregion
+
+
+                        item.Text = fila_trabalho.ToString();
+                        item.SubItems.Add(linha["PROTOCOLO"].ToString());
+                        item.SubItems.Add(qtde_emails.ToString());
+                        item.SubItems.Add(ult_end_email_enviado);
+                        item.SubItems.Add(data_ultimo_envio_email.ToString());
                         item.SubItems.Add(linha["STATUS DA SOLICITAÇÃO"].ToString());
-                        item.SubItems.Add(solicitante);
-                        item.SubItems.Add(coordenador);
-                        item.SubItems.Add(gerente);
-                        item.SubItems.Add(diretor);
-                        item.SubItems.Add(observacao);
+                        item.SubItems.Add(linha["SOLICITANTE"].ToString());
+                        item.SubItems.Add(linha["RESPONSÁVEL"].ToString());
+                        item.SubItems.Add(gestor_1);
+                        item.SubItems.Add(gestor_2);
+                        item.SubItems.Add(gestor_3);
+                        item.SubItems.Add(gestor_4);
                         item.SubItems.Add(linha["ETAPA NO FLUXO"].ToString());
                         item.SubItems.Add(linha["TIPO DOCUMENTO"].ToString());
-                        item.SubItems.Add(linha["SOLICITANTE"].ToString());
                         item.SubItems.Add(linha["TÍTULO"].ToString());
                         item.SubItems.Add(linha["ORIGEM"].ToString());
-                        item.SubItems.Add(linha["RESPONSÁVEL"].ToString());
                         item.SubItems.Add(linha["CR"].ToString());
                         item.SubItems.Add(linha["NORMA"].ToString());
                         item.SubItems.Add(linha["REQUISITO"].ToString());
@@ -288,13 +359,10 @@ namespace Sentinella {
                         item.SubItems.Add(linha["INCIDENTE"].ToString());
                         item.SubItems.Add(linha["CLASSIFICAÇÃO"].ToString());
                         item.SubItems.Add(linha["PRIORIDADE"].ToString());
-                        item.SubItems.Add(idSentinella);
 
-                        if (solicitante == "") {
-                            item.ImageKey = "3";
-                        } else {
-                            item.ImageKey = "7";
-                        }
+
+                        //item.ImageKey = "3";
+
 
                         lst.Items.Add(item);
 
@@ -308,7 +376,7 @@ namespace Sentinella {
             }
         }
 
-        public bool salvarRegistro (planoDeAcao obj) {
+        public bool salvarRegistro(planoDeAcao obj) {
             try {
                 bool validacao = false;
                 if (obj._id > 0) {
@@ -323,7 +391,7 @@ namespace Sentinella {
                     MessageBox.Show("Não foi possível salvar o registro!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
                 }
-                
+
             }
             catch (Exception ex) {
                 MessageBox.Show("Erro ao salvar: " + ex.ToString(), Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Error);

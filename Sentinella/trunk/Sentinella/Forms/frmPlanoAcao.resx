@@ -118,6 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btBuscar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFISURBVEhLvZZhEcIwDIUrAQlIQAJSJgEpk4AEpCAB
+        CTgYeVvSe0uz0d5u7d33Y+l7CU0DLE3TVIWsq3B3XCNtRBg0kEgYhY+AQAT2oNktGgdTuqiZE9YAzyXM
+        WQRSuglvgRO0AO+tyLt6WIp8BTYCa4+/o622IseqGBdBu/xJYHiwIQIa1bIXuXIbWezvpPhUe0CrHs4x
+        5n0VYbpY0FTEgEe9nGueRhP40xTtkvUS/haHV+Bc86lsky/0w0aD9jdH2JBV5MPybct9ZZwG7RkiHZDl
+        O4Qa85hy8L5hZo2BySr0iOm+gedDhYyn0/qcg9Cl0OETNbWuzzDoxvnjrRvdvrB9foJU5E/VVAxa9XCO
+        9Y+qCvv8Tajh/D++HFiK+ZO1AG/R8tVDDi5t9HdWAzx1LyeMLEzjVnsMa2v761YEEgn+jipfIKf0AxQH
+        sPNyXqFKAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="PictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
@@ -132,18 +144,6 @@
         wwAADsMBx2+oZAAAAFdJREFUOE/dy8EJgFAMBNEUYg1WY8V2pA18icxB3AE9/4U55aUm27Ju40/wXB/3
         87h7Pz2D5/r49dzBc4YteM6wBc8ZtuA5wxY8Z9iC5wxb8JxhCz7Hqi7NJKdqCuuqQAAAAABJRU5ErkJg
         gg==
-</value>
-  </data>
-  <data name="btBuscar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFISURBVEhLvZZhEcIwDIUrAQlIQAJSJgEpk4AEpCAB
-        CTgYeVvSe0uz0d5u7d33Y+l7CU0DLE3TVIWsq3B3XCNtRBg0kEgYhY+AQAT2oNktGgdTuqiZE9YAzyXM
-        WQRSuglvgRO0AO+tyLt6WIp8BTYCa4+/o622IseqGBdBu/xJYHiwIQIa1bIXuXIbWezvpPhUe0CrHs4x
-        5n0VYbpY0FTEgEe9nGueRhP40xTtkvUS/haHV+Bc86lsky/0w0aD9jdH2JBV5MPybct9ZZwG7RkiHZDl
-        O4Qa85hy8L5hZo2BySr0iOm+gedDhYyn0/qcg9Cl0OETNbWuzzDoxvnjrRvdvrB9foJU5E/VVAxa9XCO
-        9Y+qCvv8Tajh/D++HFiK+ZO1AG/R8tVDDi5t9HdWAzx1LyeMLEzjVnsMa2v761YEEgn+jipfIKf0AxQH
-        sPNyXqFKAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnCancelar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
