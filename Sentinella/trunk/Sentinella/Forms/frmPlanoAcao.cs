@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Sentinella.Forms {
@@ -10,7 +11,20 @@ namespace Sentinella.Forms {
         #region Variaveis
         planoDeAcao obj = new planoDeAcao();
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
+
+
+        private void limparForm(bool parcial = true) {
+            if (parcial) {
+                txtEmailDestinatario.Text = "";
+                txtEmailTitulo.Text = "";
+                txtMensagem.Text = "";
+            } else {
+                hlp.limparCampos(pnlConteudo);
+            }
+
+        }
 
 
         private void btBuscar_Click(object sender, EventArgs e) {
@@ -21,7 +35,7 @@ namespace Sentinella.Forms {
             }
             Cursor = Cursors.WaitCursor;
 
-            planoDeAcao plan = new planoDeAcao();            
+            planoDeAcao plan = new planoDeAcao();
             plan.CarregaListView(lvPlanoAcao, DateTime.Parse(dtpInicial.Text), DateTime.Parse(dtpFinal.Text));
 
             Cursor = Cursors.Default;
@@ -30,27 +44,17 @@ namespace Sentinella.Forms {
 
         private planoDeAcao carregarObj() {
             try {
-                int id = 0;
 
-                //Validações
-                if (!hlp.validaCamposObrigatorios(pnlConteudo, "txtSolicitante;txtCoordenacao;txtGerencia;txtDiretoria")) {
-                    return null;
-                }
+                planoDeAcao obj2 = new planoDeAcao(
+                    int.Parse(lvPlanoAcao.SelectedItems[0].SubItems[1].Text),
+                    lvPlanoAcao.SelectedItems[0].SubItems[6].Text,
+                    lvPlanoAcao.SelectedItems[0].SubItems[7].Text,
+                    true,
+                    txtEmailDestinatario.Text,
+                    hlp.dataHoraAtual()
+                    );
 
-                //planoDeAcao obj2 = new planoDeAcao(
-                //    int.Parse(txt_protocolo.Text),
-                //    txtSolicitante.Text.Trim(),
-                //    txtCoordenacao.Text.Trim(),
-                //    txtGerencia.Text.Trim(),
-                //    txtDiretoria.Text.Trim(),
-                //    DateTime.Parse(txt_dataRegistro.Text),
-                //    id,
-                //    txtObservacao.Text.Trim()
-                //    );
-
-                //return obj2;
-
-                return null;
+                return obj2;
 
             }
             catch (Exception ex) {
@@ -60,25 +64,128 @@ namespace Sentinella.Forms {
         }
 
         private void btnSalvar_Click(object sender, EventArgs e) {
-            obj = carregarObj();
-            if (obj != null) {
-                if (obj.salvarRegistro(obj)) {
 
-                    Cursor = Cursors.WaitCursor;
-                    planoDeAcao plan = new planoDeAcao();
-                    plan.CarregaListView(lvPlanoAcao, DateTime.Parse(dtpInicial.Text), DateTime.Parse(dtpFinal.Text));
-                    Cursor = Cursors.Default;
-
-                    hlp.limparCampos(this);
-                }
+            if (!hlp.validaCamposObrigatorios(pnlConteudo, "txtEmailDestinatario;txtMensagem;txtEmailTitulo")) {
+                return;
             }
+
+
+            //envio pelo Dynamics e baixa do registro
+            email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
+
+            foreach (ListViewItem item in lvPlanoAcao.Items) {
+               
+
+                    email.Assunto = txtEmailTitulo.Text;
+                    email.Mensagem = txtMensagem.Text.Replace("\r\n", "<br />") + " <br /><br />";
+               
+            }
+
+
+            //Para
+            List<string> para = new List<string>();
+            string[] _para = txtEmailDestinatario.Text.Split(';');
+            foreach (var item in _para) { para.Add(item); }
+            email.Para = para;
+
+            //CC
+            //string txtCC = "marianesg@algartech.com;deborahvhw@algartech.com;nataliadda@algartech.com;isabelladab@algartech.com;mayraneapl@algartech.com;talienelv@algartech.com;wesleyel@algartech.com";
+            string txtCC = "wesleyel@algartech.com";
+            List<string> cc = new List<string>();
+            string[] _cc = txtCC.Split(';');
+            foreach (var item in _cc) { cc.Add(item); }
+            email.Cc = cc;
+
+            //CCo
+            usuarios user = new usuarios();
+            string txtCCo = user.capturarEmailAnalistaSeguranca().ToLower();
+            List<string> ccO = new List<string>();
+            string[] _ccO = txtCCo.Split(';');
+            foreach (var item in _ccO) { ccO.Add(item); }
+            email.CcO = ccO;
+
+            //Carregando os anexos
+            //List<string> listaAnexos = new List<string>();
+            //foreach (string file in lbAnexos.Items) { listaAnexos.Add(file); }
+            //email.Anexos = listaAnexos;
+
+
+            if (email.envio(email.Assunto, email.Mensagem, email.Para, email.Cc, email.CcO, null)) {                
+                //Finalizar registros
+                obj.finalizarRegistro(carregarObj());
+                MessageBox.Show("E-mail enviado com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                limparForm(false);
+
+            } else {
+                MessageBox.Show("Falha no envio de E-mail!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+
         }
         private void btnCancelar_Click(object sender, EventArgs e) {
             hlp.limparCampos(this);
         }
 
-        private void pnlConteudo_Paint(object sender, PaintEventArgs e) {
+        private void lvPlanoAcao_ColumnClick(object sender, ColumnClickEventArgs e) {
+            //ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter(); <<<<<<<<<<<< declarado no escopo principal do form
+            this.lvPlanoAcao.ListViewItemSorter = lvwColumnSorter;
 
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn) {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending) {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                } else {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            } else {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending) {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                } else {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+
+
+                //lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.lvPlanoAcao.Sort();
+        }
+
+        private void lvPlanoAcao_DoubleClick(object sender, EventArgs e) {
+
+
+            limparForm();
+
+            if (lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("FINALIZADO")) {
+                MessageBox.Show("Não é possível enviar e-mail para Planos de Ação com Status da Solicitação igual a FINALIZADO!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            txtEmailTitulo.Text = "PLANO DE AÇÃO " + lvPlanoAcao.SelectedItems[0].SubItems[1].Text;
+
+            txtMensagem.Text = "Olá," + Environment.NewLine + Environment.NewLine;
+
+            txtMensagem.Text += "Em relação ao Plano de Ação número " + lvPlanoAcao.SelectedItems[0].SubItems[1].Text + ", o prazo para conclusão era " + lvPlanoAcao.SelectedItems[0].SubItems[21].Text + " ";
+            txtMensagem.Text += "e não identificamos evidências anexadas, no TechOnline." + Environment.NewLine;
+            txtMensagem.Text += "Por gentileza, solicitamos que responda esse e-mail para marianesg@algartech.com com as evidências anexadas até ";
+            txtMensagem.Text += "o próximo dia útil, a fim de que possamos encerrá-lo.  " + Environment.NewLine + Environment.NewLine;
+
+
+            txtMensagem.Text += "Atenciosamente, " + Environment.NewLine;
+            txtMensagem.Text += "SGI - Sistema de Gestão Integrada";
+
+
+        }
+
+        private void frmPlanoAcao_Load(object sender, EventArgs e) {
+            limparForm(false);
         }
     }
 }

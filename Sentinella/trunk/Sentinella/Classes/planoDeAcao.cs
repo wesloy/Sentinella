@@ -5,19 +5,16 @@ using System.Windows.Forms;
 namespace Sentinella {
     class planoDeAcao {
 
-        //	CREATE TABLE [dbo].[w_basePlanoAcao] (
-        //	    [id]              INT            IDENTITY (1, 1) NOT NULL,
-        //	    [protocolo]       INT            DEFAULT ((0)) NOT NULL,
-        //	    [solicitante]     NVARCHAR (750) NULL,
-        //	    [coordenador]     NVARCHAR (750) NULL,
-        //	    [gerente]         NVARCHAR (750) NULL,
-        //	    [diretor]         NVARCHAR (750) NULL,
-        //	    [observacao]         NVARCHAR (MAX) NULL,
-        //	    [dataRegistro]    DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
-        //	    [dataAtualizacao] DATETIME       DEFAULT (getdate()) NULL,
-        //	    [idAtualizacao]   NVARCHAR (10)  NULL,
-        //	    CONSTRAINT [PK_w_basePlanoAcao] PRIMARY KEY CLUSTERED ([id] ASC)
-        //	);
+        //CREATE TABLE [dbo].[w_planosAcao_categorizacoes] (
+        //    [id]                    INT            IDENTITY (1, 1) NOT NULL,
+        //    [protocolo]             INT            DEFAULT ((0)) NOT NULL,
+        //    [solicitante]           NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [responsavel]           NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [email_enviado]         BIT            DEFAULT ((0)) NOT NULL,
+        //    [emails_enderecos]      NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [data_envio_email]      DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
+        //    [id_analista_seguranca] INT            DEFAULT ((0)) NOT NULL
+        //);
 
 
 
@@ -34,31 +31,29 @@ namespace Sentinella {
         public int _id { get; set; }
         public int _protocolo { get; set; }
         public string _solicitante { get; set; }
-        public string _coordenador { get; set; }
-        public string _gerente { get; set; }
-        public string _diretor { get; set; }
-        public string _observacao { get; set; }
-        public DateTime _dataRegistro { get; set; }
-        public DateTime _dataAtualizacao { get; set; }
-        public string _idAtualizacao { get; set; }
+        public string _responsavel { get; set; }
+        public bool _email_enviado { get; set; }
+        public string _emails_enderecos { get; set; }
+        public DateTime _data_envio_email { get; set; }
+        public int _id_analista_seguranca { get; set; }
         #endregion
 
         #region Contrutores
         public planoDeAcao() { }
 
-        public planoDeAcao(int protocolo, string solicitante, string coordenador, string gerente, string diretor, DateTime dataRegistro, int id = 0, string observacao = "") {
+        public planoDeAcao(int protocolo, string solicitante, string responsavel, bool email_enviado, string emails_enderecos, DateTime data_envio_email, int id = 0) {
 
             _id = id;
             _protocolo = protocolo;
             _solicitante = solicitante;
-            _coordenador = coordenador;
-            _gerente = gerente;
-            _diretor = diretor;
-            _observacao = observacao;
-            _dataRegistro = dataRegistro;
-            _dataAtualizacao = hlp.dataHoraAtual();
-            _idAtualizacao = Constantes.id_REDE_logadoFerramenta;
+            _responsavel = responsavel;
+            _email_enviado = email_enviado;
+            _emails_enderecos = emails_enderecos;
+            _data_envio_email = data_envio_email;
+            _id_analista_seguranca = Constantes.id_BD_logadoFerramenta;
         }
+
+
 
         private DataTable _listarPlanosAcoes(DateTime _dtInicial, DateTime _dtFinal) {
             try {
@@ -67,7 +62,7 @@ namespace Sentinella {
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "MANUTENCOES - LISTA DE PLANOS DE AÇÕES (DAL)");
+                log.registrarLog(ex.ToString(), "PLANOS DE AÇÃO - LISTA DE PLANOS DE AÇÕES (DAL)");
                 return null;
             }
         }
@@ -82,7 +77,7 @@ namespace Sentinella {
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "MANUTENCOES - LISTA DE PLANOS DE AÇÕES TRABALHADAS (DAL)");
+                log.registrarLog(ex.ToString(), "PLANOS DE AÇÃO - LISTA DE PLANOS DE AÇÕES TRABALHADAS (DAL)");
                 return null;
             }
         }
@@ -90,59 +85,26 @@ namespace Sentinella {
         #endregion
 
         #region Camada DAL - Dados
-        private planoDeAcao _capturarRegistroID(int id) {
-            try {
-                DataTable dt = new DataTable();
-                planoDeAcao registro = new planoDeAcao();
-                sql = "Select * from w_basePlanoAcao where id = " + objCon.valorSql(id) + " ";
-                dt = objCon.retornaDataTable(sql);
-                if (dt.Rows.Count > 0) {
-                    foreach (DataRow ln in dt.Rows) {
 
-                        registro._id = int.Parse(ln["id"].ToString());
-                        registro._protocolo = int.Parse(ln["protocolo"].ToString());
-                        registro._solicitante = ln["solicitante"].ToString();
-                        registro._coordenador = ln["coordenador"].ToString();
-                        registro._gerente = ln["gerente"].ToString();
-                        registro._diretor = ln["diretor"].ToString();
-                        registro._observacao = ln["observacao"].ToString();
-                        registro._dataRegistro = DateTime.Parse(ln["dataRegistro"].ToString());
-                        registro._dataAtualizacao = DateTime.Parse(ln["dataAtualizacao"].ToString());
-                        registro._idAtualizacao = ln["idAtualizacao"].ToString();
-                    }
-                }
-                return registro;
-            }
-            catch (Exception ex) {
-
-                log.registrarLog(ex.ToString(), "PLANO DE AÇÃO - CAPTURAR REGISTRO POR ID (DAL)");
-                return null;
-            }
-        }
-
-        private bool _incluir(planoDeAcao obj) {
+        private bool _finalizarRegistro(planoDeAcao obj) {
             try {
                 bool validacao = false;
-                sql = "Insert into w_basePlanoAcao ";
+                sql = "Insert into w_PlanosAcao_categorizacoes ";
                 sql += "(protocolo,";
                 sql += "solicitante,";
-                sql += "coordenador,";
-                sql += "gerente,";
-                sql += "diretor,";
-                sql += "observacao, ";
-                sql += "dataRegistro, ";
-                sql += "dataAtualizacao, ";
-                sql += "idAtualizacao) ";
+                sql += "responsavel,";
+                sql += "email_enviado,";
+                sql += "emails_enderecos,";
+                sql += "data_envio_email, ";
+                sql += "id_analista_seguranca) ";
                 sql += "values( ";
                 sql += objCon.valorSql(obj._protocolo) + ",";
                 sql += objCon.valorSql(obj._solicitante) + ",";
-                sql += objCon.valorSql(obj._coordenador) + ",";
-                sql += objCon.valorSql(obj._gerente) + ",";
-                sql += objCon.valorSql(obj._diretor) + ",";
-                sql += objCon.valorSql(obj._observacao) + ", ";
-                sql += objCon.valorSql(obj._dataRegistro) + ", ";
-                sql += objCon.valorSql(obj._dataAtualizacao) + ",";
-                sql += objCon.valorSql(obj._idAtualizacao) + ") ";
+                sql += objCon.valorSql(obj._responsavel) + ",";
+                sql += objCon.valorSql(obj._email_enviado) + ",";
+                sql += objCon.valorSql(obj._emails_enderecos) + ",";
+                sql += objCon.valorSql(obj._data_envio_email) + ", ";
+                sql += objCon.valorSql(obj._id_analista_seguranca) + ") ";
                 validacao = objCon.executaQuery(sql, ref retorno); //executando
 
                 return validacao; //retorno
@@ -150,34 +112,7 @@ namespace Sentinella {
             }
             catch (Exception ex) {
 
-                log.registrarLog(ex.ToString(), "PLANO DE AÇÃO - INCLUIR(DAL)");
-                return false;
-            }
-
-        }
-
-        private bool _alterar(planoDeAcao obj) {
-            try {
-                bool validacao = false;
-                sql = "Update w_basePlanoAcao set ";
-                sql += "protocolo = " + objCon.valorSql(obj._protocolo) + ", ";
-                sql += "solicitante = " + objCon.valorSql(obj._solicitante) + ", ";
-                sql += "coordenador = " + objCon.valorSql(obj._coordenador) + ", ";
-                sql += "gerente = " + objCon.valorSql(obj._gerente) + ", ";
-                sql += "diretor = " + objCon.valorSql(obj._diretor) + ", ";
-                sql += "observacao = " + objCon.valorSql(obj._observacao) + ", ";
-                sql += "dataRegistro = " + objCon.valorSql(obj._dataRegistro) + ", ";
-                sql += "dataAtualizacao = " + objCon.valorSql(obj._dataAtualizacao) + ", ";
-                sql += "idAtualizacao = " + objCon.valorSql(obj._idAtualizacao) + " ";
-                sql += "where id = " + objCon.valorSql(obj._id);
-                validacao = objCon.executaQuery(sql, ref retorno); //executando
-
-                return validacao; //retorno
-
-            }
-            catch (Exception ex) {
-
-                log.registrarLog(ex.ToString(), "PLANO DE AÇÃO - ALTERAR(DAL)");
+                log.registrarLog(ex.ToString(), "PLANO DE AÇÃO - SALVAR REGISTRO (DAL)");
                 return false;
             }
 
@@ -376,27 +311,15 @@ namespace Sentinella {
             }
         }
 
-        public bool salvarRegistro(planoDeAcao obj) {
-            try {
-                bool validacao = false;
-                if (obj._id > 0) {
-                    validacao = _alterar(obj);
-                } else {
-                    validacao = _incluir(obj);
-                }
-                if (validacao) {
-                    MessageBox.Show("Registro salvo com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return true;
-                } else {
-                    MessageBox.Show("Não foi possível salvar o registro!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false;
-                }
-
+        public bool finalizarRegistro(planoDeAcao _obj) {
+            try {                
+                return _finalizarRegistro(_obj);
             }
             catch (Exception ex) {
-                MessageBox.Show("Erro ao salvar: " + ex.ToString(), Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                log.registrarLog(ex.ToString(), "PLANO DE AÇÃO - SALVAR REGISTROS (BLL)");
                 return false;
             }
+
         }
 
         #endregion

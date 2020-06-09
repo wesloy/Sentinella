@@ -417,6 +417,25 @@ namespace Sentinella {
             }
         }
 
+
+        private string _capturarEmailAnalistaSeguranca() {
+            try {
+                sql = "select idrede from w_sysUsuarios where id = " + objCon.valorSql(Constantes.id_BD_logadoFerramenta) + " ";
+                DataTable dt = new DataTable();
+                dt = objCon.retornaDataTable(sql);
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow item in dt.Rows) {
+                        return item["idrede"].ToString() + "@algartech.com";
+                    }
+                }
+                return "";
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - CAPTURAR E-MAIL ANALISTA SEGURANÇA (DAL)");
+                return "";
+            }
+        }
+
         #endregion
 
         #region Camada BLL - Negocio
@@ -591,6 +610,16 @@ namespace Sentinella {
             }
         }
 
+
+        public string capturarEmailAnalistaSeguranca() {
+            try {
+                return _capturarEmailAnalistaSeguranca();
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TRILHAS SGI - CAPTURAR E-MAIL ANALISTA SEGURANÇA (BLL)");
+                return "";
+            }
+        }
 
         #endregion
 

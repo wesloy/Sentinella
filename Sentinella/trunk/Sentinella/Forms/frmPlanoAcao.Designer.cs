@@ -36,42 +36,69 @@
             this.pnlBotoes = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
-            this.Label9 = new System.Windows.Forms.Label();
-            this.PictureBox2 = new System.Windows.Forms.PictureBox();
-            this.Label10 = new System.Windows.Forms.Label();
-            this.Label11 = new System.Windows.Forms.Label();
-            this.PictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtMensagem = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtEmailDestinatario = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtEmailTitulo = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lbFiltroPorStatus = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.pbVerdeConcluido = new System.Windows.Forms.PictureBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.pbAzulForaPeriodo = new System.Windows.Forms.PictureBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pbAmareloFerias = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pbPretoAfastado = new System.Windows.Forms.PictureBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pbVermelhoPendente = new System.Windows.Forms.PictureBox();
             this.pnlConteudo.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlBotoes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVerdeConcluido)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAzulForaPeriodo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAmareloFerias)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPretoAfastado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVermelhoPendente)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
+            this.pnlConteudo.Controls.Add(this.txtEmailTitulo);
+            this.pnlConteudo.Controls.Add(this.label15);
+            this.pnlConteudo.Controls.Add(this.label7);
+            this.pnlConteudo.Controls.Add(this.txtMensagem);
+            this.pnlConteudo.Controls.Add(this.label13);
+            this.pnlConteudo.Controls.Add(this.txtEmailDestinatario);
+            this.pnlConteudo.Controls.Add(this.label14);
             this.pnlConteudo.Controls.Add(this.lvPlanoAcao);
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 71);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1081, 480);
+            this.pnlConteudo.Size = new System.Drawing.Size(1261, 480);
             this.pnlConteudo.TabIndex = 5;
-            this.pnlConteudo.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlConteudo_Paint);
             // 
             // lvPlanoAcao
             // 
+            this.lvPlanoAcao.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvPlanoAcao.BackColor = System.Drawing.Color.White;
             this.lvPlanoAcao.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lvPlanoAcao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvPlanoAcao.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvPlanoAcao.HideSelection = false;
-            this.lvPlanoAcao.Location = new System.Drawing.Point(0, 0);
+            this.lvPlanoAcao.Location = new System.Drawing.Point(12, 235);
             this.lvPlanoAcao.Name = "lvPlanoAcao";
-            this.lvPlanoAcao.Size = new System.Drawing.Size(1081, 480);
+            this.lvPlanoAcao.Size = new System.Drawing.Size(1237, 239);
             this.lvPlanoAcao.TabIndex = 6;
             this.lvPlanoAcao.UseCompatibleStateImageBehavior = false;
-            this.lvPlanoAcao.View = System.Windows.Forms.View.SmallIcon;            
+            this.lvPlanoAcao.View = System.Windows.Forms.View.SmallIcon;
+            this.lvPlanoAcao.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvPlanoAcao_ColumnClick);
+            this.lvPlanoAcao.DoubleClick += new System.EventHandler(this.lvPlanoAcao_DoubleClick);
             // 
             // pnlFiltros
             // 
@@ -86,7 +113,7 @@
             this.pnlFiltros.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFiltros.Location = new System.Drawing.Point(0, 0);
             this.pnlFiltros.Name = "pnlFiltros";
-            this.pnlFiltros.Size = new System.Drawing.Size(1081, 71);
+            this.pnlFiltros.Size = new System.Drawing.Size(1261, 71);
             this.pnlFiltros.TabIndex = 4;
             // 
             // label1
@@ -125,7 +152,7 @@
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(859, 42);
+            this.label23.Location = new System.Drawing.Point(1039, 42);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(219, 26);
             this.label23.TabIndex = 74;
@@ -157,25 +184,32 @@
             // pnlBotoes
             // 
             this.pnlBotoes.BackColor = System.Drawing.Color.White;
-            this.pnlBotoes.Controls.Add(this.Label9);
-            this.pnlBotoes.Controls.Add(this.PictureBox2);
-            this.pnlBotoes.Controls.Add(this.Label10);
-            this.pnlBotoes.Controls.Add(this.Label11);
-            this.pnlBotoes.Controls.Add(this.PictureBox1);
+            this.pnlBotoes.Controls.Add(this.lbFiltroPorStatus);
+            this.pnlBotoes.Controls.Add(this.label12);
+            this.pnlBotoes.Controls.Add(this.pbVerdeConcluido);
+            this.pnlBotoes.Controls.Add(this.label8);
+            this.pnlBotoes.Controls.Add(this.pbAzulForaPeriodo);
+            this.pnlBotoes.Controls.Add(this.label6);
+            this.pnlBotoes.Controls.Add(this.pbAmareloFerias);
+            this.pnlBotoes.Controls.Add(this.label3);
+            this.pnlBotoes.Controls.Add(this.pbPretoAfastado);
+            this.pnlBotoes.Controls.Add(this.label4);
+            this.pnlBotoes.Controls.Add(this.label5);
+            this.pnlBotoes.Controls.Add(this.pbVermelhoPendente);
             this.pnlBotoes.Controls.Add(this.btnCancelar);
             this.pnlBotoes.Controls.Add(this.btnSalvar);
             this.pnlBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBotoes.Location = new System.Drawing.Point(0, 551);
             this.pnlBotoes.Name = "pnlBotoes";
             this.pnlBotoes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.pnlBotoes.Size = new System.Drawing.Size(1081, 57);
+            this.pnlBotoes.Size = new System.Drawing.Size(1261, 57);
             this.pnlBotoes.TabIndex = 3;
             // 
             // btnCancelar
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(932, 6);
+            this.btnCancelar.Location = new System.Drawing.Point(1112, 6);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(115, 39);
             this.btnCancelar.TabIndex = 1;
@@ -189,91 +223,229 @@
             // 
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalvar.Image = ((System.Drawing.Image)(resources.GetObject("btnSalvar.Image")));
-            this.btnSalvar.Location = new System.Drawing.Point(811, 6);
+            this.btnSalvar.Location = new System.Drawing.Point(991, 6);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(115, 39);
             this.btnSalvar.TabIndex = 0;
-            this.btnSalvar.Text = "&Salvar";
+            this.btnSalvar.Text = "&Enviar";
             this.btnSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
-            // Label9
+            // label7
             // 
-            this.Label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Label9.AutoSize = true;
-            this.Label9.BackColor = System.Drawing.Color.Transparent;
-            this.Label9.Location = new System.Drawing.Point(125, 14);
-            this.Label9.Name = "Label9";
-            this.Label9.Size = new System.Drawing.Size(71, 13);
-            this.Label9.TabIndex = 73;
-            this.Label9.Text = "Não Validado";
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Red;
+            this.label7.Location = new System.Drawing.Point(15, 219);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(316, 13);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "Dê um duplo click para carregar informações para envio do e-mail";
             // 
-            // PictureBox2
+            // txtMensagem
             // 
-            this.PictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox2.Image")));
-            this.PictureBox2.Location = new System.Drawing.Point(110, 12);
-            this.PictureBox2.Name = "PictureBox2";
-            this.PictureBox2.Size = new System.Drawing.Size(18, 15);
-            this.PictureBox2.TabIndex = 72;
-            this.PictureBox2.TabStop = false;
+            this.txtMensagem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMensagem.Location = new System.Drawing.Point(12, 106);
+            this.txtMensagem.Multiline = true;
+            this.txtMensagem.Name = "txtMensagem";
+            this.txtMensagem.Size = new System.Drawing.Size(1237, 105);
+            this.txtMensagem.TabIndex = 60;
+            this.txtMensagem.Tag = "Mensagem";
             // 
-            // Label10
+            // label13
             // 
-            this.Label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Label10.AutoSize = true;
-            this.Label10.BackColor = System.Drawing.Color.Transparent;
-            this.Label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label10.Location = new System.Drawing.Point(42, 6);
-            this.Label10.Name = "Label10";
-            this.Label10.Size = new System.Drawing.Size(60, 13);
-            this.Label10.TabIndex = 71;
-            this.Label10.Text = "Legenda:";
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(12, 90);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(62, 13);
+            this.label13.TabIndex = 59;
+            this.label13.Text = "Mensagem:";
             // 
-            // Label11
+            // txtEmailDestinatario
             // 
-            this.Label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.Label11.AutoSize = true;
-            this.Label11.BackColor = System.Drawing.Color.Transparent;
-            this.Label11.Location = new System.Drawing.Point(132, 32);
-            this.Label11.Name = "Label11";
-            this.Label11.Size = new System.Drawing.Size(48, 13);
-            this.Label11.TabIndex = 70;
-            this.Label11.Text = "Validado";
+            this.txtEmailDestinatario.Location = new System.Drawing.Point(12, 23);
+            this.txtEmailDestinatario.Name = "txtEmailDestinatario";
+            this.txtEmailDestinatario.Size = new System.Drawing.Size(593, 20);
+            this.txtEmailDestinatario.TabIndex = 58;
+            this.txtEmailDestinatario.Tag = "E-mail Destinatário";
             // 
-            // PictureBox1
+            // label14
             // 
-            this.PictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
-            this.PictureBox1.Location = new System.Drawing.Point(115, 30);
-            this.PictureBox1.Name = "PictureBox1";
-            this.PictureBox1.Size = new System.Drawing.Size(18, 15);
-            this.PictureBox1.TabIndex = 69;
-            this.PictureBox1.TabStop = false;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 7);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(97, 13);
+            this.label14.TabIndex = 57;
+            this.label14.Text = "E-mail Destinatário:";
+            // 
+            // txtEmailTitulo
+            // 
+            this.txtEmailTitulo.Location = new System.Drawing.Point(12, 65);
+            this.txtEmailTitulo.Name = "txtEmailTitulo";
+            this.txtEmailTitulo.Size = new System.Drawing.Size(593, 20);
+            this.txtEmailTitulo.TabIndex = 75;
+            this.txtEmailTitulo.Tag = "E-mail Destinatário";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(9, 49);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(84, 13);
+            this.label15.TabIndex = 74;
+            this.label15.Text = "Título do E-mail:";
+            // 
+            // lbFiltroPorStatus
+            // 
+            this.lbFiltroPorStatus.AutoSize = true;
+            this.lbFiltroPorStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lbFiltroPorStatus.ForeColor = System.Drawing.Color.Red;
+            this.lbFiltroPorStatus.Location = new System.Drawing.Point(504, 19);
+            this.lbFiltroPorStatus.Name = "lbFiltroPorStatus";
+            this.lbFiltroPorStatus.Size = new System.Drawing.Size(207, 13);
+            this.lbFiltroPorStatus.TabIndex = 85;
+            this.lbFiltroPorStatus.Text = "(Clique sobre o item da legenda para filtrar)";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Location = new System.Drawing.Point(442, 19);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(56, 13);
+            this.label12.TabIndex = 84;
+            this.label12.Text = "Concluído";
+            // 
+            // pbVerdeConcluido
+            // 
+            this.pbVerdeConcluido.BackColor = System.Drawing.Color.Transparent;
+            this.pbVerdeConcluido.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbVerdeConcluido.Image = ((System.Drawing.Image)(resources.GetObject("pbVerdeConcluido.Image")));
+            this.pbVerdeConcluido.Location = new System.Drawing.Point(428, 17);
+            this.pbVerdeConcluido.Name = "pbVerdeConcluido";
+            this.pbVerdeConcluido.Size = new System.Drawing.Size(18, 15);
+            this.pbVerdeConcluido.TabIndex = 83;
+            this.pbVerdeConcluido.TabStop = false;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Location = new System.Drawing.Point(279, 19);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(148, 13);
+            this.label8.TabIndex = 82;
+            this.label8.Text = "Fora do Período de Cobrança";
+            // 
+            // pbAzulForaPeriodo
+            // 
+            this.pbAzulForaPeriodo.BackColor = System.Drawing.Color.Transparent;
+            this.pbAzulForaPeriodo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbAzulForaPeriodo.Image = ((System.Drawing.Image)(resources.GetObject("pbAzulForaPeriodo.Image")));
+            this.pbAzulForaPeriodo.Location = new System.Drawing.Point(265, 17);
+            this.pbAzulForaPeriodo.Name = "pbAzulForaPeriodo";
+            this.pbAzulForaPeriodo.Size = new System.Drawing.Size(18, 15);
+            this.pbAzulForaPeriodo.TabIndex = 81;
+            this.pbAzulForaPeriodo.TabStop = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Location = new System.Drawing.Point(157, 19);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 80;
+            this.label6.Text = "Férias";
+            // 
+            // pbAmareloFerias
+            // 
+            this.pbAmareloFerias.BackColor = System.Drawing.Color.Transparent;
+            this.pbAmareloFerias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbAmareloFerias.Image = ((System.Drawing.Image)(resources.GetObject("pbAmareloFerias.Image")));
+            this.pbAmareloFerias.Location = new System.Drawing.Point(143, 17);
+            this.pbAmareloFerias.Name = "pbAmareloFerias";
+            this.pbAmareloFerias.Size = new System.Drawing.Size(18, 15);
+            this.pbAmareloFerias.TabIndex = 79;
+            this.pbAmareloFerias.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(212, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 78;
+            this.label3.Text = "Afastado";
+            // 
+            // pbPretoAfastado
+            // 
+            this.pbPretoAfastado.BackColor = System.Drawing.Color.Transparent;
+            this.pbPretoAfastado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbPretoAfastado.Image = ((System.Drawing.Image)(resources.GetObject("pbPretoAfastado.Image")));
+            this.pbPretoAfastado.Location = new System.Drawing.Point(198, 17);
+            this.pbPretoAfastado.Name = "pbPretoAfastado";
+            this.pbPretoAfastado.Size = new System.Drawing.Size(18, 15);
+            this.pbPretoAfastado.TabIndex = 77;
+            this.pbPretoAfastado.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(18, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 76;
+            this.label4.Text = "Legenda:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Location = new System.Drawing.Point(91, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 75;
+            this.label5.Text = "Pendente";
+            // 
+            // pbVermelhoPendente
+            // 
+            this.pbVermelhoPendente.BackColor = System.Drawing.Color.Transparent;
+            this.pbVermelhoPendente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbVermelhoPendente.Image = ((System.Drawing.Image)(resources.GetObject("pbVermelhoPendente.Image")));
+            this.pbVermelhoPendente.Location = new System.Drawing.Point(74, 17);
+            this.pbVermelhoPendente.Name = "pbVermelhoPendente";
+            this.pbVermelhoPendente.Size = new System.Drawing.Size(18, 15);
+            this.pbVermelhoPendente.TabIndex = 74;
+            this.pbVermelhoPendente.TabStop = false;
             // 
             // frmPlanoAcao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1081, 608);
+            this.ClientSize = new System.Drawing.Size(1261, 608);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.pnlFiltros);
             this.Controls.Add(this.pnlBotoes);
             this.Name = "frmPlanoAcao";
             this.Text = ".: Planos de Ação :.";
+            this.Load += new System.EventHandler(this.frmPlanoAcao_Load);
             this.pnlConteudo.ResumeLayout(false);
+            this.pnlConteudo.PerformLayout();
             this.pnlFiltros.ResumeLayout(false);
             this.pnlFiltros.PerformLayout();
             this.pnlBotoes.ResumeLayout(false);
             this.pnlBotoes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVerdeConcluido)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAzulForaPeriodo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbAmareloFerias)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPretoAfastado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbVermelhoPendente)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -292,10 +464,24 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpInicial;
         private System.Windows.Forms.DateTimePicker dtpFinal;
-        internal System.Windows.Forms.Label Label9;
-        internal System.Windows.Forms.PictureBox PictureBox2;
-        internal System.Windows.Forms.Label Label10;
-        internal System.Windows.Forms.Label Label11;
-        internal System.Windows.Forms.PictureBox PictureBox1;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtMensagem;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtEmailDestinatario;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtEmailTitulo;
+        private System.Windows.Forms.Label label15;
+        internal System.Windows.Forms.Label lbFiltroPorStatus;
+        internal System.Windows.Forms.Label label12;
+        internal System.Windows.Forms.PictureBox pbVerdeConcluido;
+        internal System.Windows.Forms.Label label8;
+        internal System.Windows.Forms.PictureBox pbAzulForaPeriodo;
+        internal System.Windows.Forms.Label label6;
+        internal System.Windows.Forms.PictureBox pbAmareloFerias;
+        internal System.Windows.Forms.Label label3;
+        internal System.Windows.Forms.PictureBox pbPretoAfastado;
+        internal System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.Label label5;
+        internal System.Windows.Forms.PictureBox pbVermelhoPendente;
     }
 }

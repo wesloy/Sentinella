@@ -163,7 +163,8 @@ namespace Sentinella.Forms {
             email.Cc = cc;
 
             //CCo
-            string txtCCo = trilhas.capturarEmailAnalistaSeguranca().ToLower();
+            usuarios user = new usuarios();
+            string txtCCo = user.capturarEmailAnalistaSeguranca().ToLower();
             List<string> ccO = new List<string>();
             string[] _ccO = txtCCo.Split(';');
             foreach (var item in _ccO) { ccO.Add(item); }
