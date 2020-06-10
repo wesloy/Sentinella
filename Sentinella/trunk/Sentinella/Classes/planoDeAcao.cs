@@ -8,6 +8,7 @@ namespace Sentinella {
         //CREATE TABLE [dbo].[w_planosAcao_categorizacoes] (
         //    [id]                    INT            IDENTITY (1, 1) NOT NULL,
         //    [protocolo]             INT            DEFAULT ((0)) NOT NULL,
+        //    [fila]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
         //	  [data_inicio_plano]     DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
         //    [data_fim_plano]        DATETIME       DEFAULT('1900-01-01 00:00:00') NOT NULL,
         //    [solicitante]           NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
@@ -32,6 +33,7 @@ namespace Sentinella {
         #region Camada DTO - Entidades
         public int _id { get; set; }
         public int _protocolo { get; set; }
+        public string _fila { get; set; }
         public DateTime _data_inicio_plano { get; set; }
         public DateTime _data_fim_plano { get; set; }
         public string _solicitante { get; set; }
@@ -45,10 +47,11 @@ namespace Sentinella {
         #region Contrutores
         public planoDeAcao() { }
 
-        public planoDeAcao(int protocolo, DateTime data_inicio_plano, DateTime data_fim_plano, string solicitante, string responsavel, bool email_enviado, string emails_enderecos, DateTime data_envio_email, int id = 0) {
+        public planoDeAcao(int protocolo, string fila, DateTime data_inicio_plano, DateTime data_fim_plano, string solicitante, string responsavel, bool email_enviado, string emails_enderecos, DateTime data_envio_email, int id = 0) {
 
             _id = id;
             _protocolo = protocolo;
+            _fila = fila;
             _data_inicio_plano = data_inicio_plano;
             _data_fim_plano = data_fim_plano;
             _solicitante = solicitante;
@@ -97,6 +100,7 @@ namespace Sentinella {
                 bool validacao = false;
                 sql = "Insert into w_PlanosAcao_categorizacoes ";
                 sql += "(protocolo,";
+                sql += "fila,";
                 sql += "data_inicio_plano,";
                 sql += "data_fim_plano,";
                 sql += "solicitante,";
@@ -107,6 +111,7 @@ namespace Sentinella {
                 sql += "id_analista_seguranca) ";
                 sql += "values( ";
                 sql += objCon.valorSql(obj._protocolo) + ",";
+                sql += objCon.valorSql(obj._fila) + ",";
                 sql += objCon.valorSql(obj._data_inicio_plano) + ",";
                 sql += objCon.valorSql(obj._data_fim_plano) + ",";
                 sql += objCon.valorSql(obj._solicitante) + ",";
@@ -205,8 +210,8 @@ namespace Sentinella {
 
                         if (w_Plan.Length > 0) {
                             qtde_emails = int.Parse(w_Plan[0][0].ToString());
-                            ult_end_email_enviado = w_Plan[0][8].ToString();
-                            data_ultimo_envio_email = DateTime.Parse(w_Plan[0][9].ToString());
+                            ult_end_email_enviado = w_Plan[0][9].ToString();
+                            data_ultimo_envio_email = DateTime.Parse(w_Plan[0][10].ToString());
                         } else {
                             qtde_emails = 0;
                             ult_end_email_enviado = "N/D";

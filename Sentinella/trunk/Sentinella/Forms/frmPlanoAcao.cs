@@ -94,6 +94,7 @@ namespace Sentinella.Forms {
 
                 planoDeAcao obj2 = new planoDeAcao(
                     int.Parse(lvPlanoAcao.SelectedItems[0].SubItems[1].Text),
+                    lvPlanoAcao.SelectedItems[0].SubItems[0].Text,
                     DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[20].Text),
                     DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[21].Text),
                     lvPlanoAcao.SelectedItems[0].SubItems[6].Text,
@@ -133,8 +134,8 @@ namespace Sentinella.Forms {
             email.Para = para;
 
             //CC
-            //string txtCC = "marianesg@algartech.com;deborahvhw@algartech.com;nataliadda@algartech.com;isabelladab@algartech.com;mayraneapl@algartech.com;talienelv@algartech.com;wesleyel@algartech.com";
-            string txtCC = "wesleyel@algartech.com";
+            string txtCC = "marianesg@algartech.com;deborahvhw@algartech.com;nataliadda@algartech.com;isabelladab@algartech.com;mayraneapl@algartech.com;talienelv@algartech.com;wesleyel@algartech.com";
+            //string txtCC = "wesleyel@algartech.com";
             List<string> cc = new List<string>();
             string[] _cc = txtCC.Split(';');
             foreach (var item in _cc) { cc.Add(item); }
