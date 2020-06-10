@@ -8,6 +8,8 @@ namespace Sentinella {
         //CREATE TABLE [dbo].[w_planosAcao_categorizacoes] (
         //    [id]                    INT            IDENTITY (1, 1) NOT NULL,
         //    [protocolo]             INT            DEFAULT ((0)) NOT NULL,
+        //	  [data_inicio_plano]     DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
+        //    [data_fim_plano]        DATETIME       DEFAULT('1900-01-01 00:00:00') NOT NULL,
         //    [solicitante]           NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
         //    [responsavel]           NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
         //    [email_enviado]         BIT            DEFAULT ((0)) NOT NULL,
@@ -30,6 +32,8 @@ namespace Sentinella {
         #region Camada DTO - Entidades
         public int _id { get; set; }
         public int _protocolo { get; set; }
+        public DateTime _data_inicio_plano { get; set; }
+        public DateTime _data_fim_plano { get; set; }
         public string _solicitante { get; set; }
         public string _responsavel { get; set; }
         public bool _email_enviado { get; set; }
@@ -41,10 +45,12 @@ namespace Sentinella {
         #region Contrutores
         public planoDeAcao() { }
 
-        public planoDeAcao(int protocolo, string solicitante, string responsavel, bool email_enviado, string emails_enderecos, DateTime data_envio_email, int id = 0) {
+        public planoDeAcao(int protocolo, DateTime data_inicio_plano, DateTime data_fim_plano, string solicitante, string responsavel, bool email_enviado, string emails_enderecos, DateTime data_envio_email, int id = 0) {
 
             _id = id;
             _protocolo = protocolo;
+            _data_inicio_plano = data_inicio_plano;
+            _data_fim_plano = data_fim_plano;
             _solicitante = solicitante;
             _responsavel = responsavel;
             _email_enviado = email_enviado;
@@ -91,6 +97,8 @@ namespace Sentinella {
                 bool validacao = false;
                 sql = "Insert into w_PlanosAcao_categorizacoes ";
                 sql += "(protocolo,";
+                sql += "data_inicio_plano,";
+                sql += "data_fim_plano,";
                 sql += "solicitante,";
                 sql += "responsavel,";
                 sql += "email_enviado,";
@@ -99,6 +107,8 @@ namespace Sentinella {
                 sql += "id_analista_seguranca) ";
                 sql += "values( ";
                 sql += objCon.valorSql(obj._protocolo) + ",";
+                sql += objCon.valorSql(obj._data_inicio_plano) + ",";
+                sql += objCon.valorSql(obj._data_fim_plano) + ",";
                 sql += objCon.valorSql(obj._solicitante) + ",";
                 sql += objCon.valorSql(obj._responsavel) + ",";
                 sql += objCon.valorSql(obj._email_enviado) + ",";
@@ -121,7 +131,7 @@ namespace Sentinella {
         #endregion
 
         #region Camada BLL - Negócios
-        public ListView CarregaListView(ListView lst, DateTime _dtInicial, DateTime _dtFinal) {
+        public ListView CarregaListView(ListView lst, DateTime _dtInicial, DateTime _dtFinal, string _filtroPorStatus = "") {
             try {
 
 
@@ -195,8 +205,8 @@ namespace Sentinella {
 
                         if (w_Plan.Length > 0) {
                             qtde_emails = int.Parse(w_Plan[0][0].ToString());
-                            ult_end_email_enviado = w_Plan[0][6].ToString();
-                            data_ultimo_envio_email = DateTime.Parse(w_Plan[0][7].ToString());
+                            ult_end_email_enviado = w_Plan[0][8].ToString();
+                            data_ultimo_envio_email = DateTime.Parse(w_Plan[0][9].ToString());
                         } else {
                             qtde_emails = 0;
                             ult_end_email_enviado = "N/D";
@@ -226,7 +236,8 @@ namespace Sentinella {
                             fila_trabalho = "PLANO FINALIZADO";
                             item.ImageKey = "1";
 
-                        } else {fila_trabalho = "PLANO DENTRO DO PRAZO";
+                        } else {
+                            fila_trabalho = "PLANO DENTRO DO PRAZO";
                             if (int.Parse(linha["DIAS EM ATRASO"].ToString()) < 0) {
                                 fila_trabalho = "PLANO DENTRO DO PRAZO";
                                 item.ImageKey = "4";
@@ -296,13 +307,64 @@ namespace Sentinella {
                         item.SubItems.Add(linha["PRIORIDADE"].ToString());
 
 
-                        //item.ImageKey = "3";
+                        if (_filtroPorStatus != "") {
 
+                            switch (_filtroPorStatus.ToUpper()) {
+                                case "FINALIZADOS":
+                                    if (item.ImageKey == "1") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
 
-                        lst.Items.Add(item);
+                                case "DENTRO DO PRAZO":
+                                    if (item.ImageKey == "4") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "D<7":
+                                    if (item.ImageKey == "2") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "D>7":
+                                    if (item.ImageKey == "3") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "D>28":
+                                    if (item.ImageKey == "5") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "NÃO CLASSIFICADO":
+                                    if (item.ImageKey == "14") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
+                                case "TODOS":
+                                    lst.Items.Add(item);
+                                    break;
+
+                                default:
+                                    //ERRO SUBIR TODOS COM ALERTA VISUAL
+                                    item.ImageKey = "13";
+                                    lst.Items.Add(item);
+                                    break;
+                            }
+                        } else {
+
+                            lst.Items.Add(item);
+                        }
 
                     }
+
                 }
+
                 return lst;
             }
             catch (Exception ex) {
@@ -312,7 +374,7 @@ namespace Sentinella {
         }
 
         public bool finalizarRegistro(planoDeAcao _obj) {
-            try {                
+            try {
                 return _finalizarRegistro(_obj);
             }
             catch (Exception ex) {

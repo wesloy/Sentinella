@@ -128,6 +128,7 @@
             // 
             this.lbFiltroPorStatus.AutoSize = true;
             this.lbFiltroPorStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lbFiltroPorStatus.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbFiltroPorStatus.ForeColor = System.Drawing.Color.Red;
             this.lbFiltroPorStatus.Location = new System.Drawing.Point(840, 168);
             this.lbFiltroPorStatus.Name = "lbFiltroPorStatus";
@@ -140,6 +141,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label12.Location = new System.Drawing.Point(778, 168);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(56, 13);
@@ -151,6 +153,7 @@
             // 
             this.pbVerdeConcluido.BackColor = System.Drawing.Color.Transparent;
             this.pbVerdeConcluido.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbVerdeConcluido.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbVerdeConcluido.Image = ((System.Drawing.Image)(resources.GetObject("pbVerdeConcluido.Image")));
             this.pbVerdeConcluido.Location = new System.Drawing.Point(764, 166);
             this.pbVerdeConcluido.Name = "pbVerdeConcluido";
@@ -163,6 +166,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label8.Location = new System.Drawing.Point(615, 168);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(148, 13);
@@ -174,6 +178,7 @@
             // 
             this.pbAzulForaPeriodo.BackColor = System.Drawing.Color.Transparent;
             this.pbAzulForaPeriodo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbAzulForaPeriodo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbAzulForaPeriodo.Image = ((System.Drawing.Image)(resources.GetObject("pbAzulForaPeriodo.Image")));
             this.pbAzulForaPeriodo.Location = new System.Drawing.Point(601, 166);
             this.pbAzulForaPeriodo.Name = "pbAzulForaPeriodo";
@@ -186,6 +191,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label6.Location = new System.Drawing.Point(493, 168);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
@@ -197,6 +203,7 @@
             // 
             this.pbAmareloFerias.BackColor = System.Drawing.Color.Transparent;
             this.pbAmareloFerias.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbAmareloFerias.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbAmareloFerias.Image = ((System.Drawing.Image)(resources.GetObject("pbAmareloFerias.Image")));
             this.pbAmareloFerias.Location = new System.Drawing.Point(479, 166);
             this.pbAmareloFerias.Name = "pbAmareloFerias";
@@ -209,6 +216,7 @@
             // 
             this.Label9.AutoSize = true;
             this.Label9.BackColor = System.Drawing.Color.Transparent;
+            this.Label9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Label9.Location = new System.Drawing.Point(548, 168);
             this.Label9.Name = "Label9";
             this.Label9.Size = new System.Drawing.Size(49, 13);
@@ -220,6 +228,7 @@
             // 
             this.pbPretoAfastado.BackColor = System.Drawing.Color.Transparent;
             this.pbPretoAfastado.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbPretoAfastado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbPretoAfastado.Image = ((System.Drawing.Image)(resources.GetObject("pbPretoAfastado.Image")));
             this.pbPretoAfastado.Location = new System.Drawing.Point(534, 166);
             this.pbPretoAfastado.Name = "pbPretoAfastado";
@@ -243,6 +252,7 @@
             // 
             this.Label11.AutoSize = true;
             this.Label11.BackColor = System.Drawing.Color.Transparent;
+            this.Label11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Label11.Location = new System.Drawing.Point(427, 168);
             this.Label11.Name = "Label11";
             this.Label11.Size = new System.Drawing.Size(53, 13);
@@ -254,6 +264,7 @@
             // 
             this.pbVermelhoPendente.BackColor = System.Drawing.Color.Transparent;
             this.pbVermelhoPendente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pbVermelhoPendente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbVermelhoPendente.Image = ((System.Drawing.Image)(resources.GetObject("pbVermelhoPendente.Image")));
             this.pbVermelhoPendente.Location = new System.Drawing.Point(410, 166);
             this.pbVermelhoPendente.Name = "pbVermelhoPendente";

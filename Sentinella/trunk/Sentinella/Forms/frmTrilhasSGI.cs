@@ -108,8 +108,6 @@ namespace Sentinella.Forms {
                         validacao = false;
                         return;
                     }
-
-                    
                     
                 }
             }

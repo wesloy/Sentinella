@@ -33,10 +33,57 @@ namespace Sentinella.Forms {
                 MessageBox.Show("Data inicial é maior que a data final. Corrija e tente outra vez!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
             Cursor = Cursors.WaitCursor;
+            limparForm();
+
+            //Resetando informações de filtro
+            if (lbFiltroAplicado.Text.ToUpper() != "TODOS") {
+                lbFiltroPorStatus.Text = "(Clique aqui para retirar o filtro aplicado)";
+            } else {
+                lbFiltroPorStatus.Text = "(Clique sobre o item da legenda para filtrar)";
+            }
+
+            //Tratando os filtros
+            string filtro = "";
+            switch (lbFiltroAplicado.Text.ToUpper()) {
+
+                case "FINALIZADOS":
+                    filtro = "FINALIZADOS";
+                    break;
+
+                case "DENTRO DO PRAZO":
+                    filtro = "DENTRO DO PRAZO";
+                    break;
+
+                case "PLANO VENCIDO - D<7":
+                    filtro = "D<7";
+                    break;
+
+                case "PLANO VENCIDO - D7+ || PLANO VENCIDO - D14+ || PLANO VENCIDO - D21+":
+                    filtro = "D>7";
+                    break;
+
+                case "PLANO VENCIDO - D28+":
+                    filtro = "D>28";
+                    break;
+
+                case "NÃO CLASSIFICADO":
+                    filtro = "NÃO CLASSIFICADO";
+                    break;
+
+                case "TODOS":
+                    filtro = "TODOS";
+                    break;
+
+                default:
+                    filtro = "";
+                    break;
+            }
+
 
             planoDeAcao plan = new planoDeAcao();
-            plan.CarregaListView(lvPlanoAcao, DateTime.Parse(dtpInicial.Text), DateTime.Parse(dtpFinal.Text));
+            plan.CarregaListView(lvPlanoAcao, DateTime.Parse(dtpInicial.Text), DateTime.Parse(dtpFinal.Text), filtro);
 
             Cursor = Cursors.Default;
 
@@ -47,6 +94,8 @@ namespace Sentinella.Forms {
 
                 planoDeAcao obj2 = new planoDeAcao(
                     int.Parse(lvPlanoAcao.SelectedItems[0].SubItems[1].Text),
+                    DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[20].Text),
+                    DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[21].Text),
                     lvPlanoAcao.SelectedItems[0].SubItems[6].Text,
                     lvPlanoAcao.SelectedItems[0].SubItems[7].Text,
                     true,
@@ -73,13 +122,8 @@ namespace Sentinella.Forms {
             //envio pelo Dynamics e baixa do registro
             email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
 
-            foreach (ListViewItem item in lvPlanoAcao.Items) {
-               
-
-                    email.Assunto = txtEmailTitulo.Text;
-                    email.Mensagem = txtMensagem.Text.Replace("\r\n", "<br />") + " <br /><br />";
-               
-            }
+            email.Assunto = txtEmailTitulo.Text;
+            email.Mensagem = txtMensagem.Text.Replace("\r\n", "<br />") + " <br /><br />";
 
 
             //Para
@@ -114,7 +158,7 @@ namespace Sentinella.Forms {
                 //Finalizar registros
                 obj.finalizarRegistro(carregarObj());
                 MessageBox.Show("E-mail enviado com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                limparForm(false);
+                btBuscar_Click(sender, e);
 
             } else {
                 MessageBox.Show("Falha no envio de E-mail!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -163,8 +207,8 @@ namespace Sentinella.Forms {
 
             limparForm();
 
-            if (lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("FINALIZADO")) {
-                MessageBox.Show("Não é possível enviar e-mail para Planos de Ação com Status da Solicitação igual a FINALIZADO!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("FINALIZADO") || DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[21].Text) > DateTime.Today) {
+                MessageBox.Show("Não é possível enviar e-mail para Planos de Ação com Status da Solicitação igual a FINALIZADO e/ou data do fim do Plano seja maior que hoje!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -186,6 +230,71 @@ namespace Sentinella.Forms {
 
         private void frmPlanoAcao_Load(object sender, EventArgs e) {
             limparForm(false);
+        }
+
+        private void finalizado_1_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = finalizado_1_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void finalizado_1_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = finalizado_1_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void dentro_prazo_4_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = dentro_prazo_4_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void dentro_prazo_4_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = dentro_prazo_4_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void plano_vencido_2_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = plano_vencido_2_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void plano_vencido_2_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = plano_vencido_2_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void plano_vencido_maior7_3_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = plano_vencido_maior7_3_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void plano_vencido_maior7_3_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = plano_vencido_maior7_3_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void plano_vencido_maior28_5_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = plano_vencido_maior28_5_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void plano_vencido_maior28_5_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = plano_vencido_maior28_5_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void nao_classificado_14_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = nao_classificado_14_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void nao_classificado_14_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = nao_classificado_14_texto.Text;
+            btBuscar_Click(sender, e);
+        }
+
+        private void lbFiltroPorStatus_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "TODOS";
+            btBuscar_Click(sender, e);
         }
     }
 }
