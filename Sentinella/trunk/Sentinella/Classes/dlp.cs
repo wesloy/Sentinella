@@ -96,6 +96,9 @@ namespace Sentinella {
 
         #endregion
 
+        #region CONSTRUTORES
+        #endregion
+
         #region Camada DAL - Dados
         private DataTable _listarTodosRegistrosPorIDBase(int _id) {
             try {

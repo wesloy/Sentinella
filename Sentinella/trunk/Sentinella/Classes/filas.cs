@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sentinella {
@@ -31,25 +27,6 @@ namespace Sentinella {
         Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         logs log = new logs();
-        #endregion
-
-        #region Construtores
-        public filas() {
-            // construtor vazio
-        }
-
-        public filas(string _descricao, string _grupo, string _regraNegocio, string _regraImportacao, bool _ativo, bool _arqExt, int _sla, int _id = 0) {
-            Descricao = _descricao;
-            Grupo = _grupo;
-            RegraNegocio = _regraNegocio;
-            RegraImportacao = _regraImportacao;
-            ArqExterno = _arqExt;
-            Ativo = _ativo;
-            Sla = _sla;
-            DataAtualizacao = hlp.dataHoraAtual();
-            IdAtualizacao = Constantes.id_REDE_logadoFerramenta;
-            Id = _id;
-        }
         #endregion
 
         #region Camada DTO - Entidades
@@ -164,7 +141,26 @@ namespace Sentinella {
         #endregion
 
         #endregion        
-        
+
+        #region Construtores
+        public filas() {
+            // construtor vazio
+        }
+
+        public filas(string _descricao, string _grupo, string _regraNegocio, string _regraImportacao, bool _ativo, bool _arqExt, int _sla, int _id = 0) {
+            Descricao = _descricao;
+            Grupo = _grupo;
+            RegraNegocio = _regraNegocio;
+            RegraImportacao = _regraImportacao;
+            ArqExterno = _arqExt;
+            Ativo = _ativo;
+            Sla = _sla;
+            DataAtualizacao = hlp.dataHoraAtual();
+            IdAtualizacao = Constantes.id_REDE_logadoFerramenta;
+            Id = _id;
+        }
+        #endregion
+
         #region Camada DAL - Dados
 
         private bool _incluir(filas obj) {
@@ -198,7 +194,8 @@ namespace Sentinella {
 
                 return validacao; //retorno
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
 
                 log.registrarLog(ex.ToString(), "FILAS - INCLUIR(DAL)");
                 return false;
@@ -226,7 +223,8 @@ namespace Sentinella {
                 }
                 return validacao; //retorno
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - ATUALIZAR(DAL)");
                 return false;
             }
@@ -257,7 +255,8 @@ namespace Sentinella {
                 }
                 return validacao; //retorno
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - DELETAR(DAL)");
                 return false;
             }
@@ -269,7 +268,8 @@ namespace Sentinella {
                 objCon.executaQuery(sql, ref retorno);
                 if (retorno > 0) { return true; } else { return false; }
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - VALIDAR DUPLICADO (DAL)");
                 return false;
             }
@@ -283,7 +283,7 @@ namespace Sentinella {
                 dt = objCon.retornaDataTable(sql);
 
                 if (dt.Rows.Count > 0) {
-                    foreach (DataRow ln in dt.Rows) {                        
+                    foreach (DataRow ln in dt.Rows) {
                         oDados.Id = int.Parse(ln["id"].ToString());
                         oDados.Ativo = bool.Parse(ln["ativo"].ToString());
                         oDados.Descricao = (ln["Descricao"].ToString());
@@ -300,7 +300,8 @@ namespace Sentinella {
                 } else { return null; }
 
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - CAPTURAR FILA POR ID (DAL)");
                 return null;
             }
@@ -310,7 +311,8 @@ namespace Sentinella {
             try {
                 sql = "Select * from w_sysFilas where descricao like '" + filtro + "%' order by id ";
                 return objCon.retornaDataTable(sql);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - LISTA DE FILAS (DAL)");
                 return null;
             }
@@ -323,7 +325,8 @@ namespace Sentinella {
         public filas capturarFilaPorID(int _id) {
             try {
                 return _capturarFilaPorID(_id);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - CAPTURAR FILA POR ID (BLL)");
                 return null;
             }
@@ -353,7 +356,7 @@ namespace Sentinella {
                 lst.Columns.Add("DATA ATUALIZAÇÃO", 150, HorizontalAlignment.Center);
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
-                        ListViewItem item = new ListViewItem(); 
+                        ListViewItem item = new ListViewItem();
                         item.Text = linha["id"].ToString();
                         item.SubItems.Add(linha["descricao"].ToString());
                         item.SubItems.Add(linha["grupo"].ToString());
@@ -363,7 +366,7 @@ namespace Sentinella {
                         item.SubItems.Add(linha["arqExterno"].ToString());
                         item.SubItems.Add(linha["idAtualizacao"].ToString());
                         item.SubItems.Add(linha["dataAtualizacao"].ToString());
-                        
+
 
                         if (linha["ativo"].Equals(false)) {
                             item.ImageKey = "3";
@@ -374,7 +377,8 @@ namespace Sentinella {
                     }
                 }
                 return lst;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "FILAS - LISTVIEW (BLL)");
                 return null;
             }
@@ -396,7 +400,8 @@ namespace Sentinella {
                     return false;
                 }
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 MessageBox.Show("Não foi possível criar a fila, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "FILAS - INCLUIR(BLL)");
                 return false;
@@ -412,7 +417,8 @@ namespace Sentinella {
                     MessageBox.Show(obj.Descricao + " atualizada com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 MessageBox.Show("Não foi possível atualizar a fila, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "FILAS - ATUALIZAR(BLL)");
                 return false;
@@ -426,7 +432,8 @@ namespace Sentinella {
                 } else {
                     return true;
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 MessageBox.Show("Não foi possível exluir a fila, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "FILAS - EXCLUIR(BLL)");
                 return false;
@@ -438,18 +445,19 @@ namespace Sentinella {
                 DataTable dt = new DataTable();
                 sql = "Select id, descricao from w_sysFilas ";
                 if (apenasFilasAtivas) {
-                     sql += "where ativo = 1 and arqExterno = 0";
+                    sql += "where ativo = 1 and arqExterno = 0";
                 }
                 sql += "order by id";
                 dt = objCon.retornaDataTable(sql);
                 hlp.carregaComboBox(dt, frm, cbx, false, "", "", true);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 MessageBox.Show("Não foi carregar a lista de Filas, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                log.registrarLog(ex.ToString(), "FILAS - CARREGAR COMBOBOX (BLL)");                
+                log.registrarLog(ex.ToString(), "FILAS - CARREGAR COMBOBOX (BLL)");
             }
 
         }
-        
+
         public DataTable listaFilasDataTable(string filtro = "") {
 
             DataTable dt = new DataTable();

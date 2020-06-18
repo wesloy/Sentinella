@@ -172,6 +172,9 @@ namespace Sentinella {
 
         #endregion
 
+        #region CONSTRUTORES
+        #endregion
+
         #region Camada DAL - Dados
         private DataTable _listarManutencoes(string _cpf, string _bin) {
             try {

@@ -162,10 +162,9 @@
   </data>
   <data name="plano_vencido_maior28_5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAFdJREFUOE/dyzEKgFAMBNEczcbGo1rberYvkSnEHdD6L0yVl5psy7qNP8FzfdyP
-        8+799Aye6+PXcwfPGbbgOcMWPGfYgucMW/CcYQueM2zBc4Yt+ByrugB4FLhdXtM3HAAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAiSURBVDhPYxjmYDGz3H8QhnJJB6MGDAYDKAbDwAt0AAwM
+        AKOGH7fIVLhTAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="plano_vencido_maior7_3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -195,6 +194,14 @@
         tAX6NBm2H3VqbcKZrvdsyRD15aXxGOMrWCuYJRmrrvGMPVsrmIUn5duxc9S6p1owSzImv7xhmXOFETdx
         PJi5Ot7Mk4TxP+uSN29hjRRGzHSkFDJF7PF6epShxYhT3/MBbVzjA9e7xpt5FhuQGqFRX8lSpHAbeqVJ
         IMq7okSWWYi7oNY9CKaK35tOCiwI/ow9rtZryEkLgrkcC7iPcPoCoizehRSx+ZEAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="cancelado_reprovado_5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAFdJREFUOE/dyzEKgFAMBNEczcbGo1rberYvkSnEHdD6L0yVl5psy7qNP8FzfdyP
+        8+799Aye6+PXcwfPGbbgOcMWPGfYgucMW/CcYQueM2zBc4Yt+ByrugB4FLhdXtM3HAAAAABJRU5ErkJg
+        gg==
 </value>
   </data>
 </root>

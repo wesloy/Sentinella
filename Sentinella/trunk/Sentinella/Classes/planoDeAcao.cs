@@ -20,7 +20,6 @@ namespace Sentinella {
         //);
 
 
-
         #region Variaveis 
 
         long retorno = 0;
@@ -241,6 +240,11 @@ namespace Sentinella {
                             fila_trabalho = "PLANO FINALIZADO";
                             item.ImageKey = "1";
 
+                        } else if ((linha["STATUS DA SOLICITAÇÃO"].ToString().ToUpper() == "REPROVADO") || (linha["STATUS DA SOLICITAÇÃO"].ToString().ToUpper() == "CANCELADO")) {
+
+                            fila_trabalho = "CANCELADO / REPROVADO";
+                            item.ImageKey = "5";
+
                         } else {
                             fila_trabalho = "PLANO DENTRO DO PRAZO";
                             if (int.Parse(linha["DIAS EM ATRASO"].ToString()) < 0) {
@@ -265,7 +269,7 @@ namespace Sentinella {
 
                             } else if (int.Parse(linha["DIAS EM ATRASO"].ToString()) > 28) {
                                 fila_trabalho = "PLANO VENCIDO - D28+";
-                                item.ImageKey = "5";
+                                item.ImageKey = "13";
 
                             } else {
                                 fila_trabalho = "NÃO CLASSIFICADO";
@@ -321,6 +325,12 @@ namespace Sentinella {
                                     }
                                     break;
 
+                                case "CANCELADO / REPROVADO":
+                                    if (item.ImageKey == "5") {
+                                        lst.Items.Add(item);
+                                    }
+                                    break;
+
                                 case "DENTRO DO PRAZO":
                                     if (item.ImageKey == "4") {
                                         lst.Items.Add(item);
@@ -340,7 +350,7 @@ namespace Sentinella {
                                     break;
 
                                 case "D>28":
-                                    if (item.ImageKey == "5") {
+                                    if (item.ImageKey == "13") {
                                         lst.Items.Add(item);
                                     }
                                     break;

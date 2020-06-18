@@ -398,6 +398,9 @@ namespace Sentinella {
         #endregion
 
         #endregion
+        
+        #region CONSTRUTORES
+        #endregion
 
         #region Camada DAL - Dados
 

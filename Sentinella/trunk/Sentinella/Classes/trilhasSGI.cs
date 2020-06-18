@@ -5,64 +5,64 @@ using System.Windows.Forms;
 
 namespace Sentinella {
 
-    #region TABELAS
 
-    //CREATE TABLE [dbo].[w_trilhasTreinamentos] (
-    //    [id]                        INT            IDENTITY (1, 1) NOT NULL,
-    //    [vigencia_ano]              INT            DEFAULT ((1900)) NOT NULL,
-    //    [vigencia_inicio_data]      DATETIME       NULL,
-    //    [vigencia_fim_data]         DATETIME       NULL,
-    //    [data_admissao]             DATETIME       NULL,
-    //    [data_demissao]             DATETIME       NULL,
-    //    [des_trilha]                NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
-    //    [des_nome]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
-    //    [cpf]                       NVARCHAR (15)  DEFAULT ('SEM INFO') NOT NULL,
-    //    [total_cursos]              INT            DEFAULT ((0)) NOT NULL,
-    //    [vol_nao_concluido]         INT            DEFAULT ((0)) NOT NULL,
-    //    [vol_concluido]             INT            DEFAULT ((0)) NOT NULL,
-    //    [percentual_concluido]      INT            DEFAULT ((0)) NOT NULL,
-    //    [data_ult_conteudo_cursado] DATETIME       NULL,
-    //    [gestor_1]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_2]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_3]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_4]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [gestor_5]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [data_ferias_inicio]        DATETIME       NULL,
-    //    [data_ferias_fim]           DATETIME       NULL,
-    //    [data_afastamento_inicio]   DATETIME       NULL,
-    //    [data_afastamento_fim]      DATETIME       NULL,
-    //    [cat_status]                INT            DEFAULT ((0)) NOT NULL,
-    //    [cat_id_analista]           INT            DEFAULT ((0)) NOT NULL,
-    //    [data_importacao]           DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
-    //    [id_importacao]             INT            DEFAULT ((0)) NOT NULL
-    //);
-
-    //CREATE TABLE [dbo].[w_trilhasTreinamentos_categorizacoes] (
-    //    [id]                    INT            IDENTITY (1, 1) NOT NULL,
-    //    [cpf]                   NVARCHAR (15)  DEFAULT ('SEM INFO') NOT NULL,
-    //    [vigencia_ano]          INT            DEFAULT ((1900)) NOT NULL,
-    //    [des_trilha]            NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [email_enviado]         BIT            DEFAULT ((0)) NOT NULL,
-    //    [emails_enderecos]      NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
-    //    [data_envio_email]      DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
-    //    [id_analista_seguranca] INT            DEFAULT ((0)) NOT NULL
-    //);
-
-    //CREATE TABLE [dbo].[w_trilhasTreinamentos_cursos] (
-    //    [cod_curso] INT            DEFAULT ((0)) NOT NULL,
-    //    [des_curso] NVARCHAR (500) DEFAULT ('SEM INFO') NOT NULL
-    //);
-
-    //CREATE TABLE [dbo].[w_trilhasTreinamentos_trilhas] (
-    //    [cod_trilha] INT            DEFAULT ((0)) NOT NULL,
-    //    [des_trilha] NVARCHAR (500) DEFAULT ('SEM INFO') NOT NULL
-    //);
-
-    #endregion
 
     class trilhasSGI {
 
-        #region Variaveis 
+        #region TABELAS
+        //CREATE TABLE [dbo].[w_trilhasTreinamentos] (
+        //    [id]                        INT            IDENTITY (1, 1) NOT NULL,
+        //    [vigencia_ano]              INT            DEFAULT ((1900)) NOT NULL,
+        //    [vigencia_inicio_data]      DATETIME       NULL,
+        //    [vigencia_fim_data]         DATETIME       NULL,
+        //    [data_admissao]             DATETIME       NULL,
+        //    [data_demissao]             DATETIME       NULL,
+        //    [des_trilha]                NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
+        //    [des_nome]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NOT NULL,
+        //    [cpf]                       NVARCHAR (15)  DEFAULT ('SEM INFO') NOT NULL,
+        //    [total_cursos]              INT            DEFAULT ((0)) NOT NULL,
+        //    [vol_nao_concluido]         INT            DEFAULT ((0)) NOT NULL,
+        //    [vol_concluido]             INT            DEFAULT ((0)) NOT NULL,
+        //    [percentual_concluido]      INT            DEFAULT ((0)) NOT NULL,
+        //    [data_ult_conteudo_cursado] DATETIME       NULL,
+        //    [gestor_1]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [gestor_2]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [gestor_3]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [gestor_4]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [gestor_5]                  NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [data_ferias_inicio]        DATETIME       NULL,
+        //    [data_ferias_fim]           DATETIME       NULL,
+        //    [data_afastamento_inicio]   DATETIME       NULL,
+        //    [data_afastamento_fim]      DATETIME       NULL,
+        //    [cat_status]                INT            DEFAULT ((0)) NOT NULL,
+        //    [cat_id_analista]           INT            DEFAULT ((0)) NOT NULL,
+        //    [data_importacao]           DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
+        //    [id_importacao]             INT            DEFAULT ((0)) NOT NULL
+        //);
+
+        //CREATE TABLE [dbo].[w_trilhasTreinamentos_categorizacoes] (
+        //    [id]                    INT            IDENTITY (1, 1) NOT NULL,
+        //    [cpf]                   NVARCHAR (15)  DEFAULT ('SEM INFO') NOT NULL,
+        //    [vigencia_ano]          INT            DEFAULT ((1900)) NOT NULL,
+        //    [des_trilha]            NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [email_enviado]         BIT            DEFAULT ((0)) NOT NULL,
+        //    [emails_enderecos]      NVARCHAR (MAX) DEFAULT ('SEM INFO') NULL,
+        //    [data_envio_email]      DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
+        //    [id_analista_seguranca] INT            DEFAULT ((0)) NOT NULL
+        //);
+
+        //CREATE TABLE [dbo].[w_trilhasTreinamentos_cursos] (
+        //    [cod_curso] INT            DEFAULT ((0)) NOT NULL,
+        //    [des_curso] NVARCHAR (500) DEFAULT ('SEM INFO') NOT NULL
+        //);
+
+        //CREATE TABLE [dbo].[w_trilhasTreinamentos_trilhas] (
+        //    [cod_trilha] INT            DEFAULT ((0)) NOT NULL,
+        //    [des_trilha] NVARCHAR (500) DEFAULT ('SEM INFO') NOT NULL
+        //);
+        #endregion
+
+        #region VARIAVEIS 
         string sql = "";
         long retorno = 0;
         Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");

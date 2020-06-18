@@ -59,6 +59,8 @@
             this.plano_vencido_maior7_3 = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalvar = new System.Windows.Forms.Button();
+            this.cancelado_reprovado_5_texto = new System.Windows.Forms.Label();
+            this.cancelado_reprovado_5 = new System.Windows.Forms.PictureBox();
             this.pnlConteudo.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlBotoes.SuspendLayout();
@@ -68,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.plano_vencido_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.plano_vencido_maior28_5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.plano_vencido_maior7_3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cancelado_reprovado_5)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlConteudo
@@ -277,6 +280,8 @@
             // pnlBotoes
             // 
             this.pnlBotoes.BackColor = System.Drawing.Color.White;
+            this.pnlBotoes.Controls.Add(this.cancelado_reprovado_5_texto);
+            this.pnlBotoes.Controls.Add(this.cancelado_reprovado_5);
             this.pnlBotoes.Controls.Add(this.nao_classificado_14_texto);
             this.pnlBotoes.Controls.Add(this.nao_classificado_14);
             this.pnlBotoes.Controls.Add(this.lbFiltroPorStatus);
@@ -305,7 +310,7 @@
             this.nao_classificado_14_texto.AutoSize = true;
             this.nao_classificado_14_texto.BackColor = System.Drawing.Color.Transparent;
             this.nao_classificado_14_texto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nao_classificado_14_texto.Location = new System.Drawing.Point(282, 38);
+            this.nao_classificado_14_texto.Location = new System.Drawing.Point(89, 53);
             this.nao_classificado_14_texto.Name = "nao_classificado_14_texto";
             this.nao_classificado_14_texto.Size = new System.Drawing.Size(86, 13);
             this.nao_classificado_14_texto.TabIndex = 87;
@@ -318,7 +323,7 @@
             this.nao_classificado_14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.nao_classificado_14.Cursor = System.Windows.Forms.Cursors.Hand;
             this.nao_classificado_14.Image = ((System.Drawing.Image)(resources.GetObject("nao_classificado_14.Image")));
-            this.nao_classificado_14.Location = new System.Drawing.Point(268, 36);
+            this.nao_classificado_14.Location = new System.Drawing.Point(75, 51);
             this.nao_classificado_14.Name = "nao_classificado_14";
             this.nao_classificado_14.Size = new System.Drawing.Size(18, 14);
             this.nao_classificado_14.TabIndex = 86;
@@ -331,7 +336,7 @@
             this.lbFiltroPorStatus.BackColor = System.Drawing.Color.Transparent;
             this.lbFiltroPorStatus.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbFiltroPorStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbFiltroPorStatus.Location = new System.Drawing.Point(72, 60);
+            this.lbFiltroPorStatus.Location = new System.Drawing.Point(239, 53);
             this.lbFiltroPorStatus.Name = "lbFiltroPorStatus";
             this.lbFiltroPorStatus.Size = new System.Drawing.Size(207, 13);
             this.lbFiltroPorStatus.TabIndex = 85;
@@ -393,7 +398,7 @@
             this.plano_vencido_2_texto.AutoSize = true;
             this.plano_vencido_2_texto.BackColor = System.Drawing.Color.Transparent;
             this.plano_vencido_2_texto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.plano_vencido_2_texto.Location = new System.Drawing.Point(89, 38);
+            this.plano_vencido_2_texto.Location = new System.Drawing.Point(256, 6);
             this.plano_vencido_2_texto.Name = "plano_vencido_2_texto";
             this.plano_vencido_2_texto.Size = new System.Drawing.Size(105, 13);
             this.plano_vencido_2_texto.TabIndex = 80;
@@ -406,7 +411,7 @@
             this.plano_vencido_2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.plano_vencido_2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.plano_vencido_2.Image = ((System.Drawing.Image)(resources.GetObject("plano_vencido_2.Image")));
-            this.plano_vencido_2.Location = new System.Drawing.Point(75, 36);
+            this.plano_vencido_2.Location = new System.Drawing.Point(242, 4);
             this.plano_vencido_2.Name = "plano_vencido_2";
             this.plano_vencido_2.Size = new System.Drawing.Size(18, 15);
             this.plano_vencido_2.TabIndex = 79;
@@ -418,7 +423,7 @@
             this.plano_vencido_maior28_5_texto.AutoSize = true;
             this.plano_vencido_maior28_5_texto.BackColor = System.Drawing.Color.Transparent;
             this.plano_vencido_maior28_5_texto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.plano_vencido_maior28_5_texto.Location = new System.Drawing.Point(282, 22);
+            this.plano_vencido_maior28_5_texto.Location = new System.Drawing.Point(256, 37);
             this.plano_vencido_maior28_5_texto.Name = "plano_vencido_maior28_5_texto";
             this.plano_vencido_maior28_5_texto.Size = new System.Drawing.Size(111, 13);
             this.plano_vencido_maior28_5_texto.TabIndex = 78;
@@ -431,7 +436,7 @@
             this.plano_vencido_maior28_5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.plano_vencido_maior28_5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.plano_vencido_maior28_5.Image = ((System.Drawing.Image)(resources.GetObject("plano_vencido_maior28_5.Image")));
-            this.plano_vencido_maior28_5.Location = new System.Drawing.Point(268, 20);
+            this.plano_vencido_maior28_5.Location = new System.Drawing.Point(242, 35);
             this.plano_vencido_maior28_5.Name = "plano_vencido_maior28_5";
             this.plano_vencido_maior28_5.Size = new System.Drawing.Size(18, 15);
             this.plano_vencido_maior28_5.TabIndex = 77;
@@ -454,7 +459,7 @@
             this.plano_vencido_maior7_3_texto.AutoSize = true;
             this.plano_vencido_maior7_3_texto.BackColor = System.Drawing.Color.Transparent;
             this.plano_vencido_maior7_3_texto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.plano_vencido_maior7_3_texto.Location = new System.Drawing.Point(282, 6);
+            this.plano_vencido_maior7_3_texto.Location = new System.Drawing.Point(256, 21);
             this.plano_vencido_maior7_3_texto.Name = "plano_vencido_maior7_3_texto";
             this.plano_vencido_maior7_3_texto.Size = new System.Drawing.Size(333, 13);
             this.plano_vencido_maior7_3_texto.TabIndex = 75;
@@ -467,7 +472,7 @@
             this.plano_vencido_maior7_3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.plano_vencido_maior7_3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.plano_vencido_maior7_3.Image = ((System.Drawing.Image)(resources.GetObject("plano_vencido_maior7_3.Image")));
-            this.plano_vencido_maior7_3.Location = new System.Drawing.Point(268, 4);
+            this.plano_vencido_maior7_3.Location = new System.Drawing.Point(242, 19);
             this.plano_vencido_maior7_3.Name = "plano_vencido_maior7_3";
             this.plano_vencido_maior7_3.Size = new System.Drawing.Size(18, 15);
             this.plano_vencido_maior7_3.TabIndex = 74;
@@ -502,6 +507,31 @@
             this.btnSalvar.UseVisualStyleBackColor = true;
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
+            // cancelado_reprovado_5_texto
+            // 
+            this.cancelado_reprovado_5_texto.AutoSize = true;
+            this.cancelado_reprovado_5_texto.BackColor = System.Drawing.Color.Transparent;
+            this.cancelado_reprovado_5_texto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cancelado_reprovado_5_texto.Location = new System.Drawing.Point(89, 37);
+            this.cancelado_reprovado_5_texto.Name = "cancelado_reprovado_5_texto";
+            this.cancelado_reprovado_5_texto.Size = new System.Drawing.Size(122, 13);
+            this.cancelado_reprovado_5_texto.TabIndex = 91;
+            this.cancelado_reprovado_5_texto.Text = "Cancelado / Reprovado";
+            this.cancelado_reprovado_5_texto.Click += new System.EventHandler(this.cancelado_reprovado_5_texto_Click);
+            // 
+            // cancelado_reprovado_5
+            // 
+            this.cancelado_reprovado_5.BackColor = System.Drawing.Color.Transparent;
+            this.cancelado_reprovado_5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.cancelado_reprovado_5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cancelado_reprovado_5.Image = ((System.Drawing.Image)(resources.GetObject("cancelado_reprovado_5.Image")));
+            this.cancelado_reprovado_5.Location = new System.Drawing.Point(75, 35);
+            this.cancelado_reprovado_5.Name = "cancelado_reprovado_5";
+            this.cancelado_reprovado_5.Size = new System.Drawing.Size(18, 15);
+            this.cancelado_reprovado_5.TabIndex = 90;
+            this.cancelado_reprovado_5.TabStop = false;
+            this.cancelado_reprovado_5.Click += new System.EventHandler(this.cancelado_reprovado_5_Click);
+            // 
             // frmPlanoAcao
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -525,6 +555,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.plano_vencido_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.plano_vencido_maior28_5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.plano_vencido_maior7_3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cancelado_reprovado_5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -566,5 +597,7 @@
         internal System.Windows.Forms.PictureBox nao_classificado_14;
         internal System.Windows.Forms.Label label10;
         internal System.Windows.Forms.Label lbFiltroAplicado;
+        internal System.Windows.Forms.Label cancelado_reprovado_5_texto;
+        internal System.Windows.Forms.PictureBox cancelado_reprovado_5;
     }
 }

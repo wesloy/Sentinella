@@ -115,11 +115,13 @@
     <Compile Include="Classes\relatorios.cs" />
     <Compile Include="Classes\retornoOuvidoria.cs" />
     <Compile Include="Classes\subFinalizacoes.cs" />
+    <Compile Include="Classes\sys_interrupcoesProgramadas.cs" />
     <Compile Include="Classes\sys_ordenarListViews.cs" />
     <Compile Include="Classes\tamnun.cs" />
     <Compile Include="Classes\trilhasSGI.cs" />
     <Compile Include="Classes\usuarios.cs" />
     <Compile Include="Classes\usuariosVolParaTrabalho.cs" />
+    <Compile Include="Classes\z_modelo_classe.cs" />
     <Compile Include="Forms\frmAnalies.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -353,12 +355,14 @@
     <Content Include="qrys\CA\queryCA.sql" />
     <Content Include="qrys\FichaRisco\extracoes.sql" />
     <Content Include="qrys\historico_sentinella.sql" />
+    <Content Include="qrys\registros_finalizados.sql" />
     <Content Include="qrys\script_powershell.txt" />
     <Content Include="qrys\Sinergy\abrirProducaoTrilhasSGI.sql" />
     <Content Include="qrys\buscarTodasTabelasPorCPF.sql" />
     <Content Include="qrys\CA\tickets_Geral.sql" />
     <Content Include="qrys\CA\tickets_SI.sql" />
-    <Content Include="qrys\querysObjetivos.sql" />
+    <Content Include="qrys\Sentinella_Relatorios.sql" />
+    <Content Include="qrys\tamnun\pesquisa_nao_conforme_por_gestao.sql" />
     <Content Include="qrys\tamnun\tamnun.sql" />
     <Content Include="qrys\tamnun\Administradores.sql" />
     <Content Include="qrys\tamnun\Compartilhamento.sql" />

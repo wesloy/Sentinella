@@ -42,7 +42,7 @@ namespace Sentinella {
 
         #endregion
 
-        #region Variaveis 
+        #region VARIÁVEIS 
         string sql = "";
         long retorno = 0;
         Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
@@ -50,6 +50,8 @@ namespace Sentinella {
         logs log = new logs();
         #endregion
 
+        #region CONSTRUTORES
+        #endregion
 
         #region Camada DAL - Dados
 

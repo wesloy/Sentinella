@@ -56,6 +56,10 @@ namespace Sentinella.Forms {
                     filtro = "DENTRO DO PRAZO";
                     break;
 
+                case "CANCELADO / REPROVADO":
+                    filtro = "CANCELADO / REPROVADO";
+                    break;
+
                 case "PLANO VENCIDO - D<7":
                     filtro = "D<7";
                     break;
@@ -208,8 +212,11 @@ namespace Sentinella.Forms {
 
             limparForm();
 
-            if (lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("FINALIZADO") || DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[21].Text) > DateTime.Today) {
-                MessageBox.Show("Não é possível enviar e-mail para Planos de Ação com Status da Solicitação igual a FINALIZADO e/ou data do fim do Plano seja maior que hoje!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("FINALIZADO") ||
+                    lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("REPROVADO") ||
+                        lvPlanoAcao.SelectedItems[0].SubItems[5].Text.ToUpper().Contains("CANCELADO") ||
+                            DateTime.Parse(lvPlanoAcao.SelectedItems[0].SubItems[21].Text) > DateTime.Today) {
+                MessageBox.Show("Não é possível enviar e-mail para Planos de Ação com Status da Solicitação diferente de 'EM ABERTO' e/ou data do fim do Plano seja maior que hoje!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -297,5 +304,17 @@ namespace Sentinella.Forms {
             lbFiltroAplicado.Text = "TODOS";
             btBuscar_Click(sender, e);
         }
+
+        private void cancelado_reprovado_5_texto_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "CANCELADO / REPROVADO";
+            btBuscar_Click(sender, e);
+        }
+
+        private void cancelado_reprovado_5_Click(object sender, EventArgs e) {
+            lbFiltroAplicado.Text = "CANCELADO / REPROVADO";
+            btBuscar_Click(sender, e);
+        }
+
+
     }
 }

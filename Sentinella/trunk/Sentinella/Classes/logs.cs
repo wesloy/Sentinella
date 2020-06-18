@@ -158,6 +158,9 @@ namespace Sentinella {
 
         #endregion
 
+        #region CONSTRUTORES
+        #endregion
+
         #region Camada DAL - DADOS
 
         private bool _incluir(logs obj) {

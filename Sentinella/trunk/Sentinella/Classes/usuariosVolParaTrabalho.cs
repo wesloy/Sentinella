@@ -23,7 +23,7 @@ namespace Sentinella {
         logs log = new logs();
         #endregion
 
-        #region Atributos
+        #region DTO
         public int id { get; set; }
         public DateTime data_Hora { get; set; }
         public int fila_id { get; set; }

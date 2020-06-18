@@ -252,6 +252,7 @@ namespace Sentinella {
                 return false;
             }
         }
+
         public bool informacoesAD(DataGridView _dgv, List<string> _ou, string _cpf = "", string _nomeUsuario = "", string _matricula = "", string _campoPersonalizado = "", string _valorCampoPersonalizado = "") {
             try {
 
@@ -312,7 +313,6 @@ namespace Sentinella {
         }
 
         #endregion
-
 
         #region PREENCHER_COMPONENTES
         private bool carregarListView(ListView lst, DataTable dt, bool limparListview = true) {
@@ -395,8 +395,6 @@ namespace Sentinella {
         }
 
         #endregion
-
-
 
 
     }

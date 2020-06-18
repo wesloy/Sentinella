@@ -62,6 +62,9 @@ namespace Sentinella {
         logs log = new logs();
         #endregion
 
+        #region CONSTRUTORES
+        #endregion
+
         #region Camada DAL - Dados
 
         private DataTable _listarTodosRegistrosPorIDBase(int _id) {
@@ -131,7 +134,7 @@ namespace Sentinella {
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
-                        item.Text = hlp.retornaDataTextBox(linha["data_registro"].ToString());
+                        item.Text = hlp.retornaDataTextBox(linha["data_registro"].ToString()).Substring(0, 10);
                         item.SubItems.Add(linha["fonte"].ToString());
                         item.SubItems.Add(linha["categoria"].ToString());
                         item.SubItems.Add(linha["caminho"].ToString());
