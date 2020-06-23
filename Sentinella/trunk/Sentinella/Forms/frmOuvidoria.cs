@@ -164,7 +164,7 @@ namespace Sentinella.Forms
                 if (d_th != null)
                 {
                     txtNomeAssociado.Text = d_th.Nome_associado.ToString().Trim();
-                    txtSexo.Text = d_th.Sexo.ToString().Trim();
+                    //txtSexo.Text = d_th.Sexo.ToString().Trim();
                     txtCpf.Text = d_th.Cpf.ToString().Trim();
                     dtNascimento.Text = hlp.FormataDataAbreviada(hlp.retornaDataTextBox(d_th.Data_de_nascimento).ToString()).ToString();
                     txtNomeEmpresa.Text = d_th.Nome_empresa.ToString().Trim();

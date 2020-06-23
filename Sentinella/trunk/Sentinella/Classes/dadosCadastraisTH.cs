@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Sentinella
-{
+namespace Sentinella {
 
     //CREATE TABLE [dbo].[w_funcionarios_historico] (
     //    [id]                       INT            IDENTITY (1, 1) NOT NULL,
@@ -56,8 +51,7 @@ namespace Sentinella
     //);
 
 
-    class dadosCadastraisTH
-    {
+    class dadosCadastraisTH {
 
         #region Variaveis 
         string sql = "";
@@ -70,36 +64,36 @@ namespace Sentinella
         #region Camada DTO - Entidades
 
         #region Atributos
-       public int Id { get; set; }
-       public string Nome_empresa { get; set; }
-       public string Matricula { get; set; }
-       public string Ub { get; set; }
-       public string Nome_associado { get ; set; }
-       public DateTime Data_de_admissao { get; set; }
-       public DateTime Data_demissao { get; set; }
-       public string Codcentro_de_custo { get; set; }
-       public string Descrcentro_de_custo { get; set; }
-       public string Cargo_do_associado { get; set; }
-       public string Sexo { get; set; }
-       public string Rua { get; set; }
-       public string Numero { get; set; }
-       public string Complemento { get; set; }
-       public string Bairro { get; set; }
-       public string Cidade { get; set; }
-       public string Estado { get; set; }
-       public string Cep { get; set; }       
-       public string Cpf { get; set; }
-       public DateTime Data_de_nascimento { get; set; }
-       public string Telefone { get; set; }
-       public string Celular { get; set; }
-       public string Email { get; set; }
+        public int Id { get; set; }
+        public string Nome_empresa { get; set; }
+        public string Matricula { get; set; }
+        public string Ub { get; set; }
+        public string Nome_associado { get; set; }
+        public DateTime Data_de_admissao { get; set; }
+        public DateTime Data_demissao { get; set; }
+        public string Codcentro_de_custo { get; set; }
+        public string Descrcentro_de_custo { get; set; }
+        public string Cargo_do_associado { get; set; }
+        public string Sexo { get; set; }
+        public string Rua { get; set; }
+        public string Numero { get; set; }
+        public string Complemento { get; set; }
+        public string Bairro { get; set; }
+        public string Cidade { get; set; }
+        public string Estado { get; set; }
+        public string Cep { get; set; }
+        public string Cpf { get; set; }
+        public DateTime Data_de_nascimento { get; set; }
+        public string Telefone { get; set; }
+        public string Celular { get; set; }
+        public string Email { get; set; }
 
         public string gestor_1 { get; set; }
         public string gestor_2 { get; set; }
         public string gestor_3 { get; set; }
         public string gestor_4 { get; set; }
         public string gestor_5 { get; set; }
-        
+
         public string cod_emp_gestor_1 { get; set; }
         public string cod_emp_gestor_2 { get; set; }
         public string cod_emp_gestor_3 { get; set; }
@@ -114,9 +108,9 @@ namespace Sentinella
 
         public DateTime data_estabilidade_inicio { get; set; }
         public DateTime data_estabilidade_fim { get; set; }
-        
-       public DateTime Dataatualizacao { get; set; }
-       public string Idatualizacao { get; set; }
+
+        public DateTime Dataatualizacao { get; set; }
+        public string Idatualizacao { get; set; }
         #endregion
 
         //#region Propriedades
@@ -757,18 +751,64 @@ namespace Sentinella
 
         #region Camada DAL - Dados
 
+        private string _todosCamposLeiDLP() {
+            return "id, " +
+                        "nome_empresa," +
+                        "cod_empresa," +
+                        "cpf," +
+                        "matricula," +
+                        "ub," +
+                        "nome_associado," +
+                        "data_de_admissao," +
+                        "data_demissao," +
+                        "codcentro_de_custo," +
+                        "descrcentro_de_custo," +
+                        "cargo_do_associado," +
+                        //"sexo," +
+                        "rua," +
+                        "numero," +
+                        "complemento," +
+                        "bairro," +
+                        "cidade," +
+                        "estado," +
+                        "cep," +
+                        "data_de_nascimento," +
+                        "telefone," +
+                        "celular," +
+                        "email," +
+                        "gestor_1," +
+                        "gestor_2," +
+                        "gestor_3," +
+                        "gestor_4," +
+                        "gestor_5," +
+                        "cod_emp_gestor_1," +
+                        "cod_emp_gestor_2," +
+                        "cod_emp_gestor_3," +
+                        "cod_emp_gestor_4," +
+                        "cod_emp_gestor_5," +
+                        "matricula_gestor_1," +
+                        "matricula_gestor_2," +
+                        "matricula_gestor_3," +
+                        "matricula_gestor_4," +
+                        "matricula_gestor_5," +
+                        "data_estabilidade_inicio," +
+                        "data_estabilidade_fim," +
+                        "data_inicio_ferias," +
+                        "data_fim_ferias," +
+                        "data_inicio_afastamento," +
+                        "data_fim_afastamento," +
+                        "dataAtualizacao," +
+                        "idAtualizacao";
 
-        private dadosCadastraisTH _carregarObjeto(DataTable dt)
-        {
-            try
-            {
+        }
+
+        private dadosCadastraisTH _carregarObjeto(DataTable dt) {
+            try {
 
                 dadosCadastraisTH oDados = new dadosCadastraisTH();
 
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow ln in dt.Rows)
-                    {
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow ln in dt.Rows) {
                         oDados.Id = int.Parse(ln["Id"].ToString());
                         oDados.Nome_empresa = ln["Nome_empresa"].ToString();
                         oDados.Matricula = ln["Matricula"].ToString();
@@ -786,12 +826,12 @@ namespace Sentinella
                         oDados.Bairro = ln["Bairro"].ToString();
                         oDados.Cidade = ln["Cidade"].ToString();
                         oDados.Estado = ln["Estado"].ToString();
-                        oDados.Cep = ln["Cep"].ToString();                        
+                        oDados.Cep = ln["Cep"].ToString();
                         oDados.Cpf = ln["Cpf"].ToString();
                         oDados.Data_de_nascimento = DateTime.Parse(ln["Data_de_nascimento"].ToString());
                         oDados.Telefone = ln["Telefone"].ToString();
                         oDados.Celular = ln["Celular"].ToString();
-                        oDados.Email = ln["Email"].ToString();                        
+                        oDados.Email = ln["Email"].ToString();
                         oDados.gestor_1 = ln["gestor_1"].ToString();
                         oDados.gestor_2 = ln["gestor_2"].ToString();
                         oDados.gestor_3 = ln["gestor_3"].ToString();
@@ -815,12 +855,11 @@ namespace Sentinella
                     }
                 }
 
-                
+
                 return oDados;
 
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CARREGAR OBJETO (DAL)");
                 return null;
             }
@@ -832,66 +871,58 @@ namespace Sentinella
         /// </summary>
         /// <param name="_matricula"></param>
         /// <returns></returns>
-        private dadosCadastraisTH _capturarDadosCadastraisPorMatricula(string _matricula)
-        {
-            try
-            {
+        /// 
+        private dadosCadastraisTH _capturarDadosCadastraisPorMatricula(string _matricula) {
+            try {
                 dadosCadastraisTH oDados = new dadosCadastraisTH();
                 DataTable dt = new DataTable();
-                sql = "select top 1 * from w_funcionarios_historico where matricula = " + objCon.valorSql(_matricula) + " order by dataAtualizacao desc ";
+                sql = "select top 1 " + _todosCamposLeiDLP() +  " from w_funcionarios_historico where matricula = " + objCon.valorSql(_matricula) + " order by dataAtualizacao desc ";
                 dt = objCon.retornaDataTable(sql);
                 oDados = _carregarObjeto(dt);
                 return oDados;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - POR MATRICULA (DAL)");
                 return null;
             }
         }
 
-        private dadosCadastraisTH _capturarDadosCadastraisPorNomeAssociado(string _nomeAssociado, bool localizacaoExata = false)
-        {
-            try
-            {
+        private dadosCadastraisTH _capturarDadosCadastraisPorNomeAssociado(string _nomeAssociado, bool localizacaoExata = false) {
+            try {
                 dadosCadastraisTH oDados = new dadosCadastraisTH();
                 DataTable dt = new DataTable();
-                sql = "select top 1 * from w_funcionarios_historico where nome_associado ";
+                sql = "select top 1 " + _todosCamposLeiDLP() + " from w_funcionarios_historico where nome_associado ";
                 if (localizacaoExata) {
                     sql += "= '" + _nomeAssociado + "' ";
                 } else {
                     sql += "like '%" + _nomeAssociado + "%' ";
                 }
                 sql += "Order By dataAtualizacao desc ";
-                    
+
                 dt = objCon.retornaDataTable(sql);
                 oDados = _carregarObjeto(dt);
                 return oDados;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - POR NOME ASSOCIADO (DAL)");
                 return null;
             }
         }
 
-        private DataTable _capturarDadosCadastraisPorCpf_tbl(string _cpf)
-        {
-            try
-            {
+        private DataTable _capturarDadosCadastraisPorCpf_tbl(string _cpf) {
+            try {
                 // retirando os zeros a esquerda para testar as duas formas de busca, visto falta de padrão CSC
                 long cpf_sem_zeros_esq = long.Parse(_cpf);
 
                 if (_cpf != "") {
-                    sql = "Select * from w_funcionarios_historico Where 1 = 1 ";
+                    sql = "Select " + _todosCamposLeiDLP() + " from w_funcionarios_historico Where 1 = 1 ";
                     sql += "and (Cpf like '%" + _cpf + "%' or Cpf like '%" + cpf_sem_zeros_esq.ToString() + "%') ";
                     sql += "Order by id desc ";
                     return objCon.retornaDataTable(sql);
                 }
                 return null;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - LISTA DE HISTORICO CPF (DAL)");
                 return null;
             }
@@ -899,7 +930,7 @@ namespace Sentinella
 
         private DataTable _capturarDadosCadastraisPorMatricula_tbl(string _matricula) {
             try {
-                sql = "select * from w_funcionarios_historico where matricula = " + objCon.valorSql(_matricula) + " order by dataAtualizacao desc ";
+                sql = "select " + _todosCamposLeiDLP() + " from w_funcionarios_historico where matricula = " + objCon.valorSql(_matricula) + " order by dataAtualizacao desc ";
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
@@ -910,7 +941,7 @@ namespace Sentinella
 
         private DataTable _capturarDadosCadastraisPorNomeAssociado_tbl(string _nomeAssociado) {
             try {
-                sql = sql = "select * from w_funcionarios_historico where nome_associado like '%" + _nomeAssociado + "%' order by dataAtualizacao desc";
+                sql = sql = "select " + _todosCamposLeiDLP() + " from w_funcionarios_historico where nome_associado like '%" + _nomeAssociado + "%' order by dataAtualizacao desc";
                 return objCon.retornaDataTable(sql);
             }
             catch (Exception ex) {
@@ -919,10 +950,8 @@ namespace Sentinella
             }
         }
 
-        private DataTable _carregarComboboxMatriculas(string _cpf)
-        {
-            try
-            {
+        private DataTable _carregarComboboxMatriculas(string _cpf) {
+            try {
                 DataTable dt = new DataTable();
                 sql = "select 1 as id, matricula from w_funcionarios_historico where cpf = " + objCon.valorSql(_cpf) + " ";
                 sql += "group by matricula ";
@@ -930,36 +959,31 @@ namespace Sentinella
                 dt = objCon.retornaDataTable(sql);
                 return dt;
             }
-            catch (Exception ex)            {
-                
+            catch (Exception ex) {
+
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CARREGAR COMBOBOX MATRICULAS (DAL)");
                 return null;
             }
         }
 
-        private string _ultimaMatriculaAtivaPorCpf(string _cpf)
-        {
-            try
-            {
+        private string _ultimaMatriculaAtivaPorCpf(string _cpf) {
+            try {
                 DataTable dt = new DataTable();
                 string mat = "";
                 sql = "Select top 1 matricula from w_funcionarios_historico where cpf = " + objCon.valorSql(_cpf) + " ";
                 sql += "Order by id desc";
                 dt = objCon.retornaDataTable(sql);
 
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow linha in dt.Rows)
-                    {
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow linha in dt.Rows) {
                         mat = linha["matricula"].ToString();
                     }
                 }
 
                 return mat;
             }
-            catch (Exception ex)
-            {
-                               
+            catch (Exception ex) {
+
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CARREGAR ULTIMA MATRICULA ATIVA (DAL)");
                 return "";
             }
@@ -973,14 +997,11 @@ namespace Sentinella
         /// </summary>
         /// <param name="_matricula"></param>
         /// <returns></returns>
-        public dadosCadastraisTH getDadosCadastraisPorMatricula(string _matricula)
-        {
-            try
-            {
+        public dadosCadastraisTH getDadosCadastraisPorMatricula(string _matricula) {
+            try {
                 return _capturarDadosCadastraisPorMatricula(_matricula);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CAPTURAR RESPONSAVEL TH (BLL)");
                 return null;
             }
@@ -1038,10 +1059,8 @@ namespace Sentinella
             }
         }
 
-        public ListView CarregaListView(ListView lst, string _cpf)
-        {
-            try
-            {
+        public ListView CarregaListView(ListView lst, string _cpf) {
+            try {
                 DataTable dt = new DataTable();
                 dt = _capturarDadosCadastraisPorCpf_tbl(_cpf);
                 lst.Clear();
@@ -1058,7 +1077,7 @@ namespace Sentinella
                 lst.Columns.Add("CPF", 120, HorizontalAlignment.Center);
                 lst.Columns.Add("MATRÍCULA", 120, HorizontalAlignment.Center);
                 lst.Columns.Add("NOME", 200, HorizontalAlignment.Left);
-                lst.Columns.Add("SEXO", 70, HorizontalAlignment.Center);
+                //lst.Columns.Add("SEXO", 70, HorizontalAlignment.Center);
                 lst.Columns.Add("DT. ADMISSÃO", 150, HorizontalAlignment.Center);
                 lst.Columns.Add("DT. DEMISSÃO", 150, HorizontalAlignment.Center);
                 lst.Columns.Add("CENTRO DE CUSTO", 150, HorizontalAlignment.Left);
@@ -1075,21 +1094,19 @@ namespace Sentinella
                 lst.Columns.Add("5º GESTOR", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("DT. ATUALIZAÇÃO", 150, HorizontalAlignment.Center);
 
-                if (dt.Rows.Count > 0)
-                {
-                    foreach (DataRow linha in dt.Rows)
-                    {
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow linha in dt.Rows) {
                         ListViewItem item = new ListViewItem();
                         item.Text = linha["id"].ToString();
                         item.SubItems.Add(linha["nome_empresa"].ToString());
                         item.SubItems.Add(linha["cpf"].ToString());
                         item.SubItems.Add(linha["matricula"].ToString());
                         item.SubItems.Add(linha["nome_associado"].ToString());
-                        item.SubItems.Add(linha["sexo"].ToString());
+                        //item.SubItems.Add(linha["sexo"].ToString());
                         item.SubItems.Add(hlp.retornaDataTextBox(linha["data_de_admissao"].ToString()));
                         item.SubItems.Add(hlp.retornaDataTextBox(linha["data_demissao"].ToString()));
-                        item.SubItems.Add(linha["codcentro_de_custo"].ToString() + " - " + linha["descrcentro_de_custo"].ToString());                        
-                        item.SubItems.Add(linha["cargo_do_associado"].ToString());                        
+                        item.SubItems.Add(linha["codcentro_de_custo"].ToString() + " - " + linha["descrcentro_de_custo"].ToString());
+                        item.SubItems.Add(linha["cargo_do_associado"].ToString());
                         item.SubItems.Add(linha["rua"].ToString() + ", " + linha["numero"].ToString() + " - Bairro: " + linha["bairro"].ToString()
                                                + " | " + linha["cidade"].ToString() + " " + linha["estado"].ToString() + "CEP: " + linha["cep"].ToString());
                         item.SubItems.Add(linha["data_de_nascimento"].ToString());
@@ -1109,21 +1126,17 @@ namespace Sentinella
                 }
                 return lst;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - LISTVIEW (BLL)");
                 return null;
             }
         }
 
-        public string ultimaMatriculaAtivaPorCpf(string _cpf)
-        {
-            try
-            {
+        public string ultimaMatriculaAtivaPorCpf(string _cpf) {
+            try {
                 return _ultimaMatriculaAtivaPorCpf(_cpf);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
 
                 MessageBox.Show("Não foi possível capturar a matrícula mais recetente para o registro de trabalho atual, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CARREGAR ULTIMA MATRICULA ATIVA (BLL)");
@@ -1131,20 +1144,16 @@ namespace Sentinella
             }
         }
 
-        public void carregarComboboxMatriculas(Form frm, ComboBox cbx, string _cpf)
-        {
-            try
-            {
+        public void carregarComboboxMatriculas(Form frm, ComboBox cbx, string _cpf) {
+            try {
                 DataTable dt = new DataTable();
                 dt = _carregarComboboxMatriculas(_cpf);
-                if(dt != null)
-                {
+                if (dt != null) {
                     hlp.carregaComboBox(dt, frm, cbx, false, "", "", true);
                 }
-                 
+
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 MessageBox.Show("Não foi carregar a lista de Matrículas, tente novamente mais tarde!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "DADOS CADASTRAIS TH - CARREGAR COMBOBOX MATRICULAS (BLL)");
             }

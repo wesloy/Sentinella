@@ -128,6 +128,12 @@ namespace Sentinella {
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
 
+        private void filtrosToolStripMenuItem_Click(object sender, EventArgs e) {
+            atualizarStatus("Página de Configuração de Filtros Tamnun");
+            _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
+            _objForm = new frmConfigTamnunFiltros();
+            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+        }
 
         private void filasDeTrabalhoToolStripMenuItem_Click(object sender, EventArgs e) {
             atualizarStatus("Página de Análises");
@@ -229,5 +235,7 @@ namespace Sentinella {
         private void timer1_Tick(object sender, EventArgs e) {
             interrupcaoProgramada();
         }
+
+
     }
 }

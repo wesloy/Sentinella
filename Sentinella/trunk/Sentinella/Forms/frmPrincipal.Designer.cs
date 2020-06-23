@@ -58,6 +58,9 @@
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tamnunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -112,7 +115,7 @@
             this.menuPrincipal.Name = "menuPrincipal";
             this.menuPrincipal.Padding = new System.Windows.Forms.Padding(3, 2, 2, 2);
             this.menuPrincipal.ShowItemToolTips = true;
-            this.menuPrincipal.Size = new System.Drawing.Size(42, 467);
+            this.menuPrincipal.Size = new System.Drawing.Size(125, 467);
             this.menuPrincipal.TabIndex = 2;
             this.menuPrincipal.Text = "menuStrip1";
             // 
@@ -247,6 +250,8 @@
             // 
             this.mmOpenConfiguracoesForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mmOpenConfiguracoesForm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tamnunToolStripMenuItem,
+            this.toolStripSeparator2,
             this.mmOpenConfigFilas,
             this.mmOpenConfigFinalizacoes,
             this.mmOpenConfigSubFinalizacoes,
@@ -380,6 +385,26 @@
             this.timer1.Interval = 30000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tamnunToolStripMenuItem
+            // 
+            this.tamnunToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filtrosToolStripMenuItem});
+            this.tamnunToolStripMenuItem.Name = "tamnunToolStripMenuItem";
+            this.tamnunToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.tamnunToolStripMenuItem.Text = "Tamnun";
+            // 
+            // filtrosToolStripMenuItem
+            // 
+            this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filtrosToolStripMenuItem.Text = "Filtros";
+            this.filtrosToolStripMenuItem.Click += new System.EventHandler(this.filtrosToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -440,6 +465,9 @@
         private System.Windows.Forms.ToolStripMenuItem envioEmailCobrançaTrilhasSGIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem interrupçãoProgramadaToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem tamnunToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filtrosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

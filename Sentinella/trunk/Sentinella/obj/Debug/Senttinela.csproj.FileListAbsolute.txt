@@ -17,9 +17,11 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe.config
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmAnalies.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmAutorizacoes.resources
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigTamnunFiltros.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmCategorizacao.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigFilas.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigFinalizacoes.resources
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigInterrupcoesProgramadas.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigSubFinalizacoes.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigUsuarios.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmHome.resources
@@ -42,4 +44,3 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.pdb
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csprojAssemblyReference.cache
-C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigInterrupcoesProgramadas.resources

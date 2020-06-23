@@ -100,7 +100,7 @@ namespace Sentinella.Forms {
                     } else if (cbxFila.Text.Contains("TAMNUN")) {
                         //Informações adicionais
                         tamnun tamnun = new tamnun();
-                        tamnun.CarregaListView(lvInfoAdc, int.Parse(cat.Id.ToString()), ref nomeAssociadoTamnun);
+                        tamnun.carregarListViewListaTrabalho(lvInfoAdc, int.Parse(cat.Id.ToString()), ref nomeAssociadoTamnun);
                         lbInfAdicionais.Text = "Informações Adicionais - TAMNUN: ";
                     }
 

@@ -50,7 +50,6 @@ namespace Sentinella {
             _idAtualizacao = Constantes.id_BD_logadoFerramenta;
             _dataAtualizacao = hlp.dataHoraAtual();
         }
-
         public sys_interrupcoesProgramadas(DataTable dt) {
 
             foreach (DataRow item in dt.Rows) {
@@ -111,6 +110,7 @@ namespace Sentinella {
                 return null;
             }
         }
+
         private bool _delete(sys_interrupcoesProgramadas _obj) {
             try {
 
@@ -211,7 +211,6 @@ namespace Sentinella {
                 return false;
             }
         }
-
 
         public bool insert(sys_interrupcoesProgramadas _obj) {
             try {
@@ -358,7 +357,8 @@ namespace Sentinella {
                     if (hlp.dataHoraAtual()  >= DateTime.Parse(item["dataHoraInicial"].ToString()) && hlp.dataHoraAtual() <= DateTime.Parse(item["dataHoraFinal"].ToString()) ) {
 
                         hlp.AutoCloseMsgBox("O Sentinella está em período de interrupção programada." + Environment.NewLine +
-                                            "Estará disponível após " + obj._dataHoraFinal + ".", Constantes.Titulo_MSG.ToString(), 5);
+                                            "Estará disponível após " + obj._dataHoraFinal + "." + Environment.NewLine +
+                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 5);
 
                         return true;
                     }
@@ -368,7 +368,8 @@ namespace Sentinella {
                     if (DateTime.Parse(item["dataHoraInicial"].ToString()).AddMinutes(5) > hlp.dataHoraAtual()) {
 
                         hlp.AutoCloseMsgBox("O Sentinella será fechado em instantes." + Environment.NewLine +
-                                            "Fica a dica: Salve seu trabalho e feche você mesmo, pois depois de " + obj._dataHoraInicial + " será fechado automaticamente.", Constantes.Titulo_MSG.ToString(), 5);
+                                            "Fica a dica: Salve seu trabalho e feche você mesmo, pois depois de " + obj._dataHoraInicial + " será fechado automaticamente." + Environment.NewLine +
+                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 5);
 
                         return false;
                     }
@@ -382,10 +383,6 @@ namespace Sentinella {
                 return false;
             }
         }
-
-
-
-
 
         #endregion
 
