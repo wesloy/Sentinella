@@ -152,6 +152,12 @@
     <Compile Include="Forms\frmConfigFinalizacoes.Designer.cs">
       <DependentUpon>frmConfigFinalizacoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmConfigInterrupcoesProgramadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmConfigInterrupcoesProgramadas.Designer.cs">
+      <DependentUpon>frmConfigInterrupcoesProgramadas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmConfigSubFinalizacoes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmConfigFinalizacoes.resx">
       <DependentUpon>frmConfigFinalizacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmConfigInterrupcoesProgramadas.resx">
+      <DependentUpon>frmConfigInterrupcoesProgramadas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmConfigSubFinalizacoes.resx">
       <DependentUpon>frmConfigSubFinalizacoes.cs</DependentUpon>

@@ -6,6 +6,7 @@ declare @dataInicial date = '2020-02-01',
 --FINALIZACÕES NÃO CONFORME / POR GESTOR
 select * from (
 select b.id Protocolo_Sentinella, 
+(select top 1 nome_associado from w_funcionarios_historico where cpf = b.cpf order by dataAtualizacao desc) nome_associado, 
 b.data_Abertura,
 b.data_Registro,
 b.data_Trabalho, fila.descricao fila, fin.descricao Finalizacao, sfin.descricao SubFinalizacao, b.observacao,  

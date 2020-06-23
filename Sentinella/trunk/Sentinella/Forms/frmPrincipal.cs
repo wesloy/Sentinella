@@ -8,7 +8,15 @@ namespace Sentinella {
         #region Variaveis Uteis
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         private Form _objForm { get; set; }
+        sys_interrupcoesProgramadas interrupcoes = new sys_interrupcoesProgramadas();
         #endregion
+
+
+        private void interrupcaoProgramada() {
+            if (interrupcoes.interromperSistema()) {
+                this.Close();
+            }
+        }
 
         public bool atualizarStatus(string texto) {
             try {
@@ -28,13 +36,18 @@ namespace Sentinella {
         }
 
         private void frmPrincipal_Load(object sender, EventArgs e) {
+            //interrupção programada
+            interrupcaoProgramada();
+
             //Versão do sistema
             lbVersao.Text = "| Versão: " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version + " |";
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmHome();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+
             Form frm = new frmLogin();
             frm.ShowDialog();
+
             if (!Constantes.autenticacao) {
                 Close();
             } else {
@@ -94,6 +107,12 @@ namespace Sentinella {
             atualizarStatus("Página de Configuração de Usuários");
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmConfigUsuarios();
+            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+        }
+        private void interrupçãoProgramadaToolStripMenuItem_Click(object sender, EventArgs e) {
+            atualizarStatus("Página de Configuração de Interrupções Programadas");
+            _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
+            _objForm = new frmConfigInterrupcoesProgramadas();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
 
@@ -207,6 +226,8 @@ namespace Sentinella {
 
         }
 
-
+        private void timer1_Tick(object sender, EventArgs e) {
+            interrupcaoProgramada();
+        }
     }
 }

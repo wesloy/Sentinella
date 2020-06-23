@@ -50,12 +50,14 @@
             this.mmOpenConfigSubFinalizacoes = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.mmOpenConfigUsuarios = new System.Windows.Forms.ToolStripMenuItem();
+            this.interrupçãoProgramadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmFechar = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip_Geral = new System.Windows.Forms.ToolTip(this.components);
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.barraStatus = new System.Windows.Forms.StatusStrip();
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -249,7 +251,8 @@
             this.mmOpenConfigFinalizacoes,
             this.mmOpenConfigSubFinalizacoes,
             this.toolStripSeparator1,
-            this.mmOpenConfigUsuarios});
+            this.mmOpenConfigUsuarios,
+            this.interrupçãoProgramadaToolStripMenuItem});
             this.mmOpenConfiguracoesForm.Enabled = false;
             this.mmOpenConfiguracoesForm.Image = ((System.Drawing.Image)(resources.GetObject("mmOpenConfiguracoesForm.Image")));
             this.mmOpenConfiguracoesForm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -264,7 +267,7 @@
             // mmOpenConfigFilas
             // 
             this.mmOpenConfigFilas.Name = "mmOpenConfigFilas";
-            this.mmOpenConfigFilas.Size = new System.Drawing.Size(184, 22);
+            this.mmOpenConfigFilas.Size = new System.Drawing.Size(210, 22);
             this.mmOpenConfigFilas.Text = "Filas (F7)";
             this.mmOpenConfigFilas.ToolTipText = "Click F7";
             this.mmOpenConfigFilas.Click += new System.EventHandler(this.mmOpenConfigFilas_Click);
@@ -272,7 +275,7 @@
             // mmOpenConfigFinalizacoes
             // 
             this.mmOpenConfigFinalizacoes.Name = "mmOpenConfigFinalizacoes";
-            this.mmOpenConfigFinalizacoes.Size = new System.Drawing.Size(184, 22);
+            this.mmOpenConfigFinalizacoes.Size = new System.Drawing.Size(210, 22);
             this.mmOpenConfigFinalizacoes.Text = "Finalizações (F8)";
             this.mmOpenConfigFinalizacoes.ToolTipText = "Click F8";
             this.mmOpenConfigFinalizacoes.Click += new System.EventHandler(this.mmOpenConfigFinalizacoes_Click);
@@ -280,7 +283,7 @@
             // mmOpenConfigSubFinalizacoes
             // 
             this.mmOpenConfigSubFinalizacoes.Name = "mmOpenConfigSubFinalizacoes";
-            this.mmOpenConfigSubFinalizacoes.Size = new System.Drawing.Size(184, 22);
+            this.mmOpenConfigSubFinalizacoes.Size = new System.Drawing.Size(210, 22);
             this.mmOpenConfigSubFinalizacoes.Text = "SubFinalizações (F9)";
             this.mmOpenConfigSubFinalizacoes.ToolTipText = "Click F9";
             this.mmOpenConfigSubFinalizacoes.Click += new System.EventHandler(this.mmOpenConfigSubFinalizacoes_Click);
@@ -288,15 +291,22 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
             // 
             // mmOpenConfigUsuarios
             // 
             this.mmOpenConfigUsuarios.Name = "mmOpenConfigUsuarios";
-            this.mmOpenConfigUsuarios.Size = new System.Drawing.Size(184, 22);
+            this.mmOpenConfigUsuarios.Size = new System.Drawing.Size(210, 22);
             this.mmOpenConfigUsuarios.Text = "Usuários (F10)";
             this.mmOpenConfigUsuarios.ToolTipText = "Click F10";
             this.mmOpenConfigUsuarios.Click += new System.EventHandler(this.mmOpenConfigUsuarios_Click);
+            // 
+            // interrupçãoProgramadaToolStripMenuItem
+            // 
+            this.interrupçãoProgramadaToolStripMenuItem.Name = "interrupçãoProgramadaToolStripMenuItem";
+            this.interrupçãoProgramadaToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.interrupçãoProgramadaToolStripMenuItem.Text = "Interrupção Programada";
+            this.interrupçãoProgramadaToolStripMenuItem.Click += new System.EventHandler(this.interrupçãoProgramadaToolStripMenuItem_Click);
             // 
             // mmFechar
             // 
@@ -364,6 +374,12 @@
             this.lbStatus.Text = "Senttinela pronto para a ação...";
             this.lbStatus.ToolTipText = "Status de Processos";
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 30000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,6 +438,8 @@
         private System.Windows.Forms.ToolStripMenuItem dadosCadastraisDeAssociadosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dadosADToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem envioEmailCobrançaTrilhasSGIToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem interrupçãoProgramadaToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

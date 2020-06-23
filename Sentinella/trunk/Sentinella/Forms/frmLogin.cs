@@ -6,13 +6,24 @@ namespace Sentinella.Forms {
 
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         logs log = new logs();
-               
+
+
+        sys_interrupcoesProgramadas interrupcoes = new sys_interrupcoesProgramadas();
+        private void interrupcaoProgramada() {
+            if (interrupcoes.interromperSistema()) {
+                this.Close();
+            }
+        }
+
+
         public frmLogin() {
             InitializeComponent();
         }
 
         private void frmLogin_Load(object sender, EventArgs e) {
             this.txtUsuario.Text = hlp.capturaIdRede();
+            timer1.Start();
+            interrupcaoProgramada();
         }
 
         /// <summary>
@@ -28,17 +39,17 @@ namespace Sentinella.Forms {
             Constantes.id_REDE_logadoFerramenta = txtUsuario.Text.ToUpper().Trim();
 
             if (hlp.autenticacaoActiveDirectory(this.txtUsuario.Text, this.txtSenha.Text, false, "", ref msgErro)) {
-                
+
                 usuarios user = new usuarios(true);
                 Constantes.nivelAcesso = user.auttenticacoUsuario(user);
-                user =  user.capturarUsuariosPorIDRede(Constantes.id_REDE_logadoFerramenta);
+                user = user.capturarUsuariosPorIDRede(Constantes.id_REDE_logadoFerramenta);
                 Constantes.id_BD_logadoFerramenta = user.Id;
                 Constantes.nomeAssociadoLogado = user.Nome;
-                
+
 
                 if (Constantes.nivelAcesso > 0) {
                     user.setStatusUsuario(user);
-                    Constantes.autenticacao = true;                    
+                    Constantes.autenticacao = true;
                     log.registrarLog("Ok", "Login");
                 } else {
                     Constantes.autenticacao = false;
@@ -63,7 +74,7 @@ namespace Sentinella.Forms {
                 txtSenha.UseSystemPasswordChar = false;
             } else {
                 txtSenha.UseSystemPasswordChar = true;
-            } 
+            }
         }
 
         private void frmLogin_KeyDown(object sender, KeyEventArgs e) {
@@ -75,13 +86,17 @@ namespace Sentinella.Forms {
                 case Keys.F4:
                     btnCancelar_Click(sender, e);
                     break;
-                                        
+
             }
         }
 
         private void pbLock_Click(object sender, EventArgs e) {
             Form testes = new frmTeste();
             hlp.abrirForm(testes, false, false);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e) {
+            interrupcaoProgramada();
         }
     }
 }
