@@ -74,7 +74,7 @@
             this.pnlBotoes.Controls.Add(this.btnFinalizar);
             this.pnlBotoes.Controls.Add(this.btnIncluir);
             this.pnlBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBotoes.Location = new System.Drawing.Point(0, 514);
+            this.pnlBotoes.Location = new System.Drawing.Point(0, 687);
             this.pnlBotoes.Name = "pnlBotoes";
             this.pnlBotoes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.pnlBotoes.Size = new System.Drawing.Size(1133, 57);
@@ -226,7 +226,7 @@
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 57);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1133, 457);
+            this.pnlConteudo.Size = new System.Drawing.Size(1133, 630);
             this.pnlConteudo.TabIndex = 77;
             // 
             // label9
@@ -242,15 +242,16 @@
             // 
             // lvUsuarios
             // 
-            this.lvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUsuarios.BackColor = System.Drawing.Color.Azure;
             this.lvUsuarios.HideSelection = false;
             this.lvUsuarios.Location = new System.Drawing.Point(17, 114);
             this.lvUsuarios.Name = "lvUsuarios";
-            this.lvUsuarios.Size = new System.Drawing.Size(372, 307);
+            this.lvUsuarios.Size = new System.Drawing.Size(1092, 149);
             this.lvUsuarios.TabIndex = 88;
             this.lvUsuarios.UseCompatibleStateImageBehavior = false;
+            this.lvUsuarios.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvUsuarios_ColumnClick);
             // 
             // cbxSeletorFilaImportacao
             // 
@@ -284,7 +285,7 @@
             this.label8.Enabled = false;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Gray;
-            this.label8.Location = new System.Drawing.Point(720, 425);
+            this.label8.Location = new System.Drawing.Point(720, 598);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(57, 13);
             this.label8.TabIndex = 85;
@@ -299,7 +300,7 @@
             this.txtFilaNome.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtFilaNome.Enabled = false;
             this.txtFilaNome.ForeColor = System.Drawing.Color.Gray;
-            this.txtFilaNome.Location = new System.Drawing.Point(723, 423);
+            this.txtFilaNome.Location = new System.Drawing.Point(723, 596);
             this.txtFilaNome.Name = "txtFilaNome";
             this.txtFilaNome.ReadOnly = true;
             this.txtFilaNome.Size = new System.Drawing.Size(57, 20);
@@ -314,7 +315,7 @@
             this.label5.Enabled = false;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(483, 424);
+            this.label5.Location = new System.Drawing.Point(483, 597);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(42, 13);
             this.label5.TabIndex = 83;
@@ -329,7 +330,7 @@
             this.txtID.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtID.Enabled = false;
             this.txtID.ForeColor = System.Drawing.Color.Gray;
-            this.txtID.Location = new System.Drawing.Point(486, 422);
+            this.txtID.Location = new System.Drawing.Point(486, 595);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(56, 20);
@@ -344,7 +345,7 @@
             this.label4.Enabled = false;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Gray;
-            this.label4.Location = new System.Drawing.Point(631, 424);
+            this.label4.Location = new System.Drawing.Point(631, 597);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 81;
@@ -359,7 +360,7 @@
             this.txtIdAbertura.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtIdAbertura.Enabled = false;
             this.txtIdAbertura.ForeColor = System.Drawing.Color.Gray;
-            this.txtIdAbertura.Location = new System.Drawing.Point(649, 423);
+            this.txtIdAbertura.Location = new System.Drawing.Point(649, 596);
             this.txtIdAbertura.Name = "txtIdAbertura";
             this.txtIdAbertura.ReadOnly = true;
             this.txtIdAbertura.Size = new System.Drawing.Size(53, 20);
@@ -374,7 +375,7 @@
             this.label3.Enabled = false;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(543, 424);
+            this.label3.Location = new System.Drawing.Point(543, 597);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(82, 13);
             this.label3.TabIndex = 79;
@@ -389,7 +390,7 @@
             this.txtDthAbertura.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtDthAbertura.Enabled = false;
             this.txtDthAbertura.ForeColor = System.Drawing.Color.Gray;
-            this.txtDthAbertura.Location = new System.Drawing.Point(548, 422);
+            this.txtDthAbertura.Location = new System.Drawing.Point(548, 595);
             this.txtDthAbertura.Name = "txtDthAbertura";
             this.txtDthAbertura.ReadOnly = true;
             this.txtDthAbertura.Size = new System.Drawing.Size(53, 20);
@@ -404,7 +405,7 @@
             this.label1.Enabled = false;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(417, 424);
+            this.label1.Location = new System.Drawing.Point(417, 597);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 77;
@@ -417,7 +418,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label7.Location = new System.Drawing.Point(907, 424);
+            this.label7.Location = new System.Drawing.Point(907, 597);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(202, 13);
             this.label7.TabIndex = 76;
@@ -431,7 +432,7 @@
             this.txtFilaID.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtFilaID.Enabled = false;
             this.txtFilaID.ForeColor = System.Drawing.Color.Gray;
-            this.txtFilaID.Location = new System.Drawing.Point(420, 422);
+            this.txtFilaID.Location = new System.Drawing.Point(420, 595);
             this.txtFilaID.Name = "txtFilaID";
             this.txtFilaID.ReadOnly = true;
             this.txtFilaID.Size = new System.Drawing.Size(57, 20);
@@ -445,12 +446,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.BackColor = System.Drawing.Color.Azure;
             this.lvLista.HideSelection = false;
-            this.lvLista.Location = new System.Drawing.Point(405, 35);
+            this.lvLista.Location = new System.Drawing.Point(17, 282);
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(704, 386);
+            this.lvLista.Size = new System.Drawing.Size(1092, 312);
             this.lvLista.TabIndex = 72;
             this.lvLista.Tag = "Lista de Registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // btnProcurar
@@ -473,7 +475,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(402, 19);
+            this.label6.Location = new System.Drawing.Point(14, 266);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(108, 13);
             this.label6.TabIndex = 71;
@@ -508,7 +510,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1133, 571);
+            this.ClientSize = new System.Drawing.Size(1133, 744);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.pnlFiltros);
             this.Controls.Add(this.pnlBotoes);

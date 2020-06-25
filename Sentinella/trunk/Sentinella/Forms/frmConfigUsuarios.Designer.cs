@@ -25,6 +25,8 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConfigUsuarios));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtIdRedeBRA = new System.Windows.Forms.TextBox();
             this.cbPerfilAcesso = new System.Windows.Forms.ComboBox();
             this.Label9 = new System.Windows.Forms.Label();
             this.PictureBox2 = new System.Windows.Forms.PictureBox();
@@ -54,8 +56,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtIdRedeBRA = new System.Windows.Forms.TextBox();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
@@ -91,6 +91,26 @@
             this.pnlConteudo.Name = "pnlConteudo";
             this.pnlConteudo.Size = new System.Drawing.Size(1048, 468);
             this.pnlConteudo.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Location = new System.Drawing.Point(13, 84);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 13);
+            this.label4.TabIndex = 76;
+            this.label4.Text = "Id de Rede BRA:";
+            // 
+            // txtIdRedeBRA
+            // 
+            this.txtIdRedeBRA.BackColor = System.Drawing.Color.Azure;
+            this.txtIdRedeBRA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtIdRedeBRA.Location = new System.Drawing.Point(109, 81);
+            this.txtIdRedeBRA.Name = "txtIdRedeBRA";
+            this.txtIdRedeBRA.Size = new System.Drawing.Size(276, 20);
+            this.txtIdRedeBRA.TabIndex = 75;
+            this.txtIdRedeBRA.Tag = "Id de Rede";
             // 
             // cbPerfilAcesso
             // 
@@ -194,6 +214,7 @@
             this.lvLista.TabIndex = 4;
             this.lvLista.Tag = "Lista de Registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // label1
@@ -440,26 +461,6 @@
             this.btnIncluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnIncluir.UseVisualStyleBackColor = true;
             this.btnIncluir.Click += new System.EventHandler(this.btnIncluir_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(13, 84);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 13);
-            this.label4.TabIndex = 76;
-            this.label4.Text = "Id de Rede BRA:";
-            // 
-            // txtIdRedeBRA
-            // 
-            this.txtIdRedeBRA.BackColor = System.Drawing.Color.Azure;
-            this.txtIdRedeBRA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtIdRedeBRA.Location = new System.Drawing.Point(109, 81);
-            this.txtIdRedeBRA.Name = "txtIdRedeBRA";
-            this.txtIdRedeBRA.Size = new System.Drawing.Size(276, 20);
-            this.txtIdRedeBRA.TabIndex = 75;
-            this.txtIdRedeBRA.Tag = "Id de Rede";
             // 
             // frmConfigUsuarios
             // 

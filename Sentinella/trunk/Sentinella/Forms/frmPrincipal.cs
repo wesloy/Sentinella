@@ -129,7 +129,7 @@ namespace Sentinella {
         }
 
         private void filtrosToolStripMenuItem_Click(object sender, EventArgs e) {
-            atualizarStatus("Página de Configuração de Filtros Tamnun");
+            atualizarStatus("Página de Configuração de Filtros - Tamnun");
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmConfigTamnunFiltros();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
@@ -139,6 +139,13 @@ namespace Sentinella {
             atualizarStatus("Página de Análises");
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmAnalies();
+            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+        }
+
+        private void whiteListToolStripMenuItem_Click(object sender, EventArgs e) {
+            atualizarStatus("Página de Configuração de White List - Tamnun");
+            _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
+            _objForm = new frmConfigTamnunWhiteList();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
 

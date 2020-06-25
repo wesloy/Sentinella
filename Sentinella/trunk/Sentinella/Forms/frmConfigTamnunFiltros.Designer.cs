@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConfigTamnunFiltros));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.cbxFonte = new System.Windows.Forms.ComboBox();
             this.cbxCategorias = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtFiltro = new System.Windows.Forms.TextBox();
@@ -53,7 +54,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
-            this.cbxFonte = new System.Windows.Forms.ComboBox();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
@@ -88,13 +88,22 @@
             this.pnlConteudo.Size = new System.Drawing.Size(1138, 349);
             this.pnlConteudo.TabIndex = 8;
             // 
+            // cbxFonte
+            // 
+            this.cbxFonte.FormattingEnabled = true;
+            this.cbxFonte.Location = new System.Drawing.Point(104, 28);
+            this.cbxFonte.Name = "cbxFonte";
+            this.cbxFonte.Size = new System.Drawing.Size(257, 21);
+            this.cbxFonte.TabIndex = 1;
+            this.cbxFonte.Tag = "FONTE";
+            // 
             // cbxCategorias
             // 
             this.cbxCategorias.FormattingEnabled = true;
             this.cbxCategorias.Location = new System.Drawing.Point(104, 55);
             this.cbxCategorias.Name = "cbxCategorias";
             this.cbxCategorias.Size = new System.Drawing.Size(257, 21);
-            this.cbxCategorias.TabIndex = 77;
+            this.cbxCategorias.TabIndex = 2;
             this.cbxCategorias.Tag = "CATEGORIA";
             // 
             // label13
@@ -114,7 +123,7 @@
             this.txtFiltro.Location = new System.Drawing.Point(104, 81);
             this.txtFiltro.Name = "txtFiltro";
             this.txtFiltro.Size = new System.Drawing.Size(257, 20);
-            this.txtFiltro.TabIndex = 75;
+            this.txtFiltro.TabIndex = 3;
             this.txtFiltro.Tag = "FILTRO";
             // 
             // txtID
@@ -208,6 +217,7 @@
             this.lvLista.TabIndex = 65;
             this.lvLista.Tag = "Lista de Filtros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // PictureBox1
@@ -270,7 +280,7 @@
             this.ckboxAtivo.Location = new System.Drawing.Point(104, 7);
             this.ckboxAtivo.Name = "ckboxAtivo";
             this.ckboxAtivo.Size = new System.Drawing.Size(15, 14);
-            this.ckboxAtivo.TabIndex = 57;
+            this.ckboxAtivo.TabIndex = 0;
             this.ckboxAtivo.UseVisualStyleBackColor = false;
             // 
             // pnlFiltros
@@ -285,7 +295,7 @@
             this.pnlFiltros.Location = new System.Drawing.Point(0, 0);
             this.pnlFiltros.Name = "pnlFiltros";
             this.pnlFiltros.Size = new System.Drawing.Size(1138, 57);
-            this.pnlFiltros.TabIndex = 7;
+            this.pnlFiltros.TabIndex = 0;
             // 
             // cbxListaCategorias
             // 
@@ -294,7 +304,7 @@
             this.cbxListaCategorias.Location = new System.Drawing.Point(104, 26);
             this.cbxListaCategorias.Name = "cbxListaCategorias";
             this.cbxListaCategorias.Size = new System.Drawing.Size(257, 21);
-            this.cbxListaCategorias.TabIndex = 78;
+            this.cbxListaCategorias.TabIndex = 0;
             // 
             // label8
             // 
@@ -327,7 +337,7 @@
             this.btnRemoveFiltro.Location = new System.Drawing.Point(441, 12);
             this.btnRemoveFiltro.Name = "btnRemoveFiltro";
             this.btnRemoveFiltro.Size = new System.Drawing.Size(75, 35);
-            this.btnRemoveFiltro.TabIndex = 72;
+            this.btnRemoveFiltro.TabIndex = 2;
             this.btnRemoveFiltro.Text = "     Limpar";
             this.btnRemoveFiltro.UseVisualStyleBackColor = true;
             this.btnRemoveFiltro.Click += new System.EventHandler(this.btnRemoveFiltro_Click);
@@ -340,7 +350,7 @@
             this.btnFiltrar.Location = new System.Drawing.Point(365, 11);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 36);
-            this.btnFiltrar.TabIndex = 70;
+            this.btnFiltrar.TabIndex = 1;
             this.btnFiltrar.Text = "   Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
@@ -369,7 +379,7 @@
             this.btnExcluir.Location = new System.Drawing.Point(886, 10);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Size = new System.Drawing.Size(83, 30);
-            this.btnExcluir.TabIndex = 73;
+            this.btnExcluir.TabIndex = 1;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExcluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -385,7 +395,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(1043, 10);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(83, 30);
-            this.btnCancelar.TabIndex = 68;
+            this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -402,7 +412,7 @@
             this.btnAlterar.Location = new System.Drawing.Point(967, 10);
             this.btnAlterar.Name = "btnAlterar";
             this.btnAlterar.Size = new System.Drawing.Size(83, 30);
-            this.btnAlterar.TabIndex = 67;
+            this.btnAlterar.TabIndex = 2;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAlterar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -418,21 +428,12 @@
             this.btnIncluir.Location = new System.Drawing.Point(804, 10);
             this.btnIncluir.Name = "btnIncluir";
             this.btnIncluir.Size = new System.Drawing.Size(83, 30);
-            this.btnIncluir.TabIndex = 66;
+            this.btnIncluir.TabIndex = 0;
             this.btnIncluir.Text = "Incluir";
             this.btnIncluir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnIncluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnIncluir.UseVisualStyleBackColor = true;
             this.btnIncluir.Click += new System.EventHandler(this.btnIncluir_Click);
-            // 
-            // cbxFonte
-            // 
-            this.cbxFonte.FormattingEnabled = true;
-            this.cbxFonte.Location = new System.Drawing.Point(104, 28);
-            this.cbxFonte.Name = "cbxFonte";
-            this.cbxFonte.Size = new System.Drawing.Size(257, 21);
-            this.cbxFonte.TabIndex = 78;
-            this.cbxFonte.Tag = "FONTE";
             // 
             // frmConfigTamnunFiltros
             // 

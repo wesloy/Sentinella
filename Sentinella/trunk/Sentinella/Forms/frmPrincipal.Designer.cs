@@ -45,6 +45,9 @@
             this.mmOpenExportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenImportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfiguracoesForm = new System.Windows.Forms.ToolStripMenuItem();
+            this.tamnunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mmOpenConfigFilas = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfigFinalizacoes = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfigSubFinalizacoes = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,9 +61,7 @@
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tamnunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.whiteListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -269,6 +270,27 @@
             this.mmOpenConfiguracoesForm.Text = "Configurações";
             this.mmOpenConfiguracoesForm.ToolTipText = "Configurações";
             // 
+            // tamnunToolStripMenuItem
+            // 
+            this.tamnunToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filtrosToolStripMenuItem,
+            this.whiteListToolStripMenuItem});
+            this.tamnunToolStripMenuItem.Name = "tamnunToolStripMenuItem";
+            this.tamnunToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.tamnunToolStripMenuItem.Text = "Tamnun";
+            // 
+            // filtrosToolStripMenuItem
+            // 
+            this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filtrosToolStripMenuItem.Text = "Filtros";
+            this.filtrosToolStripMenuItem.Click += new System.EventHandler(this.filtrosToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            // 
             // mmOpenConfigFilas
             // 
             this.mmOpenConfigFilas.Name = "mmOpenConfigFilas";
@@ -385,25 +407,12 @@
             this.timer1.Interval = 30000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tamnunToolStripMenuItem
+            // whiteListToolStripMenuItem
             // 
-            this.tamnunToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filtrosToolStripMenuItem});
-            this.tamnunToolStripMenuItem.Name = "tamnunToolStripMenuItem";
-            this.tamnunToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.tamnunToolStripMenuItem.Text = "Tamnun";
-            // 
-            // filtrosToolStripMenuItem
-            // 
-            this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
-            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.filtrosToolStripMenuItem.Text = "Filtros";
-            this.filtrosToolStripMenuItem.Click += new System.EventHandler(this.filtrosToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            this.whiteListToolStripMenuItem.Name = "whiteListToolStripMenuItem";
+            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.whiteListToolStripMenuItem.Text = "White List";
+            this.whiteListToolStripMenuItem.Click += new System.EventHandler(this.whiteListToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -468,6 +477,7 @@
         private System.Windows.Forms.ToolStripMenuItem tamnunToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filtrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem whiteListToolStripMenuItem;
     }
 }
 

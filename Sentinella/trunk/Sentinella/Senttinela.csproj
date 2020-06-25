@@ -170,6 +170,12 @@
     <Compile Include="Forms\frmConfigSubFinalizacoes.Designer.cs">
       <DependentUpon>frmConfigSubFinalizacoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmConfigTamnunWhiteList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmConfigTamnunWhiteList.Designer.cs">
+      <DependentUpon>frmConfigTamnunWhiteList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmConfigUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmConfigSubFinalizacoes.resx">
       <DependentUpon>frmConfigSubFinalizacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmConfigTamnunWhiteList.resx">
+      <DependentUpon>frmConfigTamnunWhiteList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmConfigUsuarios.resx">
       <DependentUpon>frmConfigUsuarios.cs</DependentUpon>

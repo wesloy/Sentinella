@@ -268,6 +268,7 @@
             this.lvLista.TabIndex = 65;
             this.lvLista.Tag = "Lista de Registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // PictureBox1

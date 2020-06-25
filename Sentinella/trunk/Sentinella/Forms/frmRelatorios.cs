@@ -20,6 +20,7 @@ namespace Sentinella.Forms
         #region VARIAVEIS
         relatorios mis = new relatorios();
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -75,6 +76,36 @@ namespace Sentinella.Forms
             this.Cursor = Cursors.WaitCursor;
             hlp.exportarListViewParaExcel(lvRelatorios);
             this.Cursor = Cursors.Default;
+        }
+
+        private void lvRelatorios_ColumnClick(object sender, ColumnClickEventArgs e) {
+            //ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter(); <<<<<<<<<<<< declarado no escopo principal do form
+            this.lvRelatorios.ListViewItemSorter = lvwColumnSorter;
+
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn) {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending) {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                } else {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            } else {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending) {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                } else {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+
+
+                //lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.lvRelatorios.Sort();
         }
     }
 }

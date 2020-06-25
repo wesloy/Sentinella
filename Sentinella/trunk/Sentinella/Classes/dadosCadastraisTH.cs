@@ -819,7 +819,7 @@ namespace Sentinella {
                         oDados.Codcentro_de_custo = ln["Codcentro_de_custo"].ToString();
                         oDados.Descrcentro_de_custo = ln["Descrcentro_de_custo"].ToString();
                         oDados.Cargo_do_associado = ln["Cargo_do_associado"].ToString();
-                        oDados.Sexo = ln["Sexo"].ToString();
+                        //oDados.Sexo = ln["Sexo"].ToString();
                         oDados.Rua = ln["Rua"].ToString();
                         oDados.Numero = ln["Numero"].ToString();
                         oDados.Complemento = ln["Complemento"].ToString();

@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmConfigInterrupcoesProgramadas));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.label13 = new System.Windows.Forms.Label();
             this.cbxTempoInterrupcao = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbxMinuto = new System.Windows.Forms.ComboBox();
@@ -54,7 +55,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
@@ -93,6 +93,17 @@
             this.pnlConteudo.Name = "pnlConteudo";
             this.pnlConteudo.Size = new System.Drawing.Size(1217, 625);
             this.pnlConteudo.TabIndex = 8;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label13.Location = new System.Drawing.Point(279, 57);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(297, 13);
+            this.label13.TabIndex = 81;
+            this.label13.Text = "Menor tempo para programar uma interrupção é de 5 minutos.";
             // 
             // cbxTempoInterrupcao
             // 
@@ -356,6 +367,7 @@
             this.lvLista.TabIndex = 65;
             this.lvLista.Tag = "Lista de Registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // PictureBox1
@@ -522,17 +534,6 @@
             this.btnIncluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnIncluir.UseVisualStyleBackColor = true;
             this.btnIncluir.Click += new System.EventHandler(this.btnIncluir_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label13.Location = new System.Drawing.Point(279, 57);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(297, 13);
-            this.label13.TabIndex = 81;
-            this.label13.Text = "Menor tempo para programar uma interrupção é de 5 minutos.";
             // 
             // frmConfigInterrupcoesProgramadas
             // 

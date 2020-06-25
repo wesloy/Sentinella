@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sentinella.Forms {
-    public partial class frmConfigTamnunFiltros : Form {
-        public frmConfigTamnunFiltros() {
-            InitializeComponent();
-        }
+    public partial class frmConfigTamnunWhiteList : Form {
 
         #region Variaveis
         tamnun obj = new tamnun();
@@ -14,25 +18,24 @@ namespace Sentinella.Forms {
         #endregion
 
         #region funcoes
-        private void carregarListView(string filtro = "%") {
-            obj.carregarListViewConfigFiltros(lvLista, filtro);
+        private void carregarListView() {
+            obj.carregarListViewConfigWhiteList(lvLista);
         }
 
         private void limparForm(bool limpezaParcial = false) {
 
-            obj.carregarComboboxCategorias(this, cbxCategorias);
-            obj.carregarComboboxCategorias(this, cbxListaCategorias);
-            obj.carregarComboboxFontes(this, cbxFonte);
             carregarListView();
 
             if (!limpezaParcial) {
                 hlp.limparCampos(this);
             } else {
-                cbxListaCategorias.Text = "";
-                cbxCategorias.Text = "";
-                ckboxAtivo.Checked = false;
-                cbxFonte.Text = "";
-                txtFiltro.Text = "";
+                txtNome.Text = "";
+                txtMatricula.Text = "";
+                txtCPF.Text = "";
+                txtIDRede.Text = "";
+                txtCodCentroCusto.Text = "";
+                txtCentroCusto.Text = "";
+                txtCargoAssociado.Text = "";
                 txtID.Text = "";
             }
 
@@ -48,7 +51,7 @@ namespace Sentinella.Forms {
             int _id = 0;
 
             //Validações
-            if (!hlp.validaCamposObrigatorios(pnlConteudo, "cbxCategorias;cbxFonte;txtFiltro")) {
+            if (!hlp.validaCamposObrigatorios(pnlConteudo, "txtNome;txtMatricula;txtCPF;txtIDRede;txtCodCentroCusto;txtCentroCusto;txtCargoAssociado")) {
                 return null;
             }
 
@@ -56,41 +59,43 @@ namespace Sentinella.Forms {
             if (string.IsNullOrEmpty(txtID.Text)) { _id = 0; } else { _id = int.Parse(txtID.Text); }
             tamnun obj2 = new tamnun(
                 _id,
-                cbxFonte.Text,
-                cbxCategorias.Text,
-                txtFiltro.Text,
-                ckboxAtivo.Checked);
+                txtNome.Text,
+                txtMatricula.Text,
+                txtCPF.Text,
+                txtIDRede.Text,
+                txtCodCentroCusto.Text,
+                txtCentroCusto.Text,
+                txtCargoAssociado.Text
+                );
             return obj2;
         }
 
         private void carregarForm(tamnun _obj) {
-            ckboxAtivo.Checked = _obj._filtros_ativo;
-            cbxCategorias.Text = _obj._filtros_categoria;
-            cbxFonte.Text = _obj._filtros_fonte;
-            txtFiltro.Text = _obj._filtros_valorBusca;
-            txtID.Text = _obj._filtros_id.ToString();
+            txtNome.Text = _obj._wl_nome;
+            txtMatricula.Text = _obj._wl_matricula;
+            txtCPF.Text = _obj._wl_cpf;
+            txtIDRede.Text = _obj._wl_idRede;
+            txtCodCentroCusto.Text = _obj._wl_codCentroCusto;
+            txtCentroCusto.Text = _obj._wl_centroCusto;
+            txtCargoAssociado.Text = _obj._wl_cargoAssociado;
+            txtID.Text = _obj._wl_id.ToString();
         }
         #endregion
 
-        private void frmCadTamnunFiltros_Load(object sender, EventArgs e) {
+        public frmConfigTamnunWhiteList() {
+            InitializeComponent();
+        }
+
+        private void frmConfigTamnunWhiteList_Load(object sender, EventArgs e) {
             limparForm();
-            carregarListView();
-        }
-
-        private void btnFiltrar_Click(object sender, EventArgs e) {
-            carregarListView(cbxListaCategorias.Text);
-        }
-
-        private void btnRemoveFiltro_Click(object sender, EventArgs e) {
-            txtFiltro.Text = "";
             carregarListView();
         }
 
         private void btnIncluir_Click(object sender, EventArgs e) {
             obj = carregarObjeto();
             if (obj != null) {
-                if (obj.insertFiltro(obj)) {                    
-                    limparForm();                    
+                if (obj.insertWhiteList(obj)) {
+                    limparForm();
                 }
             }
         }
@@ -100,7 +105,7 @@ namespace Sentinella.Forms {
             if ((string.IsNullOrEmpty(id)) || (id.ToString() == "0")) {
                 MessageBox.Show("Nenhum registro foi selecionado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else {
-                obj.deletarFiltrorPorId(int.Parse(id));
+                obj.deletarWhiteListrPorId(int.Parse(id));
                 limparForm();
             }
         }
@@ -108,7 +113,7 @@ namespace Sentinella.Forms {
         private void btnAlterar_Click(object sender, EventArgs e) {
             obj = carregarObjeto();
             if (obj != null) {
-                if (obj.updateFiltro(obj)) {
+                if (obj.updateWhiteList(obj)) {
                     limparForm();
                 }
             }
@@ -123,7 +128,7 @@ namespace Sentinella.Forms {
             if ((string.IsNullOrEmpty(id)) || (id.ToString() == "0")) {
                 MessageBox.Show("Nenhum registro foi selecionado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else {
-                obj = obj.capturarObjFiltroPorId(int.Parse(id));
+                obj = obj.capturarObjWhiteListPorId(int.Parse(id));
                 carregarForm(obj);
 
                 //Liberação de botões
@@ -156,10 +161,8 @@ namespace Sentinella.Forms {
                     lvwColumnSorter.Order = SortOrder.Ascending;
                 }
 
-
                 //lvwColumnSorter.Order = SortOrder.Ascending;
             }
-
             // Perform the sort with these new sort options.
             this.lvLista.Sort();
         }

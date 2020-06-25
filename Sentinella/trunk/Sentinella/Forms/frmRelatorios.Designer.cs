@@ -32,6 +32,9 @@
             this.pnlConteudo = new System.Windows.Forms.Panel();
             this.lvRelatorios = new System.Windows.Forms.ListView();
             this.pnlFiltros = new System.Windows.Forms.Panel();
+            this.btnExportar = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtInfBusca = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpFinal = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,9 +44,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnRemoveFiltro = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
-            this.txtInfBusca = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnExportar = new System.Windows.Forms.Button();
             this.pnlConteudo.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.SuspendLayout();
@@ -61,12 +61,14 @@
             // lvRelatorios
             // 
             this.lvRelatorios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvRelatorios.HideSelection = false;
             this.lvRelatorios.Location = new System.Drawing.Point(0, 0);
             this.lvRelatorios.Name = "lvRelatorios";
             this.lvRelatorios.Size = new System.Drawing.Size(1078, 406);
             this.lvRelatorios.TabIndex = 0;
             this.lvRelatorios.UseCompatibleStateImageBehavior = false;
             this.lvRelatorios.View = System.Windows.Forms.View.Tile;
+            this.lvRelatorios.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvRelatorios_ColumnClick);
             // 
             // pnlFiltros
             // 
@@ -88,6 +90,38 @@
             this.pnlFiltros.Name = "pnlFiltros";
             this.pnlFiltros.Size = new System.Drawing.Size(1078, 129);
             this.pnlFiltros.TabIndex = 10;
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
+            this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExportar.Location = new System.Drawing.Point(273, 96);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(99, 30);
+            this.btnExportar.TabIndex = 81;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.TabIndex = 80;
+            this.label4.Text = "Inf. busca:";
+            // 
+            // txtInfBusca
+            // 
+            this.txtInfBusca.Location = new System.Drawing.Point(83, 73);
+            this.txtInfBusca.Name = "txtInfBusca";
+            this.txtInfBusca.Size = new System.Drawing.Size(285, 20);
+            this.txtInfBusca.TabIndex = 79;
             // 
             // label2
             // 
@@ -191,38 +225,6 @@
             this.btnFiltrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
-            // 
-            // txtInfBusca
-            // 
-            this.txtInfBusca.Location = new System.Drawing.Point(83, 73);
-            this.txtInfBusca.Name = "txtInfBusca";
-            this.txtInfBusca.Size = new System.Drawing.Size(285, 20);
-            this.txtInfBusca.TabIndex = 79;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 76);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 13);
-            this.label4.TabIndex = 80;
-            this.label4.Text = "Inf. busca:";
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExportar.Image = ((System.Drawing.Image)(resources.GetObject("btnExportar.Image")));
-            this.btnExportar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExportar.Location = new System.Drawing.Point(273, 96);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(99, 30);
-            this.btnExportar.TabIndex = 81;
-            this.btnExportar.Text = "Exportar";
-            this.btnExportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // frmRelatorios
             // 

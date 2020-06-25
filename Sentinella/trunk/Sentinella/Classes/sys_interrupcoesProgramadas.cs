@@ -358,7 +358,7 @@ namespace Sentinella {
 
                         hlp.AutoCloseMsgBox("O Sentinella está em período de interrupção programada." + Environment.NewLine +
                                             "Estará disponível após " + obj._dataHoraFinal + "." + Environment.NewLine +
-                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 5);
+                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 10);
 
                         return true;
                     }
@@ -369,7 +369,7 @@ namespace Sentinella {
 
                         hlp.AutoCloseMsgBox("O Sentinella será fechado em instantes." + Environment.NewLine +
                                             "Fica a dica: Salve seu trabalho e feche você mesmo, pois depois de " + obj._dataHoraInicial + " será fechado automaticamente." + Environment.NewLine +
-                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 5);
+                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 10);
 
                         return false;
                     }

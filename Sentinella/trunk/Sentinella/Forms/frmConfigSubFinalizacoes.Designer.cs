@@ -300,12 +300,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.BackColor = System.Drawing.Color.Azure;
+            this.lvLista.HideSelection = false;
             this.lvLista.Location = new System.Drawing.Point(141, 190);
             this.lvLista.Name = "lvLista";
             this.lvLista.Size = new System.Drawing.Size(931, 244);
             this.lvLista.TabIndex = 65;
             this.lvLista.Tag = "Lista de registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
+            this.lvLista.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvLista_ColumnClick);
             this.lvLista.DoubleClick += new System.EventHandler(this.lvLista_DoubleClick);
             // 
             // txtDiasRetornoFup

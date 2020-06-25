@@ -62,8 +62,9 @@ namespace Sentinella {
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         logs log = new logs();
         #endregion
-        
+
         #region CAMADA DTO
+        //filtros
         public int _filtros_id { get; set; }
         public string _filtros_fonte { get; set; }
         public string _filtros_categoria { get; set; }
@@ -71,11 +72,26 @@ namespace Sentinella {
         public bool _filtros_ativo { get; set; }
         public DateTime _filtros_dataAtualizacao { get; set; }
         public int _filtros_idAtualizacao { get; set; }
+
+        //white list
+        public int _wl_id { get; set; }
+        public string _wl_nome { get; set; }
+        public string _wl_matricula { get; set; }
+        public string _wl_cpf { get; set; }
+        public string _wl_idRede { get; set; }
+        public string _wl_codCentroCusto { get; set; }
+        public string _wl_centroCusto { get; set; }
+        public string _wl_cargoAssociado { get; set; }
+        public DateTime _wl_dataManutencao { get; set; }
+        public int _wl_idManutencao { get; set; }
+
+
+
         #endregion
 
         #region CONSTRUTORES
 
-        public tamnun() {}
+        public tamnun() { }
 
         public tamnun(int filtro_id, string filtros_fonte, string filtros_categoria, string filtros_valorBusca, bool filtros_ativo) {
             _filtros_id = filtro_id;
@@ -87,17 +103,52 @@ namespace Sentinella {
             _filtros_idAtualizacao = Constantes.id_BD_logadoFerramenta;
         }
 
-        public tamnun(DataTable dt) {
+        public tamnun(int wl_id, string wl_nome, string wl_matricula, string wl_cpf, string wl_idRede, string wl_codCentroCusto, string wl_centroCusto, string wl_cargoAssociado) {
+            _wl_id = wl_id;
+            _wl_nome = wl_nome;
+            _wl_matricula = wl_matricula;
+            _wl_cpf = wl_cpf;
+            _wl_idRede = wl_idRede;
+            _wl_codCentroCusto = wl_codCentroCusto;
+            _wl_centroCusto = wl_centroCusto;
+            _wl_cargoAssociado = wl_cargoAssociado;
+            _wl_idManutencao = Constantes.id_BD_logadoFerramenta;
+            _wl_dataManutencao = hlp.dataHoraAtual();
+        }
 
-            foreach (DataRow item in dt.Rows) {
-                _filtros_id = int.Parse(item["id"].ToString());
-                _filtros_fonte = item["fonte"].ToString();
-                _filtros_categoria = item["categoria"].ToString();
-                _filtros_valorBusca = item["valorBusca"].ToString();
-                _filtros_ativo = bool.Parse(item["ativo"].ToString());
-                _filtros_dataAtualizacao = DateTime.Parse(item["dataAtualizacao"].ToString());
-                _filtros_idAtualizacao = int.Parse(item["idAtualizacao"].ToString());                
+        public tamnun(DataTable dt, string tbl_tamnun) {
+
+            switch (tbl_tamnun) {
+                case "FILTRO":
+                    foreach (DataRow item in dt.Rows) {
+                        _filtros_id = int.Parse(item["id"].ToString());
+                        _filtros_fonte = item["fonte"].ToString();
+                        _filtros_categoria = item["categoria"].ToString();
+                        _filtros_valorBusca = item["valorBusca"].ToString();
+                        _filtros_ativo = bool.Parse(item["ativo"].ToString());
+                        _filtros_dataAtualizacao = DateTime.Parse(item["dataAtualizacao"].ToString());
+                        _filtros_idAtualizacao = int.Parse(item["idAtualizacao"].ToString());
+                    }
+
+                    break;
+
+                case "WHITE LIST":
+                    foreach (DataRow item in dt.Rows) {
+                        _wl_id = int.Parse(item["id"].ToString());
+                        _wl_nome = item["nome"].ToString();
+                        _wl_matricula = item["matricula"].ToString();
+                        _wl_cpf = item["cpf"].ToString();
+                        _wl_idRede = item["id_rede"].ToString();
+                        _wl_codCentroCusto = item["cod_centro_custo"].ToString();
+                        _wl_centroCusto = item["centro_custo"].ToString();
+                        _wl_cargoAssociado = item["cargo_associado"].ToString();
+                        _wl_dataManutencao = DateTime.Parse(item["data_manutencao"].ToString());
+                        _wl_idManutencao = int.Parse(item["id_manutencao"].ToString());
+                    }
+
+                    break;
             }
+
 
         }
 
@@ -121,7 +172,7 @@ namespace Sentinella {
 
         private DataTable _listarTodosFiltros(string _categoria) {
             try {
-                sql = "Select f.*, u.nome from " + 
+                sql = "Select f.*, u.nome from " +
                     "w_tamnun_filtros f inner join w_sysUsuarios u on f.idAtualizacao = u.id Where 1 = 1 ";
                 sql += "and categoria like " + objCon.valorSql(_categoria) + " ";
                 sql += "Order by id asc ";
@@ -132,7 +183,7 @@ namespace Sentinella {
                 return null;
             }
         }
-        
+
         private bool _finalizarRegistrosTrabalhados(int _id_base) {
             try {
                 sql = "Update w_tamnun_base set ";
@@ -175,7 +226,7 @@ namespace Sentinella {
                            "fonte, " +
                            "categoria, " +
                            "valorBusca, " +
-                           "ativo, " +                           
+                           "ativo, " +
                            "dataAtualizacao, " +
                            "idAtualizacao " +
                            ") values ( " +
@@ -184,7 +235,7 @@ namespace Sentinella {
                             objCon.valorSql(_obj._filtros_valorBusca) + ", " +
                             objCon.valorSql(_obj._filtros_ativo) + ", " +
                             objCon.valorSql(_obj._filtros_dataAtualizacao) + ", " +
-                            objCon.valorSql(_obj._filtros_idAtualizacao) + ") ";                            
+                            objCon.valorSql(_obj._filtros_idAtualizacao) + ") ";
 
                 validacao = objCon.executaQuery(sql, ref retorno);
                 return validacao; //retorno
@@ -205,7 +256,7 @@ namespace Sentinella {
                            "valorBusca = " + objCon.valorSql(_obj._filtros_valorBusca) + ", " +
                            "ativo = " + objCon.valorSql(_obj._filtros_ativo) + ", " +
                            "dataAtualizacao = " + objCon.valorSql(_obj._filtros_dataAtualizacao) + ", " +
-                           "idAtualizacao = " + objCon.valorSql(_obj._filtros_idAtualizacao) + " " +                           
+                           "idAtualizacao = " + objCon.valorSql(_obj._filtros_idAtualizacao) + " " +
                            "Where id = " + objCon.valorSql(_obj._filtros_id) + " ";
 
                 validacao = objCon.executaQuery(sql, ref retorno);
@@ -240,10 +291,10 @@ namespace Sentinella {
 
         private tamnun _capturarObjFiltroPorId(int _id) {
             try {
-                sql = "SELECT I.*, U.nome from w_tamnun_filtros I inner join w_sysUsuarios U on I.idAtualizacao = U.id WHERE I.id = " + objCon.valorSql(_id) + " order by id desc";
+                sql = "SELECT I.*, U.nome from w_tamnun_filtros I inner join w_sysUsuarios U on I.idAtualizacao = U.id WHERE I.id = " + objCon.valorSql(_id) + " order by I.id desc";
                 DataTable dt = new DataTable();
                 dt = objCon.retornaDataTable(sql);
-                tamnun obj = new tamnun(dt);
+                tamnun obj = new tamnun(dt,"FILTRO");
                 return obj;
             }
             catch (Exception ex) {
@@ -251,6 +302,114 @@ namespace Sentinella {
                 return null;
             }
         }
+
+        private bool _insertWhiteList(tamnun _obj) {
+            try {
+
+                sql = "insert into w_tamnun_white_list ( " +
+                           "nome, " +
+                           "matricula, " +
+                           "cpf, " +
+                           "id_rede, " +
+                           "cod_centro_custo, " +
+                           "centro_custo, " +
+                           "cargo_associado," +
+                           "data_manutencao, " +
+                           "id_manutencao " +
+                           ") values ( " +
+                            objCon.valorSql(_obj._wl_nome) + ", " +
+                            objCon.valorSql(_obj._wl_matricula) + ", " +
+                            objCon.valorSql(_obj._wl_cpf) + ", " +
+                            objCon.valorSql(_obj._wl_idRede) + ", " +
+                            objCon.valorSql(_obj._wl_codCentroCusto) + ", " +
+                            objCon.valorSql(_obj._wl_centroCusto) + ", " +
+                            objCon.valorSql(_obj._wl_cargoAssociado) + ", " +
+                            objCon.valorSql(_obj._wl_dataManutencao) + ", " +
+                            objCon.valorSql(_obj._wl_idManutencao) + ") ";
+
+                validacao = objCon.executaQuery(sql, ref retorno);
+                return validacao; //retorno
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - INSERT WHITE LIST (DAL)");
+                return false;
+            }
+        }
+
+        private bool _updateWhiteList(tamnun _obj) {
+            try {
+
+                sql = "Update w_tamnun_white_list set " +
+                           "nome = " + objCon.valorSql(_obj._wl_nome) + ", " +
+                           "matricula = " + objCon.valorSql(_obj._wl_matricula) + ", " +
+                           "cpf = " + objCon.valorSql(_obj._wl_cpf) + ", " +
+                           "id_rede = " + objCon.valorSql(_obj._wl_idRede) + ", " +
+                           "cod_centro_custo = " + objCon.valorSql(_obj._wl_codCentroCusto) + ", " +
+                           "centro_custo = " + objCon.valorSql(_obj._wl_centroCusto) + ", " +
+                           "cargo_associado = " + objCon.valorSql(_obj._wl_cargoAssociado) + ", " +
+                           "data_manutencao = " + objCon.valorSql(_obj._wl_dataManutencao) + ", " +
+                           "id_manutencao = " + objCon.valorSql(_obj._wl_idManutencao) + " " +
+                           "Where id = " + objCon.valorSql(_obj._wl_id) + " ";
+
+                validacao = objCon.executaQuery(sql, ref retorno);
+                return validacao; //retorno
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - UPDATE WHITE LIST (DAL)");
+                return false;
+            }
+        }
+
+        private bool _deleteWhiteList(tamnun _obj) {
+            try {
+
+                //registrando log
+                log.registrarLog("NOME: " + _obj._wl_nome + " | CPF: " + _obj._wl_cpf + " | ID DELEÇÃO: " + _obj._filtros_idAtualizacao, "DELEÇÃO WHITE LIST TAMNUN");
+
+
+                sql = "Delete w_tamnun_white_list " +
+                           "Where id = " + objCon.valorSql(_obj._wl_id) + " ";
+
+                validacao = objCon.executaQuery(sql, ref retorno);
+                return validacao; //retorno
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - DELETE WHITE LIST (DAL)");
+                return false;
+            }
+        }
+
+        private tamnun _capturarObjWhiteListPorId(int _id) {
+            try {
+                sql = "SELECT I.*, U.nome responsavel from w_tamnun_white_list I inner join w_sysUsuarios U on I.id_manutencao = U.id WHERE I.id = " + objCon.valorSql(_id) + " order by I.id desc";
+                DataTable dt = new DataTable();
+                dt = objCon.retornaDataTable(sql);
+                tamnun obj = new tamnun(dt,"WHITE LIST");
+                return obj;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - CAPTURAR OBJ WHITE LIST POR ID (DAL)");
+                return null;
+            }
+        }
+
+        private DataTable _listarTodosWhiteList() {
+            try {
+                sql = "Select w.*, u.nome responsavel from " +
+                    "w_tamnun_white_list w inner join w_sysUsuarios u on w.id_manutencao = u.id Where 1 = 1 ";
+                //sql += "and categoria like " + objCon.valorSql() + " ";
+                sql += "Order by id asc ";
+                return objCon.retornaDataTable(sql);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - LISTAR FILTROS (DAL)");
+                return null;
+            }
+        }
+
 
         #endregion
 
@@ -287,7 +446,7 @@ namespace Sentinella {
                 lst.Columns.Add("USUÁRIO REDE", 200, HorizontalAlignment.Left);
                 lst.Columns.Add("CPF", 150, HorizontalAlignment.Left);
                 lst.Columns.Add("NOME", 300, HorizontalAlignment.Left);
-                lst.Columns.Add("MATRICULA", 150, HorizontalAlignment.Left);                
+                lst.Columns.Add("MATRICULA", 150, HorizontalAlignment.Left);
 
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
@@ -300,7 +459,7 @@ namespace Sentinella {
                         item.SubItems.Add(linha["id_rede"].ToString());
                         item.SubItems.Add(linha["cpf"].ToString());
                         item.SubItems.Add(linha["nome_completo"].ToString());
-                        item.SubItems.Add(linha["matricula"].ToString());                        
+                        item.SubItems.Add(linha["matricula"].ToString());
                         item.ImageKey = "9";
                         lst.Items.Add(item);
 
@@ -426,7 +585,7 @@ namespace Sentinella {
                 }
             }
             catch (Exception ex) {
-                log.registrarLog(ex.ToString(), "FILTRO - DELETAR FILTRO POR ID (BLL)");
+                log.registrarLog(ex.ToString(), "TAMNUN - DELETAR FILTRO POR ID (BLL)");
                 return false;
             }
         }
@@ -443,6 +602,124 @@ namespace Sentinella {
             }
         }
 
+        public bool insertWhiteList(tamnun _obj) {
+            try {
+
+                //Inserção
+                if (_insertWhiteList(_obj)) {
+                    MessageBox.Show("Inclusão de filtro com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                } else {
+                    MessageBox.Show("Erro de inclusão de filtro!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - INSERT WHITE LIST (BLL)");
+                return false;
+            }
+        }
+
+        public bool updateWhiteList(tamnun _obj) {
+            try {
+
+                if (_updateWhiteList(_obj)) {
+                    MessageBox.Show("Atualização de filtro realizada com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                } else {
+                    MessageBox.Show("Erro de atualização de filtro!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - UPDATE WHITE LIST (BLL)");
+                return false;
+            }
+        }
+
+        public bool deletarWhiteListrPorId(int _id) {
+            try {
+                tamnun obj = new tamnun();
+                obj = _capturarObjWhiteListPorId(_id);
+
+                if (_deleteWhiteList(obj)) {
+                    MessageBox.Show("Deleção da White List realizada com sucesso!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                } else {
+                    MessageBox.Show("Erro durante a deleção da White List!", Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - DELETAR WHITE LIST POR ID (BLL)");
+                return false;
+            }
+        }
+
+        public tamnun capturarObjWhiteListPorId(int _id) {
+            try {
+                tamnun obj = new tamnun();
+                obj = _capturarObjWhiteListPorId(_id);
+                return obj;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - CAPTURAR OBJ WHITE LIST POR ID (BLL)");
+                return null;
+            }
+        }
+
+        public ListView carregarListViewConfigWhiteList(ListView lst) {
+            try {
+                DataTable dt = new DataTable();
+                dt = _listarTodosWhiteList();
+                lst.Clear();
+                lst.View = View.Details;
+                lst.LabelEdit = false;
+                lst.CheckBoxes = false;
+                lst.SmallImageList = Constantes.imglist();
+                lst.GridLines = true;
+                lst.FullRowSelect = true;
+                lst.HideSelection = false;
+                lst.MultiSelect = false;
+                lst.Columns.Add("ID", 50, HorizontalAlignment.Center);
+                lst.Columns.Add("NOME", 300, HorizontalAlignment.Left);
+                lst.Columns.Add("MATRICULA", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("CPF", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("ID REDE", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("COD. CENTRO CUSTO", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("CENTRO CUSTO", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("CARGO ASSOCIADO", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA ATUALIZAÇAO", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("USUÁRIO ATUALIZOU", 200, HorizontalAlignment.Left);
+
+
+                if (dt.Rows.Count > 0) {
+                    foreach (DataRow linha in dt.Rows) {
+                        ListViewItem item = new ListViewItem();
+                        item.Text = linha["id"].ToString();
+                        item.SubItems.Add(linha["nome"].ToString());
+                        item.SubItems.Add(linha["matricula"].ToString());
+                        item.SubItems.Add(linha["cpf"].ToString());
+                        item.SubItems.Add(linha["id_rede"].ToString());
+                        item.SubItems.Add(linha["cod_centro_custo"].ToString());
+                        item.SubItems.Add(linha["centro_custo"].ToString());
+                        item.SubItems.Add(linha["cargo_associado"].ToString());
+                        item.SubItems.Add(hlp.retornaDataTextBox(linha["data_manutencao"].ToString()));
+                        item.SubItems.Add(linha["responsavel"].ToString());
+                        item.ImageKey = "6";
+                        lst.Items.Add(item);
+                    }
+                }
+                return lst;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "TAMNUN - LISTVIEW CONFIG WHITE LIST (BLL)");
+                return null;
+            }
+        }
 
         #endregion
 
