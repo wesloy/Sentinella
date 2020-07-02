@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Sentinella.Forms {
@@ -36,11 +37,10 @@ namespace Sentinella.Forms {
             lvEvidenciasLaudo.FullRowSelect = true;
             lvEvidenciasLaudo.HideSelection = true;
             lvEvidenciasLaudo.MultiSelect = false;
-            lvEvidenciasLaudo.Columns.Add("Descrição Evidência:", 200, HorizontalAlignment.Left);
-            lvEvidenciasLaudo.Columns.Add("Possui Imagem?", 150, HorizontalAlignment.Center);
+            lvEvidenciasLaudo.Columns.Add("", 50, HorizontalAlignment.Center);
+            lvEvidenciasLaudo.Columns.Add("Nome da Imagem", 250, HorizontalAlignment.Left);
             lvEvidenciasLaudo.Columns.Add("Endereço da Imagem:", 300, HorizontalAlignment.Left);
 
-            lbInfAdicionais.Text = "Informações Adicionais - : ";
         }
 
         private void frmAnalies_Load(object sender, System.EventArgs e) {
@@ -51,10 +51,26 @@ namespace Sentinella.Forms {
 
         }
 
+        private void lvInfoAdc_DoubleClick(object sender, EventArgs e) {
+            this.Cursor = Cursors.WaitCursor;
+            string caminho = "";
+
+            if (cbxFila.Text.Contains("DLP")) {
+                caminho = @lvInfoAdc.SelectedItems[0].SubItems[7].Text;
+            } else if (cbxFila.Text.Contains("TAMNUN")) {
+                caminho = @lvInfoAdc.SelectedItems[0].SubItems[3].Text;
+            }
+
+            Clipboard.Clear();
+            Clipboard.SetText(caminho);
+
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("Endereço: " + Environment.NewLine + caminho + Environment.NewLine + "--COPIADO--", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void btnIniciar_Click(object sender, System.EventArgs e) {
 
             string nomeAssociadoTamnun = "";
-
 
             if (cbxFila.Text == "NÃO SE APLICA") {
                 return;
@@ -106,6 +122,20 @@ namespace Sentinella.Forms {
 
 
                     //Carregando os dados do Cartão, se BIN for diferente de 000000
+                    filas fila = new filas();
+                    fila = fila.capturarFilaPorID(int.Parse(cbxFila.SelectedValue.ToString()));
+
+                    if (fila.Grupo.ToString().ToUpper().Equals("BRADESCO")) {
+                        tbDadosCartao.Enabled = true;
+                        tbManutencoes.Enabled = true;
+                        tbFaturas.Enabled = true;
+                    } else {
+                        tbDadosCartao.Enabled = false;
+                        tbManutencoes.Enabled = false;
+                        tbFaturas.Enabled = false;
+                    }
+                    tcDados.Refresh();
+
                     if (cat.Bin != "000000") {
 
                         cartoes cards = new cartoes(); //dados de cartões e contas
@@ -158,26 +188,7 @@ namespace Sentinella.Forms {
                     }
 
 
-                    //Carregando Laudo
-                    d_th = d_th.getDadosCadastraisPorMatricula(ultMatricula);
 
-                    if (d_th.Id != 0) {
-                        dtpDataOcorrencia.Text = hlp.retornaDataTextBox(txt_dataRegistro.Text).ToString();
-                        txtNomeAnalistaLaudo.Text = d_th.Nome_associado.ToString().Trim();
-                        txtCPFLaudo.Text = d_th.Cpf.ToString().Trim();
-                        dtpDataAdmissaoLaudo.Text = hlp.retornaDataTextBox(d_th.Data_de_admissao.ToString());
-                        txtIDFerramentaLaudo.Text = d_th.Ub.ToString().Replace("A", "UB");
-                        txtAreaLaudo.Text = d_th.Descrcentro_de_custo.ToString();
-                        txtOperacaoLaudo.Text = d_th.Descrcentro_de_custo.ToString();
-                        txtProdutoLaudo.Text = txtProduto_tp.Text;
-                        dtpDataCriacaoLaudo.Text = hlp.retornaDataTextBox(hlp.dataAbreviada());
-                        txtCargoLaudo.Text = d_th.Cargo_do_associado.ToString().Trim();
-                        txtSupervisaoLaudo.Text = d_th.gestor_1.ToString().Trim();
-                        txtCoordenacaoLaudo.Text = d_th.gestor_2.ToString().Trim();
-                        txtGerenciaLaudo.Text = d_th.gestor_3.ToString().Trim();
-                        txtDiretoriaLaudo.Text = d_th.gestor_4.ToString().Trim();
-                    }
-                                                         
                     //carregando grupos AD se o mesmo tiver...
                     ad AD = new ad();
                     if (d_th.Nome_associado != null) {
@@ -185,11 +196,11 @@ namespace Sentinella.Forms {
                     } else {
                         AD.CarregaListView(ltvAD, nomeAssociadoTamnun);
                     }
-                    
+
 
                     #endregion
                 }
-                
+
                 c = Cursors.Default;
 
             }
@@ -215,15 +226,6 @@ namespace Sentinella.Forms {
 
         }
 
-
-        private void lvFaturas_DoubleClick(object sender, System.EventArgs e) {
-            frmAutorizacoes objForm = new frmAutorizacoes();
-            objForm._dataCorte = DateTime.Parse(lvFaturas.SelectedItems[0].SubItems[1].Text);
-            objForm._cpf = cat.Cpf.ToString();
-            objForm._bin = cat.Bin.ToString();
-            hlp.abrirForm(objForm, true, false);
-        }
-
         private void btnSalvar_Click(object sender, EventArgs e) {
             frmCategorizacao objForm = new frmCategorizacao();
             if (string.IsNullOrEmpty(txt_id.Text)) {
@@ -241,35 +243,46 @@ namespace Sentinella.Forms {
                 limparForm();
                 cbxFila.Enabled = true;
                 btnIniciar.Enabled = true;
-                
+
             }
         }
 
-        private void btnLocalizarImagemLaudo_Click(object sender, EventArgs e) {
-            enderecoImagem = hlp.EnderecoArqCapturar();
+        private void lvFaturas_DoubleClick(object sender, System.EventArgs e) {
+            frmAutorizacoes objForm = new frmAutorizacoes();
+            objForm._dataCorte = DateTime.Parse(lvFaturas.SelectedItems[0].SubItems[1].Text);
+            objForm._cpf = cat.Cpf.ToString();
+            objForm._bin = cat.Bin.ToString();
+            hlp.abrirForm(objForm, true, false);
         }
 
         private void btnAdicionarEvidenciaLaudo_Click(object sender, EventArgs e) {
+
             ListViewItem item = new ListViewItem();
-            string existeImagem = "NÃO";
+            enderecoImagem = hlp.EnderecoArqCapturar();
 
-            if (hlp.validaCamposObrigatorios(tbLaudo, "txtEvidenciaLaudo")) {
 
-                if (enderecoImagem != "") { existeImagem = "SIM"; } else { existeImagem = "NÃO"; }
 
-                //Carregando Item do listView
-                item.Text = txtEvidenciaLaudo.Text.Replace(";", ",");
-                item.SubItems.Add(existeImagem);
-                item.SubItems.Add(enderecoImagem);
+            if (enderecoImagem != "") {
+
+                FileInfo fInfo = new FileInfo(enderecoImagem);
+
+                //Carregando Item do listView                
+                item.SubItems.Add(fInfo.Name);
+                item.SubItems.Add(fInfo.FullName);
 
                 //inserir item no listView
                 lvEvidenciasLaudo.Items.Add(item);
 
-                //Limpando variáveis
-                enderecoImagem = "";
-                txtEvidenciaLaudo.Text = "";
             }
+
+            //Limpando variáveis
+            enderecoImagem = "";
         }
+
+
+
+
+        #region DECOMISSIADO 01/07/2020 NÃO SERÁ MAIS USADO UM ANEXO COM O LAUDO, MAS SIM NO CORPO DO E-MAIL
 
         /// <summary>
         /// Primeiro passo é criar lista de REPLACE dos marcadores pelo texto final
@@ -281,131 +294,112 @@ namespace Sentinella.Forms {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnGerarLaudo_Click(object sender, EventArgs e) {
+        //private void btnGerarLaudo_Click(object sender, EventArgs e) {
 
-            //validação se todos os campos para geração do laudo estão preenchidos
-            string camposValidar;
-            Boolean okay;
-            camposValidar = "txtTemaLaudo;dtpDataOcorrencia;txtNomeAnalistaLaudo;txtCPFLaudo;dtpDataAdmissaoLaudo;txtCargoLaudo;txtMatriculaLaudo;txtIDFerramentaLaudo;txtAreaLaudo;txtOperacaoLaudo;txtSupervisaoLaudo;txtCoordenacaoLaudo;txtGerenciaLaudo;txtDiretoriaLaudo;txtProdutoLaudo;dtpDataCriacaoLaudo;txtSumarioExecutivoLaudo;txtResultadoAnaliseLaudo";
+        ////validação se todos os campos para geração do laudo estão preenchidos
+        //string camposValidar;
+        //Boolean okay;
+        //camposValidar = "";
 
-            if (lvEvidenciasLaudo.Items.Count <= 0) {
-                MessageBox.Show("É necessário ter pelo menos 1 evidência cadastrada!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                return;
-            }
+        //if (lvEvidenciasLaudo.Items.Count <= 0) {
+        //    MessageBox.Show("É necessário ter pelo menos 1 evidência cadastrada!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        //    return;
+        //}
 
-            if (hlp.validaCamposObrigatorios(tbLaudo, camposValidar)) {
-                this.Cursor = Cursors.WaitCursor;
+        //if (hlp.validaCamposObrigatorios(tbLaudo, camposValidar)) {
+        //    this.Cursor = Cursors.WaitCursor;
 
-                int totalizador = 0;
-                string listaEvidencias = "";
-                List<string> listaReplace = new List<string>();
-                MalaDiretaWord.AlterarTextosWord word = new MalaDiretaWord.AlterarTextosWord();
+        //    int totalizador = 0;
+        //    string listaEvidencias = "";
+        //    List<string> listaReplace = new List<string>();
+        //    MalaDiretaWord.AlterarTextosWord word = new MalaDiretaWord.AlterarTextosWord();
 
-                //gerando marcadores de evidencias no Word (Substituindo o marcador @listaDeEvidencias)
-                foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
-                    totalizador += 1; //Incremento a cada looping. Variavel usada para gerar marcadores de evidencias no documento Word.
-                    listaEvidencias += "@evidencia" + totalizador + "\r\n"; //Texto da Evidência
-                    if (item.SubItems[1].Text == "SIM") {
-                        listaEvidencias += "@imagemEvidencia" + totalizador + "\r\n"; //Imagem da Evidência                        
-                    }
+        //    //gerando marcadores de evidencias no Word (Substituindo o marcador @listaDeEvidencias)
+        //    foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
+        //        totalizador += 1; //Incremento a cada looping. Variavel usada para gerar marcadores de evidencias no documento Word.
+        //        listaEvidencias += "@evidencia" + totalizador + "\r\n"; //Texto da Evidência
+        //        if (item.SubItems[1].Text == "SIM") {
+        //            listaEvidencias += "@imagemEvidencia" + totalizador + "\r\n"; //Imagem da Evidência                        
+        //        }
 
-                }
+        //    }
 
-                //---------------------------CAPTURANDO REPLACES---------------------------//  
-                listaReplace.Add("@listaDeEvidencias;" + listaEvidencias);
-                listaReplace.Add("@temaDoLaudo;" + txtTemaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@dataCriacao;" + dtpDataCriacaoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@diretoria;" + txtDiretoriaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@gerencia;" + txtGerenciaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@coordenador;" + txtCoordenacaoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@supervisor;" + txtSupervisaoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@operacao;" + txtOperacaoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@dataOcorrencia;" + dtpDataOcorrencia.Text.Replace(";", ","));
-                listaReplace.Add("@usuarioBradesco;" + txtIDFerramentaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@analistaAuditado;" + txtNomeAnalistaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@produtoCartao;" + txtProdutoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@sumarioExecutivoDescricao;" + txtSumarioExecutivoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@cpf;" + txtCPFLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@matricula;" + txtMatriculaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@dataAdmissao;" + dtpDataAdmissaoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@area;" + txtAreaLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@cargo;" + txtCargoLaudo.Text.Replace(";", ","));
-                listaReplace.Add("@resultadoAnalise;" + txtResultadoAnaliseLaudo.Text.Replace(";", ","));
+        //    //---------------------------CAPTURANDO REPLACES---------------------------//  
+        //    listaReplace.Add("@listaDeEvidencias;" + listaEvidencias);
+        //    listaReplace.Add("@temaDoLaudo;" + txtTemaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@dataCriacao;" + dtpDataCriacaoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@diretoria;" + txtDiretoriaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@gerencia;" + txtGerenciaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@coordenador;" + txtCoordenacaoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@supervisor;" + txtSupervisaoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@operacao;" + txtOperacaoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@dataOcorrencia;" + dtpDataOcorrencia.Text.Replace(";", ","));
+        //    listaReplace.Add("@usuarioBradesco;" + txtIDFerramentaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@analistaAuditado;" + txtNomeAnalistaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@produtoCartao;" + txtProdutoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@sumarioExecutivoDescricao;" + txtSumarioExecutivoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@cpf;" + txtCPFLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@matricula;" + txtMatriculaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@dataAdmissao;" + dtpDataAdmissaoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@area;" + txtAreaLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@cargo;" + txtCargoLaudo.Text.Replace(";", ","));
+        //    listaReplace.Add("@resultadoAnalise;" + txtResultadoAnaliseLaudo.Text.Replace(";", ","));
 
-                //---------------------------CAPTURANDO EVIDENCIAS---------------------------//      
-                totalizador = 0;
-                foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
+        //    //---------------------------CAPTURANDO EVIDENCIAS---------------------------//      
+        //    totalizador = 0;
+        //    foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
 
-                    totalizador += 1; //Incremento a cada looping. Variavel usada para carregar marcadores de evidencias no documento Word.
-                    listaReplace.Add("@evidencia" + totalizador + ";" + item.SubItems[0].Text);
-                    if (item.SubItems[1].Text == "SIM") //Imagem da Evidência
-                    {
-                        listaReplace.Add("@imagemEvidencia" + totalizador + ";" + item.SubItems[2].Text);
-                    }
-                }
+        //        totalizador += 1; //Incremento a cada looping. Variavel usada para carregar marcadores de evidencias no documento Word.
+        //        listaReplace.Add("@evidencia" + totalizador + ";" + item.SubItems[0].Text);
+        //        if (item.SubItems[1].Text == "SIM") //Imagem da Evidência
+        //        {
+        //            listaReplace.Add("@imagemEvidencia" + totalizador + ";" + item.SubItems[2].Text);
+        //        }
+        //    }
 
-                //--------------CAPTURA DO MODELO E FORMATANDO SAIDA DO LAUDO------------------//
-                string renomeandoArquivo = txt_id.Text;
-                string enderecoModelo = @Constantes.PATH_MODELOS + "LAUDO.docx";
-                string enderecoLog = @Constantes.PATH_LOG_IMPORT;
-
-
-                //--------------GERAR O LAUDO-----------------//
-                okay = word.AlterarTexto(ref enderecoModelo, listaReplace, false, true, renomeandoArquivo, enderecoLog);
-                enderecoLaudo = enderecoModelo;
-
-                if (okay) {
-
-                    //Projeto de salvar as imagens no banco de dados interrompido devido necessidad e alteração na classe de conexão com o banco
-
-                    //Bitmap imagem;
-                    //List<Bitmap> imagens_evidencias = new List<Bitmap>();
-                    //List<string> descricao_evidencias = new List<string>();
-
-                    ////salvar laudo no SQL
-                    //foreach (ListViewItem item in lvEvidenciasLaudo.Items)
-                    //{
-                    //    if (item.SubItems[1].Text == "SIM")
-                    //    {
-                    //        imagem = new Bitmap(item.SubItems[2].Text); //carregando lista de imagens para salvar o laudo em sql
-                    //        imagens_evidencias.Add(imagem);
-                    //    } else
-                    //    {
-                    //        imagem = new Bitmap(Constantes.PATH_MODELOS + "sem_imagem.jpg"); //carregando lista de imagens para salvar o laudo em sql
-                    //        imagens_evidencias.Add(imagem);
-                    //    }                  
-                    //    descricao_evidencias.Add(item.SubItems[0].Text);
-                    //}
-
-                    //Habilitando possibilidade de envio por e-mail para a Ouvidoria
-                    btnEnviarLaudo.Enabled = true;
-
-                    string arquivo = System.IO.Path.GetFileName(enderecoModelo);
-                    int protocolo;
-                    //Tratando situação de abertura de laudos manuais
-                    if (txt_id.Text == "") { protocolo = 0; } else { protocolo = int.Parse(txt_id.Text); }
-
-                    laudo obj = new laudo(
-                        protocolo,
-                        System.IO.Path.GetFileName(enderecoModelo),
-                        System.IO.Path.GetFullPath(enderecoModelo),
-                        hlp.dataAbreviada(),
-                        txtSumarioExecutivoLaudo.Text,
-                        txtResultadoAnaliseLaudo.Text
-                        );
-
-                    obj.registrarLaudo(obj);
+        //    //--------------CAPTURA DO MODELO E FORMATANDO SAIDA DO LAUDO------------------//
+        //    string renomeandoArquivo = txt_id.Text;
+        //    string enderecoModelo = @Constantes.PATH_MODELOS + "LAUDO.docx";
+        //    string enderecoLog = @Constantes.PATH_LOG_IMPORT;
 
 
-                    MessageBox.Show("Laudo Concluído com Sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } else {
-                    MessageBox.Show("Laudo Concluído com Falha!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+        //    //--------------GERAR O LAUDO-----------------//
+        //    okay = word.AlterarTexto(ref enderecoModelo, listaReplace, false, true, renomeandoArquivo, enderecoLog);
+        //    enderecoLaudo = enderecoModelo;
 
-                this.Cursor = Cursors.Default;
+        //    if (okay) {
 
-            }
-        }
+        //        //Habilitando possibilidade de envio por e-mail para a Ouvidoria
+        //        btnEnviarLaudo.Enabled = true;
+
+        //        string arquivo = System.IO.Path.GetFileName(enderecoModelo);
+        //        int protocolo;
+        //        //Tratando situação de abertura de laudos manuais
+        //        if (txt_id.Text == "") { protocolo = 0; } else { protocolo = int.Parse(txt_id.Text); }
+
+        //        laudo obj = new laudo(
+        //            protocolo,
+        //            System.IO.Path.GetFileName(enderecoModelo),
+        //            System.IO.Path.GetFullPath(enderecoModelo),
+        //            hlp.dataAbreviada(),
+        //            txtSumarioExecutivoLaudo.Text,
+        //            txtResultadoAnaliseLaudo.Text
+        //            );
+
+        //        obj.registrarLaudo(obj);
+
+
+        //        MessageBox.Show("Laudo Concluído com Sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    } else {
+        //        MessageBox.Show("Laudo Concluído com Falha!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //    }
+
+        //    this.Cursor = Cursors.Default;
+
+        //}
+        //}
+
+        #endregion
 
         private void lvEvidenciasLaudo_DoubleClick(object sender, EventArgs e) {
             ListViewItem item;
@@ -419,31 +413,12 @@ namespace Sentinella.Forms {
             }
         }
 
-        private void lbTeste_DoubleClick(object sender, EventArgs e) {
-            //Carregando Laudo        
-            txtTemaLaudo.Text = "Tema Laudo";
-            txtNomeAnalistaLaudo.Text = "Nome Analista";
-            txtCPFLaudo.Text = "052.052.052-09";
-            txtIDFerramentaLaudo.Text = "A000000";
-            txtAreaLaudo.Text = "ÁREA";
-            txtOperacaoLaudo.Text = "OPERAÇÃO";
-            txtProdutoLaudo.Text = "PRODUTO";
-            txtMatriculaLaudo.Text = "007007";
-            txtCargoLaudo.Text = "CARGO";
-            txtSupervisaoLaudo.Text = "SUPERVISÃO";
-            txtCoordenacaoLaudo.Text = "COORDENADOR";
-            txtGerenciaLaudo.Text = "GERENTE";
-            txtDiretoriaLaudo.Text = "DIRETOR";
-            txtSumarioExecutivoLaudo.Text = "No dia 13/06/2018 foi identificado um registro no sistema do Bradesco Cartões – Service View, pelo usuário UB089527 pertencente ao atendente Wellysson de Arruda Magalhaes. O atendente Wellysson de Arruda Magalhaes possui permissão de acesso controlada pelo cliente Bradesco Cartões para efetivar manutenções/ registros, porém o cartão Elo Nacional não é atendido pela central da Algar Tech, onde possui seu vínculo empregatício. O registro consta no cartão da bandeira Elo Nacional, qual pertence ao atendente Wellysson de Arruda Magalhaes, onde o mesmo acessou o cartão e realizou o registro de tarefa.";
-            txtResultadoAnaliseLaudo.Text = "Devido ao desacordo as Políticas de Segurança da Informação e por ferir o Código de Conduta da Algar Tech, o atendente Wellysson de Arruda Magalhaes infringiu as normas ao acessar seu cartão no sistema Bradesco Cartões – Service View. A evidência acima indicada leva a adoção das medidas disciplinares cabíveis, prevista em nossas políticas e procedimentos, a fim de garantir o cumprimento das normas bem como evitar reincidências.";
-            txtEvidenciaLaudo.Text = "13/06/2018 – 11h51min - Tela do sistema cliente Bradesco Cartões - Service View, onde consta o registro do UB089527 pertencente ao atendente Wellysson de Arruda Magalhaes, onde consta que atendente acessou seu cartão e realizou o registro de tarefa.";
-        }
 
         private void btnEnviarLaudo_Click(object sender, EventArgs e) {
             email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
 
-            email.Assunto = "LAUDO - " + txtNomeAnalistaLaudo.Text;
-            email.Mensagem = "Envio automático de laudo de não conformidade, com tema: " + txtTemaLaudo.Text + "." + Environment.NewLine;
+            email.Assunto = "LAUDO - " + txtTituloEmail.Text;
+            email.Mensagem = "Envio automático de laudo de não conformidade, com tema: " + txtCorpoEmail.Text + "." + Environment.NewLine;
             email.Mensagem += "Laudo produzido por: " + Constantes.nomeAssociadoLogado.ToUpper() + Environment.NewLine + Environment.NewLine;
 
             //Para
@@ -481,22 +456,13 @@ namespace Sentinella.Forms {
 
         }
 
-        private void lvInfoAdc_DoubleClick(object sender, EventArgs e) {
+        private void cbxModeloEmail_SelectionChangeCommitted(object sender, EventArgs e) {
+            laudo modeloEmail = new laudo();
 
-            this.Cursor = Cursors.WaitCursor;
-            string caminho = "";
+            txtCorpoEmail.Text = modeloEmail.bradescoSimples(int.Parse(txt_id.Text));
 
-            if (cbxFila.Text.Contains("DLP")) {
-                caminho = @lvInfoAdc.SelectedItems[0].SubItems[7].Text;
-            } else if (cbxFila.Text.Contains("TAMNUN")) {
-                caminho = @lvInfoAdc.SelectedItems[0].SubItems[3].Text;
-            }
+            
 
-            Clipboard.Clear();
-            Clipboard.SetText(caminho);
-
-            this.Cursor = Cursors.Default;
-            MessageBox.Show("Endereço: " +  Environment.NewLine + caminho + Environment.NewLine + "--COPIADO--", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

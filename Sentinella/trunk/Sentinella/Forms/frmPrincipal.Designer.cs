@@ -47,6 +47,7 @@
             this.mmOpenConfiguracoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.tamnunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filtrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.whiteListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mmOpenConfigFilas = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfigFinalizacoes = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,6 @@
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.whiteListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -116,7 +116,7 @@
             this.menuPrincipal.Name = "menuPrincipal";
             this.menuPrincipal.Padding = new System.Windows.Forms.Padding(3, 2, 2, 2);
             this.menuPrincipal.ShowItemToolTips = true;
-            this.menuPrincipal.Size = new System.Drawing.Size(125, 467);
+            this.menuPrincipal.Size = new System.Drawing.Size(42, 467);
             this.menuPrincipal.TabIndex = 2;
             this.menuPrincipal.Text = "menuStrip1";
             // 
@@ -282,9 +282,16 @@
             // filtrosToolStripMenuItem
             // 
             this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
-            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.filtrosToolStripMenuItem.Text = "Filtros";
             this.filtrosToolStripMenuItem.Click += new System.EventHandler(this.filtrosToolStripMenuItem_Click);
+            // 
+            // whiteListToolStripMenuItem
+            // 
+            this.whiteListToolStripMenuItem.Name = "whiteListToolStripMenuItem";
+            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.whiteListToolStripMenuItem.Text = "White List";
+            this.whiteListToolStripMenuItem.Click += new System.EventHandler(this.whiteListToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -404,15 +411,8 @@
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 30000;
+            this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // whiteListToolStripMenuItem
-            // 
-            this.whiteListToolStripMenuItem.Name = "whiteListToolStripMenuItem";
-            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.whiteListToolStripMenuItem.Text = "White List";
-            this.whiteListToolStripMenuItem.Click += new System.EventHandler(this.whiteListToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 

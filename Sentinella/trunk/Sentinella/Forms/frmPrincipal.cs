@@ -13,7 +13,7 @@ namespace Sentinella {
 
 
         private void interrupcaoProgramada() {
-            if (interrupcoes.interromperSistema()) {
+            if (interrupcoes.interromperSistema(false)) {
                 this.Close();
             }
         }

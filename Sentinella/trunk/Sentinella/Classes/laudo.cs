@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.IO;
-using System.Drawing.Imaging;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Data.SqlClient;
+using System.Drawing.Imaging;
+using System.IO;
 
-namespace Sentinella
-{
-    class laudo
-    {
+namespace Sentinella {
+    class laudo {
 
         #region Variaveis 
 
@@ -21,7 +12,7 @@ namespace Sentinella
         long retorno = 0;
         bool validacao = false;
         //long retorno = 0;        
-        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");        
+        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         logs log = new logs();
 
@@ -59,7 +50,7 @@ namespace Sentinella
         private string _resumo_incidente { get; set; } //tabela principal
         private string _resultado_analise { get; set; } //tabela principal
 
-        
+
         //private List<string> _evidencia {get; set;} //tabela auxiliar
         //private List<Bitmap> _imagem_evidencia { get; set; } //tabela auxiliar
 
@@ -69,7 +60,7 @@ namespace Sentinella
 
         public laudo() { }
 
-        public laudo (int _protocoloSenttinela, string _nomeArquivo, string _enderecoLaudo, DateTime _dataGeracao, string _reusmoIncidente, 
+        public laudo(int _protocoloSenttinela, string _nomeArquivo, string _enderecoLaudo, DateTime _dataGeracao, string _reusmoIncidente,
                             string _resultadoAnalise) // List<string> _evidenciaCaptura, List<Bitmap> _imageEvidencia )
         {
             _protocolo_senttinela = _protocoloSenttinela;
@@ -85,12 +76,11 @@ namespace Sentinella
         #endregion
 
         #region Camada DAL - Dados
-        
-        private bool _registrarLaudo( laudo obj )
-        {
+
+        private bool _registrarLaudo(laudo obj) {
             validacao = false;
-            try
-            {                
+            try {
+
                 sql = "Insert into w_laudos (";
                 sql += "protocolo_senttinela, ";
                 sql += "nome_arquivo, ";
@@ -105,7 +95,7 @@ namespace Sentinella
                 sql += objCon.valorSql(obj._resultado_analise) + ") ";
                 validacao = objCon.executaQuery(sql, ref retorno);
 
-                
+
                 ////Incluir evidencias e imagens na tabela auxiliar [w_laudo_evidencias]
                 //if (validacao && _evidencia.Count >= 0)
                 //{
@@ -119,21 +109,19 @@ namespace Sentinella
                 //}
 
                 return validacao; //retorno
-                
+
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "LAUDO - INCLUIR LAUDO (DAL)");
-                return false;                
+                return false;
             }
         }
 
+        
 
-        private bool _registrarEvidencia(int _id_senttinela, string _descricaoEvidencia, Bitmap _imagemEvidencia)
-        {
+        private bool _registrarEvidencia(int _id_senttinela, string _descricaoEvidencia, Bitmap _imagemEvidencia) {
             validacao = false;
-            try
-            {
+            try {
                 MemoryStream ms = new MemoryStream();
                 _imagemEvidencia.Save(ms, ImageFormat.Bmp);
                 byte[] imagem = ms.ToArray();
@@ -142,15 +130,14 @@ namespace Sentinella
                 sql += "id_sentinella, ";
                 sql += "evidencia, ";
                 sql += "imagem_evidencia ";
-                sql += ") values ( ";                
+                sql += ") values ( ";
                 sql += objCon.valorSql(_id_senttinela) + ", ";
                 sql += objCon.valorSql(_descricaoEvidencia) + ", ";
                 sql += "@imagem) ";
                 validacao = objCon.executaQuery(sql, ref retorno);
                 return validacao;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "LAUDO - INCLUIR EVIDENCIA (DAL)");
                 return false;
             }
@@ -159,23 +146,75 @@ namespace Sentinella
         #endregion
 
         #region Camada de Negocio - BLL
-        public bool registrarLaudo(laudo obj)
-        {
-            try
-            {
+        public bool registrarLaudo(laudo obj) {
+            try {
                 validacao = _registrarLaudo(obj);
-                if (validacao)
-                {
+                if (validacao) {
                     //Biblioteca de geração já possui mensagem de aviso
                 }
                 return validacao;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "LAUDO - CRIAR LAUDO (BLL)");
                 return false;
             }
         }
+        #endregion
+
+
+        #region MODELOS DE E-MAILS
+
+        public string bradescoSimples(int _protocoloSentinella) {
+
+            impAssociado user = new impAssociado();
+            categorizacoes cat = new categorizacoes();
+            cat = cat.getRegistroPorID(_protocoloSentinella);
+            user = user.getPorCPF(cat.Cpf);
+
+            //validando se houve captura de informações e evitando erros
+            if (user.Nom_Usuario == null) {
+                return "";
+            }
+
+            string email = "<b>E-mail Coordenador:</b> " + user._gestor2_email + Environment.NewLine +
+                            "<b>E-mail Supervisor:</b> " + user._gestor1_email + Environment.NewLine +
+                            "<b>Protocolo Sentinella:</b> " + _protocoloSentinella + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "Classificação: Interno - Manifestação Ouvidoria Algar - Protocolo [#]" +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b><font color = 'red'>" +
+                            "Atenção: O acesso ao conteúdo desta mensagem está autorizado, exclusivamente ao(s) seu(s) destinatário(s), não sendo autorizado o seu compartilhamento." +
+                            "</font></b>" +
+                            Environment.NewLine + Environment.NewLine +
+                            "Caro coordenador e supervisor, " +
+                            Environment.NewLine + Environment.NewLine +
+                            "Através de auditoria realizada pela área de Segurança da Informação foi identificado que o associado(a), abaixo classificado, violou a Política e Diretrizes do SGSI. Foi identificado que o associado utilizou o acesso do sistema do Bradesco Cartões – Service View para acessar cartões emitidos em seu próprio CPF." +
+                            Environment.NewLine + Environment.NewLine +
+                            "Ressaltamos conforme Termo de Confidencialidade que todos os associados(a) não deverá  realizar qualquer alteração ou manutenção, de natureza financeira ou não, para benefício próprio ou de terceiros, no sistema da EMPRESA ou do próprio cliente." +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Associado(a):</b> " + user.Nom_Usuario + Environment.NewLine +
+                            "<b>Matrícula:</b> " + user.Cod_Matricula + Environment.NewLine +
+                            "<b>Data de Admissão:</b> " + user.Dt_Admissao + Environment.NewLine +
+                            "<b>Cargo:</b> " + user.Nom_Cargo + Environment.NewLine +
+                            "<b>Supervisao Imediato:</b> " + user._gestor1 + Environment.NewLine +
+                            "<b>Coordenador:</b> " + user._gestor2 + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Plano de Ação:</b> " + "Recomendamos aplicação da medida disciplinar e registro no sistema Sinergy e enviar as evidências respondendo a este e-mail para encerramento da manifestação. O prazo de devolutiva é de 72 horas úteis." +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Evidência:</b> " + "Em anexo." + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "Qualquer dúvida e ou esclarecimento, por favor responder a este e ou acionar os canais abaixo." +
+                            Environment.NewLine + Environment.NewLine +
+                            "Tel.: ​0800 034 2525 opção 1​" + Environment.NewLine +
+                            "WhatsApp/Telegram: (11) 95130-1247" + Environment.NewLine +
+                            "Atendimento: segunda a sexta no período das 09h às 18h" + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Ouvidoria | Ombudsman</b>" + Environment.NewLine +
+                            "<font color = 'blue'>'Ouvir faz parte da nossa essência'</font>";
+
+                            return email;
+        }
+
         #endregion
 
     }

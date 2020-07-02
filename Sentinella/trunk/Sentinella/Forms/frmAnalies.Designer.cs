@@ -45,6 +45,8 @@
             this.btnIniciar = new System.Windows.Forms.Button();
             this.pnlConteudo = new System.Windows.Forms.Panel();
             this.tcDados = new System.Windows.Forms.TabControl();
+            this.tbHistoricoSentinella = new System.Windows.Forms.TabPage();
+            this.lvHistoricoSentinella = new System.Windows.Forms.ListView();
             this.tbHistoricoTH = new System.Windows.Forms.TabPage();
             this.lvHistoricoTH = new System.Windows.Forms.ListView();
             this.tbInfos = new System.Windows.Forms.TabPage();
@@ -115,65 +117,30 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lvFaturas = new System.Windows.Forms.ListView();
             this.tbLaudo = new System.Windows.Forms.TabPage();
+            this.btnDeletar = new System.Windows.Forms.Button();
+            this.btnAbrir = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtTituloEmail = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.btnEnviarLaudo = new System.Windows.Forms.Button();
-            this.lbTeste = new System.Windows.Forms.Label();
-            this.txtTemaLaudo = new System.Windows.Forms.TextBox();
-            this.label73 = new System.Windows.Forms.Label();
-            this.txtCargoLaudo = new System.Windows.Forms.TextBox();
-            this.label72 = new System.Windows.Forms.Label();
-            this.txtMatriculaLaudo = new System.Windows.Forms.TextBox();
-            this.label71 = new System.Windows.Forms.Label();
-            this.dtpDataAdmissaoLaudo = new System.Windows.Forms.DateTimePicker();
-            this.btnGerarLaudo = new System.Windows.Forms.Button();
             this.lvEvidenciasLaudo = new System.Windows.Forms.ListView();
-            this.label70 = new System.Windows.Forms.Label();
-            this.label69 = new System.Windows.Forms.Label();
             this.btnAdicionarEvidenciaLaudo = new System.Windows.Forms.Button();
-            this.label53 = new System.Windows.Forms.Label();
-            this.btnLocalizarImagemLaudo = new System.Windows.Forms.Button();
             this.label54 = new System.Windows.Forms.Label();
-            this.txtResultadoAnaliseLaudo = new System.Windows.Forms.TextBox();
-            this.txtSumarioExecutivoLaudo = new System.Windows.Forms.TextBox();
-            this.txtAreaLaudo = new System.Windows.Forms.TextBox();
-            this.txtIDFerramentaLaudo = new System.Windows.Forms.TextBox();
-            this.txtProdutoLaudo = new System.Windows.Forms.TextBox();
-            this.txtCPFLaudo = new System.Windows.Forms.TextBox();
-            this.txtNomeAnalistaLaudo = new System.Windows.Forms.TextBox();
-            this.txtDiretoriaLaudo = new System.Windows.Forms.TextBox();
-            this.txtGerenciaLaudo = new System.Windows.Forms.TextBox();
-            this.txtCoordenacaoLaudo = new System.Windows.Forms.TextBox();
-            this.txtSupervisaoLaudo = new System.Windows.Forms.TextBox();
-            this.txtOperacaoLaudo = new System.Windows.Forms.TextBox();
-            this.txtEvidenciaLaudo = new System.Windows.Forms.TextBox();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.dtpDataOcorrencia = new System.Windows.Forms.DateTimePicker();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label61 = new System.Windows.Forms.Label();
-            this.label62 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.label67 = new System.Windows.Forms.Label();
-            this.dtpDataCriacaoLaudo = new System.Windows.Forms.DateTimePicker();
-            this.label68 = new System.Windows.Forms.Label();
-            this.tbHistoricoSentinella = new System.Windows.Forms.TabPage();
-            this.lvHistoricoSentinella = new System.Windows.Forms.ListView();
+            this.cbxModeloEmail = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtCorpoEmail = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
             this.tcDados.SuspendLayout();
+            this.tbHistoricoSentinella.SuspendLayout();
             this.tbHistoricoTH.SuspendLayout();
             this.tbInfos.SuspendLayout();
             this.tbDadosCartao.SuspendLayout();
             this.tbManutencoes.SuspendLayout();
             this.tbFaturas.SuspendLayout();
             this.tbLaudo.SuspendLayout();
-            this.tbHistoricoSentinella.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBotoes
@@ -379,6 +346,32 @@
             this.tcDados.SelectedIndex = 0;
             this.tcDados.Size = new System.Drawing.Size(1281, 555);
             this.tcDados.TabIndex = 0;
+            // 
+            // tbHistoricoSentinella
+            // 
+            this.tbHistoricoSentinella.Controls.Add(this.lvHistoricoSentinella);
+            this.tbHistoricoSentinella.Location = new System.Drawing.Point(4, 25);
+            this.tbHistoricoSentinella.Name = "tbHistoricoSentinella";
+            this.tbHistoricoSentinella.Padding = new System.Windows.Forms.Padding(3);
+            this.tbHistoricoSentinella.Size = new System.Drawing.Size(1273, 526);
+            this.tbHistoricoSentinella.TabIndex = 7;
+            this.tbHistoricoSentinella.Text = "Histórico Sentinella";
+            this.tbHistoricoSentinella.UseVisualStyleBackColor = true;
+            // 
+            // lvHistoricoSentinella
+            // 
+            this.lvHistoricoSentinella.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvHistoricoSentinella.BackColor = System.Drawing.Color.White;
+            this.lvHistoricoSentinella.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvHistoricoSentinella.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvHistoricoSentinella.HideSelection = false;
+            this.lvHistoricoSentinella.Location = new System.Drawing.Point(1, 2);
+            this.lvHistoricoSentinella.Name = "lvHistoricoSentinella";
+            this.lvHistoricoSentinella.Size = new System.Drawing.Size(1271, 523);
+            this.lvHistoricoSentinella.TabIndex = 3;
+            this.lvHistoricoSentinella.UseCompatibleStateImageBehavior = false;
             // 
             // tbHistoricoTH
             // 
@@ -1124,551 +1117,174 @@
             // tbLaudo
             // 
             this.tbLaudo.AutoScroll = true;
+            this.tbLaudo.Controls.Add(this.label7);
+            this.tbLaudo.Controls.Add(this.label6);
+            this.tbLaudo.Controls.Add(this.cbxModeloEmail);
+            this.tbLaudo.Controls.Add(this.btnDeletar);
+            this.tbLaudo.Controls.Add(this.btnAbrir);
+            this.tbLaudo.Controls.Add(this.label5);
+            this.tbLaudo.Controls.Add(this.txtTituloEmail);
+            this.tbLaudo.Controls.Add(this.label4);
+            this.tbLaudo.Controls.Add(this.txtCorpoEmail);
             this.tbLaudo.Controls.Add(this.btnEnviarLaudo);
-            this.tbLaudo.Controls.Add(this.lbTeste);
-            this.tbLaudo.Controls.Add(this.txtTemaLaudo);
-            this.tbLaudo.Controls.Add(this.label73);
-            this.tbLaudo.Controls.Add(this.txtCargoLaudo);
-            this.tbLaudo.Controls.Add(this.label72);
-            this.tbLaudo.Controls.Add(this.txtMatriculaLaudo);
-            this.tbLaudo.Controls.Add(this.label71);
-            this.tbLaudo.Controls.Add(this.dtpDataAdmissaoLaudo);
-            this.tbLaudo.Controls.Add(this.btnGerarLaudo);
             this.tbLaudo.Controls.Add(this.lvEvidenciasLaudo);
-            this.tbLaudo.Controls.Add(this.label70);
-            this.tbLaudo.Controls.Add(this.label69);
             this.tbLaudo.Controls.Add(this.btnAdicionarEvidenciaLaudo);
-            this.tbLaudo.Controls.Add(this.label53);
-            this.tbLaudo.Controls.Add(this.btnLocalizarImagemLaudo);
             this.tbLaudo.Controls.Add(this.label54);
-            this.tbLaudo.Controls.Add(this.txtResultadoAnaliseLaudo);
-            this.tbLaudo.Controls.Add(this.txtSumarioExecutivoLaudo);
-            this.tbLaudo.Controls.Add(this.txtAreaLaudo);
-            this.tbLaudo.Controls.Add(this.txtIDFerramentaLaudo);
-            this.tbLaudo.Controls.Add(this.txtProdutoLaudo);
-            this.tbLaudo.Controls.Add(this.txtCPFLaudo);
-            this.tbLaudo.Controls.Add(this.txtNomeAnalistaLaudo);
-            this.tbLaudo.Controls.Add(this.txtDiretoriaLaudo);
-            this.tbLaudo.Controls.Add(this.txtGerenciaLaudo);
-            this.tbLaudo.Controls.Add(this.txtCoordenacaoLaudo);
-            this.tbLaudo.Controls.Add(this.txtSupervisaoLaudo);
-            this.tbLaudo.Controls.Add(this.txtOperacaoLaudo);
-            this.tbLaudo.Controls.Add(this.txtEvidenciaLaudo);
-            this.tbLaudo.Controls.Add(this.label55);
-            this.tbLaudo.Controls.Add(this.label56);
-            this.tbLaudo.Controls.Add(this.label57);
-            this.tbLaudo.Controls.Add(this.label58);
-            this.tbLaudo.Controls.Add(this.label59);
-            this.tbLaudo.Controls.Add(this.dtpDataOcorrencia);
-            this.tbLaudo.Controls.Add(this.label60);
-            this.tbLaudo.Controls.Add(this.label61);
-            this.tbLaudo.Controls.Add(this.label62);
-            this.tbLaudo.Controls.Add(this.label63);
-            this.tbLaudo.Controls.Add(this.label64);
-            this.tbLaudo.Controls.Add(this.label65);
-            this.tbLaudo.Controls.Add(this.label66);
-            this.tbLaudo.Controls.Add(this.label67);
-            this.tbLaudo.Controls.Add(this.dtpDataCriacaoLaudo);
-            this.tbLaudo.Controls.Add(this.label68);
             this.tbLaudo.Location = new System.Drawing.Point(4, 25);
             this.tbLaudo.Name = "tbLaudo";
             this.tbLaudo.Padding = new System.Windows.Forms.Padding(3);
             this.tbLaudo.Size = new System.Drawing.Size(1273, 526);
             this.tbLaudo.TabIndex = 4;
-            this.tbLaudo.Text = "Gerar Laudo";
+            this.tbLaudo.Text = "Enviar Laudo";
             this.tbLaudo.UseVisualStyleBackColor = true;
+            // 
+            // btnDeletar
+            // 
+            this.btnDeletar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeletar.BackColor = System.Drawing.Color.LightBlue;
+            this.btnDeletar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeletar.Location = new System.Drawing.Point(275, 498);
+            this.btnDeletar.Name = "btnDeletar";
+            this.btnDeletar.Size = new System.Drawing.Size(127, 22);
+            this.btnDeletar.TabIndex = 100;
+            this.btnDeletar.Text = "Deletar";
+            this.btnDeletar.UseVisualStyleBackColor = false;
+            // 
+            // btnAbrir
+            // 
+            this.btnAbrir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAbrir.BackColor = System.Drawing.Color.LightBlue;
+            this.btnAbrir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbrir.Location = new System.Drawing.Point(142, 498);
+            this.btnAbrir.Name = "btnAbrir";
+            this.btnAbrir.Size = new System.Drawing.Size(127, 22);
+            this.btnAbrir.TabIndex = 99;
+            this.btnAbrir.Text = "Abrir";
+            this.btnAbrir.UseVisualStyleBackColor = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(10, 68);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(101, 13);
+            this.label5.TabIndex = 98;
+            this.label5.Text = "Título do E-mail:";
+            // 
+            // txtTituloEmail
+            // 
+            this.txtTituloEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTituloEmail.Location = new System.Drawing.Point(8, 84);
+            this.txtTituloEmail.Name = "txtTituloEmail";
+            this.txtTituloEmail.Size = new System.Drawing.Size(1257, 23);
+            this.txtTituloEmail.TabIndex = 97;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(10, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 13);
+            this.label4.TabIndex = 96;
+            this.label4.Text = "Corpo do E-mail:";
             // 
             // btnEnviarLaudo
             // 
-            this.btnEnviarLaudo.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.btnEnviarLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEnviarLaudo.BackColor = System.Drawing.Color.Yellow;
             this.btnEnviarLaudo.Enabled = false;
-            this.btnEnviarLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnviarLaudo.Location = new System.Drawing.Point(302, 487);
+            this.btnEnviarLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEnviarLaudo.Location = new System.Drawing.Point(1117, 393);
             this.btnEnviarLaudo.Name = "btnEnviarLaudo";
-            this.btnEnviarLaudo.Size = new System.Drawing.Size(102, 22);
+            this.btnEnviarLaudo.Size = new System.Drawing.Size(148, 99);
             this.btnEnviarLaudo.TabIndex = 94;
             this.btnEnviarLaudo.Text = "Enviar Laudo";
             this.btnEnviarLaudo.UseVisualStyleBackColor = false;
-            this.btnEnviarLaudo.Click += new System.EventHandler(this.btnEnviarLaudo_Click);
-            // 
-            // lbTeste
-            // 
-            this.lbTeste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbTeste.AutoSize = true;
-            this.lbTeste.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbTeste.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lbTeste.Location = new System.Drawing.Point(1199, 3);
-            this.lbTeste.Name = "lbTeste";
-            this.lbTeste.Size = new System.Drawing.Size(44, 17);
-            this.lbTeste.TabIndex = 93;
-            this.lbTeste.Text = "Teste";
-            this.lbTeste.DoubleClick += new System.EventHandler(this.lbTeste_DoubleClick);
-            // 
-            // txtTemaLaudo
-            // 
-            this.txtTemaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTemaLaudo.Location = new System.Drawing.Point(195, 41);
-            this.txtTemaLaudo.Name = "txtTemaLaudo";
-            this.txtTemaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtTemaLaudo.TabIndex = 0;
-            this.txtTemaLaudo.Tag = "Tema do Laudo";
-            // 
-            // label73
-            // 
-            this.label73.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(1029, 465);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(202, 13);
-            this.label73.TabIndex = 92;
-            this.label73.Text = "Para deletar evidência dê um duplo click!";
-            // 
-            // txtCargoLaudo
-            // 
-            this.txtCargoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCargoLaudo.Location = new System.Drawing.Point(195, 181);
-            this.txtCargoLaudo.Name = "txtCargoLaudo";
-            this.txtCargoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtCargoLaudo.TabIndex = 5;
-            this.txtCargoLaudo.Tag = "Cargo";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(32, 184);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(44, 13);
-            this.label72.TabIndex = 90;
-            this.label72.Text = "Cargo:";
-            // 
-            // txtMatriculaLaudo
-            // 
-            this.txtMatriculaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatriculaLaudo.Location = new System.Drawing.Point(195, 207);
-            this.txtMatriculaLaudo.Name = "txtMatriculaLaudo";
-            this.txtMatriculaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtMatriculaLaudo.TabIndex = 6;
-            this.txtMatriculaLaudo.Tag = "Matrícula";
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label71.Location = new System.Drawing.Point(32, 210);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(65, 13);
-            this.label71.TabIndex = 88;
-            this.label71.Text = "Matrícula:";
-            // 
-            // dtpDataAdmissaoLaudo
-            // 
-            this.dtpDataAdmissaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDataAdmissaoLaudo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataAdmissaoLaudo.Location = new System.Drawing.Point(195, 156);
-            this.dtpDataAdmissaoLaudo.Name = "dtpDataAdmissaoLaudo";
-            this.dtpDataAdmissaoLaudo.ShowUpDown = true;
-            this.dtpDataAdmissaoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.dtpDataAdmissaoLaudo.TabIndex = 4;
-            this.dtpDataAdmissaoLaudo.Tag = "Data da Ocorrência";
-            // 
-            // btnGerarLaudo
-            // 
-            this.btnGerarLaudo.BackColor = System.Drawing.Color.LemonChiffon;
-            this.btnGerarLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGerarLaudo.Location = new System.Drawing.Point(195, 487);
-            this.btnGerarLaudo.Name = "btnGerarLaudo";
-            this.btnGerarLaudo.Size = new System.Drawing.Size(102, 22);
-            this.btnGerarLaudo.TabIndex = 22;
-            this.btnGerarLaudo.Text = "Gerar Laudo";
-            this.btnGerarLaudo.UseVisualStyleBackColor = false;
-            this.btnGerarLaudo.Click += new System.EventHandler(this.btnGerarLaudo_Click);
             // 
             // lvEvidenciasLaudo
             // 
-            this.lvEvidenciasLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lvEvidenciasLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvEvidenciasLaudo.HideSelection = false;
-            this.lvEvidenciasLaudo.Location = new System.Drawing.Point(885, 250);
+            this.lvEvidenciasLaudo.Location = new System.Drawing.Point(8, 393);
             this.lvEvidenciasLaudo.Name = "lvEvidenciasLaudo";
-            this.lvEvidenciasLaudo.Size = new System.Drawing.Size(346, 212);
+            this.lvEvidenciasLaudo.Size = new System.Drawing.Size(1103, 99);
             this.lvEvidenciasLaudo.TabIndex = 21;
             this.lvEvidenciasLaudo.UseCompatibleStateImageBehavior = false;
-            this.lvEvidenciasLaudo.DoubleClick += new System.EventHandler(this.lvEvidenciasLaudo_DoubleClick);
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label70.Location = new System.Drawing.Point(32, 264);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(37, 13);
-            this.label70.TabIndex = 84;
-            this.label70.Text = "Área:";
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label69.Location = new System.Drawing.Point(32, 135);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(34, 13);
-            this.label69.TabIndex = 83;
-            this.label69.Text = "CPF:";
             // 
             // btnAdicionarEvidenciaLaudo
             // 
-            this.btnAdicionarEvidenciaLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdicionarEvidenciaLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAdicionarEvidenciaLaudo.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnAdicionarEvidenciaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdicionarEvidenciaLaudo.Location = new System.Drawing.Point(1151, 196);
+            this.btnAdicionarEvidenciaLaudo.Location = new System.Drawing.Point(9, 498);
             this.btnAdicionarEvidenciaLaudo.Name = "btnAdicionarEvidenciaLaudo";
-            this.btnAdicionarEvidenciaLaudo.Size = new System.Drawing.Size(77, 22);
+            this.btnAdicionarEvidenciaLaudo.Size = new System.Drawing.Size(127, 22);
             this.btnAdicionarEvidenciaLaudo.TabIndex = 20;
-            this.btnAdicionarEvidenciaLaudo.Text = "Adicionar";
+            this.btnAdicionarEvidenciaLaudo.Text = "Anexar";
             this.btnAdicionarEvidenciaLaudo.UseVisualStyleBackColor = false;
             this.btnAdicionarEvidenciaLaudo.Click += new System.EventHandler(this.btnAdicionarEvidenciaLaudo_Click);
             // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(882, 20);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(142, 13);
-            this.label53.TabIndex = 79;
-            this.label53.Text = "Evidências (Descrição):";
-            // 
-            // btnLocalizarImagemLaudo
-            // 
-            this.btnLocalizarImagemLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLocalizarImagemLaudo.BackColor = System.Drawing.Color.LemonChiffon;
-            this.btnLocalizarImagemLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLocalizarImagemLaudo.Location = new System.Drawing.Point(1073, 196);
-            this.btnLocalizarImagemLaudo.Name = "btnLocalizarImagemLaudo";
-            this.btnLocalizarImagemLaudo.Size = new System.Drawing.Size(77, 22);
-            this.btnLocalizarImagemLaudo.TabIndex = 19;
-            this.btnLocalizarImagemLaudo.Text = "Imagem";
-            this.btnLocalizarImagemLaudo.UseVisualStyleBackColor = false;
-            this.btnLocalizarImagemLaudo.Click += new System.EventHandler(this.btnLocalizarImagemLaudo_Click);
-            // 
             // label54
             // 
+            this.label54.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label54.AutoSize = true;
             this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(880, 232);
+            this.label54.Location = new System.Drawing.Point(5, 377);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(122, 13);
+            this.label54.Size = new System.Drawing.Size(101, 13);
             this.label54.TabIndex = 76;
-            this.label54.Text = "Lista de Evidências:";
+            this.label54.Text = "Lista de Anexos:";
             // 
-            // txtResultadoAnaliseLaudo
+            // cbxModeloEmail
             // 
-            this.txtResultadoAnaliseLaudo.Location = new System.Drawing.Point(504, 250);
-            this.txtResultadoAnaliseLaudo.Multiline = true;
-            this.txtResultadoAnaliseLaudo.Name = "txtResultadoAnaliseLaudo";
-            this.txtResultadoAnaliseLaudo.Size = new System.Drawing.Size(363, 212);
-            this.txtResultadoAnaliseLaudo.TabIndex = 17;
-            this.txtResultadoAnaliseLaudo.Tag = "Resultado da Análise";
+            this.cbxModeloEmail.FormattingEnabled = true;
+            this.cbxModeloEmail.Items.AddRange(new object[] {
+            "BRADESCO BÁSICO",
+            "BRADESCO DETALHADO",
+            "DLP",
+            "TAMNUN"});
+            this.cbxModeloEmail.Location = new System.Drawing.Point(8, 41);
+            this.cbxModeloEmail.Name = "cbxModeloEmail";
+            this.cbxModeloEmail.Size = new System.Drawing.Size(410, 24);
+            this.cbxModeloEmail.TabIndex = 101;
+            this.cbxModeloEmail.SelectionChangeCommitted += new System.EventHandler(this.cbxModeloEmail_SelectionChangeCommitted);
             // 
-            // txtSumarioExecutivoLaudo
+            // label6
             // 
-            this.txtSumarioExecutivoLaudo.Location = new System.Drawing.Point(504, 36);
-            this.txtSumarioExecutivoLaudo.Multiline = true;
-            this.txtSumarioExecutivoLaudo.Name = "txtSumarioExecutivoLaudo";
-            this.txtSumarioExecutivoLaudo.Size = new System.Drawing.Size(363, 184);
-            this.txtSumarioExecutivoLaudo.TabIndex = 16;
-            this.txtSumarioExecutivoLaudo.Tag = "Sumário Executivo (Descrição Breve do Fato)";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(10, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 102;
+            this.label6.Text = "Modelo de E-mail:";
             // 
-            // txtAreaLaudo
+            // txtCorpoEmail
             // 
-            this.txtAreaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAreaLaudo.Location = new System.Drawing.Point(195, 259);
-            this.txtAreaLaudo.Name = "txtAreaLaudo";
-            this.txtAreaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtAreaLaudo.TabIndex = 8;
-            this.txtAreaLaudo.Tag = "Área";
-            // 
-            // txtIDFerramentaLaudo
-            // 
-            this.txtIDFerramentaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIDFerramentaLaudo.Location = new System.Drawing.Point(195, 233);
-            this.txtIDFerramentaLaudo.Name = "txtIDFerramentaLaudo";
-            this.txtIDFerramentaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtIDFerramentaLaudo.TabIndex = 7;
-            this.txtIDFerramentaLaudo.Tag = "ID na Ferramenta do Cliente";
-            // 
-            // txtProdutoLaudo
-            // 
-            this.txtProdutoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtProdutoLaudo.Location = new System.Drawing.Point(195, 418);
-            this.txtProdutoLaudo.Name = "txtProdutoLaudo";
-            this.txtProdutoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtProdutoLaudo.TabIndex = 14;
-            this.txtProdutoLaudo.Tag = "Produto";
-            // 
-            // txtCPFLaudo
-            // 
-            this.txtCPFLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCPFLaudo.Location = new System.Drawing.Point(195, 130);
-            this.txtCPFLaudo.Name = "txtCPFLaudo";
-            this.txtCPFLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtCPFLaudo.TabIndex = 3;
-            this.txtCPFLaudo.Tag = "CPF";
-            // 
-            // txtNomeAnalistaLaudo
-            // 
-            this.txtNomeAnalistaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNomeAnalistaLaudo.Location = new System.Drawing.Point(195, 104);
-            this.txtNomeAnalistaLaudo.Name = "txtNomeAnalistaLaudo";
-            this.txtNomeAnalistaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtNomeAnalistaLaudo.TabIndex = 2;
-            this.txtNomeAnalistaLaudo.Tag = "Nome do Analista";
-            // 
-            // txtDiretoriaLaudo
-            // 
-            this.txtDiretoriaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiretoriaLaudo.Location = new System.Drawing.Point(195, 391);
-            this.txtDiretoriaLaudo.Name = "txtDiretoriaLaudo";
-            this.txtDiretoriaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtDiretoriaLaudo.TabIndex = 13;
-            this.txtDiretoriaLaudo.Tag = "Diretoria";
-            // 
-            // txtGerenciaLaudo
-            // 
-            this.txtGerenciaLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGerenciaLaudo.Location = new System.Drawing.Point(195, 365);
-            this.txtGerenciaLaudo.Name = "txtGerenciaLaudo";
-            this.txtGerenciaLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtGerenciaLaudo.TabIndex = 12;
-            this.txtGerenciaLaudo.Tag = "Gerência";
-            // 
-            // txtCoordenacaoLaudo
-            // 
-            this.txtCoordenacaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCoordenacaoLaudo.Location = new System.Drawing.Point(195, 339);
-            this.txtCoordenacaoLaudo.Name = "txtCoordenacaoLaudo";
-            this.txtCoordenacaoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtCoordenacaoLaudo.TabIndex = 11;
-            this.txtCoordenacaoLaudo.Tag = "Coordenação";
-            // 
-            // txtSupervisaoLaudo
-            // 
-            this.txtSupervisaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSupervisaoLaudo.Location = new System.Drawing.Point(195, 313);
-            this.txtSupervisaoLaudo.Name = "txtSupervisaoLaudo";
-            this.txtSupervisaoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtSupervisaoLaudo.TabIndex = 10;
-            this.txtSupervisaoLaudo.Tag = "Supervisão";
-            // 
-            // txtOperacaoLaudo
-            // 
-            this.txtOperacaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOperacaoLaudo.Location = new System.Drawing.Point(195, 287);
-            this.txtOperacaoLaudo.Name = "txtOperacaoLaudo";
-            this.txtOperacaoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.txtOperacaoLaudo.TabIndex = 9;
-            this.txtOperacaoLaudo.Tag = "Operação";
-            // 
-            // txtEvidenciaLaudo
-            // 
-            this.txtEvidenciaLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEvidenciaLaudo.Location = new System.Drawing.Point(885, 36);
-            this.txtEvidenciaLaudo.Multiline = true;
-            this.txtEvidenciaLaudo.Name = "txtEvidenciaLaudo";
-            this.txtEvidenciaLaudo.Size = new System.Drawing.Size(346, 184);
-            this.txtEvidenciaLaudo.TabIndex = 18;
-            this.txtEvidenciaLaudo.Tag = "Evidências (Descrição)";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label55.Location = new System.Drawing.Point(501, 234);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(131, 13);
-            this.label55.TabIndex = 73;
-            this.label55.Text = "Resultado da Análise:";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(501, 20);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(269, 13);
-            this.label56.TabIndex = 71;
-            this.label56.Text = "Sumário Executivo (Descrição Breve do Fato):";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.Location = new System.Drawing.Point(32, 236);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(152, 13);
-            this.label57.TabIndex = 68;
-            this.label57.Text = "ID na Ferramenta Cliente:";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label58.Location = new System.Drawing.Point(32, 423);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(55, 13);
-            this.label58.TabIndex = 66;
-            this.label58.Text = "Produto:";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label59.Location = new System.Drawing.Point(32, 75);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(122, 13);
-            this.label59.TabIndex = 65;
-            this.label59.Text = "Data da Ocorrência:";
-            // 
-            // dtpDataOcorrencia
-            // 
-            this.dtpDataOcorrencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDataOcorrencia.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataOcorrencia.Location = new System.Drawing.Point(195, 70);
-            this.dtpDataOcorrencia.Name = "dtpDataOcorrencia";
-            this.dtpDataOcorrencia.ShowUpDown = true;
-            this.dtpDataOcorrencia.Size = new System.Drawing.Size(288, 20);
-            this.dtpDataOcorrencia.TabIndex = 1;
-            this.dtpDataOcorrencia.Tag = "Data da Ocorrência";
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label60.Location = new System.Drawing.Point(32, 159);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(113, 13);
-            this.label60.TabIndex = 62;
-            this.label60.Text = "Data de Admissão:";
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label61.Location = new System.Drawing.Point(32, 107);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(110, 13);
-            this.label61.TabIndex = 59;
-            this.label61.Text = "Nome do Analista:";
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label62.Location = new System.Drawing.Point(32, 396);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(59, 13);
-            this.label62.TabIndex = 53;
-            this.label62.Text = "Diretoria:";
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(32, 370);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(62, 13);
-            this.label63.TabIndex = 52;
-            this.label63.Text = "Gerência:";
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(32, 344);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(86, 13);
-            this.label64.TabIndex = 51;
-            this.label64.Text = "Coordenação:";
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(32, 318);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(74, 13);
-            this.label65.TabIndex = 50;
-            this.label65.Text = "Supervisão:";
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label66.Location = new System.Drawing.Point(32, 292);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(66, 13);
-            this.label66.TabIndex = 49;
-            this.label66.Text = "Operação:";
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(32, 449);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(160, 13);
-            this.label67.TabIndex = 48;
-            this.label67.Text = "Data de Criação do Laudo:";
-            // 
-            // dtpDataCriacaoLaudo
-            // 
-            this.dtpDataCriacaoLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDataCriacaoLaudo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataCriacaoLaudo.Location = new System.Drawing.Point(195, 444);
-            this.dtpDataCriacaoLaudo.Name = "dtpDataCriacaoLaudo";
-            this.dtpDataCriacaoLaudo.ShowUpDown = true;
-            this.dtpDataCriacaoLaudo.Size = new System.Drawing.Size(288, 20);
-            this.dtpDataCriacaoLaudo.TabIndex = 15;
-            this.dtpDataCriacaoLaudo.Tag = "Data de Criação do Laudo";
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label68.Location = new System.Drawing.Point(32, 45);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(99, 13);
-            this.label68.TabIndex = 45;
-            this.label68.Text = "Tema do Laudo:";
-            // 
-            // tbHistoricoSentinella
-            // 
-            this.tbHistoricoSentinella.Controls.Add(this.lvHistoricoSentinella);
-            this.tbHistoricoSentinella.Location = new System.Drawing.Point(4, 25);
-            this.tbHistoricoSentinella.Name = "tbHistoricoSentinella";
-            this.tbHistoricoSentinella.Padding = new System.Windows.Forms.Padding(3);
-            this.tbHistoricoSentinella.Size = new System.Drawing.Size(1273, 526);
-            this.tbHistoricoSentinella.TabIndex = 7;
-            this.tbHistoricoSentinella.Text = "Histórico Sentinella";
-            this.tbHistoricoSentinella.UseVisualStyleBackColor = true;
-            // 
-            // lvHistoricoSentinella
-            // 
-            this.lvHistoricoSentinella.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txtCorpoEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvHistoricoSentinella.BackColor = System.Drawing.Color.White;
-            this.lvHistoricoSentinella.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lvHistoricoSentinella.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvHistoricoSentinella.HideSelection = false;
-            this.lvHistoricoSentinella.Location = new System.Drawing.Point(1, 2);
-            this.lvHistoricoSentinella.Name = "lvHistoricoSentinella";
-            this.lvHistoricoSentinella.Size = new System.Drawing.Size(1271, 523);
-            this.lvHistoricoSentinella.TabIndex = 3;
-            this.lvHistoricoSentinella.UseCompatibleStateImageBehavior = false;
+            this.txtCorpoEmail.Location = new System.Drawing.Point(8, 128);
+            this.txtCorpoEmail.Multiline = true;
+            this.txtCorpoEmail.Name = "txtCorpoEmail";
+            this.txtCorpoEmail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCorpoEmail.Size = new System.Drawing.Size(1257, 246);
+            this.txtCorpoEmail.TabIndex = 95;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.OrangeRed;
+            this.label7.Location = new System.Drawing.Point(114, 110);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(326, 13);
+            this.label7.TabIndex = 103;
+            this.label7.Text = "As expressões que estão entre <> não são erros. Favor não deletar!";
             // 
             // frmAnalies
             // 
@@ -1689,6 +1305,7 @@
             this.pnlFiltros.PerformLayout();
             this.pnlConteudo.ResumeLayout(false);
             this.tcDados.ResumeLayout(false);
+            this.tbHistoricoSentinella.ResumeLayout(false);
             this.tbHistoricoTH.ResumeLayout(false);
             this.tbInfos.ResumeLayout(false);
             this.tbInfos.PerformLayout();
@@ -1699,7 +1316,6 @@
             this.tbFaturas.PerformLayout();
             this.tbLaudo.ResumeLayout(false);
             this.tbLaudo.PerformLayout();
-            this.tbHistoricoSentinella.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1785,51 +1401,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListView lvFaturas;
         private System.Windows.Forms.TabPage tbLaudo;
-        private System.Windows.Forms.DateTimePicker dtpDataAdmissaoLaudo;
-        private System.Windows.Forms.Button btnGerarLaudo;
         private System.Windows.Forms.ListView lvEvidenciasLaudo;
-        private System.Windows.Forms.Label label70;
-        private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Button btnAdicionarEvidenciaLaudo;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Button btnLocalizarImagemLaudo;
         private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.TextBox txtResultadoAnaliseLaudo;
-        private System.Windows.Forms.TextBox txtSumarioExecutivoLaudo;
-        private System.Windows.Forms.TextBox txtAreaLaudo;
-        private System.Windows.Forms.TextBox txtIDFerramentaLaudo;
-        private System.Windows.Forms.TextBox txtProdutoLaudo;
-        private System.Windows.Forms.TextBox txtCPFLaudo;
-        private System.Windows.Forms.TextBox txtNomeAnalistaLaudo;
-        private System.Windows.Forms.TextBox txtDiretoriaLaudo;
-        private System.Windows.Forms.TextBox txtGerenciaLaudo;
-        private System.Windows.Forms.TextBox txtCoordenacaoLaudo;
-        private System.Windows.Forms.TextBox txtSupervisaoLaudo;
-        private System.Windows.Forms.TextBox txtOperacaoLaudo;
-        private System.Windows.Forms.TextBox txtTemaLaudo;
-        private System.Windows.Forms.TextBox txtEvidenciaLaudo;
-        private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.DateTimePicker dtpDataOcorrencia;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.DateTimePicker dtpDataCriacaoLaudo;
-        private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.TextBox txtMatriculaLaudo;
-        private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.TextBox txtCargoLaudo;
-        private System.Windows.Forms.Label label72;
-        private System.Windows.Forms.Label label73;
-        private System.Windows.Forms.Label lbTeste;
         private System.Windows.Forms.Button btnEnviarLaudo;
         private System.Windows.Forms.TabPage tbHistoricoTH;
         private System.Windows.Forms.ListView lvHistoricoTH;
@@ -1840,5 +1414,14 @@
         private System.Windows.Forms.ListView ltvAD;
         private System.Windows.Forms.TabPage tbHistoricoSentinella;
         private System.Windows.Forms.ListView lvHistoricoSentinella;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtTituloEmail;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnDeletar;
+        private System.Windows.Forms.Button btnAbrir;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbxModeloEmail;
+        private System.Windows.Forms.TextBox txtCorpoEmail;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -335,7 +335,7 @@ namespace Sentinella {
             }
         }
 
-        public bool interromperSistema() {
+        public bool interromperSistema(bool enviarMsg = true) {
             try {
 
                 sys_interrupcoesProgramadas obj = new sys_interrupcoesProgramadas();
@@ -354,11 +354,14 @@ namespace Sentinella {
 
 
                     //Confirmar a interrupção, enviando info para fechar a aplicação ou não deixar abrir a aplicaçãof
-                    if (hlp.dataHoraAtual()  >= DateTime.Parse(item["dataHoraInicial"].ToString()) && hlp.dataHoraAtual() <= DateTime.Parse(item["dataHoraFinal"].ToString()) ) {
+                    if (hlp.dataHoraAtual() >= DateTime.Parse(item["dataHoraInicial"].ToString()) && hlp.dataHoraAtual() <= DateTime.Parse(item["dataHoraFinal"].ToString())) {
 
-                        hlp.AutoCloseMsgBox("O Sentinella está em período de interrupção programada." + Environment.NewLine +
-                                            "Estará disponível após " + obj._dataHoraFinal + "." + Environment.NewLine +
-                                            "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 10);
+                        if (enviarMsg) {
+                            hlp.AutoCloseMsgBox("O Sentinella está em período de interrupção programada." + Environment.NewLine +
+                                    "Estará disponível após " + obj._dataHoraFinal + "." + Environment.NewLine +
+                                    "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 10);
+                        }
+
 
                         return true;
                     }
@@ -367,10 +370,12 @@ namespace Sentinella {
                     //5 min antes do fechamento enviar msg
                     if (DateTime.Parse(item["dataHoraInicial"].ToString()).AddMinutes(5) > hlp.dataHoraAtual()) {
 
-                        hlp.AutoCloseMsgBox("O Sentinella será fechado em instantes." + Environment.NewLine +
+                        if (enviarMsg) {
+
+                            hlp.AutoCloseMsgBox("O Sentinella será fechado em instantes." + Environment.NewLine +
                                             "Fica a dica: Salve seu trabalho e feche você mesmo, pois depois de " + obj._dataHoraInicial + " será fechado automaticamente." + Environment.NewLine +
                                             "Motivo da Interrupção Programada: " + obj._mensagem, Constantes.Titulo_MSG.ToString(), 10);
-
+                        }
                         return false;
                     }
 

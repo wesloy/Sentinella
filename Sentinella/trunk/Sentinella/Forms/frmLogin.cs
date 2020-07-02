@@ -96,7 +96,7 @@ namespace Sentinella.Forms {
         }
 
         private void timer1_Tick(object sender, EventArgs e) {
-            interrupcaoProgramada();
+            interrupcaoProgramada();            
         }
     }
 }

@@ -23,6 +23,7 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigFinalizacoes.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigInterrupcoesProgramadas.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigSubFinalizacoes.resources
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigTamnunWhiteList.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigUsuarios.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmHome.resources
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmImportacoes.resources
@@ -44,4 +45,3 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.pdb
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csprojAssemblyReference.cache
-C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmConfigTamnunWhiteList.resources

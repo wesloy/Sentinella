@@ -861,6 +861,10 @@ namespace Sentinella {
 
         #region Camada BLL - Negócio
 
+        public categorizacoes getRegistroPorID (int _idBase) {
+            return _capturarRegistroPorID(_idBase);
+        }
+
         public bool finalizarRegistro(categorizacoes obj) {
             try {
                 bool validacao = false;
