@@ -117,19 +117,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lvFaturas = new System.Windows.Forms.ListView();
             this.tbLaudo = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbxModeloEmail = new System.Windows.Forms.ComboBox();
             this.btnDeletar = new System.Windows.Forms.Button();
             this.btnAbrir = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.txtTituloEmail = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.txtCorpoEmail = new System.Windows.Forms.TextBox();
             this.btnEnviarLaudo = new System.Windows.Forms.Button();
             this.lvEvidenciasLaudo = new System.Windows.Forms.ListView();
             this.btnAdicionarEvidenciaLaudo = new System.Windows.Forms.Button();
             this.label54 = new System.Windows.Forms.Label();
-            this.cbxModeloEmail = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtCorpoEmail = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
@@ -1138,6 +1138,41 @@
             this.tbLaudo.Text = "Enviar Laudo";
             this.tbLaudo.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.OrangeRed;
+            this.label7.Location = new System.Drawing.Point(114, 110);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(326, 13);
+            this.label7.TabIndex = 103;
+            this.label7.Text = "As expressões que estão entre <> não são erros. Favor não deletar!";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(10, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 102;
+            this.label6.Text = "Modelo de E-mail:";
+            // 
+            // cbxModeloEmail
+            // 
+            this.cbxModeloEmail.FormattingEnabled = true;
+            this.cbxModeloEmail.Items.AddRange(new object[] {
+            "BRADESCO BÁSICO",
+            "BRADESCO DETALHADO",
+            "DLP",
+            "TAMNUN"});
+            this.cbxModeloEmail.Location = new System.Drawing.Point(8, 41);
+            this.cbxModeloEmail.Name = "cbxModeloEmail";
+            this.cbxModeloEmail.Size = new System.Drawing.Size(410, 24);
+            this.cbxModeloEmail.TabIndex = 101;
+            this.cbxModeloEmail.SelectedValueChanged += new System.EventHandler(this.cbxModeloEmail_SelectedValueChanged);
+            // 
             // btnDeletar
             // 
             this.btnDeletar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1149,6 +1184,7 @@
             this.btnDeletar.TabIndex = 100;
             this.btnDeletar.Text = "Deletar";
             this.btnDeletar.UseVisualStyleBackColor = false;
+            this.btnDeletar.Click += new System.EventHandler(this.btnDeletar_Click);
             // 
             // btnAbrir
             // 
@@ -1161,6 +1197,7 @@
             this.btnAbrir.TabIndex = 99;
             this.btnAbrir.Text = "Abrir";
             this.btnAbrir.UseVisualStyleBackColor = false;
+            this.btnAbrir.Click += new System.EventHandler(this.btnAbrir_Click);
             // 
             // label5
             // 
@@ -1191,11 +1228,22 @@
             this.label4.TabIndex = 96;
             this.label4.Text = "Corpo do E-mail:";
             // 
+            // txtCorpoEmail
+            // 
+            this.txtCorpoEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCorpoEmail.Location = new System.Drawing.Point(8, 128);
+            this.txtCorpoEmail.Multiline = true;
+            this.txtCorpoEmail.Name = "txtCorpoEmail";
+            this.txtCorpoEmail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCorpoEmail.Size = new System.Drawing.Size(1257, 246);
+            this.txtCorpoEmail.TabIndex = 95;
+            // 
             // btnEnviarLaudo
             // 
             this.btnEnviarLaudo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEnviarLaudo.BackColor = System.Drawing.Color.Yellow;
-            this.btnEnviarLaudo.Enabled = false;
             this.btnEnviarLaudo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnviarLaudo.Location = new System.Drawing.Point(1117, 393);
             this.btnEnviarLaudo.Name = "btnEnviarLaudo";
@@ -1203,6 +1251,7 @@
             this.btnEnviarLaudo.TabIndex = 94;
             this.btnEnviarLaudo.Text = "Enviar Laudo";
             this.btnEnviarLaudo.UseVisualStyleBackColor = false;
+            this.btnEnviarLaudo.Click += new System.EventHandler(this.btnEnviarLaudo_Click_1);
             // 
             // lvEvidenciasLaudo
             // 
@@ -1238,53 +1287,6 @@
             this.label54.Size = new System.Drawing.Size(101, 13);
             this.label54.TabIndex = 76;
             this.label54.Text = "Lista de Anexos:";
-            // 
-            // cbxModeloEmail
-            // 
-            this.cbxModeloEmail.FormattingEnabled = true;
-            this.cbxModeloEmail.Items.AddRange(new object[] {
-            "BRADESCO BÁSICO",
-            "BRADESCO DETALHADO",
-            "DLP",
-            "TAMNUN"});
-            this.cbxModeloEmail.Location = new System.Drawing.Point(8, 41);
-            this.cbxModeloEmail.Name = "cbxModeloEmail";
-            this.cbxModeloEmail.Size = new System.Drawing.Size(410, 24);
-            this.cbxModeloEmail.TabIndex = 101;
-            this.cbxModeloEmail.SelectionChangeCommitted += new System.EventHandler(this.cbxModeloEmail_SelectionChangeCommitted);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(10, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(108, 13);
-            this.label6.TabIndex = 102;
-            this.label6.Text = "Modelo de E-mail:";
-            // 
-            // txtCorpoEmail
-            // 
-            this.txtCorpoEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCorpoEmail.Location = new System.Drawing.Point(8, 128);
-            this.txtCorpoEmail.Multiline = true;
-            this.txtCorpoEmail.Name = "txtCorpoEmail";
-            this.txtCorpoEmail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCorpoEmail.Size = new System.Drawing.Size(1257, 246);
-            this.txtCorpoEmail.TabIndex = 95;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label7.Location = new System.Drawing.Point(114, 110);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(326, 13);
-            this.label7.TabIndex = 103;
-            this.label7.Text = "As expressões que estão entre <> não são erros. Favor não deletar!";
             // 
             // frmAnalies
             // 

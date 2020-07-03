@@ -25,6 +25,7 @@ namespace Sentinella {
         //	    [sla_meta]            INT            DEFAULT ((0)) NOT NULL,
         //	    [gerado_fup]              BIT            DEFAULT ((0)) NOT NULL,
         //	    [id_Historico]            INT            DEFAULT ((0)) NOT NULL,
+        //      [enviado_email_laudo]     BIT            DEFAULT ((0)) NOT NULL,
         //	    [data_Abertura]           DATETIME       DEFAULT (getdate()) NULL,
         //	    [id_Abertura]             NVARCHAR (10)  NULL,
         //	    CONSTRAINT [PK_w_base] PRIMARY KEY CLUSTERED ([id] ASC)
@@ -391,6 +392,21 @@ namespace Sentinella {
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CATEGORIZACOES - CAPTURAR REGISTRO POR ID (DAL)");
                 return null;
+            }
+        }
+
+        private bool _registrarEnvioEmailLaudo(int _id, string _tituloEmail) {
+            try {
+                sql = "update w_base set " +
+                        "enviado_email_laudo = 1, " +
+                        "dt_envio_email_laudo = " + objCon.valorSql(hlp.dataHoraAtual()) + ", " +
+                        "titulo_email_laudo = " + objCon.valorSql(hlp.removerCharEspecial(_tituloEmail)) + " " + 
+                        "where id = " + objCon.valorSql(_id) + "";
+                return objCon.executaQuery(sql, ref retorno);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CATEGORIZACOES - REGISTRO DE ENVIO DE E-MAIL LAUDO (DAL)");
+                return false;
             }
         }
 
@@ -1063,6 +1079,15 @@ namespace Sentinella {
             _liberarRegistrosGeralDoUsuarioAtual();
         }
 
+        public bool registrarEmailLaudoEnviado(int _id, string _tituloEmailLaudo) {
+            try {
+                return _registrarEnvioEmailLaudo(_id, _tituloEmailLaudo);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CATEGORIZACOES - REGISTRAR E-MAIL LAUDO ENVIADO (BLL)");
+                return false;
+            }
+        }
 
         #endregion
 

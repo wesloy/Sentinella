@@ -13,8 +13,7 @@ namespace Sentinella.Forms {
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         categorizacoes cat = new categorizacoes(); //biblioteca para captura e finalização de casos        
         dadosCadastraisTH d_th = new dadosCadastraisTH(); //informações do funcionário segundo a planilha do TH 
-        string enderecoImagem = "";
-        string enderecoLaudo = "";
+        string enderecoImagem = "";        
         #endregion
 
         private void limparForm() {
@@ -413,24 +412,88 @@ namespace Sentinella.Forms {
             }
         }
 
+        private void cbxModeloEmail_SelectedValueChanged(object sender, EventArgs e) {
+            laudo modeloEmail = new laudo();
 
-        private void btnEnviarLaudo_Click(object sender, EventArgs e) {
+            string[] email = new string[3];
+
+            switch (cbxModeloEmail.Text) {
+
+                case "BRADESCO BÁSICO":
+                    email = modeloEmail.bradescoSimples(int.Parse(txt_id.Text));
+                    txtTituloEmail.Text = email[0];
+                    txtCorpoEmail.Text = email[1] + email[2];
+                    break;
+
+                case "BRADESCO DETALHADO":
+                    MessageBox.Show("Em desenvolvimento!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "DLP":
+                    email = modeloEmail.dlp(int.Parse(txt_id.Text));
+                    txtTituloEmail.Text = email[0];
+                    txtCorpoEmail.Text = email[1] + email[2];
+                    break;
+
+                case "TAMNUN":
+                    email = modeloEmail.tamnun(int.Parse(txt_id.Text));
+                    txtTituloEmail.Text = email[0];
+                    txtCorpoEmail.Text = email[1] + email[2];                    
+                    break;
+
+            }
+        }
+
+        private void btnAbrir_Click(object sender, EventArgs e) {
+            foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
+
+                if (item.Checked) {
+                    hlp.abrirArquivo(item.SubItems[2].Text);
+                    break;
+                }
+            }
+        }
+
+        private void btnDeletar_Click(object sender, EventArgs e) {
+            foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
+
+                if (item.Checked) {
+                    item.Remove();                    
+                }
+            }
+        }
+
+        private void btnEnviarLaudo_Click_1(object sender, EventArgs e) {
+
+            //Validações
+            if (lvEvidenciasLaudo.Items.Count == 0) {
+                MessageBox.Show("Para que um e-mail/laudo seja enviado é necessário ao menos 1 evidência!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+
+            if (txtTituloEmail.Text == "" || txtCorpoEmail.Text == "") {
+                MessageBox.Show("Para enviar um e-mail é necessário Título e Corpo!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+
+            //Criando o e-mail
             email_dynamics.email_dynamics email = new email_dynamics.email_dynamics();
 
-            email.Assunto = "LAUDO - " + txtTituloEmail.Text;
-            email.Mensagem = "Envio automático de laudo de não conformidade, com tema: " + txtCorpoEmail.Text + "." + Environment.NewLine;
-            email.Mensagem += "Laudo produzido por: " + Constantes.nomeAssociadoLogado.ToUpper() + Environment.NewLine + Environment.NewLine;
+            email.Assunto = txtTituloEmail.Text;
+            email.Mensagem = txtCorpoEmail.Text + "." + Environment.NewLine;
 
             //Para
             List<string> para = new List<string>();
-            string txtPara = "ouvidoria@algartech.com.br";
+            string txtPara = "wesleyel@algartech.com"; //"ouvidoria@algartech.com.br";
             string[] _para = txtPara.Split(';');
             foreach (var item in _para) { para.Add(item); }
             email.Para = para;
 
             //CC
             List<string> cc = new List<string>();
-            string txtCC = "si@algartech.com";
+            string txtCC = "wesleyel@algartech.com"; //"si@algartech.com";
             string[] _cc = txtCC.Split(';');
             foreach (var item in _cc) { cc.Add(item); }
             email.Cc = cc;
@@ -444,25 +507,21 @@ namespace Sentinella.Forms {
 
             //Carregando os anexos
             List<string> listaAnexos = new List<string>();
-            listaAnexos.Add(enderecoLaudo);
-            //foreach (string file in lbAnexos.Items) { listaAnexos.Add(file); }
+            foreach (ListViewItem item in lvEvidenciasLaudo.Items) { listaAnexos.Add(item.SubItems[2].Text); }
             email.Anexos = listaAnexos;
 
             if (email.envio(email.Assunto, email.Mensagem, email.Para, email.Cc, email.CcO, email.Anexos)) {
                 MessageBox.Show("Envio com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //Registrando o envio do e-mail laudo na base
+                cat.registrarEmailLaudoEnviado(int.Parse(txt_id.Text),txtTituloEmail.Text);
+                //limpando dados do form de envio
+                cbxModeloEmail.Text = "";
+                txtTituloEmail.Text = "";
+                txtCorpoEmail.Text = "";
+                foreach (ListViewItem item in lvEvidenciasLaudo.Items) { item.Remove(); }
             } else {
                 MessageBox.Show("Falha no envio!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-        }
-
-        private void cbxModeloEmail_SelectionChangeCommitted(object sender, EventArgs e) {
-            laudo modeloEmail = new laudo();
-
-            txtCorpoEmail.Text = modeloEmail.bradescoSimples(int.Parse(txt_id.Text));
-
-            
-
         }
     }
 }
