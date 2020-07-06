@@ -13,7 +13,7 @@ namespace Sentinella.Forms {
         Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
         categorizacoes cat = new categorizacoes(); //biblioteca para captura e finalização de casos        
         dadosCadastraisTH d_th = new dadosCadastraisTH(); //informações do funcionário segundo a planilha do TH 
-        string enderecoImagem = "";        
+        string enderecoImagem = "";
         #endregion
 
         private void limparForm() {
@@ -69,8 +69,6 @@ namespace Sentinella.Forms {
 
         private void btnIniciar_Click(object sender, System.EventArgs e) {
 
-            string nomeAssociadoTamnun = "";
-
             if (cbxFila.Text == "NÃO SE APLICA") {
                 return;
             }
@@ -86,6 +84,9 @@ namespace Sentinella.Forms {
                 cat.bloquearRegistro(int.Parse(cbxFila.SelectedValue.ToString()), ref cat);
                 //Tratando retorno nulo, que evidencia que não foi bloqueado nenhum registro
                 if (cat != null) {
+
+                    impAssociado imp = new impAssociado();
+                    imp = imp.getPorCPF(cat.Cpf);
 
                     txt_id.Text = cat.Id.ToString();
                     txt_inicio.Text = cat.Hora_Inicial.ToString();
@@ -115,7 +116,7 @@ namespace Sentinella.Forms {
                     } else if (cbxFila.Text.Contains("TAMNUN")) {
                         //Informações adicionais
                         tamnun tamnun = new tamnun();
-                        tamnun.carregarListViewListaTrabalho(lvInfoAdc, int.Parse(cat.Id.ToString()), ref nomeAssociadoTamnun);
+                        tamnun.carregarListViewListaTrabalho(lvInfoAdc, int.Parse(cat.Id.ToString()));
                         lbInfAdicionais.Text = "Informações Adicionais - TAMNUN: ";
                     }
 
@@ -190,11 +191,7 @@ namespace Sentinella.Forms {
 
                     //carregando grupos AD se o mesmo tiver...
                     ad AD = new ad();
-                    if (d_th.Nome_associado != null) {
-                        AD.CarregaListView(ltvAD, d_th.Nome_associado);
-                    } else {
-                        AD.CarregaListView(ltvAD, nomeAssociadoTamnun);
-                    }
+                    AD.CarregaListView(ltvAD, imp.Nom_Usuario);
 
 
                     #endregion
@@ -438,7 +435,7 @@ namespace Sentinella.Forms {
                 case "TAMNUN":
                     email = modeloEmail.tamnun(int.Parse(txt_id.Text));
                     txtTituloEmail.Text = email[0];
-                    txtCorpoEmail.Text = email[1] + email[2];                    
+                    txtCorpoEmail.Text = email[1] + email[2];
                     break;
 
             }
@@ -458,7 +455,7 @@ namespace Sentinella.Forms {
             foreach (ListViewItem item in lvEvidenciasLaudo.Items) {
 
                 if (item.Checked) {
-                    item.Remove();                    
+                    item.Remove();
                 }
             }
         }
@@ -486,14 +483,14 @@ namespace Sentinella.Forms {
 
             //Para
             List<string> para = new List<string>();
-            string txtPara = "wesleyel@algartech.com"; //"ouvidoria@algartech.com.br";
+            string txtPara = "ouvidoria@algartech.com.br";
             string[] _para = txtPara.Split(';');
             foreach (var item in _para) { para.Add(item); }
             email.Para = para;
 
             //CC
             List<string> cc = new List<string>();
-            string txtCC = "wesleyel@algartech.com"; //"si@algartech.com";
+            string txtCC = "si@algartech.com";
             string[] _cc = txtCC.Split(';');
             foreach (var item in _cc) { cc.Add(item); }
             email.Cc = cc;
@@ -513,7 +510,7 @@ namespace Sentinella.Forms {
             if (email.envio(email.Assunto, email.Mensagem, email.Para, email.Cc, email.CcO, email.Anexos)) {
                 MessageBox.Show("Envio com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //Registrando o envio do e-mail laudo na base
-                cat.registrarEmailLaudoEnviado(int.Parse(txt_id.Text),txtTituloEmail.Text);
+                cat.registrarEmailLaudoEnviado(int.Parse(txt_id.Text), txtTituloEmail.Text);
                 //limpando dados do form de envio
                 cbxModeloEmail.Text = "";
                 txtTituloEmail.Text = "";

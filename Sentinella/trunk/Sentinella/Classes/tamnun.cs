@@ -425,7 +425,7 @@ namespace Sentinella {
             }
         }
 
-        public ListView carregarListViewListaTrabalho(ListView lst, int _id, ref string _nomeAssociadoTamnun) {
+        public ListView carregarListViewListaTrabalho(ListView lst, int _id) {
             try {
                 DataTable dt = new DataTable();
                 dt = _listarTodosRegistrosPorIDBase(_id);
@@ -462,8 +462,6 @@ namespace Sentinella {
                         item.SubItems.Add(linha["matricula"].ToString());
                         item.ImageKey = "9";
                         lst.Items.Add(item);
-
-                        _nomeAssociadoTamnun = linha["nome_completo"].ToString();
                     }
                 }
                 return lst;
