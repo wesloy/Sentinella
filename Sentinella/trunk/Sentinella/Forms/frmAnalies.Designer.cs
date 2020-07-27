@@ -130,6 +130,11 @@
             this.lvEvidenciasLaudo = new System.Windows.Forms.ListView();
             this.btnAdicionarEvidenciaLaudo = new System.Windows.Forms.Button();
             this.label54 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lvHierarquiaSupImediato = new System.Windows.Forms.ListView();
+            this.lvHierarquiaCadastroGeral = new System.Windows.Forms.ListView();
+            this.label10 = new System.Windows.Forms.Label();
             this.pnlBotoes.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlConteudo.SuspendLayout();
@@ -375,6 +380,11 @@
             // 
             // tbHistoricoTH
             // 
+            this.tbHistoricoTH.Controls.Add(this.lvHierarquiaCadastroGeral);
+            this.tbHistoricoTH.Controls.Add(this.label10);
+            this.tbHistoricoTH.Controls.Add(this.lvHierarquiaSupImediato);
+            this.tbHistoricoTH.Controls.Add(this.label9);
+            this.tbHistoricoTH.Controls.Add(this.label8);
             this.tbHistoricoTH.Controls.Add(this.lvHistoricoTH);
             this.tbHistoricoTH.Location = new System.Drawing.Point(4, 25);
             this.tbHistoricoTH.Name = "tbHistoricoTH";
@@ -390,12 +400,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvHistoricoTH.BackColor = System.Drawing.Color.White;
-            this.lvHistoricoTH.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lvHistoricoTH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lvHistoricoTH.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvHistoricoTH.HideSelection = false;
-            this.lvHistoricoTH.Location = new System.Drawing.Point(1, 3);
+            this.lvHistoricoTH.Location = new System.Drawing.Point(9, 215);
             this.lvHistoricoTH.Name = "lvHistoricoTH";
-            this.lvHistoricoTH.Size = new System.Drawing.Size(1271, 523);
+            this.lvHistoricoTH.Size = new System.Drawing.Size(1256, 305);
             this.lvHistoricoTH.TabIndex = 2;
             this.lvHistoricoTH.UseCompatibleStateImageBehavior = false;
             // 
@@ -1288,6 +1298,64 @@
             this.label54.TabIndex = 76;
             this.label54.Text = "Lista de Anexos:";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(14, 195);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(154, 17);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Demais informações";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(14, 15);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(254, 17);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Hierarquia TH - Superior Imediato";
+            // 
+            // lvHierarquiaSupImediato
+            // 
+            this.lvHierarquiaSupImediato.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvHierarquiaSupImediato.BackColor = System.Drawing.Color.White;
+            this.lvHierarquiaSupImediato.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvHierarquiaSupImediato.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvHierarquiaSupImediato.HideSelection = false;
+            this.lvHierarquiaSupImediato.Location = new System.Drawing.Point(9, 35);
+            this.lvHierarquiaSupImediato.Name = "lvHierarquiaSupImediato";
+            this.lvHierarquiaSupImediato.Size = new System.Drawing.Size(1256, 60);
+            this.lvHierarquiaSupImediato.TabIndex = 5;
+            this.lvHierarquiaSupImediato.UseCompatibleStateImageBehavior = false;
+            // 
+            // lvHierarquiaCadastroGeral
+            // 
+            this.lvHierarquiaCadastroGeral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvHierarquiaCadastroGeral.BackColor = System.Drawing.Color.White;
+            this.lvHierarquiaCadastroGeral.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lvHierarquiaCadastroGeral.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvHierarquiaCadastroGeral.HideSelection = false;
+            this.lvHierarquiaCadastroGeral.Location = new System.Drawing.Point(9, 125);
+            this.lvHierarquiaCadastroGeral.Name = "lvHierarquiaCadastroGeral";
+            this.lvHierarquiaCadastroGeral.Size = new System.Drawing.Size(1256, 60);
+            this.lvHierarquiaCadastroGeral.TabIndex = 7;
+            this.lvHierarquiaCadastroGeral.UseCompatibleStateImageBehavior = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(14, 105);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(307, 17);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "Hierarquia TH - Gestores Cadastro Geral";
+            // 
             // frmAnalies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1309,6 +1377,7 @@
             this.tcDados.ResumeLayout(false);
             this.tbHistoricoSentinella.ResumeLayout(false);
             this.tbHistoricoTH.ResumeLayout(false);
+            this.tbHistoricoTH.PerformLayout();
             this.tbInfos.ResumeLayout(false);
             this.tbInfos.PerformLayout();
             this.tbDadosCartao.ResumeLayout(false);
@@ -1425,5 +1494,10 @@
         private System.Windows.Forms.ComboBox cbxModeloEmail;
         private System.Windows.Forms.TextBox txtCorpoEmail;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ListView lvHierarquiaSupImediato;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ListView lvHierarquiaCadastroGeral;
+        private System.Windows.Forms.Label label10;
     }
 }

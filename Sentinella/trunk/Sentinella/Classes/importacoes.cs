@@ -644,7 +644,7 @@ namespace Sentinella {
                     DataRow row = baseDLP.NewRow();
                     row["chave_duplicidade"] = chaveDuplicidade;
                     baseDLP.Rows.Add(row);
-                    
+
                     frm.atualizarBarra(contador);
                     #endregion
 
@@ -1487,10 +1487,27 @@ namespace Sentinella {
             volAtualizado = 0;
 
             try {
+
+                frmProgressBar frm0 = new frmProgressBar(3);
+                frm0.Show();
+
                 DataTable dt = new DataTable();
                 DataTable dt_w = new DataTable();
                 dt = objCon.retornaDataTable("EXECUTE IMP_CADASTRO_FUNCIONARIO N'" + Constantes.id_REDE_logadoFerramenta + "'");
-                dt_w = objCon.retornaDataTable("select * from w_funcionarios_historico");
+                frm0.atualizarBarra(1);
+
+                dt_w = objCon.retornaDataTable("select * from w_funcionarios_historico");                
+                frm0.atualizarBarra(2);
+
+                //limpando tabelas de hierarquia para armazenar informações mais recentes
+                sql = "Delete from [dbo].[w_hierarquia_sup_imediato]";
+                objCon.executaQuery(sql, ref retorno);
+
+                sql = "Delete from [dbo].[w_hierarquia_gestores_tabelao]";
+                objCon.executaQuery(sql, ref retorno);
+                frm0.atualizarBarra(3);
+
+                frm0.Close();
 
 
                 frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
@@ -1508,27 +1525,31 @@ namespace Sentinella {
 
                     //filtrando Datatable para registros de análises
                     DataRow[] duplicidade = dt_w.Select(
-                        "cod_empresa = '" + dr["cod_empresa"].ToString() + "' AND " +
+                        "cpf = '" + dr["COD_CPF"].ToString() + "' AND " +
                         "matricula = '" + dr["cod_matricula"].ToString() + "' "
                         );
 
                     //validando se a duplicidade é permitida ou não                    
                     if (duplicidade.Length > 0) {
-                        foreach (DataRow item in duplicidade) {
-                            if (item["cargo_do_associado"].ToString().ToUpper() == dr["Nom_Cargo"].ToString().ToUpper()
-                                && item["codcentro_de_custo"].ToString().ToUpper() == dr["num_Centro_Custo"].ToString().ToUpper()
-                                && item["matricula_gestor_1"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_1"].ToString().ToUpper()
-                                && item["matricula_gestor_2"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_2"].ToString().ToUpper()
-                                && item["matricula_gestor_3"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_3"].ToString().ToUpper()
-                                && item["matricula_gestor_4"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_4"].ToString().ToUpper()
-                                && item["matricula_gestor_5"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_5"].ToString().ToUpper()
-                                && item["data_demissao"].ToString().ToUpper() == dr["Dt_Demissao"].ToString().ToUpper()
-                                ) {
 
-                                importar = false;
-                                break;
-                            }
-                        }
+                        //SUSPENSA A VALIDAÇÃO DE DUPLICIDADE VÁLIDA PARA IMPORTAÇÃO ATÉ QUE A HIERARQUIA SEJA CORRIJIDA
+                        //27/07/2020
+
+                        //foreach (DataRow item in duplicidade) {
+                        //    if (item["cargo_do_associado"].ToString().ToUpper() == dr["Nom_Cargo"].ToString().ToUpper()
+                        //        && item["codcentro_de_custo"].ToString().ToUpper() == dr["num_Centro_Custo"].ToString().ToUpper()
+                        //        && item["matricula_gestor_1"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_1"].ToString().ToUpper()
+                        //        && item["matricula_gestor_2"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_2"].ToString().ToUpper()
+                        //        && item["matricula_gestor_3"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_3"].ToString().ToUpper()
+                        //        && item["matricula_gestor_4"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_4"].ToString().ToUpper()
+                        //        && item["matricula_gestor_5"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_5"].ToString().ToUpper()
+                        //        && item["data_demissao"].ToString().ToUpper() == dr["Dt_Demissao"].ToString().ToUpper()
+                        //        ) {
+
+                        //        importar = false;
+                        //        break;
+                        //    }
+                        //}
                     }
 
                     //Fazendo a importação
@@ -1626,6 +1647,99 @@ namespace Sentinella {
                     }
 
                     volTotal += 1;
+                    frm.atualizarBarra(volTotal);
+
+
+                    #region ATUALIZACAO HIERARQUIA
+
+                    //Atualizando tbl de hierarquia
+                    //impAssociado impAssociado = new impAssociado();
+
+                    ////Superior_Imediato
+                    ////[dbo].[w_hierarquia_sup_imediato]
+                    //if (dr["Nom_Usuario_Superior"].ToString() != "") { // validando se existe informação para busca por supervisor imediato
+
+
+                    //    impAssociado = impAssociado.getPorCPFSupImediado(dr["COD_CPF"].ToString());
+
+                    //    if (impAssociado.Cod_Gestor_Hierarq_1.ToString() != "") {
+
+                    //        sql = "Insert into [dbo].[w_hierarquia_sup_imediato] (" +
+                    //                                        "cpf," +
+                    //                                        "matricula," +
+                    //                                        "nome_associado," +
+                    //                                        "matricula_gestor_1," +
+                    //                                        "gestor_1," +
+                    //                                        "matricula_gestor_2," +
+                    //                                        "gestor_2," +
+                    //                                        "matricula_gestor_3," +
+                    //                                        "gestor_3," +
+                    //                                        "matricula_gestor_4," +
+                    //                                        "gestor_4," +
+                    //                                        "matricula_gestor_5," +
+                    //                                        "gestor_5) " +
+                    //                                        "values (" +
+                    //                                        objCon.valorSql(impAssociado.Cod_Cpf) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Cod_Matricula) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Nom_Usuario) + ", " +
+                    //                                        objCon.valorSql(impAssociado._gestor1) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_1) + ", " +
+                    //                                        objCon.valorSql(impAssociado._gestor2) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_2) + ", " +
+                    //                                        objCon.valorSql(impAssociado._gestor3) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_3) + ", " +
+                    //                                        objCon.valorSql(impAssociado._gestor4) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_4) + ", " +
+                    //                                        objCon.valorSql(impAssociado._gestor5) + ", " +
+                    //                                        objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_5) + ") ";
+                    //        objCon.executaQuery(sql, ref retorno);
+                    //    }
+
+                    //}
+
+
+                    ////Hierarquia campos Gestor do tabelão
+                    ////[dbo].[w_hierarquia_gestores_tabelao]
+                    //if (dr["COD_GESTOR_HIERARQ_1"].ToString() != "") {
+
+                    //    impAssociado = impAssociado.getPorCPFGestoresTabelao(dr["COD_CPF"].ToString());
+
+                    //    if (impAssociado.Cod_Gestor_Hierarq_1.ToString() != "") {
+
+                    //        sql = "Insert into [dbo].[w_hierarquia_gestores_tabelao] (" +
+                    //                                                            "cpf," +
+                    //                                                            "matricula," +
+                    //                                                            "nome_associado," +
+                    //                                                            "matricula_gestor_1," +
+                    //                                                            "gestor_1," +
+                    //                                                            "matricula_gestor_2," +
+                    //                                                            "gestor_2," +
+                    //                                                            "matricula_gestor_3," +
+                    //                                                            "gestor_3," +
+                    //                                                            "matricula_gestor_4," +
+                    //                                                            "gestor_4," +
+                    //                                                            "matricula_gestor_5," +
+                    //                                                            "gestor_5) " +
+                    //                                                            "values (" +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Cpf) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Matricula) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Nom_Usuario) + ", " +
+                    //                                                            objCon.valorSql(impAssociado._gestor1) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_1) + ", " +
+                    //                                                            objCon.valorSql(impAssociado._gestor2) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_2) + ", " +
+                    //                                                            objCon.valorSql(impAssociado._gestor3) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_3) + ", " +
+                    //                                                            objCon.valorSql(impAssociado._gestor4) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_4) + ", " +
+                    //                                                            objCon.valorSql(impAssociado._gestor5) + ", " +
+                    //                                                            objCon.valorSql(impAssociado.Cod_Gestor_Hierarq_5) + ") ";
+                    //        objCon.executaQuery(sql, ref retorno);
+                    //    }
+                    //}
+
+                    #endregion
+
 
                 }
 
@@ -1643,6 +1757,11 @@ namespace Sentinella {
                         "join w_funcionarios_historico h " +
                         "on imp.Cod_Cpf = h.cpf";
                 objCon.executaQuery(sql, ref retorno);
+
+
+
+
+
 
 
                 frm.Close();

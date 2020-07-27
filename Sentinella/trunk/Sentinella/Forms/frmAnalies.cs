@@ -24,6 +24,8 @@ namespace Sentinella.Forms {
             lvManutencoes.Clear();
             lvFaturas.Clear();
             lvHistoricoTH.Clear();
+            lvHierarquiaSupImediato.Clear();
+            lvHierarquiaCadastroGeral.Clear();
             lvInfoAdc.Clear();
             ltvAD.Clear();
 
@@ -86,7 +88,7 @@ namespace Sentinella.Forms {
                 if (cat != null) {
 
                     impAssociado imp = new impAssociado();
-                    imp = imp.getPorCPF(cat.Cpf);
+                    imp = imp.getPorCPFSupImediado(cat.Cpf);
 
                     txt_id.Text = cat.Id.ToString();
                     txt_inicio.Text = cat.Hora_Inicial.ToString();
@@ -107,6 +109,15 @@ namespace Sentinella.Forms {
                     //Carregando Histórico TH
                     dadosCadastraisTH th = new dadosCadastraisTH();
                     th.CarregaListView(lvHistoricoTH, cat.Cpf);
+
+                    //Carregando Hierarquia Superior Imediato
+                    impAssociado ia = new impAssociado();
+                    ia.CarregarListViewGestores(lvHierarquiaSupImediato, cat.Cpf, true);
+
+                    //Carregando Hierarquia Cadastro Geral
+                    ia.CarregarListViewGestores(lvHierarquiaCadastroGeral, cat.Cpf, false);
+
+
 
                     if (cbxFila.Text.Contains("DLP")) {
                         //Informações adicionais

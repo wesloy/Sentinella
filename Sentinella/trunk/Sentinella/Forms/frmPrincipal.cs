@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Forms;
 
+
 namespace Sentinella {
     public partial class frmPrincipal : Form {
 

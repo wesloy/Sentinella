@@ -118,7 +118,6 @@ namespace Sentinella {
         }
 
 
-
         private bool _registrarEvidencia(int _id_senttinela, string _descricaoEvidencia, Bitmap _imagemEvidencia) {
             validacao = false;
             try {
@@ -169,7 +168,7 @@ namespace Sentinella {
             impAssociado user = new impAssociado();
             categorizacoes cat = new categorizacoes();
             cat = cat.getRegistroPorID(_protocoloSentinella);
-            user = user.getPorCPF(cat.Cpf);
+            user = user.getPorCPFSupImediado(cat.Cpf);
 
             //validando se houve captura de informações e evitando erros
             if (user.Nom_Usuario == null) {
@@ -230,7 +229,7 @@ namespace Sentinella {
             impAssociado user = new impAssociado();
             categorizacoes cat = new categorizacoes();
             cat = cat.getRegistroPorID(_protocoloSentinella);
-            user = user.getPorCPF(cat.Cpf);
+            user = user.getPorCPFSupImediado(cat.Cpf);
 
             //validando se houve captura de informações e evitando erros
             if (user.Nom_Usuario == null) {
@@ -314,7 +313,7 @@ namespace Sentinella {
             impAssociado user = new impAssociado();
             categorizacoes cat = new categorizacoes();
             cat = cat.getRegistroPorID(_protocoloSentinella);
-            user = user.getPorCPF(cat.Cpf);
+            user = user.getPorCPFSupImediado(cat.Cpf);
 
             //validando se houve captura de informações e evitando erros
             if (user.Nom_Usuario == null) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
+
 namespace Sentinella.Forms {
     public partial class frmImportacoes : Form {
         public frmImportacoes() {
@@ -107,6 +108,9 @@ namespace Sentinella.Forms {
 
 
                 if (cbxSeletorFilaImportacao.Text.Contains("CADASTRO GERAL")) {
+                    //if (!hlp.validaCamposObrigatorios(pnlConteudo, "txtEnderecoArquivo")) {
+                    //    return;
+                    //}
                     imp.CadastroGeralProcedure();
                 }
 
@@ -333,5 +337,6 @@ namespace Sentinella.Forms {
             // Perform the sort with these new sort options.
             this.lvLista.Sort();
         }
-    }
+
+   }
 }

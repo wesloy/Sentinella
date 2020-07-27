@@ -186,7 +186,7 @@ namespace Sentinella {
             try {
 
                 sql = "select cod_trilha, des_trilha, des_nome, des_email, num_conclusao, Id_Conteudo, des_conteudo, dt_inicio, dt_fim, des_status, dt_Importacao " +
-                        "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS " +
+                        "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS inner join w_trilhasTreinamentos_cursos c on db_TreinamentoSinergyRH.dbo.TB_TRILHAS.id_conteudo = c.cod_curso " +
                         "where des_nome = " + objCon.valorSql(_nomeAssociado) + " " +
                         "AND des_trilha = " + objCon.valorSql(_trilha) + " " +
                         "order by Id_Conteudo ";
@@ -729,8 +729,7 @@ namespace Sentinella {
                 return null;
             }
         }
-
-
+        
 
         private bool _finalizarRegistro(trilhasSGI t) {
             try {
