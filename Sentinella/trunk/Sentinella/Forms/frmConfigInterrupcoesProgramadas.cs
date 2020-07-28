@@ -17,7 +17,7 @@ namespace Sentinella.Forms {
 
         #region Variaveis
         sys_interrupcoesProgramadas obj = new sys_interrupcoesProgramadas();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
 

@@ -62,6 +62,7 @@
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -128,9 +129,8 @@
             this.mmOpenTelaInicial.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.mmOpenTelaInicial.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.mmOpenTelaInicial.Name = "mmOpenTelaInicial";
-            this.mmOpenTelaInicial.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F2)));
             this.mmOpenTelaInicial.Size = new System.Drawing.Size(37, 28);
-            this.mmOpenTelaInicial.Text = "Página Inicial (ALT + F2)";
+            this.mmOpenTelaInicial.Text = "Página Inicial";
             this.mmOpenTelaInicial.ToolTipText = "Página Inicial (ALT + F2)";
             this.mmOpenTelaInicial.Click += new System.EventHandler(this.mmOpenTelaInicial_Click);
             // 
@@ -153,30 +153,27 @@
             // filasDeTrabalhoToolStripMenuItem
             // 
             this.filasDeTrabalhoToolStripMenuItem.Name = "filasDeTrabalhoToolStripMenuItem";
-            this.filasDeTrabalhoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
             this.filasDeTrabalhoToolStripMenuItem.ShowShortcutKeys = false;
             this.filasDeTrabalhoToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.filasDeTrabalhoToolStripMenuItem.Text = "Filas de Trabalho (F2)";
+            this.filasDeTrabalhoToolStripMenuItem.Text = "Filas de Trabalho";
             this.filasDeTrabalhoToolStripMenuItem.ToolTipText = "Click F2";
             this.filasDeTrabalhoToolStripMenuItem.Click += new System.EventHandler(this.filasDeTrabalhoToolStripMenuItem_Click);
             // 
             // devoluçõesOuvidoriaToolStripMenuItem
             // 
             this.devoluçõesOuvidoriaToolStripMenuItem.Name = "devoluçõesOuvidoriaToolStripMenuItem";
-            this.devoluçõesOuvidoriaToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.devoluçõesOuvidoriaToolStripMenuItem.ShowShortcutKeys = false;
             this.devoluçõesOuvidoriaToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.devoluçõesOuvidoriaToolStripMenuItem.Text = "Devoluções Ouvidoria (F3)";
+            this.devoluçõesOuvidoriaToolStripMenuItem.Text = "Devoluções Ouvidoria";
             this.devoluçõesOuvidoriaToolStripMenuItem.ToolTipText = "Click F3";
             this.devoluçõesOuvidoriaToolStripMenuItem.Click += new System.EventHandler(this.devoluçõesOuvidoriaToolStripMenuItem_Click);
             // 
             // planosDeAçãoToolStripMenuItem
             // 
             this.planosDeAçãoToolStripMenuItem.Name = "planosDeAçãoToolStripMenuItem";
-            this.planosDeAçãoToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.planosDeAçãoToolStripMenuItem.ShowShortcutKeys = false;
             this.planosDeAçãoToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.planosDeAçãoToolStripMenuItem.Text = "Planos de Ação (F11)";
+            this.planosDeAçãoToolStripMenuItem.Text = "Planos de Ação";
             this.planosDeAçãoToolStripMenuItem.Click += new System.EventHandler(this.planosDeAçãoToolStripMenuItem_Click);
             // 
             // envioEmailCobrançaTrilhasSGIToolStripMenuItem
@@ -190,8 +187,9 @@
             // 
             this.mmOpenConsultasForm.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mmOpenConsultasForm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dadosADToolStripMenuItem,
             this.dadosCadastraisDeAssociadosToolStripMenuItem,
-            this.dadosADToolStripMenuItem});
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem});
             this.mmOpenConsultasForm.Enabled = false;
             this.mmOpenConsultasForm.Image = ((System.Drawing.Image)(resources.GetObject("mmOpenConsultasForm.Image")));
             this.mmOpenConsultasForm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -206,16 +204,15 @@
             // dadosCadastraisDeAssociadosToolStripMenuItem
             // 
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Name = "dadosCadastraisDeAssociadosToolStripMenuItem";
-            this.dadosCadastraisDeAssociadosToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.dadosCadastraisDeAssociadosToolStripMenuItem.ShowShortcutKeys = false;
-            this.dadosCadastraisDeAssociadosToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
-            this.dadosCadastraisDeAssociadosToolStripMenuItem.Text = "Dados Cadastrais de Associados (F12)";
+            this.dadosCadastraisDeAssociadosToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.dadosCadastraisDeAssociadosToolStripMenuItem.Text = "Dados Cadastrais de Associados";
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Click += new System.EventHandler(this.dadosCadastraisDeAssociadosToolStripMenuItem_Click);
             // 
             // dadosADToolStripMenuItem
             // 
             this.dadosADToolStripMenuItem.Name = "dadosADToolStripMenuItem";
-            this.dadosADToolStripMenuItem.Size = new System.Drawing.Size(269, 22);
+            this.dadosADToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.dadosADToolStripMenuItem.Text = "Dados AD";
             this.dadosADToolStripMenuItem.Click += new System.EventHandler(this.dadosADToolStripMenuItem_Click);
             // 
@@ -229,8 +226,8 @@
             this.mmOpenExportacoesForm.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.mmOpenExportacoesForm.Name = "mmOpenExportacoesForm";
             this.mmOpenExportacoesForm.Size = new System.Drawing.Size(36, 26);
-            this.mmOpenExportacoesForm.Text = "Exportações (F5)";
-            this.mmOpenExportacoesForm.ToolTipText = "Exportações (F5)";
+            this.mmOpenExportacoesForm.Text = "Exportações";
+            this.mmOpenExportacoesForm.ToolTipText = "Exportações";
             this.mmOpenExportacoesForm.Click += new System.EventHandler(this.mmOpenExportacoesForm_Click);
             // 
             // mmOpenImportacoesForm
@@ -243,8 +240,8 @@
             this.mmOpenImportacoesForm.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.mmOpenImportacoesForm.Name = "mmOpenImportacoesForm";
             this.mmOpenImportacoesForm.Size = new System.Drawing.Size(36, 27);
-            this.mmOpenImportacoesForm.Text = "Importações (F6)";
-            this.mmOpenImportacoesForm.ToolTipText = "Importações (F6)";
+            this.mmOpenImportacoesForm.Text = "Importações";
+            this.mmOpenImportacoesForm.ToolTipText = "Importações";
             this.mmOpenImportacoesForm.Click += new System.EventHandler(this.mmOpenImportacoesForm_Click);
             // 
             // mmOpenConfiguracoesForm
@@ -265,7 +262,6 @@
             this.mmOpenConfiguracoesForm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.mmOpenConfiguracoesForm.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.mmOpenConfiguracoesForm.Name = "mmOpenConfiguracoesForm";
-            this.mmOpenConfiguracoesForm.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.mmOpenConfiguracoesForm.Size = new System.Drawing.Size(35, 28);
             this.mmOpenConfiguracoesForm.Text = "Configurações";
             this.mmOpenConfiguracoesForm.ToolTipText = "Configurações";
@@ -302,7 +298,7 @@
             // 
             this.mmOpenConfigFilas.Name = "mmOpenConfigFilas";
             this.mmOpenConfigFilas.Size = new System.Drawing.Size(210, 22);
-            this.mmOpenConfigFilas.Text = "Filas (F7)";
+            this.mmOpenConfigFilas.Text = "Filas";
             this.mmOpenConfigFilas.ToolTipText = "Click F7";
             this.mmOpenConfigFilas.Click += new System.EventHandler(this.mmOpenConfigFilas_Click);
             // 
@@ -310,7 +306,7 @@
             // 
             this.mmOpenConfigFinalizacoes.Name = "mmOpenConfigFinalizacoes";
             this.mmOpenConfigFinalizacoes.Size = new System.Drawing.Size(210, 22);
-            this.mmOpenConfigFinalizacoes.Text = "Finalizações (F8)";
+            this.mmOpenConfigFinalizacoes.Text = "Finalizações";
             this.mmOpenConfigFinalizacoes.ToolTipText = "Click F8";
             this.mmOpenConfigFinalizacoes.Click += new System.EventHandler(this.mmOpenConfigFinalizacoes_Click);
             // 
@@ -318,7 +314,7 @@
             // 
             this.mmOpenConfigSubFinalizacoes.Name = "mmOpenConfigSubFinalizacoes";
             this.mmOpenConfigSubFinalizacoes.Size = new System.Drawing.Size(210, 22);
-            this.mmOpenConfigSubFinalizacoes.Text = "SubFinalizações (F9)";
+            this.mmOpenConfigSubFinalizacoes.Text = "SubFinalizações";
             this.mmOpenConfigSubFinalizacoes.ToolTipText = "Click F9";
             this.mmOpenConfigSubFinalizacoes.Click += new System.EventHandler(this.mmOpenConfigSubFinalizacoes_Click);
             // 
@@ -331,7 +327,7 @@
             // 
             this.mmOpenConfigUsuarios.Name = "mmOpenConfigUsuarios";
             this.mmOpenConfigUsuarios.Size = new System.Drawing.Size(210, 22);
-            this.mmOpenConfigUsuarios.Text = "Usuários (F10)";
+            this.mmOpenConfigUsuarios.Text = "Usuários";
             this.mmOpenConfigUsuarios.ToolTipText = "Click F10";
             this.mmOpenConfigUsuarios.Click += new System.EventHandler(this.mmOpenConfigUsuarios_Click);
             // 
@@ -414,6 +410,13 @@
             this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // dadosHierarquiaSuperiorImediatoToolStripMenuItem
+            // 
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Name = "dadosHierarquiaSuperiorImediatoToolStripMenuItem";
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Text = "Dados Hierarquia Superior Imediato";
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Click += new System.EventHandler(this.dadosHierarquiaSuperiorImediatoToolStripMenuItem_Click);
+            // 
             // frmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -478,6 +481,7 @@
         private System.Windows.Forms.ToolStripMenuItem filtrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem whiteListToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dadosHierarquiaSuperiorImediatoToolStripMenuItem;
     }
 }
 

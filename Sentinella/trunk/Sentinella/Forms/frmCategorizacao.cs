@@ -20,7 +20,7 @@ namespace Sentinella.Forms
         #region Variaveis        
         finalizacoes objFin = new finalizacoes();
         subFinalizacoes objSubFin = new subFinalizacoes();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         public string filaNome { get; set; }
         public int filaId { get; set; }
         public DateTime dataAbertura { get; set; }

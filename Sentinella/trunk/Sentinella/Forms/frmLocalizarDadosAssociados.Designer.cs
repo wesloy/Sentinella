@@ -151,7 +151,7 @@
             this.Controls.Add(this.pnlFiltros);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmLocalizarDadosAssociados";
-            this.Text = ".: Localizar Informações de Associações :.";
+            this.Text = ".: Localizar Informações de Associações CADASTRO GERAL :.";
             this.Load += new System.EventHandler(this.frmLocalizarDadosAssociados_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInfoAssociados)).EndInit();
             this.pnlFiltros.ResumeLayout(false);

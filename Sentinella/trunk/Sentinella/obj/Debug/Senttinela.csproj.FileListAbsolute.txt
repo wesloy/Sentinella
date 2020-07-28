@@ -29,7 +29,6 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Senttinela.exe.config
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Senttinela.exe
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Senttinela.pdb
-C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\email_dynamics.dll
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\WebDriver.dll
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Algar.Dynamics.Framework.dll
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Microsoft.Xrm.Sdk.dll
@@ -45,3 +44,7 @@ C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\De
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.csproj.CopyComplete
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.exe
 C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Senttinela.pdb
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\obj\Debug\Sentinella.Forms.frmLocalizarHierarquiaSuperiorImediato.resources
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Uteis.dll
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Uteis.pdb
+C:\Users\wesleyel\Documents\GitHub\Sentinella\Sentinella\trunk\Sentinella\bin\Debug\Uteis.xml

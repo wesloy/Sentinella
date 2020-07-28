@@ -10,7 +10,7 @@ namespace Sentinella.Forms {
 
         #region Variaveis
         planoDeAcao obj = new planoDeAcao();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
 

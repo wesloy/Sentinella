@@ -5,8 +5,8 @@ using System.Windows.Forms;
 namespace Sentinella.Forms {
     public partial class frmTeste : Form {
 
-        Algar.Utils.Conexao con = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Conexao con = new Uteis.Conexao(Uteis.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
+        Uteis.Helpers hlp = new Uteis.Helpers();
         string sql = "";
         long retorno = 0;
 

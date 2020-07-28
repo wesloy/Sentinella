@@ -12,8 +12,8 @@ namespace Sentinella {
         long retorno = 0;
         bool validacao = false;
         //long retorno = 0;        
-        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Conexao objCon = new Uteis.Conexao(Uteis.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
 
         #endregion

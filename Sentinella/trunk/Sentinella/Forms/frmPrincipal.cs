@@ -7,7 +7,7 @@ namespace Sentinella {
     public partial class frmPrincipal : Form {
 
         #region Variaveis Uteis
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         private Form _objForm { get; set; }
         sys_interrupcoesProgramadas interrupcoes = new sys_interrupcoesProgramadas();
         #endregion
@@ -169,6 +169,11 @@ namespace Sentinella {
             _objForm = new frmTrilhasSGI();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
+        private void dadosHierarquiaSuperiorImediatoToolStripMenuItem_Click(object sender, EventArgs e) {
+            _objForm = new frmLocalizarHierarquiaSuperiorImediato();
+            hlp.abrirForm(_objForm, false, true);
+
+        }
 
         private void dadosCadastraisDeAssociadosToolStripMenuItem_Click(object sender, EventArgs e) {
             _objForm = new frmLocalizarDadosAssociados();
@@ -200,43 +205,43 @@ namespace Sentinella {
 
         private void frmPrincipal_KeyDown(object sender, KeyEventArgs e) {
 
-            if (Constantes.nivelAcesso >= 2) {
-                switch (e.KeyCode) {
-                    case Keys.F4:
-                        mmOpenConsultasForm_Click(sender, e);
-                        break;
-                    case Keys.F5:
-                        mmOpenExportacoesForm_Click(sender, e);
-                        break;
-                }
+            //if (Constantes.nivelAcesso >= 2) {
+            //    switch (e.KeyCode) {
+            //        case Keys.F4:
+            //            mmOpenConsultasForm_Click(sender, e);
+            //            break;
+            //        case Keys.F5:
+            //            mmOpenExportacoesForm_Click(sender, e);
+            //            break;
+            //    }
 
-            }
+            //}
 
-            if (Constantes.nivelAcesso >= 3) {
-                switch (e.KeyCode) {
-                    case Keys.F6:
-                        mmOpenImportacoesForm_Click(sender, e);
-                        break;
-                }
-            }
+            //if (Constantes.nivelAcesso >= 3) {
+            //    switch (e.KeyCode) {
+            //        case Keys.F6:
+            //            mmOpenImportacoesForm_Click(sender, e);
+            //            break;
+            //    }
+            //}
 
-            if (Constantes.nivelAcesso >= 4) {
-                switch (e.KeyCode) {
-                    case Keys.F7:
-                        mmOpenConfigFilas_Click(sender, e);
-                        break;
-                    case Keys.F8:
-                        mmOpenConfigFinalizacoes_Click(sender, e);
-                        break;
-                    case Keys.F9:
-                        mmOpenConfigSubFinalizacoes_Click(sender, e);
-                        break;
-                    case Keys.F10:
-                        mmOpenConfigUsuarios_Click(sender, e);
-                        break;
-                }
+            //if (Constantes.nivelAcesso >= 4) {
+            //    switch (e.KeyCode) {
+            //        case Keys.F7:
+            //            mmOpenConfigFilas_Click(sender, e);
+            //            break;
+            //        case Keys.F8:
+            //            mmOpenConfigFinalizacoes_Click(sender, e);
+            //            break;
+            //        case Keys.F9:
+            //            mmOpenConfigSubFinalizacoes_Click(sender, e);
+            //            break;
+            //        case Keys.F10:
+            //            mmOpenConfigUsuarios_Click(sender, e);
+            //            break;
+            //    }
 
-            }
+            //}
 
         }
 

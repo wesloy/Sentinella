@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 
 //outras tabelas necessárias
@@ -34,14 +34,12 @@ using System.Drawing;
 
 
 
-namespace Sentinella
-{
-    public static class Constantes
-    {
+namespace Sentinella {
+    public static class Constantes {
         //Variáveis para reaproveitamento e transportes de informações
         public static Boolean autenticacao { get; set; } = false;
         public static Boolean finalizacaoOkay { get; set; }
-        public static int nivelAcesso { get; set; } = 0;    
+        public static int nivelAcesso { get; set; } = 0;
         public static string id_REDE_logadoFerramenta { get; set; } = "";
         public static int id_BD_logadoFerramenta { get; set; } = 0;
         public static string nomeAssociadoLogado { get; set; } = "";
@@ -56,7 +54,7 @@ namespace Sentinella
         public static string PATH_LOG_IMPORT { get; private set; } = Application.StartupPath + ConfigurationManager.AppSettings["PATH_LOG_IMPORT"].ToString();
         public static string PATH_MODELOS { get; private set; } = Application.StartupPath + ConfigurationManager.AppSettings["PATH_MODELOS"].ToString();
         public static string PATH_REPORT { get; private set; } = Application.StartupPath + ConfigurationManager.AppSettings["PATH_REPORT"].ToString();
-        
+
         //Banco de DADOS
         public static string ALGAR_BD { get; private set; } = ConfigurationManager.AppSettings["ALGAR_BD"].ToString();
         public static string ALGAR_SERVIDOR { get; private set; } = ConfigurationManager.AppSettings["ALGAR_SERVIDOR"].ToString();
@@ -65,15 +63,13 @@ namespace Sentinella
 
 
         //Decriptando a senha
-        public static string GetConfig(string key)
-        {
-            Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        public static string GetConfig(string key) {
+            Uteis.Helpers hlp = new Uteis.Helpers();
             return hlp.Decrypt(ConfigurationManager.AppSettings[key].ToString());
         }
 
         //Lista de ICONES
-        public static ImageList imglist()
-        {
+        public static ImageList imglist() {
             // cria um imagelist se necessario
             ImageList imageListSmall = new ImageList();
             imageListSmall.Images.Add("1", Image.FromFile(PATH_ICONS + "01.ico"));
@@ -92,6 +88,7 @@ namespace Sentinella
             imageListSmall.Images.Add("14", Image.FromFile(PATH_ICONS + "14.ico"));
             return imageListSmall;
         }
+
 
 
     }

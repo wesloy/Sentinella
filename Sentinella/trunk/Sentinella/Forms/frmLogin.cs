@@ -4,7 +4,7 @@ using System.Windows.Forms;
 namespace Sentinella.Forms {
     public partial class frmLogin : Form {
 
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
 
 

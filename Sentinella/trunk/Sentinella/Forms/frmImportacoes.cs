@@ -12,7 +12,7 @@ namespace Sentinella.Forms {
         #region Variaveis        
         filas objFilas = new filas();
         logsImportacoes objLog = new logsImportacoes();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
         importacoes imp = new importacoes();
         importacoesRetornoOuvidoria impOuv = new importacoesRetornoOuvidoria();

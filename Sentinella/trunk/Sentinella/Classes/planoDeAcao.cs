@@ -24,8 +24,8 @@ namespace Sentinella {
 
         long retorno = 0;
         string sql = "";
-        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Conexao objCon = new Uteis.Conexao(Uteis.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
         #endregion
 
@@ -139,7 +139,7 @@ namespace Sentinella {
             try {
 
 
-                dadosCadastraisTH th = new dadosCadastraisTH();
+                //dadosCadastraisTH th = new dadosCadastraisTH();
 
                 string gestor_1 = "";
                 string gestor_2 = "";
@@ -218,13 +218,13 @@ namespace Sentinella {
                         }
 
                         if (linha["RESPONSÁVEL"].ToString() != "") {
-                            dadosCadastraisTH infoTh = new dadosCadastraisTH();
-                            infoTh = th.infoMaisRecentePorNomeEspecifico(linha["RESPONSÁVEL"].ToString());
+                            impAssociado ia = new impAssociado();
+                            ia = ia.getPorNomeUsuarioSupImediado(linha["RESPONSÁVEL"].ToString());
 
-                            gestor_1 = infoTh.gestor_1;
-                            gestor_2 = infoTh.gestor_2;
-                            gestor_3 = infoTh.gestor_3;
-                            gestor_4 = infoTh.gestor_4;
+                            gestor_1 = ia._gestor1;
+                            gestor_2 = ia._gestor2;
+                            gestor_3 = ia._gestor3;
+                            gestor_4 = ia._gestor4;
 
 
                         } else {

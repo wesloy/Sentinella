@@ -14,7 +14,7 @@ namespace Sentinella.Forms
     {
 
         #region Variaveis
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         retornoOuvidoria cat = new retornoOuvidoria(); //biblioteca para captura e finalização de casos        
         dadosCadastraisTH d_th = new dadosCadastraisTH(); //informações do funcionário segundo a planilha do TH 
         //string enderecoImagem = "";

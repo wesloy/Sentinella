@@ -11,8 +11,8 @@ namespace Sentinella {
         #region VARIAVEIS 
         string sql = "";
         //long retorno = 0;
-        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Conexao objCon = new Uteis.Conexao(Uteis.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
         DataTable dt = new DataTable();
         DataTable dtConsolidado = new DataTable();

@@ -6,7 +6,7 @@ namespace Sentinella.Forms {
     public partial class frmTrilhasSGI : Form {
 
         trilhasSGI trilhas = new trilhasSGI();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
 
         private void limpezaForm() {

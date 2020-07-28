@@ -65,8 +65,8 @@ namespace Sentinella {
         #region VARIAVEIS 
         string sql = "";
         long retorno = 0;
-        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Conexao objCon = new Uteis.Conexao(Uteis.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
         #endregion
 
@@ -299,8 +299,9 @@ namespace Sentinella {
 
 
                 //passo 01
-                importacoes imp = new importacoes();
-                imp.CadastroGeralProcedure(false);
+                //DECOMISSIONADO ATÉ ATUALIZAÇÃO DA GESTÃO HIERARQUICA DO TABELÃO
+                //importacoes imp = new importacoes();
+                //imp.CadastroGeralProcedure(false);
                 frm.atualizarBarra(1);
 
                 //passo 02 a 04
@@ -358,6 +359,36 @@ namespace Sentinella {
                 DataTable dt_TrilhasSGI = new DataTable();
                 dt_TrilhasSGI = objCon.retornaDataTable(sql);
                 frm.atualizarBarra(2);
+
+                //Tratando GESTORES para hierarquia superior IMEDIATO
+                if (dt_TrilhasSGI != null) {
+
+                    frmProgressBar frmIA = new frmProgressBar(dt_TrilhasSGI.Rows.Count);
+                    frmIA.Show();
+                    int progresso = 0;
+
+                    foreach (DataRow item in dt_TrilhasSGI.Rows) {
+
+                        progresso += 1;
+                        frmIA.atualizarBarra(progresso);
+
+                        impAssociado ia = new impAssociado();
+                        ia = ia.getPorNomeUsuarioSupImediado(item["des_nome"].ToString());
+
+                        item["gestor_1"] = ia._gestor1;
+                        item["gestor_2"] = ia._gestor2;
+                        item["gestor_3"] = ia._gestor3;
+                        item["gestor_4"] = ia._gestor4;
+                        item["gestor_5"] = ia._gestor5;
+
+
+
+                    }
+
+                    frmIA.Close();
+
+
+                }
 
                 //Validando se tem vol para trabalhar
                 if (dt_TrilhasSGI.Rows.Count == 0) {

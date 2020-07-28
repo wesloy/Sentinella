@@ -9,7 +9,7 @@ namespace Sentinella.Forms {
 
         #region Variaveis
         usuarios obj = new usuarios();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
 

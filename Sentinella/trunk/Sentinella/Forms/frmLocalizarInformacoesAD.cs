@@ -9,7 +9,7 @@ namespace Sentinella.Forms {
         }
 
         #region Variaveis
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         relatorios rel = new relatorios(); //informações dos funcionários segundo a banco de dados AD atualizado a cada dia 
         ad _ad = new ad(); //informações dos funcionários segundo o AD
         #endregion

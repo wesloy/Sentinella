@@ -14,8 +14,8 @@ namespace Sentinella {
         string sql = "";
         //long retorno = 0;
         //bool validacao = false;        
-        Algar.Utils.Conexao objCon = new Algar.Utils.Conexao(Algar.Utils.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Conexao objCon = new Uteis.Conexao(Uteis.Conexao.FLAG_SGBD.SQL, Constantes.ALGAR_PWD, Constantes.ALGAR_BD, Constantes.ALGAR_SERVIDOR, Constantes.ALGAR_USER, "");
+        Uteis.Helpers hlp = new Uteis.Helpers();
         logs log = new logs();
         #endregion
 
@@ -482,6 +482,111 @@ namespace Sentinella {
         #endregion
 
         #region DAL
+        private DataTable _getDataTableSuperiorImediato(string _getHieraraquiaPor, string _infoBusca) {
+            DataTable table = new DataTable();
+            try {
+
+                DataColumn column;
+                DataRow row;
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "cpf";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "matricula";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_admissao";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_demissao";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Nome";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Gestor_1";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Gestor_2";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Gestor_3";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Gestor_4";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Gestor_5";
+                table.Columns.Add(column);
+
+
+                //listar informações da IMP Associado
+                sql = "SELECT * FROM db_Corporate_V3.dbo.tb_Imp_Associado WHERE ";
+                switch (_getHieraraquiaPor.ToUpper()) {
+                    case "CPF":
+                        sql += "Cod_Cpf = " + objCon.valorSql(_infoBusca) + " ";
+                        break;
+                    case "MATRICULA":
+                        sql += "Cod_Matricula = " + objCon.valorSql(_infoBusca) + " ";
+                        break;
+                    case "NOME ASSOCIADO":
+                        sql += "Nom_Usuario like '%" + _infoBusca + "%' ";
+                        break;
+                }
+                DataTable dt_geral = new DataTable();
+                dt_geral = objCon.retornaDataTable(sql);
+
+                //Carregar as informações após validar cada um dos superiores imediatos...
+                if (dt_geral.Rows.Count > 0) {
+                    foreach (DataRow item in dt_geral.Rows) {
+
+                        impAssociado info = new impAssociado();
+                        info = getPorCPFSupImediado(item["Cod_Cpf"].ToString());
+
+                        row = table.NewRow();
+                        row["cpf"] = info.Cod_Cpf;
+                        row["matricula"] = info.Cod_Matricula;
+                        row["data_admissao"] = hlp.formataStringDataYYYYMMDD(info.Dt_Admissao);
+                        row["data_demissao"] = hlp.formataStringDataYYYYMMDD(info.Dt_Demissao);
+                        row["Nome"] = info.Nom_Usuario;
+                        row["Gestor_1"] = info._gestor1;
+                        row["Gestor_2"] = info._gestor2;
+                        row["Gestor_3"] = info._gestor3;
+                        row["Gestor_4"] = info._gestor4;
+                        row["Gestor_5"] = info._gestor5;
+                        table.Rows.Add(row);
+                    }
+                }
+
+                return table;
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "IMP ASSOCIADO - DATATABLE INFO SUPERIOR IMEDIATO (DAL)");
+                return null;
+            }
+        }
+
+
         private impAssociado _getPorNomeUsuarioSupImediado(string _nomeUsuario) {
             try {
 
@@ -725,12 +830,12 @@ namespace Sentinella {
                 lst.MultiSelect = false;
                 lst.Columns.Add("CPF", 120, HorizontalAlignment.Center);
                 lst.Columns.Add("MATRICULA", 120, HorizontalAlignment.Center);
-                lst.Columns.Add("NOME", 270, HorizontalAlignment.Left);                
+                lst.Columns.Add("NOME", 270, HorizontalAlignment.Left);
                 lst.Columns.Add("1º GESTOR", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("2º GESTOR", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("3º GESTOR", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("4º GESTOR", 250, HorizontalAlignment.Left);
-                lst.Columns.Add("5º GESTOR", 250, HorizontalAlignment.Left);                
+                lst.Columns.Add("5º GESTOR", 250, HorizontalAlignment.Left);
 
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow linha in dt.Rows) {
@@ -755,6 +860,15 @@ namespace Sentinella {
                 return null;
             }
         }
+
+        public void carregarDataGridViewSuperiorImediato(string _getHieraraquiaPor, string _infoBusca, DataGridView dgv) {
+
+            DataTable dt = new DataTable();
+            dt = _getDataTableSuperiorImediato(_getHieraraquiaPor, _infoBusca);
+            dgv.DataSource = dt;
+        }
+
+
         #endregion
 
     }

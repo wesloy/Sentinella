@@ -19,7 +19,7 @@ namespace Sentinella.Forms
 
         #region VARIAVEIS
         relatorios mis = new relatorios();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
 

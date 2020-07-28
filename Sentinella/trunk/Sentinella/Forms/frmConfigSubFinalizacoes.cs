@@ -9,7 +9,7 @@ namespace Sentinella.Forms {
 
         #region Variaveis
         subFinalizacoes obj = new subFinalizacoes();
-        Algar.Utils.Helpers hlp = new Algar.Utils.Helpers();
+        Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
         #endregion
 
