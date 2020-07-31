@@ -57,6 +57,9 @@
     <StartupObject>Sentinella.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Algar.Dynamics.Framework">
+      <HintPath>H:\TI Corporativa\07 - SGSI\51 - Sentinella\Sentinella\Algar.Dynamics.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="email_dynamics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Complementares\email\testeEnvioEmail\testeEnvioEmail\bin\Debug\email_dynamics.dll</HintPath>

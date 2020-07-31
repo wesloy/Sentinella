@@ -49,7 +49,7 @@ namespace Sentinella.Forms
 
         private void linkLaudos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(@"\\D5174S006\Aplicacoes\Analise_Dados\Sentinella\Senttinela\LOG\");
+            System.Diagnostics.Process.Start(@"\\D5174S006\Aplicacoes\Analise_Dados\Sentinella\Sentinella\LOG\");
         }
     }
 }

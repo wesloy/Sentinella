@@ -42,7 +42,7 @@ namespace Sentinella.Forms {
 
         private void btnIniciar_Click(object sender, EventArgs e) {
             cbxLideranca.Enabled = false;
-            
+
             Clipboard.Clear();
 
             if (hlp.validaCamposObrigatorios(pnlFiltros, "cbxHierarquia")) {
@@ -108,7 +108,7 @@ namespace Sentinella.Forms {
                         validacao = false;
                         return;
                     }
-                    
+
                 }
             }
 
@@ -131,16 +131,15 @@ namespace Sentinella.Forms {
                     email.Mensagem += "<b>ASSOCIADO:</b> " + item.SubItems[2].Text + "<br />";
                     email.Mensagem += "<b>Percentual concluído:</b> " + item.SubItems[9].Text + " <br />";
 
-                    if (item.SubItems[1].Text.Contains("TRILHA SGI")) {
-                        if (int.Parse(item.SubItems[8].Text) < 0) {
-                            email.Mensagem += "<b>Período de conclusão vencido:</b> " + int.Parse(item.SubItems[8].Text) * -1 + " dia(s). <br />";
-                        } else {
-                            email.Mensagem += "<b>Período de conclusão irá vencer:</b> " + item.SubItems[8].Text + " dia(s). <br />";
-                        }
-                        email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[20].Text + "<br />";
+
+                    if (int.Parse(item.SubItems[8].Text) < 0) {
+                        email.Mensagem += "<b>Período de conclusão vencido:</b> " + int.Parse(item.SubItems[8].Text) * -1 + " dia(s). <br />";
                     } else {
-                        email.Mensagem += "<b>Período de conclusão vencido:</b> " + int.Parse(item.SubItems[8].Text) + " dia(s). <br />";
+                        email.Mensagem += "<b>Período de conclusão irá vencer:</b> " + item.SubItems[8].Text + " dia(s). <br />";
                     }
+
+                    email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[20].Text + "<br />";
+
 
                     email.Mensagem += "<br />";
                 }
@@ -305,7 +304,7 @@ namespace Sentinella.Forms {
 
         private void lvAssociados_DoubleClick(object sender, EventArgs e) {
             frmTrilhasSGI_detalhesSinergy objForm = new frmTrilhasSGI_detalhesSinergy();
-            objForm._infoSinergy = trilhas.consultaBaseSinergy(lvAssociados.SelectedItems[0].SubItems[2].Text, lvAssociados.SelectedItems[0].SubItems[1].Text);            
+            objForm._infoSinergy = trilhas.consultaBaseSinergy(lvAssociados.SelectedItems[0].SubItems[2].Text, lvAssociados.SelectedItems[0].SubItems[1].Text);
             hlp.abrirForm(objForm, true, false);
         }
     }

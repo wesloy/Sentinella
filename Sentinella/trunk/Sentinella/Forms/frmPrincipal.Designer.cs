@@ -40,8 +40,9 @@
             this.planosDeAçãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.envioEmailCobrançaTrilhasSGIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConsultasForm = new System.Windows.Forms.ToolStripMenuItem();
-            this.dadosCadastraisDeAssociadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dadosADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dadosCadastraisDeAssociadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenExportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenImportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfiguracoesForm = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +63,6 @@
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -154,7 +154,7 @@
             // 
             this.filasDeTrabalhoToolStripMenuItem.Name = "filasDeTrabalhoToolStripMenuItem";
             this.filasDeTrabalhoToolStripMenuItem.ShowShortcutKeys = false;
-            this.filasDeTrabalhoToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.filasDeTrabalhoToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.filasDeTrabalhoToolStripMenuItem.Text = "Filas de Trabalho";
             this.filasDeTrabalhoToolStripMenuItem.ToolTipText = "Click F2";
             this.filasDeTrabalhoToolStripMenuItem.Click += new System.EventHandler(this.filasDeTrabalhoToolStripMenuItem_Click);
@@ -163,7 +163,7 @@
             // 
             this.devoluçõesOuvidoriaToolStripMenuItem.Name = "devoluçõesOuvidoriaToolStripMenuItem";
             this.devoluçõesOuvidoriaToolStripMenuItem.ShowShortcutKeys = false;
-            this.devoluçõesOuvidoriaToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.devoluçõesOuvidoriaToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.devoluçõesOuvidoriaToolStripMenuItem.Text = "Devoluções Ouvidoria";
             this.devoluçõesOuvidoriaToolStripMenuItem.ToolTipText = "Click F3";
             this.devoluçõesOuvidoriaToolStripMenuItem.Click += new System.EventHandler(this.devoluçõesOuvidoriaToolStripMenuItem_Click);
@@ -172,15 +172,15 @@
             // 
             this.planosDeAçãoToolStripMenuItem.Name = "planosDeAçãoToolStripMenuItem";
             this.planosDeAçãoToolStripMenuItem.ShowShortcutKeys = false;
-            this.planosDeAçãoToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.planosDeAçãoToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
             this.planosDeAçãoToolStripMenuItem.Text = "Planos de Ação";
             this.planosDeAçãoToolStripMenuItem.Click += new System.EventHandler(this.planosDeAçãoToolStripMenuItem_Click);
             // 
             // envioEmailCobrançaTrilhasSGIToolStripMenuItem
             // 
             this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Name = "envioEmailCobrançaTrilhasSGIToolStripMenuItem";
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Text = "Envio e-mail Cobrança Trilhas SGI";
+            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
+            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Text = "Enviar e-mail Cobrança Trilhas SGI";
             this.envioEmailCobrançaTrilhasSGIToolStripMenuItem.Click += new System.EventHandler(this.envioEmailCobrançaTrilhasSGIToolStripMenuItem_Click);
             // 
             // mmOpenConsultasForm
@@ -201,6 +201,13 @@
             this.mmOpenConsultasForm.ToolTipText = "Consultas (F4)";
             this.mmOpenConsultasForm.Click += new System.EventHandler(this.mmOpenConsultasForm_Click);
             // 
+            // dadosADToolStripMenuItem
+            // 
+            this.dadosADToolStripMenuItem.Name = "dadosADToolStripMenuItem";
+            this.dadosADToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.dadosADToolStripMenuItem.Text = "Dados AD";
+            this.dadosADToolStripMenuItem.Click += new System.EventHandler(this.dadosADToolStripMenuItem_Click);
+            // 
             // dadosCadastraisDeAssociadosToolStripMenuItem
             // 
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Name = "dadosCadastraisDeAssociadosToolStripMenuItem";
@@ -209,12 +216,12 @@
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Text = "Dados Cadastrais de Associados";
             this.dadosCadastraisDeAssociadosToolStripMenuItem.Click += new System.EventHandler(this.dadosCadastraisDeAssociadosToolStripMenuItem_Click);
             // 
-            // dadosADToolStripMenuItem
+            // dadosHierarquiaSuperiorImediatoToolStripMenuItem
             // 
-            this.dadosADToolStripMenuItem.Name = "dadosADToolStripMenuItem";
-            this.dadosADToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.dadosADToolStripMenuItem.Text = "Dados AD";
-            this.dadosADToolStripMenuItem.Click += new System.EventHandler(this.dadosADToolStripMenuItem_Click);
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Name = "dadosHierarquiaSuperiorImediatoToolStripMenuItem";
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Text = "Dados Hierarquia Superior Imediato";
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Click += new System.EventHandler(this.dadosHierarquiaSuperiorImediatoToolStripMenuItem_Click);
             // 
             // mmOpenExportacoesForm
             // 
@@ -278,15 +285,15 @@
             // filtrosToolStripMenuItem
             // 
             this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
-            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.filtrosToolStripMenuItem.Text = "Filtros";
             this.filtrosToolStripMenuItem.Click += new System.EventHandler(this.filtrosToolStripMenuItem_Click);
             // 
             // whiteListToolStripMenuItem
             // 
             this.whiteListToolStripMenuItem.Name = "whiteListToolStripMenuItem";
-            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.whiteListToolStripMenuItem.Text = "White List";
+            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.whiteListToolStripMenuItem.Text = "Whitelist";
             this.whiteListToolStripMenuItem.Click += new System.EventHandler(this.whiteListToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
@@ -314,7 +321,7 @@
             // 
             this.mmOpenConfigSubFinalizacoes.Name = "mmOpenConfigSubFinalizacoes";
             this.mmOpenConfigSubFinalizacoes.Size = new System.Drawing.Size(210, 22);
-            this.mmOpenConfigSubFinalizacoes.Text = "SubFinalizações";
+            this.mmOpenConfigSubFinalizacoes.Text = "Sub Finalizações";
             this.mmOpenConfigSubFinalizacoes.ToolTipText = "Click F9";
             this.mmOpenConfigSubFinalizacoes.Click += new System.EventHandler(this.mmOpenConfigSubFinalizacoes_Click);
             // 
@@ -349,7 +356,7 @@
             this.mmFechar.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.mmFechar.Size = new System.Drawing.Size(33, 22);
             this.mmFechar.Text = "Sair (ALT+F4)";
-            this.mmFechar.ToolTipText = "Fechar o Senttinela (ALT + F4)";
+            this.mmFechar.ToolTipText = "Fechar o Sentinella (ALT + F4)";
             this.mmFechar.Click += new System.EventHandler(this.mmFechar_Click);
             // 
             // toolStripContainer1
@@ -401,7 +408,7 @@
             this.lbStatus.Name = "lbStatus";
             this.lbStatus.Size = new System.Drawing.Size(178, 17);
             this.lbStatus.Tag = "Status";
-            this.lbStatus.Text = "Senttinela pronto para a ação...";
+            this.lbStatus.Text = "Sentinella pronto para a ação...";
             this.lbStatus.ToolTipText = "Status de Processos";
             // 
             // timer1
@@ -409,13 +416,6 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // dadosHierarquiaSuperiorImediatoToolStripMenuItem
-            // 
-            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Name = "dadosHierarquiaSuperiorImediatoToolStripMenuItem";
-            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Text = "Dados Hierarquia Superior Imediato";
-            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Click += new System.EventHandler(this.dadosHierarquiaSuperiorImediatoToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -429,7 +429,7 @@
             this.KeyPreview = true;
             this.Name = "frmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = ".: Senttinela :.";
+            this.Text = ".: Sentinella :.";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.frmPrincipal_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmPrincipal_KeyDown);

@@ -192,7 +192,9 @@ namespace Sentinella {
             try {
                 DataTable dt = new DataTable();
                 int nivelAcesso = 0;
-                sql = "Select perfilAcesso as PA from w_sysUsuarios where idRede = " + objCon.valorSql(obj.IdRede) + " or idRedeBRA like " + objCon.valorSql(IdRede) + " ";
+                sql = "Select perfilAcesso as PA from w_sysUsuarios where ativo = 1 and " + 
+                                "(idRede = " + objCon.valorSql(obj.IdRede) + 
+                                " or idRedeBRA like " + objCon.valorSql(IdRede) + ") ";
                 dt = objCon.retornaDataTable(sql);
                 if (dt.Rows.Count > 0) {
                     foreach (DataRow ln in dt.Rows) {
@@ -445,7 +447,7 @@ namespace Sentinella {
             try {
                 int nivelAcesso = _autenticacao(obj);
                 if (nivelAcesso == 0) {
-                    MessageBox.Show("Favor procurar um adiministrador do Senttinela, pois você não possui um acesso ativo ou válido para acessar a aplicação!",
+                    MessageBox.Show("Favor procurar um adiministrador do Sentinella, pois você não possui um acesso ativo ou válido para acessar a aplicação!",
                         Constantes.Titulo_MSG.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);                    
                 }
                 return nivelAcesso;

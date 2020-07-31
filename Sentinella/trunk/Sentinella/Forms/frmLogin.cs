@@ -48,12 +48,13 @@ namespace Sentinella.Forms {
 
 
                 if (Constantes.nivelAcesso > 0) {
+                    user.Online = true;
                     user.setStatusUsuario(user);
                     Constantes.autenticacao = true;
                     log.registrarLog("Ok", "Login");
                 } else {
                     Constantes.autenticacao = false;
-                    log.registrarLog("Usuário SEM privilégio de acesso ao Senttinela", "Login");
+                    log.registrarLog("Usuário SEM privilégio de acesso ao Sentinella", "Login");
                 }
 
 

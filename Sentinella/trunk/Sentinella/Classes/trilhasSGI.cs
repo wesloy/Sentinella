@@ -795,7 +795,7 @@ namespace Sentinella {
         public long abrirProducao() {
             try {
 
-                DialogResult dialogResult = MessageBox.Show("Realmente deseja carregar novos registros e também registros que já foram enviados e-mails de cobrança e ainda não foram finalizados?", Constantes.Titulo_MSG, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult dialogResult = MessageBox.Show("Realmente deseja carregar novos registros e atualizar a base? Levará alguns minutos até que tudo seja atualizado.", Constantes.Titulo_MSG, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (dialogResult == DialogResult.Yes) {
                     Cursor cursor = Cursors.WaitCursor;
@@ -893,11 +893,11 @@ namespace Sentinella {
                 lst.Columns.Add("DATA FÉRIAS FIM", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA AFASTAMENTO INICIO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA AFASTAMENTO FIM", 100, HorizontalAlignment.Left);
-                lst.Columns.Add("SUPERVISÃO", 250, HorizontalAlignment.Left);
-                lst.Columns.Add("COORDENADOR", 250, HorizontalAlignment.Left);
-                lst.Columns.Add("GERENTE", 250, HorizontalAlignment.Left);
-                lst.Columns.Add("DIRETORIA", 250, HorizontalAlignment.Left);
-                lst.Columns.Add("DIRETORIA", 250, HorizontalAlignment.Left);
+                lst.Columns.Add("1º GESTOR", 250, HorizontalAlignment.Left);
+                lst.Columns.Add("2º GESTOR", 250, HorizontalAlignment.Left);
+                lst.Columns.Add("3º GESTOR", 250, HorizontalAlignment.Left);
+                lst.Columns.Add("4º GESTOR", 250, HorizontalAlignment.Left);
+                lst.Columns.Add("5º GESTOR", 250, HorizontalAlignment.Left);
                 frm.Close();
 
                 if (dt.Rows.Count > 0) {
@@ -953,27 +953,28 @@ namespace Sentinella {
                             if (linha["des_trilha"].ToString().ToUpper().Contains("SOUALGAR")) {
 
                                 //TRILHA SOU ALGAR
+                                TimeSpan calculoAgingSouAlgar = DateTime.Parse(linha["vigencia_inicio_data"].ToString()) - DateTime.Today;
 
                                 if (int.Parse(linha["percentual_concluido"].ToString()) < 100) {
 
-                                    if (calculoAging.Days <= 30) {
+                                    if (calculoAgingSouAlgar.Days >= -30) {
 
                                         _status = "PENDENTE - À VENCER";
-                                        _aging = calculoAging.Days.ToString();
+                                        _aging = (calculoAgingSouAlgar.Days + 30).ToString(); //retirar os 30 dias de prazo para conclusão do curso
                                         _imageKey = "3";
                                     }
 
-                                    if (calculoAging.Days > 30) {
+                                    if (calculoAgingSouAlgar.Days < -30) {
                                         //como é uma trilha obrigatória de contratação, considerado 30 dias para ser finalizada
                                         _status = "PENDENTE - VENCIDO";
-                                        _aging = calculoAging.Days.ToString();
+                                        _aging = (calculoAgingSouAlgar.Days +30).ToString(); //retirar os 30 dias de prazo para conclusão do curso 
                                         _imageKey = "3";
                                     }
 
-                                    if (calculoAging.Days > 300) {
+                                    if (calculoAgingSouAlgar.Days < -300) {
                                         //cobrança já deve ser da trilha SGI
                                         _status = "FORA PERIODO";
-                                        _aging = calculoAging.Days.ToString();
+                                        _aging = (calculoAgingSouAlgar.Days + 30).ToString(); //retirar os 30 dias de prazo para conclusão do curso 
                                         _imageKey = "4";
 
                                     }
@@ -988,25 +989,26 @@ namespace Sentinella {
                             } else {
 
                                 //TRILHA SGI
+                                TimeSpan calculoAgingSGI = DateTime.Parse(linha["vigencia_fim_data"].ToString()) - DateTime.Today;
 
                                 if (int.Parse(linha["percentual_concluido"].ToString()) < 100) {
 
-                                    if (calculoAging.Days <= 60 && calculoAging.Days >= 0) {
+                                    if (calculoAgingSGI.Days <= 60 && calculoAging.Days >= 0) {
 
                                         _status = "PENDENTE - À VENCER";
-                                        _aging = calculoAging.Days.ToString();
+                                        _aging = calculoAgingSGI.Days.ToString();
                                         _imageKey = "3";
                                     }
 
-                                    if (calculoAging.Days < 0) {
+                                    if (calculoAgingSGI.Days < 0) {
                                         _status = "PENDENTE - VENCIDO";
-                                        _aging = calculoAging.Days.ToString();
+                                        _aging = calculoAgingSGI.Days.ToString();
                                         _imageKey = "3";
                                     }
 
-                                    if (calculoAging.Days > 60) {
+                                    if (calculoAgingSGI.Days > 60) {
                                         _status = "FORA PERIODO";
-                                        _aging = calculoAging.Days.ToString();
+                                        _aging = calculoAgingSGI.Days.ToString();
                                         _imageKey = "4";
 
                                     }

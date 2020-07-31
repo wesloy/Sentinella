@@ -98,7 +98,7 @@ namespace Sentinella {
         }
 
         private void mmOpenConfigSubFinalizacoes_Click(object sender, EventArgs e) {
-            atualizarStatus("Página de Configuração de SubFinalizações");
+            atualizarStatus("Página de Configuração de Sub Finalizações");
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmConfigSubFinalizacoes();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
@@ -144,7 +144,7 @@ namespace Sentinella {
         }
 
         private void whiteListToolStripMenuItem_Click(object sender, EventArgs e) {
-            atualizarStatus("Página de Configuração de White List - Tamnun");
+            atualizarStatus("Página de Configuração de Whitelist - Tamnun");
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmConfigTamnunWhiteList();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
@@ -164,7 +164,7 @@ namespace Sentinella {
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
         private void envioEmailCobrançaTrilhasSGIToolStripMenuItem_Click(object sender, EventArgs e) {
-            atualizarStatus("Página de Envio de e-mail cobrança Trilhas SGI");
+            atualizarStatus("Página de Enviar de e-mail cobrança Trilhas SGI");
             _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
             _objForm = new frmTrilhasSGI();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);

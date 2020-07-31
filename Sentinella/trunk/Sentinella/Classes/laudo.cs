@@ -22,7 +22,7 @@ namespace Sentinella {
 
         //CREATE TABLE [dbo].[w_laudos] (
         //    [id]                   INT             IDENTITY (1, 1) NOT NULL,
-        //    [protocolo_senttinela] INT             DEFAULT ((0)) NOT NULL,
+        //    [protocolo_Sentinella] INT             DEFAULT ((0)) NOT NULL,
         //    [nome_arquivo]         NVARCHAR (100)  DEFAULT ('SEM ARQUIVO') NOT NULL,
         //    [data_geracao]         DATETIME        DEFAULT ('1900-01-01 00:00:00') NOT NULL,
         //    [resumo_incidente]     NVARCHAR (MAX)  DEFAULT ('SEM RESUMO') NOT NULL,
@@ -32,18 +32,18 @@ namespace Sentinella {
         //);
 
         //CREATE TABLE [dbo].[w_laudos_evidencias] (
-        //    [id_senttinela]         INT             NOT NULL,
+        //    [id_Sentinella]         INT             NOT NULL,
         //    [evidencia]        NVARCHAR (MAX)  DEFAULT ('SEM EVIDENCIA') NOT NULL,
         //    [imagem_evidencia] VARBINARY (MAX) NULL 
         //);
 
         //GO
 
-        //CREATE INDEX [id_laudo] ON [dbo].[w_laudos_evidencias] ([id_senttinela])
+        //CREATE INDEX [id_laudo] ON [dbo].[w_laudos_evidencias] ([id_Sentinella])
 
         private int _id { get; set; }
 
-        private int _protocolo_senttinela { get; set; }
+        private int _protocolo_Sentinella { get; set; }
         private string _nome_arquivo { get; set; }//tabela principal
         private string _endereco_laudo { get; set; } //tabela principal
         private DateTime _data_geracao { get; set; }//tabela principal
@@ -60,10 +60,10 @@ namespace Sentinella {
 
         public laudo() { }
 
-        public laudo(int _protocoloSenttinela, string _nomeArquivo, string _enderecoLaudo, DateTime _dataGeracao, string _reusmoIncidente,
+        public laudo(int _protocoloSentinella, string _nomeArquivo, string _enderecoLaudo, DateTime _dataGeracao, string _reusmoIncidente,
                             string _resultadoAnalise) // List<string> _evidenciaCaptura, List<Bitmap> _imageEvidencia )
         {
-            _protocolo_senttinela = _protocoloSenttinela;
+            _protocolo_Sentinella = _protocoloSentinella;
             _nome_arquivo = _nomeArquivo;
             _data_geracao = _dataGeracao;
             _resumo_incidente = _reusmoIncidente;
@@ -82,13 +82,13 @@ namespace Sentinella {
             try {
 
                 sql = "Insert into w_laudos (";
-                sql += "protocolo_senttinela, ";
+                sql += "protocolo_Sentinella, ";
                 sql += "nome_arquivo, ";
                 sql += "data_geracao, ";
                 sql += "resumo_incidente, ";
                 sql += "resultado_analise ";
                 sql += ") values ( ";
-                sql += objCon.valorSql(obj._protocolo_senttinela) + ", ";
+                sql += objCon.valorSql(obj._protocolo_Sentinella) + ", ";
                 sql += objCon.valorSql(obj._nome_arquivo) + ", ";
                 sql += objCon.valorSql(obj._data_geracao) + ", ";
                 sql += objCon.valorSql(obj._resumo_incidente) + ", ";
@@ -104,7 +104,7 @@ namespace Sentinella {
                 //        // toda evidencia deve ter uma imagem, caso uma evidencia não tenha imagem deve ter a imagem padrão em branco
                 //        // salvando cada evidencia
                 //        // utilizando o index da descricao para localizar a imagem correspondente no list das imagens
-                //        validacao = _registrarEvidencia(obj._protocolo_senttinela, ev, obj._imagem_evidencia[obj._evidencia.IndexOf(ev.ToString())]);
+                //        validacao = _registrarEvidencia(obj._protocolo_Sentinella, ev, obj._imagem_evidencia[obj._evidencia.IndexOf(ev.ToString())]);
                 //    }                    
                 //}
 
@@ -118,7 +118,7 @@ namespace Sentinella {
         }
 
 
-        private bool _registrarEvidencia(int _id_senttinela, string _descricaoEvidencia, Bitmap _imagemEvidencia) {
+        private bool _registrarEvidencia(int _id_Sentinella, string _descricaoEvidencia, Bitmap _imagemEvidencia) {
             validacao = false;
             try {
                 MemoryStream ms = new MemoryStream();
@@ -130,7 +130,7 @@ namespace Sentinella {
                 sql += "evidencia, ";
                 sql += "imagem_evidencia ";
                 sql += ") values ( ";
-                sql += objCon.valorSql(_id_senttinela) + ", ";
+                sql += objCon.valorSql(_id_Sentinella) + ", ";
                 sql += objCon.valorSql(_descricaoEvidencia) + ", ";
                 sql += "@imagem) ";
                 validacao = objCon.executaQuery(sql, ref retorno);

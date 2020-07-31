@@ -44,7 +44,7 @@ namespace Sentinella {
         public static int id_BD_logadoFerramenta { get; set; } = 0;
         public static string nomeAssociadoLogado { get; set; } = "";
         public enum FlagAcao { Insert = 1, Update = 2, Delete = 3, NoAction = 0 }
-        public static string Titulo_MSG { get; private set; } = "Alerta Senttinela!";
+        public static string Titulo_MSG { get; private set; } = "Alerta Sentinella!";
         public struct FlagSGBD { const string SQL = "SQL"; const string ACESS = "MSACESS"; }
 
         //Path de configurações do sistema
