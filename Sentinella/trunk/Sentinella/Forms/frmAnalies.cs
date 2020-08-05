@@ -19,6 +19,7 @@ namespace Sentinella.Forms {
 
         private void limparForm() {
             cpfAssociado = "";
+            txtPARA.Clear();
             hlp.limparCampos(pnlFiltros);
             hlp.limparCampos(pnlConteudo);
             hlp.limparCampos(pnlBotoes);
@@ -432,6 +433,11 @@ namespace Sentinella.Forms {
 
             string[] email = new string[3];
 
+            if (txt_id.Text == "" || txt_id.Text == "0") {
+                MessageBox.Show("Não existe um registro sendo trabalhado, não é possivel carregar o modelo de laudo sem um registro sendo analisado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             switch (cbxModeloEmail.Text) {
 
                 case "BRADESCO BÁSICO":
@@ -457,6 +463,12 @@ namespace Sentinella.Forms {
                     break;
 
             }
+
+            if (cbxModeloEmail.Text != "") {
+                txtPARA.Text = "ouvidoria@algar.com.br";               
+
+            }
+
         }
 
         private void btnAbrir_Click(object sender, EventArgs e) {
@@ -487,8 +499,8 @@ namespace Sentinella.Forms {
             }
 
 
-            if (txtTituloEmail.Text == "" || txtCorpoEmail.Text == "") {
-                MessageBox.Show("Para enviar um e-mail é necessário Título e Corpo!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if (txtTituloEmail.Text == "" || txtCorpoEmail.Text == "" || txtPARA.Text == "") {
+                MessageBox.Show("Para enviar um e-mail é necessário o endereço PARA quem será enviado, Título e Corpo!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -501,7 +513,7 @@ namespace Sentinella.Forms {
 
             //Para
             List<string> para = new List<string>();
-            string txtPara = "ouvidoria@algartech.com.br";
+            string txtPara = txtPARA.Text;
             string[] _para = txtPara.Split(';');
             foreach (var item in _para) { para.Add(item); }
             email.Para = para;
