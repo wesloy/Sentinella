@@ -1744,13 +1744,14 @@ namespace Sentinella {
                 }
 
 
-                //atualizar datas de estabilidade, férias e afastamento para todo o histórico
+                //atualizar datas de estabilidade, férias, demissão e afastamento para todo o histórico
                 sql = "update h set " +
                         "h.data_estabilidade_inicio = iif(imp.Dt_Inicio_Estabilidade_CIPA is null, '1900-01-01', convert(date, imp.Dt_Inicio_Estabilidade_CIPA, 109)),  " +
                         "h.data_estabilidade_fim = iif(imp.Dt_fim_Estabilidade_CIPA is null, '1900-01-01', convert(date, imp.Dt_fim_Estabilidade_CIPA, 109)), " +
                         "h.data_inicio_ferias = iif(imp.Dt_inicio_ferias is null, '1900-01-01', convert(date, imp.Dt_inicio_ferias, 109)), " +
                         "h.data_fim_ferias = iif(imp.Dt_fim_ferias is null, '1900-01-01', convert(date, imp.Dt_fim_ferias, 109)), " +
                         "h.data_inicio_afastamento = iif(imp.Dt_inicio_afastamento is null, '1900-01-01', convert(date, imp.Dt_inicio_afastamento, 109)), " +
+                        "h.data_demissao = iif(imp.Dt_demissao is null, '1900-01-01', convert(date, imp.Dt_demissao, 109)), " +
                         "h.data_fim_afastamento = iif(Dt_fim_afastamento is null, '1900-01-01', convert(date, imp.Dt_fim_afastamento, 109)) " +
                         "from db_Corporate_V3.dbo.tb_Imp_Associado imp " +
                         "inner " +

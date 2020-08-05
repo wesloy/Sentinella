@@ -182,7 +182,7 @@ namespace Sentinella {
 
         #region DAL
 
-        private DataTable _consultaBaseSinergy (string _nomeAssociado, string _trilha) {
+        private DataTable _consultaBaseSinergy(string _nomeAssociado, string _trilha) {
             try {
 
                 sql = "select cod_trilha, des_trilha, des_nome, des_email, num_conclusao, Id_Conteudo, des_conteudo, dt_inicio, dt_fim, des_status, dt_Importacao " +
@@ -299,13 +299,11 @@ namespace Sentinella {
 
 
                 //passo 01
-                //DECOMISSIONADO ATÉ ATUALIZAÇÃO DA GESTÃO HIERARQUICA DO TABELÃO
-                //importacoes imp = new importacoes();
-                //imp.CadastroGeralProcedure(false);
+                importacoes imp = new importacoes();
+                imp.CadastroGeralProcedure(false);
                 frm.atualizarBarra(1);
 
                 //passo 02 a 04
-
                 sql = "select c.cod_trilha, c.des_trilha, c.des_nome, ";
                 sql += "replace(replace(c.cod_cpf, '.', ''), '-', '') as cpf, ";
                 sql += "count(c.des_conteudo) as total_cursos, ";
@@ -760,7 +758,7 @@ namespace Sentinella {
                 return null;
             }
         }
-        
+
 
         private bool _finalizarRegistro(trilhasSGI t) {
             try {
@@ -889,6 +887,7 @@ namespace Sentinella {
                 lst.Columns.Add("ÚLT. END. DE E-MAIL ENVIADO", 120, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA ÚLT E-MAIL", 120, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA ADMISSÃO", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA DEMISSÃO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA FÉRIAS INICIO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA FÉRIAS FIM", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA AFASTAMENTO INICIO", 100, HorizontalAlignment.Left);
@@ -967,7 +966,7 @@ namespace Sentinella {
                                     if (calculoAgingSouAlgar.Days < -30) {
                                         //como é uma trilha obrigatória de contratação, considerado 30 dias para ser finalizada
                                         _status = "PENDENTE - VENCIDO";
-                                        _aging = (calculoAgingSouAlgar.Days +30).ToString(); //retirar os 30 dias de prazo para conclusão do curso 
+                                        _aging = (calculoAgingSouAlgar.Days + 30).ToString(); //retirar os 30 dias de prazo para conclusão do curso 
                                         _imageKey = "3";
                                     }
 
@@ -1028,8 +1027,8 @@ namespace Sentinella {
                         //AFASTAMENTO
                         if (_validar) {
                             if (!linha["data_afastamento_inicio"].ToString().Equals("") && !linha["data_afastamento_fim"].ToString().Equals("")) {
-                                if ((DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_inicio"].ToString()) != DateTime.Parse("1900-01-01 00:00:00")) && 
-                                    (DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today || DateTime.Parse(linha["data_afastamento_fim"].ToString())  == DateTime.Parse("1900-01-01 00:00:00"))) {
+                                if ((DateTime.Parse(linha["data_afastamento_inicio"].ToString()) < DateTime.Today && DateTime.Parse(linha["data_afastamento_inicio"].ToString()) != DateTime.Parse("1900-01-01 00:00:00")) &&
+                                    (DateTime.Parse(linha["data_afastamento_fim"].ToString()) > DateTime.Today || DateTime.Parse(linha["data_afastamento_fim"].ToString()) == DateTime.Parse("1900-01-01 00:00:00"))) {
 
                                     _status = "AFASTADO";
                                     _aging = calculoAging.Days.ToString();
@@ -1066,6 +1065,7 @@ namespace Sentinella {
                         item.SubItems.Add(linha["End_Ult_Email_Enviado"].ToString());
                         item.SubItems.Add(linha["Data_Ult_Email_Enviado"].ToString());
                         item.SubItems.Add(linha["data_admissao"].ToString());
+                        item.SubItems.Add(linha["data_demissao"].ToString());
                         item.SubItems.Add(linha["data_ferias_inicio"].ToString());
                         item.SubItems.Add(linha["data_ferias_fim"].ToString());
                         item.SubItems.Add(linha["data_afastamento_inicio"].ToString());
@@ -1180,7 +1180,7 @@ namespace Sentinella {
 
         }
 
-        public DataTable consultaBaseSinergy (string _nomeAssociado, string _trilha) {
+        public DataTable consultaBaseSinergy(string _nomeAssociado, string _trilha) {
             try {
                 return _consultaBaseSinergy(_nomeAssociado, _trilha);
             }

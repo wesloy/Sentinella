@@ -564,11 +564,11 @@ namespace Sentinella {
                         info = getPorCPFSupImediado(item["Cod_Cpf"].ToString());
 
                         row = table.NewRow();
-                        row["cpf"] = info.Cod_Cpf;
-                        row["matricula"] = info.Cod_Matricula;
-                        row["data_admissao"] = hlp.formataStringDataYYYYMMDD(info.Dt_Admissao);
-                        row["data_demissao"] = hlp.formataStringDataYYYYMMDD(info.Dt_Demissao);
-                        row["Nome"] = info.Nom_Usuario;
+                        row["cpf"] = item["Cod_Cpf"].ToString();
+                        row["matricula"] = item["Cod_Matricula"].ToString();
+                        row["data_admissao"] = hlp.formataStringDataYYYYMMDD(item["Dt_Admissao"].ToString());
+                        row["data_demissao"] = hlp.formataStringDataYYYYMMDD(item["Dt_Demissao"].ToString());
+                        row["Nome"] = item["Nom_Usuario"].ToString();
                         row["Gestor_1"] = info._gestor1;
                         row["Gestor_2"] = info._gestor2;
                         row["Gestor_3"] = info._gestor3;

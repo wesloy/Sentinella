@@ -46,15 +46,24 @@ campoDeData = objCon.retornaVazioParaValorNulo(drRow("data_inicial_viagem"), Not
 <member name="M:Uteis.Helpers.formataStringDataDDMMYYYY(System.String)">
  <summary>
  Formata uma string de data no formato Date
- Data criação/modificação: 17/04/2019
  Formato de entrada: DD/MM/YYYY ou DDMMYYYY
+ Data criação/modificação: 17/04/2019
  </summary>  
+</member>
+<member name="M:Uteis.Helpers.formataStringDataYYYYMMDD(System.String)">
+ <summary>
+ Formata uma string de data no formato Date
+ Formato de entrada: YYYYMMDD
+ Data criação/modificação: 05/08/2020
+ </summary>
+ <param name="strData"></param>
+ <returns></returns>
 </member>
 <member name="M:Uteis.Helpers.formataStringDataDDMMYY(System.String)">
  <summary>
  Formata uma string de data no formato Date
- Data criação/modificação: 02/01/2018
  Formato de entrada: 11/04/19
+ Data criação/modificação: 02/01/2018
  </summary>  
 </member>
 <member name="M:Uteis.Helpers.formataStringHoraHHMMSS(System.String)">

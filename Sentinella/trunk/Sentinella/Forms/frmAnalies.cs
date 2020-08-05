@@ -14,13 +14,16 @@ namespace Sentinella.Forms {
         categorizacoes cat = new categorizacoes(); //biblioteca para captura e finalização de casos        
         dadosCadastraisTH d_th = new dadosCadastraisTH(); //informações do funcionário segundo a planilha do TH 
         string enderecoImagem = "";
+        private string cpfAssociado = "";
         #endregion
 
         private void limparForm() {
+            cpfAssociado = "";
             hlp.limparCampos(pnlFiltros);
             hlp.limparCampos(pnlConteudo);
             hlp.limparCampos(pnlBotoes);
             hlp.limparCampos(tcDados);
+            lvHistoricoSentinella.Clear();
             lvManutencoes.Clear();
             lvFaturas.Clear();
             lvHistoricoTH.Clear();
@@ -86,6 +89,8 @@ namespace Sentinella.Forms {
                 cat.bloquearRegistro(int.Parse(cbxFila.SelectedValue.ToString()), ref cat);
                 //Tratando retorno nulo, que evidencia que não foi bloqueado nenhum registro
                 if (cat != null) {
+
+                    cpfAssociado = cat.Cpf;
 
                     impAssociado imp = new impAssociado();
                     imp = imp.getPorCPFSupImediado(cat.Cpf);
@@ -257,6 +262,8 @@ namespace Sentinella.Forms {
         private void lvFaturas_DoubleClick(object sender, System.EventArgs e) {
             frmAutorizacoes objForm = new frmAutorizacoes();
             objForm._dataCorte = DateTime.Parse(lvFaturas.SelectedItems[0].SubItems[1].Text);
+            cat = cat.getRegistroPorID(int.Parse(txt_id.Text));
+
             objForm._cpf = cat.Cpf.ToString();
             objForm._bin = cat.Bin.ToString();
             hlp.abrirForm(objForm, true, false);

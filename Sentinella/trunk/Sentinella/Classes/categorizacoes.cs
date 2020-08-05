@@ -840,7 +840,7 @@ namespace Sentinella {
                 sql += "and b.status_id = 3 ";
                 sql += "order by b.data_Trabalho desc";
                 DataTable dt = objCon.retornaDataTable(sql);
-                if (retorno > 0) {
+                if (dt.Rows.Count > 0) {
                     return dt;
                 } else {
                     return null;
@@ -1044,11 +1044,11 @@ namespace Sentinella {
                 lst.FullRowSelect = true;
                 lst.HideSelection = false;
                 lst.MultiSelect = false;
-                lst.Columns.Add("DATA REGISTRO", 300, HorizontalAlignment.Center);
-                lst.Columns.Add("DATA TRABALHO", 300, HorizontalAlignment.Left);
-                lst.Columns.Add("FILA", 300, HorizontalAlignment.Left);
-                lst.Columns.Add("FINALIZAÇÃO", 300, HorizontalAlignment.Left);
-                lst.Columns.Add("SUBFINALIZAÇÃO", 300, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA REGISTRO", 150, HorizontalAlignment.Center);
+                lst.Columns.Add("DATA TRABALHO", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("FILA", 150, HorizontalAlignment.Left);
+                lst.Columns.Add("FINALIZAÇÃO", 200, HorizontalAlignment.Left);
+                lst.Columns.Add("SUBFINALIZAÇÃO", 200, HorizontalAlignment.Left);
                 lst.Columns.Add("OBSERVAÇÃO", 600, HorizontalAlignment.Left);
                 lst.Columns.Add("ANALISTA", 300, HorizontalAlignment.Left);
 
