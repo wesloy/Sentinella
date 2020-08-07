@@ -138,7 +138,7 @@ namespace Sentinella.Forms {
                         email.Mensagem += "<b>Período de conclusão irá vencer:</b> " + item.SubItems[8].Text + " dia(s). <br />";
                     }
 
-                    email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[20].Text + "<br />";
+                    email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[21].Text + "<br />";
 
 
                     email.Mensagem += "<br />";

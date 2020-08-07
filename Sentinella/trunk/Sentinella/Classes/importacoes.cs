@@ -1496,6 +1496,10 @@ namespace Sentinella {
                 dt = objCon.retornaDataTable("EXECUTE IMP_CADASTRO_FUNCIONARIO N'" + Constantes.id_REDE_logadoFerramenta + "'");
                 frm0.atualizarBarra(1);
 
+
+                sql = "Delete from w_funcionarios_historico";
+                objCon.executaQuery(sql, ref retorno);
+
                 dt_w = objCon.retornaDataTable("select * from w_funcionarios_historico");                
                 frm0.atualizarBarra(2);
 

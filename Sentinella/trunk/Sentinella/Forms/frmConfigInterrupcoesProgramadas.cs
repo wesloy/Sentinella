@@ -50,7 +50,7 @@ namespace Sentinella.Forms {
             int _id = 0;
 
             //Validações
-            if (!hlp.validaCamposObrigatorios(pnlConteudo, "dtInicial;cbxHora;cbxMinuto;cbxTempoInterrupcao;txtMensagem")) {
+            if (!hlp.validaCamposObrigatorios(pnlConteudo, "dtInicial;cbxHora;cbxMinuto;cbxTempoInterrupcao;cbxClassificacao;txtMensagem")) {
                 return null;
             }
 
@@ -64,7 +64,7 @@ namespace Sentinella.Forms {
             sys_interrupcoesProgramadas obj2 = new sys_interrupcoesProgramadas(
                _id,
                ckboxAtivo.Checked,
-               txtMensagem.Text,
+               cbxClassificacao.Text + " >>> " + txtMensagem.Text,
                cbxTempoInterrupcao.Text,
                dtHoraInicial,
                dtHoraFinal

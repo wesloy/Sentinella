@@ -55,6 +55,8 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnIncluir = new System.Windows.Forms.Button();
+            this.cbxClassificacao = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.pnlConteudo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
@@ -65,6 +67,8 @@
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
+            this.pnlConteudo.Controls.Add(this.cbxClassificacao);
+            this.pnlConteudo.Controls.Add(this.label15);
             this.pnlConteudo.Controls.Add(this.label13);
             this.pnlConteudo.Controls.Add(this.cbxTempoInterrupcao);
             this.pnlConteudo.Controls.Add(this.label3);
@@ -117,7 +121,7 @@
             this.cbxTempoInterrupcao.Name = "cbxTempoInterrupcao";
             this.cbxTempoInterrupcao.Size = new System.Drawing.Size(258, 21);
             this.cbxTempoInterrupcao.TabIndex = 80;
-            this.cbxTempoInterrupcao.Tag = "Hora Inicial";
+            this.cbxTempoInterrupcao.Tag = "Tempo de Interrupção";
             // 
             // label3
             // 
@@ -197,7 +201,7 @@
             this.cbxMinuto.Name = "cbxMinuto";
             this.cbxMinuto.Size = new System.Drawing.Size(59, 21);
             this.cbxMinuto.TabIndex = 78;
-            this.cbxMinuto.Tag = "Hora Inicial";
+            this.cbxMinuto.Tag = "Minuto Inicial";
             // 
             // label1
             // 
@@ -251,7 +255,7 @@
             this.dtInicial.Name = "dtInicial";
             this.dtInicial.Size = new System.Drawing.Size(258, 20);
             this.dtInicial.TabIndex = 75;
-            this.dtInicial.Tag = "Data Inicial";
+            this.dtInicial.Tag = "Data";
             // 
             // txtID
             // 
@@ -314,7 +318,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 235);
+            this.label6.Location = new System.Drawing.Point(9, 280);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(109, 13);
             this.label6.TabIndex = 71;
@@ -337,7 +341,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMensagem.BackColor = System.Drawing.Color.Azure;
             this.txtMensagem.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtMensagem.Location = new System.Drawing.Point(12, 132);
+            this.txtMensagem.Location = new System.Drawing.Point(12, 184);
             this.txtMensagem.Multiline = true;
             this.txtMensagem.Name = "txtMensagem";
             this.txtMensagem.Size = new System.Drawing.Size(1193, 93);
@@ -348,7 +352,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Location = new System.Drawing.Point(14, 116);
+            this.label4.Location = new System.Drawing.Point(14, 168);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 70;
@@ -361,9 +365,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvLista.BackColor = System.Drawing.Color.Azure;
             this.lvLista.HideSelection = false;
-            this.lvLista.Location = new System.Drawing.Point(12, 251);
+            this.lvLista.Location = new System.Drawing.Point(12, 296);
             this.lvLista.Name = "lvLista";
-            this.lvLista.Size = new System.Drawing.Size(1193, 341);
+            this.lvLista.Size = new System.Drawing.Size(1193, 296);
             this.lvLista.TabIndex = 65;
             this.lvLista.Tag = "Lista de Registros";
             this.lvLista.UseCompatibleStateImageBehavior = false;
@@ -431,6 +435,7 @@
             this.ckboxAtivo.Name = "ckboxAtivo";
             this.ckboxAtivo.Size = new System.Drawing.Size(15, 14);
             this.ckboxAtivo.TabIndex = 57;
+            this.ckboxAtivo.Tag = "Ativo";
             this.ckboxAtivo.UseVisualStyleBackColor = false;
             // 
             // pnlFiltros
@@ -535,6 +540,30 @@
             this.btnIncluir.UseVisualStyleBackColor = true;
             this.btnIncluir.Click += new System.EventHandler(this.btnIncluir_Click);
             // 
+            // cbxClassificacao
+            // 
+            this.cbxClassificacao.FormattingEnabled = true;
+            this.cbxClassificacao.Items.AddRange(new object[] {
+            "CORREÇÃO",
+            "MELHORIA",
+            "NOVIDADE",
+            "TESTE"});
+            this.cbxClassificacao.Location = new System.Drawing.Point(135, 108);
+            this.cbxClassificacao.Name = "cbxClassificacao";
+            this.cbxClassificacao.Size = new System.Drawing.Size(258, 21);
+            this.cbxClassificacao.TabIndex = 83;
+            this.cbxClassificacao.Tag = "Classificação";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Location = new System.Drawing.Point(16, 111);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(72, 13);
+            this.label15.TabIndex = 82;
+            this.label15.Text = "Classificação:";
+            // 
             // frmConfigInterrupcoesProgramadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -590,5 +619,7 @@
         internal System.Windows.Forms.Button btnAlterar;
         internal System.Windows.Forms.Button btnIncluir;
         internal System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cbxClassificacao;
+        internal System.Windows.Forms.Label label15;
     }
 }

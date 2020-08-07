@@ -456,6 +456,12 @@ namespace Sentinella.Forms {
                     txtCorpoEmail.Text = email[1] + email[2];
                     break;
 
+                case "DLP SENHA":
+                    email = modeloEmail.dlp_SENHA(int.Parse(txt_id.Text));
+                    txtTituloEmail.Text = email[0];
+                    txtCorpoEmail.Text = email[1] + email[2];
+                    break;
+
                 case "TAMNUN":
                     email = modeloEmail.tamnun(int.Parse(txt_id.Text));
                     txtTituloEmail.Text = email[0];

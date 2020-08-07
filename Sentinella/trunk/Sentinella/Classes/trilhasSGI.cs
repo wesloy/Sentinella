@@ -298,9 +298,9 @@ namespace Sentinella {
                 frm.Show();
 
 
-                //passo 01
-                importacoes imp = new importacoes();
-                imp.CadastroGeralProcedure(false);
+                //passo 01 -- DECOMISSIONADO EM 07/08/2020 -- ALTERADO QRY ABAIXO PARA CONSUMIR DIRETO DA IMP ASSOCIADO
+                //importacoes imp = new importacoes();
+                //imp.CadastroGeralProcedure(false);
                 frm.atualizarBarra(1);
 
                 //passo 02 a 04
@@ -311,17 +311,17 @@ namespace Sentinella {
                 sql += "sum(iif(c.num_conclusao = '100', 1, 0)) as vol_concluido, ";
                 sql += "sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) as percentual_concluido, "; //calculo de percentual concluído
                 sql += "max(dt_fim) as data_conclusao_ultimo_curso_trilha, "; //data do último curso da trilha feito, usar para validar se trilha concluída dentro da vigencia atual
-                sql += "(select top 1 gestor_1 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_1, "; //inicio do henriquecimento
-                sql += "(select top 1 gestor_2 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_2, ";
-                sql += "(select top 1 gestor_3 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_3, ";
-                sql += "(select top 1 gestor_4 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_4, ";
-                sql += "(select top 1 gestor_5 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_5, ";
-                sql += "(select top 1 data_de_admissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_admissao, ";
-                sql += "(select top 1 data_demissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_demissao, ";
-                sql += "(select top 1 data_inicio_ferias from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_ferias_inicio, ";
-                sql += "(select top 1 data_fim_ferias from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_ferias_fim, ";
-                sql += "(select top 1 data_inicio_afastamento from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_afastamento_inicio, ";
-                sql += "(select top 1 data_fim_afastamento from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_afastamento_fim, "; //fim do henriquecimento
+                sql += "(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_1 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_1, "; //inicio do henriquecimento
+                sql += "(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_2 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_2, ";
+                sql += "(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_3 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_3, ";
+                sql += "(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_4 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_4, ";
+                sql += "(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_5 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_5, ";
+                sql += "(select iif(Dt_Admissao is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_admissao, ";
+                sql += "(select iif(Dt_Demissao is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_demissao, ";
+                sql += "(select iif(Dt_inicio_ferias is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_inicio, ";
+                sql += "(select iif(Dt_fim_ferias is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_fim, ";
+                sql += "(select iif(Dt_inicio_afastamento is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_inicio, ";
+                sql += "(select iif(Dt_fim_afastamento is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_fim, "; //fim do henriquecimento
                 sql += "GETDATE() as data_importacao, "; //data-hora única de importação
                 sql += Constantes.id_BD_logadoFerramenta + " as id_importacao "; //setando o id do importador
                 sql += "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c ";

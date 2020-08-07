@@ -8,7 +8,7 @@ namespace Sentinella {
 
         //CREATE TABLE [dbo].[w_sysInterrupcaoProgramada] (
         //    [id]              INT            IDENTITY (1, 1) NOT NULL,
-        //    [mensagem]        NVARCHAR (100) NULL,
+        //    [mensagem]        NVARCHAR (max) NULL,
         //    [dataHoraInicial] DATETIME       DEFAULT (getdate()) NULL,
         //    [dataHoraFinal]   DATETIME       DEFAULT (getdate()) NULL,
         //    [ativo]           BIT            DEFAULT ((0)) NOT NULL,

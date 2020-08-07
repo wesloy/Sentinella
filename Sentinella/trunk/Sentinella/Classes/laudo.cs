@@ -224,7 +224,7 @@ namespace Sentinella {
             return email;
         }
 
-        public string[] dlp(int _protocoloSentinella) {
+        public string[] dlp_SENHA(int _protocoloSentinella) {
 
             impAssociado user = new impAssociado();
             categorizacoes cat = new categorizacoes();
@@ -308,6 +308,80 @@ namespace Sentinella {
             return email;
         }
 
+        public string[] dlp(int _protocoloSentinella) {
+
+            impAssociado user = new impAssociado();
+            categorizacoes cat = new categorizacoes();
+            cat = cat.getRegistroPorID(_protocoloSentinella);
+            user = user.getPorCPFSupImediado(cat.Cpf);
+
+            //validando se houve captura de informações e evitando erros
+            if (user.Nom_Usuario == null) {
+                return null;
+            }
+
+            string titulo = "Report Segurança da Informação - " + user.Nom_Usuario + " - Cód 00";
+
+            string corpo = "<b>E-mail Coordenador:</b> " + user._gestor2_email + Environment.NewLine +
+                            "<b>E-mail Supervisor:</b> " + user._gestor1_email + Environment.NewLine +
+                            "<b>Protocolo Sentinella:</b> " + _protocoloSentinella + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "Classificação: Interno - Manifestação Ouvidoria Algar - Protocolo [#]" +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b><font color = 'red'>" +
+                            "Atenção: O acesso ao conteúdo desta mensagem está autorizado, exclusivamente ao(s) seu(s) destinatário(s), não sendo autorizado o seu compartilhamento." +
+                            "</font></b>" +
+                            Environment.NewLine + Environment.NewLine +
+                            "Caro coordenador e supervisor, " +
+                            Environment.NewLine + Environment.NewLine +
+                            "Através de auditoria realizada pela área de Segurança da Informação foi identificado que o associado(a) " + user.Nom_Usuario +
+                            ", matrícula: " + user.Cod_Matricula + ", foi identificado que o mesmo no seu login de rede corporativa, salvou CPF/Número de cartão, violando a Política de Diretrizes de DLP." +
+                           Environment.NewLine + Environment.NewLine +
+                            "<b>Associado(a):</b> " + user.Nom_Usuario + Environment.NewLine +
+                            "<b>Matrícula:</b> " + user.Cod_Matricula + Environment.NewLine +
+                            "<b>Data de Admissão:</b> " + user.Dt_Admissao + Environment.NewLine +
+                            "<b>Cargo:</b> " + user.Nom_Cargo + Environment.NewLine +
+                            "<b>Supervisao Imediato:</b> " + user._gestor1 + Environment.NewLine +
+                            "<b>Coordenador:</b> " + user._gestor2 + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Plano de Ação:</b> " + "Recomendamos aplicação da medida disciplinar e registro no sistema Sinergy e enviar as evidências respondendo a este e-mail para encerramento da manifestação. O prazo de devolutiva é de 72 horas úteis." +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Evidência:</b> " + "Em anexo." + Environment.NewLine +
+                            Environment.NewLine + Environment.NewLine +
+                            "<b>Política: DIRETRIZES DE DLP</b> " + Environment.NewLine +
+                            "Data de Criação/Alteração: 12/06/2019 Versão: 01" +
+                            Environment.NewLine + Environment.NewLine +
+                            "4 - DESCRIÇÃO" + Environment.NewLine +
+                            "4.1 - Objetivo da política de DLP" +
+                            Environment.NewLine + Environment.NewLine +
+                            "Manter a conformidade com os padrões de negócio e regulamentações nacionais e internacionais. A Algar Tech protege as informações confidenciais e evita a divulgação acidental. Exemplos de informações confidenciais que são protegidas contra vazamento de informações incluem dados financeiros ou informações de identificação pessoal, como números de cartão de crédito, números de seguro social ou registros de saúde. Com uma política DLP (prevenção contra perda de dados), a área de segurança da informação pode identificar, monitorar e proteger automaticamente informações confidenciais por todo o ambiente tecnológico." +
+                            Environment.NewLine + Environment.NewLine +
+                            "Diretrizes da política DLP:" +
+                            Environment.NewLine + Environment.NewLine +
+                            "· Identificar informações confidenciais em locais, como o Exchange Online, o SharePoint Online e o OneDrive for Business. Com o objetivo de identificar qualquer documento que contenha um número de cartão de crédito que esteja armazenado em qualquer site do OneDrive for Business ou pesquisar apenas os sites do OneDrive de associados específicos;" +
+                            Environment.NewLine + Environment.NewLine +
+                            "· Impedir o compartilhamento acidental de informações confidenciais. Com o objetivo de identificar qualquer documento ou e-mail que contenha um registro de saúde compartilhado com pessoas fora da sua organização e, em seguida, bloquear automaticamente o acesso a esse documento ou bloquear o envio do e-mail;" +
+                            Environment.NewLine + Environment.NewLine;
+
+
+            string assinatura = "Qualquer dúvida e ou esclarecimento, por favor responder a este e ou acionar os canais abaixo." +
+                                Environment.NewLine + Environment.NewLine +
+                                "Tel.: ​0800 034 2525 opção 1​" + Environment.NewLine +
+                                "WhatsApp/Telegram: (11) 95130-1247" + Environment.NewLine +
+                                "Atendimento: segunda a sexta no período das 09h às 18h" + Environment.NewLine +
+                                Environment.NewLine + Environment.NewLine +
+                                "<b>Ouvidoria | Ombudsman</b>" + Environment.NewLine +
+                                "<font color = 'blue'>'Ouvir faz parte da nossa essência'</font>";
+
+
+            string[] email = new string[3];
+            email[0] = titulo;
+            email[1] = corpo;
+            email[2] = assinatura;
+
+            return email;
+        }
+
         public string[] tamnun(int _protocoloSentinella) {
 
             impAssociado user = new impAssociado();
@@ -333,8 +407,8 @@ namespace Sentinella {
                             Environment.NewLine + Environment.NewLine +
                             "Caro coordenador e supervisor, " +
                             Environment.NewLine + Environment.NewLine +
-                            "Através de auditoria realizada pela área de Segurança da Informação foi identificado que o associado(a) " + user.Nom_Usuario +
-                            ", matrícula: " + user.Cod_Matricula + ", tem efetuado acesso(s) indevido(s) a site(s) da internet, violando a Política de Controle de acesso lógico - Violação das Políticas e Diretrizes do SGSI." +
+                            "Pedimos seu apoio para tratarmos uma ocorrência identificada pela área de Segurança da Informação, no processo de monitoramento contínuo envolvendo o associado(a) " + user.Nom_Usuario +
+                            ", matrícula: " + user.Cod_Matricula + ", pois o mesmo efetuou acessos ao sistema, aplicativos e/ou sites sem autorização da empresa." +
                            Environment.NewLine + Environment.NewLine +
                             "<b>Associado(a):</b> " + user.Nom_Usuario + Environment.NewLine +
                             "<b>Matrícula:</b> " + user.Cod_Matricula + Environment.NewLine +
