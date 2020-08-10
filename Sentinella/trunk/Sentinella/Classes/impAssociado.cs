@@ -482,6 +482,63 @@ namespace Sentinella {
         #endregion
 
         #region DAL
+        private DataTable _listarGestores(int indiceGestor) {
+            try {
+
+                switch (indiceGestor) {
+                    case 0:
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                                "from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                "where Cod_Gestor_Hierarq_1 in(select Cod_Gestor_Hierarq_1 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                "order by Nom_Usuario asc";
+                        break;
+                    case 1:
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                                    "from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_1 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " + 
+                                    "order by Nom_Usuario asc";
+                        break;
+                    case 2:
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                                    "from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_2 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "order by Nom_Usuario asc";
+                        break;
+                    case 3:
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                                    "from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_3 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "order by Nom_Usuario asc";
+                        break;
+                    case 4:
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                                    "from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_4 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "order by Nom_Usuario asc";
+                        break;
+                    case 5:
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                                    "from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_5 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "order by Nom_Usuario asc";
+                        break;
+
+                    default:
+                        sql = "";
+                        break;
+
+                }
+
+                return objCon.retornaDataTable(sql);
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "IMP ASSOCIADO - LISTAR GESTORES (DAL)");
+                return null;
+            }
+        }
+
+
         private DataTable _getDataTableSuperiorImediato(string _getHieraraquiaPor, string _infoBusca) {
             DataTable table = new DataTable();
             try {
@@ -585,7 +642,6 @@ namespace Sentinella {
                 return null;
             }
         }
-
 
         private impAssociado _getPorNomeUsuarioSupImediado(string _nomeUsuario) {
             try {
