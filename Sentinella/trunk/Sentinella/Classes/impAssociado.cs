@@ -482,44 +482,64 @@ namespace Sentinella {
         #endregion
 
         #region DAL
+
+        /// <summary>
+        /// Índice 0 são os não gestores
+        /// De 1 a 5 é o nível de hierarquia de gestão
+        /// </summary>
+        /// <param name="indiceGestor"></param>
+        /// <returns></returns>
         private DataTable _listarGestores(int indiceGestor) {
             try {
 
                 switch (indiceGestor) {
                     case 0:
-                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior, Des_Email " +
                                 "from db_Corporate_V3.dbo.tb_Imp_Associado " +
-                                "where Cod_Gestor_Hierarq_1 in(select Cod_Gestor_Hierarq_1 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                "where 1 = 1 " +
+                                "and Dt_Demissao is null " +
+                                "and Cod_Matricula NOT IN( " +
+                                    "select a.matricula from ( " +
+                                            "select cast(Cod_Gestor_Hierarq_1 as varchar(10)) matricula from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                            "union " +
+                                            "select cast(Cod_Gestor_Hierarq_2 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                            "union " +
+                                            "select cast(Cod_Gestor_Hierarq_3 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                            "union " +
+                                            "select cast(Cod_Gestor_Hierarq_4 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                            "union " +
+                                            "select cast(Cod_Gestor_Hierarq_5 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado " +
+                                        ") a where a.matricula is not null) " +
                                 "order by Nom_Usuario asc";
                         break;
                     case 1:
-                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior, Des_Email " +
                                     "from db_Corporate_V3.dbo.tb_Imp_Associado " +
-                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_1 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " + 
+                                    "where Cod_Matricula in (select cast(Cod_Gestor_Hierarq_1 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " + 
                                     "order by Nom_Usuario asc";
                         break;
                     case 2:
-                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior, Des_Email " +
                                     "from db_Corporate_V3.dbo.tb_Imp_Associado " +
-                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_2 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "where Cod_Matricula in (select cast(Cod_Gestor_Hierarq_2 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
                                     "order by Nom_Usuario asc";
                         break;
                     case 3:
-                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior, Des_Email " +
                                     "from db_Corporate_V3.dbo.tb_Imp_Associado " +
-                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_3 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "where Cod_Matricula in (select cast(Cod_Gestor_Hierarq_3 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
                                     "order by Nom_Usuario asc";
                         break;
                     case 4:
-                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior, Des_Email " +
                                     "from db_Corporate_V3.dbo.tb_Imp_Associado " +
-                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_4 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "where Cod_Matricula in (select cast(Cod_Gestor_Hierarq_4 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
                                     "order by Nom_Usuario asc";
                         break;
                     case 5:
-                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior " +
+                        sql = "select Nom_Usuario, Cod_Matricula, Cod_Cpf, Nom_Usuario_Superior, Nom_Centro_Custo, Nom_Centro_Custo_Superior, Des_Email " +
                                     "from db_Corporate_V3.dbo.tb_Imp_Associado " +
-                                    "where Cod_Matricula in (select Cod_Gestor_Hierarq_5 from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
+                                    "where Cod_Matricula in (select cast(Cod_Gestor_Hierarq_5 as varchar(10)) from db_Corporate_V3.dbo.tb_Imp_Associado where Dt_Demissao is null) " +
                                     "order by Nom_Usuario asc";
                         break;
 
@@ -556,15 +576,6 @@ namespace Sentinella {
                 column.ColumnName = "matricula";
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.DateTime");
-                column.ColumnName = "data_admissao";
-                table.Columns.Add(column);
-
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.DateTime");
-                column.ColumnName = "data_demissao";
-                table.Columns.Add(column);
 
                 column = new DataColumn();
                 column.DataType = System.Type.GetType("System.String");
@@ -596,6 +607,37 @@ namespace Sentinella {
                 column.ColumnName = "Gestor_5";
                 table.Columns.Add(column);
 
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_admissao";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_demissao";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_inicio_ferias";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_fim_ferias";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_inicio_afastamento";
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.DateTime");
+                column.ColumnName = "data_fim_afastamento";
+                table.Columns.Add(column);
+
+
 
                 //listar informações da IMP Associado
                 sql = "SELECT * FROM db_Corporate_V3.dbo.tb_Imp_Associado WHERE ";
@@ -623,14 +665,19 @@ namespace Sentinella {
                         row = table.NewRow();
                         row["cpf"] = item["Cod_Cpf"].ToString();
                         row["matricula"] = item["Cod_Matricula"].ToString();
-                        row["data_admissao"] = hlp.formataStringDataYYYYMMDD(item["Dt_Admissao"].ToString());
-                        row["data_demissao"] = hlp.formataStringDataYYYYMMDD(item["Dt_Demissao"].ToString());
                         row["Nome"] = item["Nom_Usuario"].ToString();
                         row["Gestor_1"] = info._gestor1;
                         row["Gestor_2"] = info._gestor2;
                         row["Gestor_3"] = info._gestor3;
                         row["Gestor_4"] = info._gestor4;
                         row["Gestor_5"] = info._gestor5;
+                        row["data_admissao"] = hlp.formataStringDataYYYYMMDD(item["Dt_Admissao"].ToString());
+                        row["data_demissao"] = hlp.formataStringDataYYYYMMDD(item["Dt_Demissao"].ToString());
+                        row["data_inicio_ferias"] = hlp.formataStringDataYYYYMMDD(item["Dt_Inicio_Ferias"].ToString());
+                        row["data_fim_ferias"] = hlp.formataStringDataYYYYMMDD(item["Dt_Fim_Ferias"].ToString());
+                        row["data_inicio_afastamento"] = hlp.formataStringDataYYYYMMDD(item["Dt_Inicio_Afastamento"].ToString());
+                        row["data_fim_afastamento"] = hlp.formataStringDataYYYYMMDD(item["Dt_Fim_Afastamento"].ToString());
+
                         table.Rows.Add(row);
                     }
                 }
@@ -666,6 +713,11 @@ namespace Sentinella {
                             "where Cod_Cpf = " + objCon.valorSql(_cpf) + " ";
                 DataTable dt = new DataTable();
                 dt = objCon.retornaDataTable(sql);
+
+                if (dt.Rows.Count == 0 || dt == null) {
+                    return null;
+                }
+
                 return _impAssociadoObjSupImediado(dt);
 
             }
@@ -801,6 +853,10 @@ namespace Sentinella {
                     info = getPorCPFGestoresTabelao(_cpf);
                 }
 
+                if (info == null) {
+                    return null;
+                }
+
                 DataTable table = new DataTable();
                 DataColumn column;
                 DataRow row;
@@ -875,6 +931,11 @@ namespace Sentinella {
             try {
                 DataTable dt = new DataTable();
                 dt = getDataTableGestoresPorCpf(_cpf, supImediato);
+
+                if (dt == null) {
+                    return null;
+                }
+
                 lst.Clear();
                 lst.View = View.Details;
                 lst.LabelEdit = false;
@@ -921,6 +982,14 @@ namespace Sentinella {
 
             DataTable dt = new DataTable();
             dt = _getDataTableSuperiorImediato(_getHieraraquiaPor, _infoBusca);
+            dgv.DataSource = dt;
+        }
+
+
+        public void listarGestores(int _indiceGestor, DataGridView dgv) {
+
+            DataTable dt = new DataTable();
+            dt = _listarGestores(_indiceGestor);
             dgv.DataSource = dt;
         }
 

@@ -1497,8 +1497,8 @@ namespace Sentinella {
                 frm0.atualizarBarra(1);
 
 
-                sql = "Delete from w_funcionarios_historico";
-                objCon.executaQuery(sql, ref retorno);
+                //sql = "Delete from w_funcionarios_historico";
+                //objCon.executaQuery(sql, ref retorno);
 
                 dt_w = objCon.retornaDataTable("select * from w_funcionarios_historico");                
                 frm0.atualizarBarra(2);
@@ -1518,7 +1518,6 @@ namespace Sentinella {
                 frm.Show();
 
 
-
                 foreach (DataRow dr in dt.Rows) {
                     importar = true;
                     // Filtrar DataTable Histórico (DT_W) pelos dados da DataTable com informações atuais (DT)
@@ -1536,24 +1535,21 @@ namespace Sentinella {
                     //validando se a duplicidade é permitida ou não                    
                     if (duplicidade.Length > 0) {
 
-                        //SUSPENSA A VALIDAÇÃO DE DUPLICIDADE VÁLIDA PARA IMPORTAÇÃO ATÉ QUE A HIERARQUIA SEJA CORRIJIDA
-                        //27/07/2020
+                        foreach (DataRow item in duplicidade) {
+                            if (item["cargo_do_associado"].ToString().ToUpper() == dr["Nom_Cargo"].ToString().ToUpper()
+                                && item["codcentro_de_custo"].ToString().ToUpper() == dr["num_Centro_Custo"].ToString().ToUpper()
+                                && item["matricula_gestor_1"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_1"].ToString().ToUpper()
+                                && item["matricula_gestor_2"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_2"].ToString().ToUpper()
+                                && item["matricula_gestor_3"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_3"].ToString().ToUpper()
+                                && item["matricula_gestor_4"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_4"].ToString().ToUpper()
+                                && item["matricula_gestor_5"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_5"].ToString().ToUpper()
+                                && item["data_demissao"].ToString().ToUpper() == dr["Dt_Demissao"].ToString().ToUpper()
+                                ) {
 
-                        //foreach (DataRow item in duplicidade) {
-                        //    if (item["cargo_do_associado"].ToString().ToUpper() == dr["Nom_Cargo"].ToString().ToUpper()
-                        //        && item["codcentro_de_custo"].ToString().ToUpper() == dr["num_Centro_Custo"].ToString().ToUpper()
-                        //        && item["matricula_gestor_1"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_1"].ToString().ToUpper()
-                        //        && item["matricula_gestor_2"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_2"].ToString().ToUpper()
-                        //        && item["matricula_gestor_3"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_3"].ToString().ToUpper()
-                        //        && item["matricula_gestor_4"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_4"].ToString().ToUpper()
-                        //        && item["matricula_gestor_5"].ToString().ToUpper() == dr["Cod_Gestor_Hierarq_5"].ToString().ToUpper()
-                        //        && item["data_demissao"].ToString().ToUpper() == dr["Dt_Demissao"].ToString().ToUpper()
-                        //        ) {
-
-                        //        importar = false;
-                        //        break;
-                        //    }
-                        //}
+                                importar = false;
+                                break;
+                            }
+                        }
                     }
 
                     //Fazendo a importação
@@ -1762,11 +1758,6 @@ namespace Sentinella {
                         "join w_funcionarios_historico h " +
                         "on imp.Cod_Cpf = h.cpf";
                 objCon.executaQuery(sql, ref retorno);
-
-
-
-
-
 
 
                 frm.Close();
@@ -2169,7 +2160,7 @@ namespace Sentinella {
                     }
                 }
 
-                if (validacao) {
+                if (validacaoImportacao) {
                     return true;
                 } else {
                     return false;

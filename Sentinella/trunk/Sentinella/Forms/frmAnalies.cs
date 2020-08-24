@@ -52,8 +52,6 @@ namespace Sentinella.Forms {
             limparForm();
             cat.liberarRegistrosGeralDoUsuarioAtual();
             cat.carregarComboboxFilasComVolumeParaTrabalho(this, cbxFila);
-
-
         }
 
         private void lvInfoAdc_DoubleClick(object sender, EventArgs e) {
@@ -76,6 +74,7 @@ namespace Sentinella.Forms {
         private void btnIniciar_Click(object sender, System.EventArgs e) {
 
             if (cbxFila.Text == "NÃO SE APLICA") {
+                MessageBox.Show("Não foi selecionado nenhuma fila de trabalho!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -207,8 +206,12 @@ namespace Sentinella.Forms {
 
 
                     //carregando grupos AD se o mesmo tiver...
-                    ad AD = new ad();
-                    AD.CarregaListView(ltvAD, imp.Nom_Usuario);
+                    
+                    if (imp != null) {
+                        ad AD = new ad();
+                        AD.CarregaListView(ltvAD, imp.Nom_Usuario);
+                    }
+                    
 
 
                     #endregion
@@ -442,8 +445,6 @@ namespace Sentinella.Forms {
 
                 case "BRADESCO BÁSICO":
                     email = modeloEmail.bradescoSimples(int.Parse(txt_id.Text));
-                    txtTituloEmail.Text = email[0];
-                    txtCorpoEmail.Text = email[1] + email[2];
                     break;
 
                 case "BRADESCO DETALHADO":
@@ -452,26 +453,31 @@ namespace Sentinella.Forms {
 
                 case "DLP":
                     email = modeloEmail.dlp(int.Parse(txt_id.Text));
-                    txtTituloEmail.Text = email[0];
-                    txtCorpoEmail.Text = email[1] + email[2];
                     break;
 
                 case "DLP SENHA":
                     email = modeloEmail.dlp_SENHA(int.Parse(txt_id.Text));
-                    txtTituloEmail.Text = email[0];
-                    txtCorpoEmail.Text = email[1] + email[2];
                     break;
 
                 case "TAMNUN":
                     email = modeloEmail.tamnun(int.Parse(txt_id.Text));
-                    txtTituloEmail.Text = email[0];
-                    txtCorpoEmail.Text = email[1] + email[2];
                     break;
 
             }
 
+            if (email != null) {
+                txtTituloEmail.Text = email[0];
+                txtCorpoEmail.Text = email[1] + email[2];
+            } else {
+                txtTituloEmail.Text = "";
+                for (int i = 0; i < 5; i++) {
+                    txtCorpoEmail.Text += "ASSOCIADO NÃO LOCALIZADO NO CADASTRO GERAL" + Environment.NewLine + Environment.NewLine;
+                }
+            }
+
+
             if (cbxModeloEmail.Text != "") {
-                txtPARA.Text = "ouvidoria@algar.com.br";               
+                txtPARA.Text = "ouvidoria@algar.com.br";
 
             }
 

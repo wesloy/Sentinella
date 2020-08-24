@@ -169,10 +169,24 @@ namespace Sentinella {
             _objForm = new frmTrilhasSGI();
             hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
+
+        private void classificaçãoDeDocumentosToolStripMenuItem_Click(object sender, EventArgs e) {
+            atualizarStatus("Página de Classificação de Documentos");
+            _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
+            _objForm = new frmClassificacaoDocumentos();
+            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
+        }
+
         private void dadosHierarquiaSuperiorImediatoToolStripMenuItem_Click(object sender, EventArgs e) {
             _objForm = new frmLocalizarHierarquiaSuperiorImediato();
             hlp.abrirForm(_objForm, false, true);
 
+        }
+        private void listarGestoresNãoGestoresToolStripMenuItem_Click(object sender, EventArgs e) {
+            atualizarStatus("Listar Gestores / Não Gestores");
+            _objForm?.Close(); // Validar se já está carregado com outra informações e fechar, limpando o cache
+            _objForm = new frmLocalizarGestoresGrupos();
+            hlp.abrirFormInPanelMDI(_objForm, this, pnlPrincipal, FormBorderStyle.None);
         }
 
         private void dadosCadastraisDeAssociadosToolStripMenuItem_Click(object sender, EventArgs e) {

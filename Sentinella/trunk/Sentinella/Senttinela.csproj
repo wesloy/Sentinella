@@ -141,6 +141,12 @@
     <Compile Include="Forms\frmAutorizacoes.Designer.cs">
       <DependentUpon>frmAutorizacoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmClassificacaoDocumentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassificacaoDocumentos.Designer.cs">
+      <DependentUpon>frmClassificacaoDocumentos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmConfigTamnunFiltros.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAutorizacoes.resx">
       <DependentUpon>frmAutorizacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassificacaoDocumentos.resx">
+      <DependentUpon>frmClassificacaoDocumentos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmConfigTamnunFiltros.resx">
       <DependentUpon>frmConfigTamnunFiltros.cs</DependentUpon>

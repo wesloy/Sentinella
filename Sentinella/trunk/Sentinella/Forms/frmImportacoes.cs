@@ -123,7 +123,7 @@ namespace Sentinella.Forms {
                 }
 
 
-                if (cbxSeletorFilaImportacao.Text.Contains("AD")) {
+                if (cbxSeletorFilaImportacao.Text.Contains("AD ")) {
                     ad AD = new ad();
                     if (cbxSeletorFilaImportacao.Text.Contains("TODOS")) {
                         AD.importarGruposAD(true);

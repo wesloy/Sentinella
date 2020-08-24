@@ -1,34 +1,31 @@
-﻿--insert into w_trilhasTreinamentos 
---(des_turma, des_nome, cpf, total_cursos, vol_nao_concluido, 
---vol_concluido, percentual_concluido, gestor_1, gestor_2, gestor_3, 
---gestor_4, gestor_5, data_importacao, id_importacao ) 
-
-select c.cod_trilha, c.des_trilha, c.des_nome, 
+﻿select c.cod_trilha, 
+c.des_trilha, 
+c.des_nome, 
 replace(replace(c.cod_cpf, '.', ''), '-', '') as cpf, 
 count(c.des_conteudo) as total_cursos, 
 sum(iif(c.num_conclusao = '0', 1, 0)) as vol_nao_concluido, 
 sum(iif(c.num_conclusao = '100', 1, 0)) as vol_concluido, 
 sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) as percentual_concluido, 
 max(dt_fim) as data_conclusao_ultimo_curso_trilha, 
-(select top 1 gestor_1 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_1, 
-(select top 1 gestor_2 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_2, 
-(select top 1 gestor_3 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_3, 
-(select top 1 gestor_4 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_4, 
-(select top 1 gestor_5 from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as gestor_5, 
-(select top 1 data_de_admissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_admissao, 
-(select top 1 data_demissao from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_demissao, 
-(select top 1 data_inicio_ferias from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_ferias_inicio, 
-(select top 1 data_fim_ferias from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_ferias_fim, 
-(select top 1 data_inicio_afastamento from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_afastamento_inicio, 
-(select top 1 data_fim_afastamento from w_funcionarios_historico where cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') order by dataAtualizacao desc) as data_afastamento_fim, 
+(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_1 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_1, 
+(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_2 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_2, 
+(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_3 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_3, 
+(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_4 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_4, 
+(select Nom_Usuario from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Matricula = (Select Cod_Gestor_Hierarq_5 from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', ''))) gestor_5, 
+(select iif(Dt_Admissao is null, '1900-01-01',convert(date,Dt_Admissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_admissao, 
+(select iif(Dt_Demissao is null, '1900-01-01',convert(date,Dt_Demissao,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_demissao, 
+(select iif(Dt_inicio_ferias is null, '1900-01-01',convert(date,Dt_inicio_ferias,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_inicio, 
+(select iif(Dt_fim_ferias is null, '1900-01-01',convert(date,Dt_fim_ferias,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_fim, 
+(select iif(Dt_inicio_afastamento is null, '1900-01-01',convert(date,Dt_inicio_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_inicio, 
+(select iif(Dt_fim_afastamento is null, '1900-01-01',convert(date,Dt_fim_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_fim, 
 GETDATE() as data_importacao, 
 1 as id_importacao 
 from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c 
-inner join w_trilhasTreinamentos_filtros f on c.Id_Conteudo = f.cod_curso 
---left join w_trilhasTreinamentos t on c.des_nome = t.des_nome and c.des_trilha = t.des_trilha and t.cpf = replace(replace(c.cod_cpf, '.', ''), '-', '') 
-where c.cod_trilha in(646722, 646350, 640280) 
-and c.des_status = 'Ativo' 
---and c.des_nome = 'wesley eloy'
---and (t.id is null or t.email_enviado = 1) 
-group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf 
-
+inner join w_trilhasTreinamentos_cursos f on c.Id_Conteudo = f.cod_curso 
+inner join w_trilhasTreinamentos_trilhas t on c.cod_trilha = t.cod_trilha 
+where c.des_status = 'Ativo' 
+group by 
+c.cod_trilha, 
+c.des_trilha, 
+c.des_nome, 
+c.cod_cpf 

@@ -43,6 +43,7 @@
             this.dadosADToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dadosCadastraisDeAssociadosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dadosHierarquiaSuperiorImediatoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listarGestoresNãoGestoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenExportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenImportacoesForm = new System.Windows.Forms.ToolStripMenuItem();
             this.mmOpenConfiguracoesForm = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,6 +64,7 @@
             this.lbVersao = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.classificaçãoDeDocumentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenusLeft.SuspendLayout();
             this.menuPrincipal.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
@@ -117,7 +119,7 @@
             this.menuPrincipal.Name = "menuPrincipal";
             this.menuPrincipal.Padding = new System.Windows.Forms.Padding(3, 2, 2, 2);
             this.menuPrincipal.ShowItemToolTips = true;
-            this.menuPrincipal.Size = new System.Drawing.Size(42, 467);
+            this.menuPrincipal.Size = new System.Drawing.Size(125, 467);
             this.menuPrincipal.TabIndex = 2;
             this.menuPrincipal.Text = "menuStrip1";
             // 
@@ -141,7 +143,8 @@
             this.filasDeTrabalhoToolStripMenuItem,
             this.devoluçõesOuvidoriaToolStripMenuItem,
             this.planosDeAçãoToolStripMenuItem,
-            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem});
+            this.envioEmailCobrançaTrilhasSGIToolStripMenuItem,
+            this.classificaçãoDeDocumentosToolStripMenuItem});
             this.mmOpenAnalisesForm.Image = ((System.Drawing.Image)(resources.GetObject("mmOpenAnalisesForm.Image")));
             this.mmOpenAnalisesForm.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.mmOpenAnalisesForm.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
@@ -189,7 +192,8 @@
             this.mmOpenConsultasForm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dadosADToolStripMenuItem,
             this.dadosCadastraisDeAssociadosToolStripMenuItem,
-            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem});
+            this.dadosHierarquiaSuperiorImediatoToolStripMenuItem,
+            this.listarGestoresNãoGestoresToolStripMenuItem});
             this.mmOpenConsultasForm.Enabled = false;
             this.mmOpenConsultasForm.Image = ((System.Drawing.Image)(resources.GetObject("mmOpenConsultasForm.Image")));
             this.mmOpenConsultasForm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -222,6 +226,13 @@
             this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Text = "Dados Hierarquia Superior Imediato";
             this.dadosHierarquiaSuperiorImediatoToolStripMenuItem.Click += new System.EventHandler(this.dadosHierarquiaSuperiorImediatoToolStripMenuItem_Click);
+            // 
+            // listarGestoresNãoGestoresToolStripMenuItem
+            // 
+            this.listarGestoresNãoGestoresToolStripMenuItem.Name = "listarGestoresNãoGestoresToolStripMenuItem";
+            this.listarGestoresNãoGestoresToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.listarGestoresNãoGestoresToolStripMenuItem.Text = "Listar Gestores / Não Gestores";
+            this.listarGestoresNãoGestoresToolStripMenuItem.Click += new System.EventHandler(this.listarGestoresNãoGestoresToolStripMenuItem_Click);
             // 
             // mmOpenExportacoesForm
             // 
@@ -285,14 +296,14 @@
             // filtrosToolStripMenuItem
             // 
             this.filtrosToolStripMenuItem.Name = "filtrosToolStripMenuItem";
-            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.filtrosToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.filtrosToolStripMenuItem.Text = "Filtros";
             this.filtrosToolStripMenuItem.Click += new System.EventHandler(this.filtrosToolStripMenuItem_Click);
             // 
             // whiteListToolStripMenuItem
             // 
             this.whiteListToolStripMenuItem.Name = "whiteListToolStripMenuItem";
-            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.whiteListToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.whiteListToolStripMenuItem.Text = "Whitelist";
             this.whiteListToolStripMenuItem.Click += new System.EventHandler(this.whiteListToolStripMenuItem_Click);
             // 
@@ -406,7 +417,7 @@
             this.lbStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lbStatus.ForeColor = System.Drawing.Color.Black;
             this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(178, 17);
+            this.lbStatus.Size = new System.Drawing.Size(176, 17);
             this.lbStatus.Tag = "Status";
             this.lbStatus.Text = "Sentinella pronto para a ação...";
             this.lbStatus.ToolTipText = "Status de Processos";
@@ -416,6 +427,13 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // classificaçãoDeDocumentosToolStripMenuItem
+            // 
+            this.classificaçãoDeDocumentosToolStripMenuItem.Name = "classificaçãoDeDocumentosToolStripMenuItem";
+            this.classificaçãoDeDocumentosToolStripMenuItem.Size = new System.Drawing.Size(261, 22);
+            this.classificaçãoDeDocumentosToolStripMenuItem.Text = "Classificação de Documentos";
+            this.classificaçãoDeDocumentosToolStripMenuItem.Click += new System.EventHandler(this.classificaçãoDeDocumentosToolStripMenuItem_Click);
             // 
             // frmPrincipal
             // 
@@ -482,6 +500,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem whiteListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dadosHierarquiaSuperiorImediatoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listarGestoresNãoGestoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem classificaçãoDeDocumentosToolStripMenuItem;
     }
 }
 
