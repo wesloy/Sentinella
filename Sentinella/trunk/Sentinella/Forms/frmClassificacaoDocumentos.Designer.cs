@@ -25,36 +25,37 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClassificacaoDocumentos));
             this.pnlConteudo = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtDataModificacao = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.lbFiltroAplicado = new System.Windows.Forms.Label();
+            this.txtObservacoes = new System.Windows.Forms.TextBox();
+            this.cbxConformidade = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtDataUltimoAcesso = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.lbEnderecoPesquisado = new System.Windows.Forms.Label();
+            this.lbTituloEndereco = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtDataCriacao = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtEnderecoCompleto = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtExtensao = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtNomeArquivo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDiretorioPrincipal = new System.Windows.Forms.TextBox();
             this.lvDocumentos = new System.Windows.Forms.ListView();
             this.pnlFiltros = new System.Windows.Forms.Panel();
             this.rbDiretorioSubpastas = new System.Windows.Forms.RadioButton();
             this.rbDiretorio = new System.Windows.Forms.RadioButton();
             this.label23 = new System.Windows.Forms.Label();
             this.btBuscar = new System.Windows.Forms.Button();
-            this.lbEnderecoPesquisado = new System.Windows.Forms.Label();
-            this.lbTituloEndereco = new System.Windows.Forms.Label();
             this.pnlBotoes = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.pdf = new System.Windows.Forms.Label();
             this.adobePDF = new System.Windows.Forms.PictureBox();
-            this.lbFiltroPorStatus = new System.Windows.Forms.Label();
             this.excel = new System.Windows.Forms.Label();
             this.msExcel = new System.Windows.Forms.PictureBox();
             this.word = new System.Windows.Forms.Label();
@@ -82,75 +83,109 @@
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
-            this.pnlConteudo.Controls.Add(this.label9);
-            this.pnlConteudo.Controls.Add(this.textBox7);
+            this.pnlConteudo.Controls.Add(this.label11);
+            this.pnlConteudo.Controls.Add(this.txtDataModificacao);
             this.pnlConteudo.Controls.Add(this.label10);
-            this.pnlConteudo.Controls.Add(this.lbFiltroAplicado);
+            this.pnlConteudo.Controls.Add(this.txtObservacoes);
+            this.pnlConteudo.Controls.Add(this.cbxConformidade);
+            this.pnlConteudo.Controls.Add(this.label9);
+            this.pnlConteudo.Controls.Add(this.txtDataUltimoAcesso);
             this.pnlConteudo.Controls.Add(this.label8);
             this.pnlConteudo.Controls.Add(this.label7);
-            this.pnlConteudo.Controls.Add(this.textBox6);
+            this.pnlConteudo.Controls.Add(this.lbEnderecoPesquisado);
+            this.pnlConteudo.Controls.Add(this.lbTituloEndereco);
             this.pnlConteudo.Controls.Add(this.label6);
-            this.pnlConteudo.Controls.Add(this.textBox5);
+            this.pnlConteudo.Controls.Add(this.txtDataCriacao);
             this.pnlConteudo.Controls.Add(this.label3);
-            this.pnlConteudo.Controls.Add(this.textBox3);
+            this.pnlConteudo.Controls.Add(this.txtEnderecoCompleto);
             this.pnlConteudo.Controls.Add(this.label5);
-            this.pnlConteudo.Controls.Add(this.textBox4);
+            this.pnlConteudo.Controls.Add(this.txtExtensao);
             this.pnlConteudo.Controls.Add(this.label2);
-            this.pnlConteudo.Controls.Add(this.textBox2);
+            this.pnlConteudo.Controls.Add(this.txtNomeArquivo);
             this.pnlConteudo.Controls.Add(this.label1);
-            this.pnlConteudo.Controls.Add(this.textBox1);
+            this.pnlConteudo.Controls.Add(this.txtDiretorioPrincipal);
             this.pnlConteudo.Controls.Add(this.lvDocumentos);
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlConteudo.Location = new System.Drawing.Point(0, 100);
+            this.pnlConteudo.Location = new System.Drawing.Point(0, 74);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1071, 388);
+            this.pnlConteudo.Size = new System.Drawing.Size(1146, 535);
             this.pnlConteudo.TabIndex = 8;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(345, 38);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(89, 13);
+            this.label11.TabIndex = 101;
+            this.label11.Text = "Data Modicação:";
+            // 
+            // txtDataModificacao
+            // 
+            this.txtDataModificacao.Location = new System.Drawing.Point(440, 35);
+            this.txtDataModificacao.Name = "txtDataModificacao";
+            this.txtDataModificacao.Size = new System.Drawing.Size(226, 20);
+            this.txtDataModificacao.TabIndex = 100;
+            this.txtDataModificacao.Tag = "Data Modificação";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(687, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(73, 13);
+            this.label10.TabIndex = 99;
+            this.label10.Text = "Observações:";
+            // 
+            // txtObservacoes
+            // 
+            this.txtObservacoes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtObservacoes.Location = new System.Drawing.Point(690, 34);
+            this.txtObservacoes.Multiline = true;
+            this.txtObservacoes.Name = "txtObservacoes";
+            this.txtObservacoes.Size = new System.Drawing.Size(431, 61);
+            this.txtObservacoes.TabIndex = 98;
+            this.txtObservacoes.Tag = "Observações";
+            // 
+            // cbxConformidade
+            // 
+            this.cbxConformidade.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.cbxConformidade.FormattingEnabled = true;
+            this.cbxConformidade.Location = new System.Drawing.Point(112, 107);
+            this.cbxConformidade.Name = "cbxConformidade";
+            this.cbxConformidade.Size = new System.Drawing.Size(226, 21);
+            this.cbxConformidade.TabIndex = 97;
+            this.cbxConformidade.Tag = "Conformidade";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(387, 58);
+            this.label9.Location = new System.Drawing.Point(344, 58);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 13);
+            this.label9.Size = new System.Drawing.Size(90, 13);
             this.label9.TabIndex = 96;
-            this.label9.Text = "Analista:";
+            this.label9.Text = "Data Ult. Acesso:";
             // 
-            // textBox7
+            // txtDataUltimoAcesso
             // 
-            this.textBox7.Location = new System.Drawing.Point(440, 55);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(226, 20);
-            this.textBox7.TabIndex = 95;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(331, 110);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 13);
-            this.label10.TabIndex = 94;
-            this.label10.Text = "Filtro aplicado:";
-            // 
-            // lbFiltroAplicado
-            // 
-            this.lbFiltroAplicado.AutoSize = true;
-            this.lbFiltroAplicado.BackColor = System.Drawing.Color.Transparent;
-            this.lbFiltroAplicado.ForeColor = System.Drawing.Color.Red;
-            this.lbFiltroAplicado.Location = new System.Drawing.Point(428, 110);
-            this.lbFiltroAplicado.Name = "lbFiltroAplicado";
-            this.lbFiltroAplicado.Size = new System.Drawing.Size(45, 13);
-            this.lbFiltroAplicado.TabIndex = 93;
-            this.lbFiltroAplicado.Text = "TODOS";
+            this.txtDataUltimoAcesso.Location = new System.Drawing.Point(440, 55);
+            this.txtDataUltimoAcesso.Name = "txtDataUltimoAcesso";
+            this.txtDataUltimoAcesso.Size = new System.Drawing.Size(226, 20);
+            this.txtDataUltimoAcesso.TabIndex = 95;
+            this.txtDataUltimoAcesso.Tag = "Data Último Acesso";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.DimGray;
-            this.label8.Location = new System.Drawing.Point(15, 110);
+            this.label8.Location = new System.Drawing.Point(6, 146);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(291, 13);
             this.label8.TabIndex = 92;
@@ -161,36 +196,53 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(364, 38);
+            this.label7.Location = new System.Drawing.Point(36, 111);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 91;
             this.label7.Text = "Conformidade:";
             // 
-            // textBox6
+            // lbEnderecoPesquisado
             // 
-            this.textBox6.Location = new System.Drawing.Point(440, 35);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(226, 20);
-            this.textBox6.TabIndex = 90;
+            this.lbEnderecoPesquisado.AutoSize = true;
+            this.lbEnderecoPesquisado.BackColor = System.Drawing.Color.Transparent;
+            this.lbEnderecoPesquisado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEnderecoPesquisado.ForeColor = System.Drawing.Color.DimGray;
+            this.lbEnderecoPesquisado.Location = new System.Drawing.Point(414, 146);
+            this.lbEnderecoPesquisado.Name = "lbEnderecoPesquisado";
+            this.lbEnderecoPesquisado.Size = new System.Drawing.Size(77, 13);
+            this.lbEnderecoPesquisado.TabIndex = 78;
+            this.lbEnderecoPesquisado.Text = "Não Informado";
+            // 
+            // lbTituloEndereco
+            // 
+            this.lbTituloEndereco.AutoSize = true;
+            this.lbTituloEndereco.BackColor = System.Drawing.Color.Transparent;
+            this.lbTituloEndereco.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTituloEndereco.Location = new System.Drawing.Point(303, 146);
+            this.lbTituloEndereco.Name = "lbTituloEndereco";
+            this.lbTituloEndereco.Size = new System.Drawing.Size(117, 13);
+            this.lbTituloEndereco.TabIndex = 77;
+            this.lbTituloEndereco.Text = "Endereço Pesquisado: ";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(364, 18);
+            this.label6.Location = new System.Drawing.Point(362, 18);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 13);
+            this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 89;
-            this.label6.Text = "Data Análise:";
+            this.label6.Text = "Data Criação:";
             // 
-            // textBox5
+            // txtDataCriacao
             // 
-            this.textBox5.Location = new System.Drawing.Point(440, 15);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(226, 20);
-            this.textBox5.TabIndex = 88;
+            this.txtDataCriacao.Location = new System.Drawing.Point(440, 15);
+            this.txtDataCriacao.Name = "txtDataCriacao";
+            this.txtDataCriacao.Size = new System.Drawing.Size(226, 20);
+            this.txtDataCriacao.TabIndex = 88;
+            this.txtDataCriacao.Tag = "Data Análise";
             // 
             // label3
             // 
@@ -203,12 +255,13 @@
             this.label3.TabIndex = 87;
             this.label3.Text = "End. Completo:";
             // 
-            // textBox3
+            // txtEnderecoCompleto
             // 
-            this.textBox3.Location = new System.Drawing.Point(112, 75);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(554, 20);
-            this.textBox3.TabIndex = 86;
+            this.txtEnderecoCompleto.Location = new System.Drawing.Point(112, 75);
+            this.txtEnderecoCompleto.Name = "txtEnderecoCompleto";
+            this.txtEnderecoCompleto.Size = new System.Drawing.Size(554, 20);
+            this.txtEnderecoCompleto.TabIndex = 86;
+            this.txtEnderecoCompleto.Tag = "Endereço Completo";
             // 
             // label5
             // 
@@ -221,12 +274,13 @@
             this.label5.TabIndex = 85;
             this.label5.Text = "Extensão:";
             // 
-            // textBox4
+            // txtExtensao
             // 
-            this.textBox4.Location = new System.Drawing.Point(112, 55);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(226, 20);
-            this.textBox4.TabIndex = 84;
+            this.txtExtensao.Location = new System.Drawing.Point(112, 55);
+            this.txtExtensao.Name = "txtExtensao";
+            this.txtExtensao.Size = new System.Drawing.Size(226, 20);
+            this.txtExtensao.TabIndex = 84;
+            this.txtExtensao.Tag = "Extensão";
             // 
             // label2
             // 
@@ -239,12 +293,13 @@
             this.label2.TabIndex = 83;
             this.label2.Text = "Nome Arquivo:";
             // 
-            // textBox2
+            // txtNomeArquivo
             // 
-            this.textBox2.Location = new System.Drawing.Point(112, 35);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(226, 20);
-            this.textBox2.TabIndex = 82;
+            this.txtNomeArquivo.Location = new System.Drawing.Point(112, 35);
+            this.txtNomeArquivo.Name = "txtNomeArquivo";
+            this.txtNomeArquivo.Size = new System.Drawing.Size(226, 20);
+            this.txtNomeArquivo.TabIndex = 82;
+            this.txtNomeArquivo.Tag = "Nome Arquivo";
             // 
             // label1
             // 
@@ -257,12 +312,13 @@
             this.label1.TabIndex = 81;
             this.label1.Text = "Diretório Principal:";
             // 
-            // textBox1
+            // txtDiretorioPrincipal
             // 
-            this.textBox1.Location = new System.Drawing.Point(112, 15);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(226, 20);
-            this.textBox1.TabIndex = 1;
+            this.txtDiretorioPrincipal.Location = new System.Drawing.Point(112, 15);
+            this.txtDiretorioPrincipal.Name = "txtDiretorioPrincipal";
+            this.txtDiretorioPrincipal.Size = new System.Drawing.Size(226, 20);
+            this.txtDiretorioPrincipal.TabIndex = 1;
+            this.txtDiretorioPrincipal.Tag = "Diretório Principal";
             // 
             // lvDocumentos
             // 
@@ -270,11 +326,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDocumentos.HideSelection = false;
-            this.lvDocumentos.Location = new System.Drawing.Point(0, 126);
+            this.lvDocumentos.Location = new System.Drawing.Point(0, 162);
             this.lvDocumentos.Name = "lvDocumentos";
-            this.lvDocumentos.Size = new System.Drawing.Size(1071, 262);
+            this.lvDocumentos.Size = new System.Drawing.Size(1146, 373);
             this.lvDocumentos.TabIndex = 0;
             this.lvDocumentos.UseCompatibleStateImageBehavior = false;
+            this.lvDocumentos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvDocumentos_ColumnClick);
             // 
             // pnlFiltros
             // 
@@ -284,12 +341,10 @@
             this.pnlFiltros.Controls.Add(this.rbDiretorio);
             this.pnlFiltros.Controls.Add(this.label23);
             this.pnlFiltros.Controls.Add(this.btBuscar);
-            this.pnlFiltros.Controls.Add(this.lbEnderecoPesquisado);
-            this.pnlFiltros.Controls.Add(this.lbTituloEndereco);
             this.pnlFiltros.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlFiltros.Location = new System.Drawing.Point(0, 0);
             this.pnlFiltros.Name = "pnlFiltros";
-            this.pnlFiltros.Size = new System.Drawing.Size(1071, 100);
+            this.pnlFiltros.Size = new System.Drawing.Size(1146, 74);
             this.pnlFiltros.TabIndex = 7;
             // 
             // rbDiretorioSubpastas
@@ -320,7 +375,7 @@
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(685, 66);
+            this.label23.Location = new System.Drawing.Point(760, 33);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(374, 26);
             this.label23.TabIndex = 74;
@@ -339,36 +394,12 @@
             this.btBuscar.UseVisualStyleBackColor = true;
             this.btBuscar.Click += new System.EventHandler(this.btBuscar_Click);
             // 
-            // lbEnderecoPesquisado
-            // 
-            this.lbEnderecoPesquisado.AutoSize = true;
-            this.lbEnderecoPesquisado.BackColor = System.Drawing.Color.Transparent;
-            this.lbEnderecoPesquisado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbEnderecoPesquisado.ForeColor = System.Drawing.Color.DimGray;
-            this.lbEnderecoPesquisado.Location = new System.Drawing.Point(151, 75);
-            this.lbEnderecoPesquisado.Name = "lbEnderecoPesquisado";
-            this.lbEnderecoPesquisado.Size = new System.Drawing.Size(77, 13);
-            this.lbEnderecoPesquisado.TabIndex = 78;
-            this.lbEnderecoPesquisado.Text = "Não Informado";
-            // 
-            // lbTituloEndereco
-            // 
-            this.lbTituloEndereco.AutoSize = true;
-            this.lbTituloEndereco.BackColor = System.Drawing.Color.Transparent;
-            this.lbTituloEndereco.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTituloEndereco.Location = new System.Drawing.Point(40, 75);
-            this.lbTituloEndereco.Name = "lbTituloEndereco";
-            this.lbTituloEndereco.Size = new System.Drawing.Size(117, 13);
-            this.lbTituloEndereco.TabIndex = 77;
-            this.lbTituloEndereco.Text = "Endereço Pesquisado: ";
-            // 
             // pnlBotoes
             // 
             this.pnlBotoes.BackColor = System.Drawing.Color.White;
             this.pnlBotoes.Controls.Add(this.btnSalvar);
             this.pnlBotoes.Controls.Add(this.pdf);
             this.pnlBotoes.Controls.Add(this.adobePDF);
-            this.pnlBotoes.Controls.Add(this.lbFiltroPorStatus);
             this.pnlBotoes.Controls.Add(this.excel);
             this.pnlBotoes.Controls.Add(this.msExcel);
             this.pnlBotoes.Controls.Add(this.word);
@@ -382,17 +413,17 @@
             this.pnlBotoes.Controls.Add(this.msPowerPoint);
             this.pnlBotoes.Controls.Add(this.btnCancelar);
             this.pnlBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBotoes.Location = new System.Drawing.Point(0, 488);
+            this.pnlBotoes.Location = new System.Drawing.Point(0, 609);
             this.pnlBotoes.Name = "pnlBotoes";
             this.pnlBotoes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.pnlBotoes.Size = new System.Drawing.Size(1071, 72);
+            this.pnlBotoes.Size = new System.Drawing.Size(1146, 72);
             this.pnlBotoes.TabIndex = 6;
             // 
             // btnSalvar
             // 
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalvar.Image = ((System.Drawing.Image)(resources.GetObject("btnSalvar.Image")));
-            this.btnSalvar.Location = new System.Drawing.Point(810, 22);
+            this.btnSalvar.Location = new System.Drawing.Point(885, 22);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(115, 39);
             this.btnSalvar.TabIndex = 107;
@@ -423,18 +454,6 @@
             this.adobePDF.Size = new System.Drawing.Size(18, 15);
             this.adobePDF.TabIndex = 105;
             this.adobePDF.TabStop = false;
-            // 
-            // lbFiltroPorStatus
-            // 
-            this.lbFiltroPorStatus.AutoSize = true;
-            this.lbFiltroPorStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lbFiltroPorStatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbFiltroPorStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbFiltroPorStatus.Location = new System.Drawing.Point(82, 49);
-            this.lbFiltroPorStatus.Name = "lbFiltroPorStatus";
-            this.lbFiltroPorStatus.Size = new System.Drawing.Size(207, 13);
-            this.lbFiltroPorStatus.TabIndex = 103;
-            this.lbFiltroPorStatus.Text = "(Clique sobre o item da legenda para filtrar)";
             // 
             // excel
             // 
@@ -566,7 +585,7 @@
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(931, 22);
+            this.btnCancelar.Location = new System.Drawing.Point(1006, 22);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(115, 39);
             this.btnCancelar.TabIndex = 1;
@@ -574,22 +593,18 @@
             this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancelar.UseVisualStyleBackColor = true;
-            // 
-            // folderBrowserDialog
-            // 
-            this.folderBrowserDialog.ShowNewFolderButton = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // frmClassificacaoDocumentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1071, 560);
+            this.ClientSize = new System.Drawing.Size(1146, 681);
             this.Controls.Add(this.pnlConteudo);
             this.Controls.Add(this.pnlFiltros);
             this.Controls.Add(this.pnlBotoes);
             this.Name = "frmClassificacaoDocumentos";
             this.Text = ".: Avaliação de Classificação de Documentos :.";
-            this.Load += new System.EventHandler(this.frmClassificacaoDocumentos_Load);
             this.pnlConteudo.ResumeLayout(false);
             this.pnlConteudo.PerformLayout();
             this.pnlFiltros.ResumeLayout(false);
@@ -621,7 +636,6 @@
         private System.Windows.Forms.ListView lvDocumentos;
         internal System.Windows.Forms.Label pdf;
         internal System.Windows.Forms.PictureBox adobePDF;
-        internal System.Windows.Forms.Label lbFiltroPorStatus;
         internal System.Windows.Forms.Label excel;
         internal System.Windows.Forms.PictureBox msExcel;
         internal System.Windows.Forms.Label word;
@@ -634,23 +648,25 @@
         internal System.Windows.Forms.Label plano_vencido_maior7_3_texto;
         internal System.Windows.Forms.PictureBox msPowerPoint;
         internal System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
         internal System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtDataCriacao;
         internal System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtEnderecoCompleto;
         internal System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtExtensao;
         internal System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtNomeArquivo;
         internal System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtDiretorioPrincipal;
         internal System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox7;
-        internal System.Windows.Forms.Label label10;
-        internal System.Windows.Forms.Label lbFiltroAplicado;
+        private System.Windows.Forms.TextBox txtDataUltimoAcesso;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
+        private System.Windows.Forms.ComboBox cbxConformidade;
+        internal System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtObservacoes;
+        internal System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtDataModificacao;
     }
 }

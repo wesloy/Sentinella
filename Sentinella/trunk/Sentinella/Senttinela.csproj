@@ -105,6 +105,7 @@
     <Compile Include="Classes\autorizacoes.cs" />
     <Compile Include="Classes\cartoes.cs" />
     <Compile Include="Classes\categorizacoes.cs" />
+    <Compile Include="Classes\classificacaoDocumentos.cs" />
     <Compile Include="Classes\dadosCadastraisTelaPreta.cs" />
     <Compile Include="Classes\dadosCadastraisTH.cs" />
     <Compile Include="Classes\dlp.cs" />
