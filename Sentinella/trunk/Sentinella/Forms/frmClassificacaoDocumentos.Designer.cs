@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClassificacaoDocumentos));
             this.pnlConteudo = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
@@ -69,6 +70,12 @@
             this.msPowerPoint = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnIncluirAnalise = new System.Windows.Forms.Button();
+            this.btnExcluirRegistros = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.lbReferencia = new System.Windows.Forms.Label();
+            this.linkLabel_abrirArquivo = new System.Windows.Forms.LinkLabel();
             this.pnlConteudo.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlBotoes.SuspendLayout();
@@ -83,6 +90,11 @@
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
+            this.pnlConteudo.Controls.Add(this.linkLabel_abrirArquivo);
+            this.pnlConteudo.Controls.Add(this.lbReferencia);
+            this.pnlConteudo.Controls.Add(this.label12);
+            this.pnlConteudo.Controls.Add(this.btnExcluirRegistros);
+            this.pnlConteudo.Controls.Add(this.btnIncluirAnalise);
             this.pnlConteudo.Controls.Add(this.label11);
             this.pnlConteudo.Controls.Add(this.txtDataModificacao);
             this.pnlConteudo.Controls.Add(this.label10);
@@ -116,7 +128,7 @@
             this.label11.AutoSize = true;
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(345, 38);
+            this.label11.Location = new System.Drawing.Point(345, 56);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(89, 13);
             this.label11.TabIndex = 101;
@@ -124,8 +136,9 @@
             // 
             // txtDataModificacao
             // 
-            this.txtDataModificacao.Location = new System.Drawing.Point(440, 35);
+            this.txtDataModificacao.Location = new System.Drawing.Point(440, 53);
             this.txtDataModificacao.Name = "txtDataModificacao";
+            this.txtDataModificacao.ReadOnly = true;
             this.txtDataModificacao.Size = new System.Drawing.Size(226, 20);
             this.txtDataModificacao.TabIndex = 100;
             this.txtDataModificacao.Tag = "Data Modificação";
@@ -135,7 +148,7 @@
             this.label10.AutoSize = true;
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(687, 18);
+            this.label10.Location = new System.Drawing.Point(687, 36);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(73, 13);
             this.label10.TabIndex = 99;
@@ -145,7 +158,7 @@
             // 
             this.txtObservacoes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtObservacoes.Location = new System.Drawing.Point(690, 34);
+            this.txtObservacoes.Location = new System.Drawing.Point(690, 52);
             this.txtObservacoes.Multiline = true;
             this.txtObservacoes.Name = "txtObservacoes";
             this.txtObservacoes.Size = new System.Drawing.Size(431, 61);
@@ -156,7 +169,11 @@
             // 
             this.cbxConformidade.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.cbxConformidade.FormattingEnabled = true;
-            this.cbxConformidade.Location = new System.Drawing.Point(112, 107);
+            this.cbxConformidade.Items.AddRange(new object[] {
+            "NÃO ANALISADO",
+            "CONFORME",
+            "NÃO CONFORME"});
+            this.cbxConformidade.Location = new System.Drawing.Point(112, 125);
             this.cbxConformidade.Name = "cbxConformidade";
             this.cbxConformidade.Size = new System.Drawing.Size(226, 21);
             this.cbxConformidade.TabIndex = 97;
@@ -167,7 +184,7 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(344, 58);
+            this.label9.Location = new System.Drawing.Point(344, 76);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(90, 13);
             this.label9.TabIndex = 96;
@@ -175,8 +192,9 @@
             // 
             // txtDataUltimoAcesso
             // 
-            this.txtDataUltimoAcesso.Location = new System.Drawing.Point(440, 55);
+            this.txtDataUltimoAcesso.Location = new System.Drawing.Point(440, 73);
             this.txtDataUltimoAcesso.Name = "txtDataUltimoAcesso";
+            this.txtDataUltimoAcesso.ReadOnly = true;
             this.txtDataUltimoAcesso.Size = new System.Drawing.Size(226, 20);
             this.txtDataUltimoAcesso.TabIndex = 95;
             this.txtDataUltimoAcesso.Tag = "Data Último Acesso";
@@ -185,7 +203,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.DimGray;
-            this.label8.Location = new System.Drawing.Point(6, 146);
+            this.label8.Location = new System.Drawing.Point(12, 168);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(291, 13);
             this.label8.TabIndex = 92;
@@ -196,7 +214,7 @@
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(36, 111);
+            this.label7.Location = new System.Drawing.Point(36, 129);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 91;
@@ -204,11 +222,12 @@
             // 
             // lbEnderecoPesquisado
             // 
+            this.lbEnderecoPesquisado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbEnderecoPesquisado.AutoSize = true;
             this.lbEnderecoPesquisado.BackColor = System.Drawing.Color.Transparent;
             this.lbEnderecoPesquisado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEnderecoPesquisado.ForeColor = System.Drawing.Color.DimGray;
-            this.lbEnderecoPesquisado.Location = new System.Drawing.Point(414, 146);
+            this.lbEnderecoPesquisado.Location = new System.Drawing.Point(271, 500);
             this.lbEnderecoPesquisado.Name = "lbEnderecoPesquisado";
             this.lbEnderecoPesquisado.Size = new System.Drawing.Size(77, 13);
             this.lbEnderecoPesquisado.TabIndex = 78;
@@ -216,10 +235,11 @@
             // 
             // lbTituloEndereco
             // 
+            this.lbTituloEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbTituloEndereco.AutoSize = true;
             this.lbTituloEndereco.BackColor = System.Drawing.Color.Transparent;
             this.lbTituloEndereco.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTituloEndereco.Location = new System.Drawing.Point(303, 146);
+            this.lbTituloEndereco.Location = new System.Drawing.Point(160, 500);
             this.lbTituloEndereco.Name = "lbTituloEndereco";
             this.lbTituloEndereco.Size = new System.Drawing.Size(117, 13);
             this.lbTituloEndereco.TabIndex = 77;
@@ -230,7 +250,7 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(362, 18);
+            this.label6.Location = new System.Drawing.Point(362, 36);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 89;
@@ -238,8 +258,9 @@
             // 
             // txtDataCriacao
             // 
-            this.txtDataCriacao.Location = new System.Drawing.Point(440, 15);
+            this.txtDataCriacao.Location = new System.Drawing.Point(440, 33);
             this.txtDataCriacao.Name = "txtDataCriacao";
+            this.txtDataCriacao.ReadOnly = true;
             this.txtDataCriacao.Size = new System.Drawing.Size(226, 20);
             this.txtDataCriacao.TabIndex = 88;
             this.txtDataCriacao.Tag = "Data Análise";
@@ -249,7 +270,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(24, 78);
+            this.label3.Location = new System.Drawing.Point(24, 96);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 13);
             this.label3.TabIndex = 87;
@@ -257,8 +278,9 @@
             // 
             // txtEnderecoCompleto
             // 
-            this.txtEnderecoCompleto.Location = new System.Drawing.Point(112, 75);
+            this.txtEnderecoCompleto.Location = new System.Drawing.Point(112, 93);
             this.txtEnderecoCompleto.Name = "txtEnderecoCompleto";
+            this.txtEnderecoCompleto.ReadOnly = true;
             this.txtEnderecoCompleto.Size = new System.Drawing.Size(554, 20);
             this.txtEnderecoCompleto.TabIndex = 86;
             this.txtEnderecoCompleto.Tag = "Endereço Completo";
@@ -268,7 +290,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(49, 58);
+            this.label5.Location = new System.Drawing.Point(49, 76);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(54, 13);
             this.label5.TabIndex = 85;
@@ -276,8 +298,9 @@
             // 
             // txtExtensao
             // 
-            this.txtExtensao.Location = new System.Drawing.Point(112, 55);
+            this.txtExtensao.Location = new System.Drawing.Point(112, 73);
             this.txtExtensao.Name = "txtExtensao";
+            this.txtExtensao.ReadOnly = true;
             this.txtExtensao.Size = new System.Drawing.Size(226, 20);
             this.txtExtensao.TabIndex = 84;
             this.txtExtensao.Tag = "Extensão";
@@ -287,7 +310,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 38);
+            this.label2.Location = new System.Drawing.Point(26, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 13);
             this.label2.TabIndex = 83;
@@ -295,8 +318,9 @@
             // 
             // txtNomeArquivo
             // 
-            this.txtNomeArquivo.Location = new System.Drawing.Point(112, 35);
+            this.txtNomeArquivo.Location = new System.Drawing.Point(112, 53);
             this.txtNomeArquivo.Name = "txtNomeArquivo";
+            this.txtNomeArquivo.ReadOnly = true;
             this.txtNomeArquivo.Size = new System.Drawing.Size(226, 20);
             this.txtNomeArquivo.TabIndex = 82;
             this.txtNomeArquivo.Tag = "Nome Arquivo";
@@ -306,7 +330,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 18);
+            this.label1.Location = new System.Drawing.Point(15, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 81;
@@ -314,8 +338,9 @@
             // 
             // txtDiretorioPrincipal
             // 
-            this.txtDiretorioPrincipal.Location = new System.Drawing.Point(112, 15);
+            this.txtDiretorioPrincipal.Location = new System.Drawing.Point(112, 33);
             this.txtDiretorioPrincipal.Name = "txtDiretorioPrincipal";
+            this.txtDiretorioPrincipal.ReadOnly = true;
             this.txtDiretorioPrincipal.Size = new System.Drawing.Size(226, 20);
             this.txtDiretorioPrincipal.TabIndex = 1;
             this.txtDiretorioPrincipal.Tag = "Diretório Principal";
@@ -326,12 +351,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDocumentos.HideSelection = false;
-            this.lvDocumentos.Location = new System.Drawing.Point(0, 162);
+            this.lvDocumentos.Location = new System.Drawing.Point(0, 184);
             this.lvDocumentos.Name = "lvDocumentos";
-            this.lvDocumentos.Size = new System.Drawing.Size(1146, 373);
+            this.lvDocumentos.Size = new System.Drawing.Size(1146, 306);
             this.lvDocumentos.TabIndex = 0;
             this.lvDocumentos.UseCompatibleStateImageBehavior = false;
             this.lvDocumentos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvDocumentos_ColumnClick);
+            this.lvDocumentos.DoubleClick += new System.EventHandler(this.lvDocumentos_DoubleClick);
             // 
             // pnlFiltros
             // 
@@ -430,6 +456,7 @@
             this.btnSalvar.Text = "&Salvar";
             this.btnSalvar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip1.SetToolTip(this.btnSalvar, "Salvar toda a análise do diretório");
             this.btnSalvar.UseVisualStyleBackColor = true;
             // 
             // pdf
@@ -595,6 +622,64 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // btnIncluirAnalise
+            // 
+            this.btnIncluirAnalise.Location = new System.Drawing.Point(344, 125);
+            this.btnIncluirAnalise.Name = "btnIncluirAnalise";
+            this.btnIncluirAnalise.Size = new System.Drawing.Size(116, 21);
+            this.btnIncluirAnalise.TabIndex = 102;
+            this.btnIncluirAnalise.Text = "&Incluir Análise";
+            this.toolTip1.SetToolTip(this.btnIncluirAnalise, "Incluir análise do arquivo dentro da análise do diretório.");
+            this.btnIncluirAnalise.UseVisualStyleBackColor = true;
+            this.btnIncluirAnalise.Click += new System.EventHandler(this.btnIncluirAnalise_Click);
+            // 
+            // btnExcluirRegistros
+            // 
+            this.btnExcluirRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExcluirRegistros.Location = new System.Drawing.Point(18, 496);
+            this.btnExcluirRegistros.Name = "btnExcluirRegistros";
+            this.btnExcluirRegistros.Size = new System.Drawing.Size(116, 21);
+            this.btnExcluirRegistros.TabIndex = 103;
+            this.btnExcluirRegistros.Text = "&Excluir Registros";
+            this.toolTip1.SetToolTip(this.btnExcluirRegistros, "Flag os registros que não são válidos para análise.\r\nClique em \"Excluir Registros" +
+        "\" e confirme a mensagem de exclusão.");
+            this.btnExcluirRegistros.UseVisualStyleBackColor = true;
+            this.btnExcluirRegistros.Click += new System.EventHandler(this.btnExcluirRegistros_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(45, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(62, 13);
+            this.label12.TabIndex = 104;
+            this.label12.Text = "Referência:";
+            // 
+            // lbReferencia
+            // 
+            this.lbReferencia.AutoSize = true;
+            this.lbReferencia.BackColor = System.Drawing.Color.Transparent;
+            this.lbReferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbReferencia.ForeColor = System.Drawing.Color.Blue;
+            this.lbReferencia.Location = new System.Drawing.Point(114, 12);
+            this.lbReferencia.Name = "lbReferencia";
+            this.lbReferencia.Size = new System.Drawing.Size(19, 13);
+            this.lbReferencia.TabIndex = 105;
+            this.lbReferencia.Text = "00";
+            // 
+            // linkLabel_abrirArquivo
+            // 
+            this.linkLabel_abrirArquivo.AutoSize = true;
+            this.linkLabel_abrirArquivo.Location = new System.Drawing.Point(596, 116);
+            this.linkLabel_abrirArquivo.Name = "linkLabel_abrirArquivo";
+            this.linkLabel_abrirArquivo.Size = new System.Drawing.Size(67, 13);
+            this.linkLabel_abrirArquivo.TabIndex = 106;
+            this.linkLabel_abrirArquivo.TabStop = true;
+            this.linkLabel_abrirArquivo.Text = "Abrir Arquivo";
+            this.linkLabel_abrirArquivo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_abrirArquivo_LinkClicked);
+            // 
             // frmClassificacaoDocumentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,5 +753,11 @@
         private System.Windows.Forms.TextBox txtObservacoes;
         internal System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtDataModificacao;
+        private System.Windows.Forms.Button btnExcluirRegistros;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnIncluirAnalise;
+        internal System.Windows.Forms.Label lbReferencia;
+        internal System.Windows.Forms.Label label12;
+        private System.Windows.Forms.LinkLabel linkLabel_abrirArquivo;
     }
 }

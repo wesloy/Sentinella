@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Sentinella.Forms {
@@ -13,10 +11,26 @@ namespace Sentinella.Forms {
 
 
         #region FUNCOES
-        private void limparform() {
-            hlp.limparCampos(this);
-            lvDocumentos.Clear();
-            lbEnderecoPesquisado.Text = "Não Informado";        }
+        private void limparform(bool parcial = false) {
+            if (!parcial) {
+                hlp.limparCampos(this);
+                lvDocumentos.Clear();
+                lbEnderecoPesquisado.Text = "Não Informado";
+                lbReferencia.Text = "00";
+            } else {
+                lbReferencia.Text = "00";
+                txtDiretorioPrincipal.Clear();
+                txtNomeArquivo.Clear(); 
+                txtExtensao.Clear();
+                txtEnderecoCompleto.Clear();
+                txtDataCriacao.Clear();
+                txtDataModificacao.Clear(); 
+                txtDataUltimoAcesso.Clear();
+                cbxConformidade.Text = "";
+                txtObservacoes.Clear();
+            }
+            
+        }
         #endregion
 
 
@@ -40,8 +54,17 @@ namespace Sentinella.Forms {
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK) {
                 lbEnderecoPesquisado.Text = folderBrowserDialog.SelectedPath;
                 classificacaoDocumentos cd = new classificacaoDocumentos();
-                
+
                 if (cd.carregarListview(lvDocumentos, lbEnderecoPesquisado.Text, rbDiretorioSubpastas.Checked)) {
+
+                    //criando referência para facilitar a localização do registro qdo for fazer a categorização
+                    //não é possível fazer na bll já que a própria função se referencia criando um looping que zera os valores
+                    int referencia = 0;
+                    foreach (ListViewItem itemRow in lvDocumentos.Items) {
+                        referencia += 1;
+                        itemRow.SubItems[0].Text = referencia.ToString();
+                    }
+
                     MessageBox.Show("Arquivos carregados com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -86,6 +109,91 @@ namespace Sentinella.Forms {
 
         private void btnCancelar_Click(object sender, EventArgs e) {
             limparform();
+        }
+
+        private void lvDocumentos_DoubleClick(object sender, EventArgs e) {
+
+            string id = lvDocumentos.SelectedItems[0].SubItems[0].Text;
+            if ((string.IsNullOrEmpty(id)) || (id.ToString() == "0")) {
+                MessageBox.Show("Nenhum registro foi selecionado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else {
+                lbReferencia.Text = lvDocumentos.SelectedItems[0].SubItems[0].Text;
+                txtDiretorioPrincipal.Text = lvDocumentos.SelectedItems[0].SubItems[1].Text;
+                txtNomeArquivo.Text = lvDocumentos.SelectedItems[0].SubItems[2].Text;
+                txtExtensao.Text = lvDocumentos.SelectedItems[0].SubItems[3].Text;
+                txtEnderecoCompleto.Text = lvDocumentos.SelectedItems[0].SubItems[4].Text;
+                txtDataCriacao.Text = lvDocumentos.SelectedItems[0].SubItems[5].Text;
+                txtDataModificacao.Text = lvDocumentos.SelectedItems[0].SubItems[6].Text;
+                txtDataUltimoAcesso.Text = lvDocumentos.SelectedItems[0].SubItems[7].Text;
+                cbxConformidade.Text = lvDocumentos.SelectedItems[0].SubItems[8].Text;
+                txtObservacoes.Text = lvDocumentos.SelectedItems[0].SubItems[9].Text;
+
+                //abrindo o arquivo
+                //hlp.abrirArquivo(lvDocumentos.SelectedItems[0].SubItems[4].Text);
+
+            }
+
+        }
+
+        private void btnExcluirRegistros_Click(object sender, EventArgs e) {
+
+            int contador = 0;
+
+            //excluir registros que não são pertinentes a análise
+            DialogResult result = MessageBox.Show("Tem certeza que deseja excluir da lista de análise, todos os itens marcados? " + Environment.NewLine + Environment.NewLine,
+                                                    Constantes.Titulo_MSG, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.OK) {
+                
+                int barraContagem = 0;
+                frmProgressBar barra = new frmProgressBar(lvDocumentos.Items.Count);
+                barra.Show();
+
+                foreach (ListViewItem item in lvDocumentos.Items) {
+                    if (item.Checked) {
+                        item.Remove();
+                        contador += 1;
+                    }
+                    barraContagem += 1;
+                    barra.atualizarBarra(barraContagem);
+                }
+                barra.Close();
+            }
+
+            if (contador == 0) {
+                MessageBox.Show("Não havia registros selecionados para serem deletados!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);                
+            } else if (contador == 1) {
+                MessageBox.Show("Foi deletado " + contador + " registro", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else {
+                MessageBox.Show("Foram deletados " + contador + " registros", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnIncluirAnalise_Click(object sender, EventArgs e) {
+            if (lbReferencia.Text == "00") {
+                MessageBox.Show("Não há registro para ser categorizado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            } else {
+                foreach (ListViewItem item in lvDocumentos.Items) {
+                    // Identificando o registro a ser atualizado
+                    if (lvDocumentos.SelectedItems[0].SubItems[0].Text.Equals(lbReferencia.Text)) {
+                        lvDocumentos.SelectedItems[0].SubItems[8].Text = cbxConformidade.Text;
+                        lvDocumentos.SelectedItems[0].SubItems[9].Text = txtObservacoes.Text;
+                        lvDocumentos.SelectedItems[0].SubItems[10].Text = Constantes.nomeAssociadoLogado;
+                        lvDocumentos.SelectedItems[0].SubItems[11].Text = hlp.dataAbreviada().ToShortDateString();
+
+                        limparform(true);
+                        MessageBox.Show("Registro Salvo", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
+        private void linkLabel_abrirArquivo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            if (txtEnderecoCompleto.Text != "") {
+                hlp.abrirArquivo(txtEnderecoCompleto.Text);
+            } else {
+                MessageBox.Show("Não há um arquivo indicado para ser aberto!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

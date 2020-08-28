@@ -1500,7 +1500,7 @@ namespace Sentinella {
                 //sql = "Delete from w_funcionarios_historico";
                 //objCon.executaQuery(sql, ref retorno);
 
-                dt_w = objCon.retornaDataTable("select * from w_funcionarios_historico");                
+                dt_w = objCon.retornaDataTable("select * from w_funcionarios_historico");
                 frm0.atualizarBarra(2);
 
                 //limpando tabelas de hierarquia para armazenar informações mais recentes
@@ -1778,12 +1778,15 @@ namespace Sentinella {
         private bool _saquesCompulsivos(DateTime dtHora, int fila_id, string fila_nome, ref long volImportado) {
             try {
                 DataTable dt = new DataTable();
-                sql = "select a.bin, a.cpf, a.dataCorte, count(a.cartao) as qtde_saques ";
-                sql += "from w_autorizacoes a inner join w_sysProdutos c on a.bin = c.bin ";
-                sql += "where a.estabelecimento like '%saque bdn%' and c.produto <> 'CORPORATE' ";
-                sql += "group by a.bin, a.cpf, a.dataCorte ";
-                sql += "having count(a.cartao) > 1 ";
-                sql += "order by qtde_saques desc ";
+
+                sql = "select a.bin, a.cpf, a.dataCorte, count(a.cartao) as qtde_saques from w_autorizacoes a " +
+                            "inner join w_sysProdutos c on a.bin = c.bin " +
+                            "inner join db_Corporate_V3.dbo.tb_Imp_Associado ia on a.cpf = ia.Cod_Cpf " + //garantindo apenas associados algar
+                            "where a.estabelecimento like '%saque bdn%' " + //identificando os saques
+                            "and c.produto <> 'CORPORATE' " + //retirando os COPORATES, visto que é uma prática dos cartões corporates
+                            "and ia.Dt_Demissao is null " + //apenas associativos ativos
+                            "group by a.bin, a.cpf, a.dataCorte having count(a.cartao) > 1 " +
+                            "order by qtde_saques desc ";
                 dt = objCon.retornaDataTable(sql);
 
                 //Importando registros caso tenha algum volume para isso (DT.ROWS.COUNT > 0)
@@ -1832,13 +1835,14 @@ namespace Sentinella {
             try {
 
                 DataTable dt = new DataTable();
-                sql = "select m.bin, m.cpf, m.dataManutencao ";
-                sql += "from w_funcionarios f ";
-                sql += "inner join w_manutencoes m on f.CPF = m.cpf and f.UB = m.usuarioRealizouManutencao ";
+
+                sql = "select m.bin, m.cpf, m.dataManutencao from db_Corporate_V3.dbo.tb_Imp_Associado f ";
+                sql += "inner join w_manutencoes m on f.Cod_Cpf = m.cpf and " +
+                    "iif(len(f.Cod_Matricula) < 7 and Not f.Cod_Matricula is null, 'UB' + replicate('0', 6 - len(f.Cod_Matricula)) + f.Cod_Matricula,f.Cod_Matricula)= m.usuarioRealizouManutencao ";
                 sql += "left join w_base b on m.bin = b.bin and m.cpf = b.cpf and m.dataManutencao = b.data_Registro "; //data de registro será correspondente a data de captura de cada processo
                 sql += "where b.id is null "; //garantindo que o mesmo registro não suba outra vez para ser trabalhado
+                sql += "and f.Dt_Demissao is null "; //retirando os demitidos
                 sql += "group by m.bin, m.cpf, m.dataManutencao ";
-                sql += "order by m.cpf, m.dataManutencao desc ";
                 dt = objCon.retornaDataTable(sql);
 
                 //Importando registros caso tenha algum volume para isso (DT.ROWS.COUNT > 0)
@@ -1886,7 +1890,9 @@ namespace Sentinella {
                 DataTable dt = new DataTable();
 
                 sql = "select c.bin, c.cpf, c.limite_Data_Alteracao ";
-                sql += "from w_cartoes c left join w_manutencoes m on c.cartao = m.cartao and c.cpf = m.cpf and c.limite_Data_Alteracao = m.dataManutencao ";
+                sql += "from w_cartoes c " +
+                    "inner join db_Corporate_V3.dbo.tb_Imp_Associado ia on c.cpf = ia.Cod_Cpf " + //garantindo que não suba casos apenas de associados algar"
+                    "left join w_manutencoes m on c.cartao = m.cartao and c.cpf = m.cpf and c.limite_Data_Alteracao = m.dataManutencao "; //garantindo que sejam apenas associados algar
                 sql += "left join w_base b on c.bin = b.bin and c.cpf = b.cpf and c.limite_Data_Alteracao = b.data_Registro "; //data de registro será correspondente a data de captura de cada processo
                 sql += "where b.id is null "; //garantindo que o mesmo registro não suba outra vez para ser trabalhado
                 sql += "and m.usuarioRealizouManutencao not like '%system%' "; //usuário de sistema
@@ -1894,6 +1900,7 @@ namespace Sentinella {
                 sql += "and m.descricaoManutencao not like 'ADESAO AO LIMITE UNIFICADO%' "; // ação automática
                 sql += "and c.limite_Data_Alteracao > DATEADD(DAY, -180, GETDATE()) "; //definido que a captura será dos ultimos 12 meses, mas disponibilizar para trabalho os últimos 6 meses
                 sql += "and c.tipoCartao = 'CONTA' "; //alteração de limite só pode ser efetivado na CONTA
+                sql += "and ia.Dt_Demissao is null "; //excluindo os demitidos
                 sql += "group by c.bin, c.cpf, c.limite_Data_Alteracao ";
                 dt = objCon.retornaDataTable(sql);
 
@@ -1938,13 +1945,24 @@ namespace Sentinella {
 
                 DataTable dt = new DataTable();
 
-                sql = "select c.bin, c.cpf, c.data_alteracao_End ";
-                sql += "from w_dadosCadastrais c ";
+
+                sql = "select c.bin, c.cpf, c.data_alteracao_End from w_dadosCadastrais c ";
+                sql += "inner join db_Corporate_V3.dbo.tb_Imp_Associado ia on c.cpf = ia.Cod_Cpf "; //garantindo que não suba casos apenas de associados algar
                 sql += "left join w_base b on c.bin = b.bin and c.cpf = b.cpf and c.data_alteracao_End = b.data_Registro "; //data de registro será correspondente a data de captura de cada processo
                 sql += "where b.id is null "; //garantindo que o mesmo registro não suba outra vez para ser trabalhado
-                sql += "and c.data_alteracao_End > DATEADD(DAY, -180, GETDATE()) ";//definido que a captura será dos ultimos 12 meses, mas disponibilizar para trabalho os últimos 6 meses
+                sql += "and c.data_alteracao_End > DATEADD(DAY, -180, GETDATE()) "; //definido que a captura será dos ultimos 12 meses, mas disponibilizar para trabalho os últimos 6 meses
+                sql += "and ia.Dt_Demissao is null "; //excluindo os demitidos
                 sql += "group by c.bin, c.cpf, c.data_alteracao_End ";
+
+                #region DECOMISSIONADO 28/8/2020 - estava passando demitidos
+                //sql = "select c.bin, c.cpf, c.data_alteracao_End ";
+                //sql += "from w_dadosCadastrais c ";
+                //sql += "left join w_base b on c.bin = b.bin and c.cpf = b.cpf and c.data_alteracao_End = b.data_Registro "; //data de registro será correspondente a data de captura de cada processo
+                //sql += "where b.id is null "; //garantindo que o mesmo registro não suba outra vez para ser trabalhado
+                //sql += "and c.data_alteracao_End > DATEADD(DAY, -180, GETDATE()) ";//definido que a captura será dos ultimos 12 meses, mas disponibilizar para trabalho os últimos 6 meses
+                //sql += "group by c.bin, c.cpf, c.data_alteracao_End ";
                 dt = objCon.retornaDataTable(sql);
+                #endregion
 
                 //Importando registros caso tenha algum volume para isso (DT.ROWS.COUNT > 0)
                 frmProgressBar frm = new frmProgressBar(dt.Rows.Count);
