@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Sentinella.Forms {
@@ -20,16 +21,16 @@ namespace Sentinella.Forms {
             } else {
                 lbReferencia.Text = "00";
                 txtDiretorioPrincipal.Clear();
-                txtNomeArquivo.Clear(); 
+                txtNomeArquivo.Clear();
                 txtExtensao.Clear();
                 txtEnderecoCompleto.Clear();
                 txtDataCriacao.Clear();
-                txtDataModificacao.Clear(); 
+                txtDataModificacao.Clear();
                 txtDataUltimoAcesso.Clear();
                 cbxConformidade.Text = "";
                 txtObservacoes.Clear();
             }
-            
+
         }
         #endregion
 
@@ -144,7 +145,7 @@ namespace Sentinella.Forms {
                                                     Constantes.Titulo_MSG, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (result == DialogResult.OK) {
-                
+
                 int barraContagem = 0;
                 frmProgressBar barra = new frmProgressBar(lvDocumentos.Items.Count);
                 barra.Show();
@@ -161,7 +162,7 @@ namespace Sentinella.Forms {
             }
 
             if (contador == 0) {
-                MessageBox.Show("Não havia registros selecionados para serem deletados!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);                
+                MessageBox.Show("Não havia registros selecionados para serem deletados!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else if (contador == 1) {
                 MessageBox.Show("Foi deletado " + contador + " registro", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else {
@@ -173,6 +174,12 @@ namespace Sentinella.Forms {
             if (lbReferencia.Text == "00") {
                 MessageBox.Show("Não há registro para ser categorizado!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             } else {
+
+                if (cbxConformidade.Text == "NÃO ANALISADO") {
+                    MessageBox.Show("Para salvar o registro é necessário informar se é CONFORME ou NÃO CONFORME.", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 foreach (ListViewItem item in lvDocumentos.Items) {
                     // Identificando o registro a ser atualizado
                     if (lvDocumentos.SelectedItems[0].SubItems[0].Text.Equals(lbReferencia.Text)) {
@@ -180,6 +187,8 @@ namespace Sentinella.Forms {
                         lvDocumentos.SelectedItems[0].SubItems[9].Text = txtObservacoes.Text;
                         lvDocumentos.SelectedItems[0].SubItems[10].Text = Constantes.nomeAssociadoLogado;
                         lvDocumentos.SelectedItems[0].SubItems[11].Text = hlp.dataAbreviada().ToShortDateString();
+
+                        lvDocumentos.SelectedItems[0].ForeColor = Color.Red;
 
                         limparform(true);
                         MessageBox.Show("Registro Salvo", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -194,6 +203,37 @@ namespace Sentinella.Forms {
             } else {
                 MessageBox.Show("Não há um arquivo indicado para ser aberto!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e) {
+
+            //PROTOCOLO = formado por yyyymmddhhmmss + nome analista
+            string protocolo = hlp.dataHoraAtual().ToString("yyyyMMddHHmmss") + Constantes.nomeAssociadoLogado.Replace(" ", "");
+
+            foreach (ListViewItem item in lvDocumentos.Items) {
+                classificacaoDocumentos cd = new classificacaoDocumentos(
+                        _protocoloAnalise: protocolo,
+                        _diretorioPrincipal: item.SubItems[1].Text,
+                        _nomeArquivo: item.SubItems[2].Text,
+                        _extensao: item.SubItems[3].Text,
+                        _enderecoCompleto: item.SubItems[4].Text,
+                        _dataCriacao: DateTime.Parse(item.SubItems[5].Text),
+                        _dataModificacao: DateTime.Parse(item.SubItems[6].Text),
+                        _dataUltimoAcesso: DateTime.Parse(item.SubItems[7].Text),
+                        _analise: item.SubItems[8].Text,
+                        _observacoes: item.SubItems[9].Text,
+                        _analista: item.SubItems[10].Text,                        
+                        _dataAnalise: DateTime.Parse(item.SubItems[11].Text)
+                    );
+                cd.salvarRegistro(cd);
+            }
+
+            limparform();
+            MessageBox.Show("Registros salvos!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnCancelarAnalise_Click(object sender, EventArgs e) {
+            limparform(true);
         }
     }
 }

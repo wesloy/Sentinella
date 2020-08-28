@@ -26,6 +26,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClassificacaoDocumentos));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.linkLabel_abrirArquivo = new System.Windows.Forms.LinkLabel();
+            this.lbReferencia = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnExcluirRegistros = new System.Windows.Forms.Button();
+            this.btnIncluirAnalise = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.txtDataModificacao = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -70,12 +75,8 @@
             this.msPowerPoint = new System.Windows.Forms.PictureBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnIncluirAnalise = new System.Windows.Forms.Button();
-            this.btnExcluirRegistros = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label12 = new System.Windows.Forms.Label();
-            this.lbReferencia = new System.Windows.Forms.Label();
-            this.linkLabel_abrirArquivo = new System.Windows.Forms.LinkLabel();
+            this.btnCancelarAnalise = new System.Windows.Forms.Button();
             this.pnlConteudo.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlBotoes.SuspendLayout();
@@ -90,6 +91,7 @@
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
+            this.pnlConteudo.Controls.Add(this.btnCancelarAnalise);
             this.pnlConteudo.Controls.Add(this.linkLabel_abrirArquivo);
             this.pnlConteudo.Controls.Add(this.lbReferencia);
             this.pnlConteudo.Controls.Add(this.label12);
@@ -122,6 +124,64 @@
             this.pnlConteudo.Name = "pnlConteudo";
             this.pnlConteudo.Size = new System.Drawing.Size(1146, 535);
             this.pnlConteudo.TabIndex = 8;
+            // 
+            // linkLabel_abrirArquivo
+            // 
+            this.linkLabel_abrirArquivo.AutoSize = true;
+            this.linkLabel_abrirArquivo.Location = new System.Drawing.Point(596, 116);
+            this.linkLabel_abrirArquivo.Name = "linkLabel_abrirArquivo";
+            this.linkLabel_abrirArquivo.Size = new System.Drawing.Size(67, 13);
+            this.linkLabel_abrirArquivo.TabIndex = 106;
+            this.linkLabel_abrirArquivo.TabStop = true;
+            this.linkLabel_abrirArquivo.Text = "Abrir Arquivo";
+            this.linkLabel_abrirArquivo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_abrirArquivo_LinkClicked);
+            // 
+            // lbReferencia
+            // 
+            this.lbReferencia.AutoSize = true;
+            this.lbReferencia.BackColor = System.Drawing.Color.Transparent;
+            this.lbReferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbReferencia.ForeColor = System.Drawing.Color.Blue;
+            this.lbReferencia.Location = new System.Drawing.Point(114, 12);
+            this.lbReferencia.Name = "lbReferencia";
+            this.lbReferencia.Size = new System.Drawing.Size(19, 13);
+            this.lbReferencia.TabIndex = 105;
+            this.lbReferencia.Text = "00";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(45, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(62, 13);
+            this.label12.TabIndex = 104;
+            this.label12.Text = "Referência:";
+            // 
+            // btnExcluirRegistros
+            // 
+            this.btnExcluirRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExcluirRegistros.Location = new System.Drawing.Point(18, 496);
+            this.btnExcluirRegistros.Name = "btnExcluirRegistros";
+            this.btnExcluirRegistros.Size = new System.Drawing.Size(116, 21);
+            this.btnExcluirRegistros.TabIndex = 103;
+            this.btnExcluirRegistros.Text = "&Excluir Registros";
+            this.toolTip1.SetToolTip(this.btnExcluirRegistros, "Flag os registros que não são válidos para análise.\r\nClique em \"Excluir Registros" +
+        "\" e confirme a mensagem de exclusão.");
+            this.btnExcluirRegistros.UseVisualStyleBackColor = true;
+            this.btnExcluirRegistros.Click += new System.EventHandler(this.btnExcluirRegistros_Click);
+            // 
+            // btnIncluirAnalise
+            // 
+            this.btnIncluirAnalise.Location = new System.Drawing.Point(344, 125);
+            this.btnIncluirAnalise.Name = "btnIncluirAnalise";
+            this.btnIncluirAnalise.Size = new System.Drawing.Size(90, 21);
+            this.btnIncluirAnalise.TabIndex = 102;
+            this.btnIncluirAnalise.Text = "&Incluir Análise";
+            this.toolTip1.SetToolTip(this.btnIncluirAnalise, "Incluir análise do arquivo dentro da análise do diretório.");
+            this.btnIncluirAnalise.UseVisualStyleBackColor = true;
+            this.btnIncluirAnalise.Click += new System.EventHandler(this.btnIncluirAnalise_Click);
             // 
             // label11
             // 
@@ -458,6 +518,7 @@
             this.btnSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.btnSalvar, "Salvar toda a análise do diretório");
             this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // pdf
             // 
@@ -622,63 +683,16 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // btnIncluirAnalise
+            // btnCancelarAnalise
             // 
-            this.btnIncluirAnalise.Location = new System.Drawing.Point(344, 125);
-            this.btnIncluirAnalise.Name = "btnIncluirAnalise";
-            this.btnIncluirAnalise.Size = new System.Drawing.Size(116, 21);
-            this.btnIncluirAnalise.TabIndex = 102;
-            this.btnIncluirAnalise.Text = "&Incluir Análise";
-            this.toolTip1.SetToolTip(this.btnIncluirAnalise, "Incluir análise do arquivo dentro da análise do diretório.");
-            this.btnIncluirAnalise.UseVisualStyleBackColor = true;
-            this.btnIncluirAnalise.Click += new System.EventHandler(this.btnIncluirAnalise_Click);
-            // 
-            // btnExcluirRegistros
-            // 
-            this.btnExcluirRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExcluirRegistros.Location = new System.Drawing.Point(18, 496);
-            this.btnExcluirRegistros.Name = "btnExcluirRegistros";
-            this.btnExcluirRegistros.Size = new System.Drawing.Size(116, 21);
-            this.btnExcluirRegistros.TabIndex = 103;
-            this.btnExcluirRegistros.Text = "&Excluir Registros";
-            this.toolTip1.SetToolTip(this.btnExcluirRegistros, "Flag os registros que não são válidos para análise.\r\nClique em \"Excluir Registros" +
-        "\" e confirme a mensagem de exclusão.");
-            this.btnExcluirRegistros.UseVisualStyleBackColor = true;
-            this.btnExcluirRegistros.Click += new System.EventHandler(this.btnExcluirRegistros_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(45, 12);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(62, 13);
-            this.label12.TabIndex = 104;
-            this.label12.Text = "Referência:";
-            // 
-            // lbReferencia
-            // 
-            this.lbReferencia.AutoSize = true;
-            this.lbReferencia.BackColor = System.Drawing.Color.Transparent;
-            this.lbReferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbReferencia.ForeColor = System.Drawing.Color.Blue;
-            this.lbReferencia.Location = new System.Drawing.Point(114, 12);
-            this.lbReferencia.Name = "lbReferencia";
-            this.lbReferencia.Size = new System.Drawing.Size(19, 13);
-            this.lbReferencia.TabIndex = 105;
-            this.lbReferencia.Text = "00";
-            // 
-            // linkLabel_abrirArquivo
-            // 
-            this.linkLabel_abrirArquivo.AutoSize = true;
-            this.linkLabel_abrirArquivo.Location = new System.Drawing.Point(596, 116);
-            this.linkLabel_abrirArquivo.Name = "linkLabel_abrirArquivo";
-            this.linkLabel_abrirArquivo.Size = new System.Drawing.Size(67, 13);
-            this.linkLabel_abrirArquivo.TabIndex = 106;
-            this.linkLabel_abrirArquivo.TabStop = true;
-            this.linkLabel_abrirArquivo.Text = "Abrir Arquivo";
-            this.linkLabel_abrirArquivo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_abrirArquivo_LinkClicked);
+            this.btnCancelarAnalise.Location = new System.Drawing.Point(440, 125);
+            this.btnCancelarAnalise.Name = "btnCancelarAnalise";
+            this.btnCancelarAnalise.Size = new System.Drawing.Size(90, 21);
+            this.btnCancelarAnalise.TabIndex = 107;
+            this.btnCancelarAnalise.Text = "&Cancelar Análise";
+            this.toolTip1.SetToolTip(this.btnCancelarAnalise, "Cancelar análise do documento atual");
+            this.btnCancelarAnalise.UseVisualStyleBackColor = true;
+            this.btnCancelarAnalise.Click += new System.EventHandler(this.btnCancelarAnalise_Click);
             // 
             // frmClassificacaoDocumentos
             // 
@@ -759,5 +773,6 @@
         internal System.Windows.Forms.Label lbReferencia;
         internal System.Windows.Forms.Label label12;
         private System.Windows.Forms.LinkLabel linkLabel_abrirArquivo;
+        private System.Windows.Forms.Button btnCancelarAnalise;
     }
 }
