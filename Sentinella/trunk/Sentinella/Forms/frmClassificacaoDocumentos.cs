@@ -8,6 +8,7 @@ namespace Sentinella.Forms {
         #region VARIAVEIS
         Uteis.Helpers hlp = new Uteis.Helpers();
         ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
+        classificacaoDocumentos cd = new classificacaoDocumentos();
         #endregion
 
 
@@ -17,9 +18,8 @@ namespace Sentinella.Forms {
                 hlp.limparCampos(this);
                 lvDocumentos.Clear();
                 lbEnderecoPesquisado.Text = "Não Informado";
-                lbReferencia.Text = "00";
+                lbTotalRegistros.Text = "00";
             } else {
-                lbReferencia.Text = "00";
                 txtDiretorioPrincipal.Clear();
                 txtNomeArquivo.Clear();
                 txtExtensao.Clear();
@@ -30,6 +30,9 @@ namespace Sentinella.Forms {
                 cbxConformidade.Text = "";
                 txtObservacoes.Clear();
             }
+
+            lbReferencia.Text = "00";
+            
 
         }
         #endregion
@@ -64,9 +67,11 @@ namespace Sentinella.Forms {
                     foreach (ListViewItem itemRow in lvDocumentos.Items) {
                         referencia += 1;
                         itemRow.SubItems[0].Text = referencia.ToString();
+                        itemRow.SubItems[1].Text = lbEnderecoPesquisado.Text; //Principal diretório pesquisado
                     }
 
                     MessageBox.Show("Arquivos carregados com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    lbTotalRegistros.Text = lvDocumentos.Items.Count.ToString();
                 }
 
             }
@@ -141,8 +146,7 @@ namespace Sentinella.Forms {
             int contador = 0;
 
             //excluir registros que não são pertinentes a análise
-            DialogResult result = MessageBox.Show("Tem certeza que deseja excluir da lista de análise, todos os itens marcados? " + Environment.NewLine + Environment.NewLine,
-                                                    Constantes.Titulo_MSG, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Tem certeza que deseja excluir da lista de análise, todos os itens marcados? " + Environment.NewLine + Environment.NewLine, Constantes.Titulo_MSG, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (result == DialogResult.OK) {
 
@@ -152,8 +156,26 @@ namespace Sentinella.Forms {
 
                 foreach (ListViewItem item in lvDocumentos.Items) {
                     if (item.Checked) {
-                        item.Remove();
-                        contador += 1;
+
+                        bool deletar = true;
+                        item.Selected = true;
+
+                        if (lvDocumentos.SelectedItems[0].SubItems[8].Text.Contains("CONFORME")) {
+
+                            result = MessageBox.Show(lvDocumentos.SelectedItems[0].SubItems[2].Text + " já foi analisado, como: " + Environment.NewLine + lvDocumentos.SelectedItems[0].SubItems[8].Text + Environment.NewLine +
+                                "Deseja realmente excluir?", Constantes.Titulo_MSG, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (result != DialogResult.Yes) {
+                                deletar = false;
+                            }
+
+                        }
+
+                        if (deletar) {
+                            item.Remove();
+                            contador += 1;
+                        }
+
                     }
                     barraContagem += 1;
                     barra.atualizarBarra(barraContagem);
@@ -168,6 +190,9 @@ namespace Sentinella.Forms {
             } else {
                 MessageBox.Show("Foram deletados " + contador + " registros", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            //Atualizando qtde de registros
+            lbTotalRegistros.Text = lvDocumentos.Items.Count.ToString();
         }
 
         private void btnIncluirAnalise_Click(object sender, EventArgs e) {
@@ -222,8 +247,8 @@ namespace Sentinella.Forms {
                         _dataUltimoAcesso: DateTime.Parse(item.SubItems[7].Text),
                         _analise: item.SubItems[8].Text,
                         _observacoes: item.SubItems[9].Text,
-                        _analista: item.SubItems[10].Text,                        
-                        _dataAnalise: DateTime.Parse(item.SubItems[11].Text)
+                        _analista: Constantes.nomeAssociadoLogado,
+                        _dataAnalise: hlp.dataHoraAtual()
                     );
                 cd.salvarRegistro(cd);
             }
@@ -235,5 +260,35 @@ namespace Sentinella.Forms {
         private void btnCancelarAnalise_Click(object sender, EventArgs e) {
             limparform(true);
         }
+
+        private void linkLabel_analisar_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            foreach (ListViewItem item in lvDocumentos.Items) {
+
+                if (item.Checked) {
+                    item.Selected = true;
+                    lvDocumentos_DoubleClick(sender, e);
+                    break;
+                }
+            }
+        }
+
+        private void linkLabel_historicoAnalise_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+
+            foreach (ListViewItem item in lvDocumentos.Items) {
+
+                if (item.Checked) {
+                    item.Selected = true;
+                    frmClassificacaoDocumentos_historico objForm = new frmClassificacaoDocumentos_historico();
+                    objForm._historicoDocumentos = cd.consultaHistoricoAnaliseDoc(lvDocumentos.SelectedItems[0].SubItems[4].Text);
+                    hlp.abrirForm(objForm, true, false);
+
+                }
+            }
+
+
+
+        }
+
+
     }
 }

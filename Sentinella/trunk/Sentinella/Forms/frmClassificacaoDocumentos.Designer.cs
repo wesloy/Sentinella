@@ -26,6 +26,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClassificacaoDocumentos));
             this.pnlConteudo = new System.Windows.Forms.Panel();
+            this.lbTotalRegistros = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.linkLabel_historicoAnalise = new System.Windows.Forms.LinkLabel();
+            this.linkLabel_analisar = new System.Windows.Forms.LinkLabel();
+            this.btnCancelarAnalise = new System.Windows.Forms.Button();
             this.linkLabel_abrirArquivo = new System.Windows.Forms.LinkLabel();
             this.lbReferencia = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -59,6 +65,10 @@
             this.label23 = new System.Windows.Forms.Label();
             this.btBuscar = new System.Windows.Forms.Button();
             this.pnlBotoes = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.pdf = new System.Windows.Forms.Label();
             this.adobePDF = new System.Windows.Forms.PictureBox();
@@ -76,7 +86,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnCancelarAnalise = new System.Windows.Forms.Button();
             this.pnlConteudo.SuspendLayout();
             this.pnlFiltros.SuspendLayout();
             this.pnlBotoes.SuspendLayout();
@@ -91,6 +100,11 @@
             // pnlConteudo
             // 
             this.pnlConteudo.BackColor = System.Drawing.Color.White;
+            this.pnlConteudo.Controls.Add(this.lbTotalRegistros);
+            this.pnlConteudo.Controls.Add(this.label19);
+            this.pnlConteudo.Controls.Add(this.label17);
+            this.pnlConteudo.Controls.Add(this.linkLabel_historicoAnalise);
+            this.pnlConteudo.Controls.Add(this.linkLabel_analisar);
             this.pnlConteudo.Controls.Add(this.btnCancelarAnalise);
             this.pnlConteudo.Controls.Add(this.linkLabel_abrirArquivo);
             this.pnlConteudo.Controls.Add(this.lbReferencia);
@@ -122,8 +136,78 @@
             this.pnlConteudo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlConteudo.Location = new System.Drawing.Point(0, 74);
             this.pnlConteudo.Name = "pnlConteudo";
-            this.pnlConteudo.Size = new System.Drawing.Size(1146, 535);
+            this.pnlConteudo.Size = new System.Drawing.Size(1146, 523);
             this.pnlConteudo.TabIndex = 8;
+            // 
+            // lbTotalRegistros
+            // 
+            this.lbTotalRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbTotalRegistros.AutoSize = true;
+            this.lbTotalRegistros.BackColor = System.Drawing.Color.Transparent;
+            this.lbTotalRegistros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalRegistros.ForeColor = System.Drawing.Color.DimGray;
+            this.lbTotalRegistros.Location = new System.Drawing.Point(271, 500);
+            this.lbTotalRegistros.Name = "lbTotalRegistros";
+            this.lbTotalRegistros.Size = new System.Drawing.Size(13, 13);
+            this.lbTotalRegistros.TabIndex = 112;
+            this.lbTotalRegistros.Text = "0";
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(187, 500);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(81, 13);
+            this.label19.TabIndex = 111;
+            this.label19.Text = "Total Registros:";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.DimGray;
+            this.label17.Location = new System.Drawing.Point(531, 168);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(331, 13);
+            this.label17.TabIndex = 110;
+            this.label17.Text = "Ou clique no histórico para validar outras análises deste arquivo >>> ";
+            // 
+            // linkLabel_historicoAnalise
+            // 
+            this.linkLabel_historicoAnalise.AutoSize = true;
+            this.linkLabel_historicoAnalise.Location = new System.Drawing.Point(861, 168);
+            this.linkLabel_historicoAnalise.Name = "linkLabel_historicoAnalise";
+            this.linkLabel_historicoAnalise.Size = new System.Drawing.Size(85, 13);
+            this.linkLabel_historicoAnalise.TabIndex = 109;
+            this.linkLabel_historicoAnalise.TabStop = true;
+            this.linkLabel_historicoAnalise.Text = "Histórico Análise";
+            this.linkLabel_historicoAnalise.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_historicoAnalise_LinkClicked);
+            // 
+            // linkLabel_analisar
+            // 
+            this.linkLabel_analisar.AutoSize = true;
+            this.linkLabel_analisar.Location = new System.Drawing.Point(485, 168);
+            this.linkLabel_analisar.Name = "linkLabel_analisar";
+            this.linkLabel_analisar.Size = new System.Drawing.Size(44, 13);
+            this.linkLabel_analisar.TabIndex = 108;
+            this.linkLabel_analisar.TabStop = true;
+            this.linkLabel_analisar.Text = "Analisar";
+            this.linkLabel_analisar.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_analisar_LinkClicked);
+            // 
+            // btnCancelarAnalise
+            // 
+            this.btnCancelarAnalise.Location = new System.Drawing.Point(440, 125);
+            this.btnCancelarAnalise.Name = "btnCancelarAnalise";
+            this.btnCancelarAnalise.Size = new System.Drawing.Size(90, 21);
+            this.btnCancelarAnalise.TabIndex = 107;
+            this.btnCancelarAnalise.Text = "&Cancelar Análise";
+            this.toolTip1.SetToolTip(this.btnCancelarAnalise, "Cancelar análise do documento atual");
+            this.btnCancelarAnalise.UseVisualStyleBackColor = true;
+            this.btnCancelarAnalise.Click += new System.EventHandler(this.btnCancelarAnalise_Click);
             // 
             // linkLabel_abrirArquivo
             // 
@@ -162,9 +246,9 @@
             // btnExcluirRegistros
             // 
             this.btnExcluirRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExcluirRegistros.Location = new System.Drawing.Point(18, 496);
+            this.btnExcluirRegistros.Location = new System.Drawing.Point(18, 484);
             this.btnExcluirRegistros.Name = "btnExcluirRegistros";
-            this.btnExcluirRegistros.Size = new System.Drawing.Size(116, 21);
+            this.btnExcluirRegistros.Size = new System.Drawing.Size(116, 29);
             this.btnExcluirRegistros.TabIndex = 103;
             this.btnExcluirRegistros.Text = "&Excluir Registros";
             this.toolTip1.SetToolTip(this.btnExcluirRegistros, "Flag os registros que não são válidos para análise.\r\nClique em \"Excluir Registros" +
@@ -265,9 +349,10 @@
             this.label8.ForeColor = System.Drawing.Color.DimGray;
             this.label8.Location = new System.Drawing.Point(12, 168);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(291, 13);
+            this.label8.Size = new System.Drawing.Size(475, 13);
             this.label8.TabIndex = 92;
-            this.label8.Text = "Dê um duplo click para carregar informações para avaliação";
+            this.label8.Text = "Dê um duplo click para carregar informações para avaliação ao selecione a linha e" +
+    " clique aqui >>> ";
             // 
             // label7
             // 
@@ -287,7 +372,7 @@
             this.lbEnderecoPesquisado.BackColor = System.Drawing.Color.Transparent;
             this.lbEnderecoPesquisado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEnderecoPesquisado.ForeColor = System.Drawing.Color.DimGray;
-            this.lbEnderecoPesquisado.Location = new System.Drawing.Point(271, 500);
+            this.lbEnderecoPesquisado.Location = new System.Drawing.Point(271, 485);
             this.lbEnderecoPesquisado.Name = "lbEnderecoPesquisado";
             this.lbEnderecoPesquisado.Size = new System.Drawing.Size(77, 13);
             this.lbEnderecoPesquisado.TabIndex = 78;
@@ -299,7 +384,7 @@
             this.lbTituloEndereco.AutoSize = true;
             this.lbTituloEndereco.BackColor = System.Drawing.Color.Transparent;
             this.lbTituloEndereco.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTituloEndereco.Location = new System.Drawing.Point(160, 500);
+            this.lbTituloEndereco.Location = new System.Drawing.Point(160, 485);
             this.lbTituloEndereco.Name = "lbTituloEndereco";
             this.lbTituloEndereco.Size = new System.Drawing.Size(117, 13);
             this.lbTituloEndereco.TabIndex = 77;
@@ -413,7 +498,7 @@
             this.lvDocumentos.HideSelection = false;
             this.lvDocumentos.Location = new System.Drawing.Point(0, 184);
             this.lvDocumentos.Name = "lvDocumentos";
-            this.lvDocumentos.Size = new System.Drawing.Size(1146, 306);
+            this.lvDocumentos.Size = new System.Drawing.Size(1146, 294);
             this.lvDocumentos.TabIndex = 0;
             this.lvDocumentos.UseCompatibleStateImageBehavior = false;
             this.lvDocumentos.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvDocumentos_ColumnClick);
@@ -483,6 +568,10 @@
             // pnlBotoes
             // 
             this.pnlBotoes.BackColor = System.Drawing.Color.White;
+            this.pnlBotoes.Controls.Add(this.label16);
+            this.pnlBotoes.Controls.Add(this.label15);
+            this.pnlBotoes.Controls.Add(this.label14);
+            this.pnlBotoes.Controls.Add(this.label13);
             this.pnlBotoes.Controls.Add(this.btnSalvar);
             this.pnlBotoes.Controls.Add(this.pdf);
             this.pnlBotoes.Controls.Add(this.adobePDF);
@@ -499,17 +588,63 @@
             this.pnlBotoes.Controls.Add(this.msPowerPoint);
             this.pnlBotoes.Controls.Add(this.btnCancelar);
             this.pnlBotoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlBotoes.Location = new System.Drawing.Point(0, 609);
+            this.pnlBotoes.Location = new System.Drawing.Point(0, 597);
             this.pnlBotoes.Name = "pnlBotoes";
             this.pnlBotoes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.pnlBotoes.Size = new System.Drawing.Size(1146, 72);
+            this.pnlBotoes.Size = new System.Drawing.Size(1146, 84);
             this.pnlBotoes.TabIndex = 6;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label16.ForeColor = System.Drawing.Color.Red;
+            this.label16.Location = new System.Drawing.Point(491, 54);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(294, 13);
+            this.label16.TabIndex = 111;
+            this.label16.Text = "VERMELHO - Arquiavo recém analisado e a ainda não salvo";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label15.ForeColor = System.Drawing.Color.Green;
+            this.label15.Location = new System.Drawing.Point(491, 33);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(204, 13);
+            this.label15.TabIndex = 110;
+            this.label15.Text = "VERDE - Arquivo analisado anteriormente";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label14.Location = new System.Drawing.Point(491, 12);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(150, 13);
+            this.label14.TabIndex = 109;
+            this.label14.Text = "PRETO - Aguardando análise.";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(352, 12);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(137, 13);
+            this.label13.TabIndex = 108;
+            this.label13.Text = "Legenda Cor do Texto:";
             // 
             // btnSalvar
             // 
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSalvar.Image = ((System.Drawing.Image)(resources.GetObject("btnSalvar.Image")));
-            this.btnSalvar.Location = new System.Drawing.Point(885, 22);
+            this.btnSalvar.Location = new System.Drawing.Point(885, 20);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(115, 39);
             this.btnSalvar.TabIndex = 107;
@@ -525,7 +660,7 @@
             this.pdf.AutoSize = true;
             this.pdf.BackColor = System.Drawing.Color.Transparent;
             this.pdf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pdf.Location = new System.Drawing.Point(322, 14);
+            this.pdf.Location = new System.Drawing.Point(232, 30);
             this.pdf.Name = "pdf";
             this.pdf.Size = new System.Drawing.Size(22, 13);
             this.pdf.TabIndex = 106;
@@ -537,7 +672,7 @@
             this.adobePDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.adobePDF.Cursor = System.Windows.Forms.Cursors.Hand;
             this.adobePDF.Image = ((System.Drawing.Image)(resources.GetObject("adobePDF.Image")));
-            this.adobePDF.Location = new System.Drawing.Point(308, 12);
+            this.adobePDF.Location = new System.Drawing.Point(218, 28);
             this.adobePDF.Name = "adobePDF";
             this.adobePDF.Size = new System.Drawing.Size(18, 15);
             this.adobePDF.TabIndex = 105;
@@ -548,7 +683,7 @@
             this.excel.AutoSize = true;
             this.excel.BackColor = System.Drawing.Color.Transparent;
             this.excel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.excel.Location = new System.Drawing.Point(99, 16);
+            this.excel.Location = new System.Drawing.Point(127, 16);
             this.excel.Name = "excel";
             this.excel.Size = new System.Drawing.Size(77, 13);
             this.excel.TabIndex = 102;
@@ -560,7 +695,7 @@
             this.msExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.msExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.msExcel.Image = ((System.Drawing.Image)(resources.GetObject("msExcel.Image")));
-            this.msExcel.Location = new System.Drawing.Point(85, 14);
+            this.msExcel.Location = new System.Drawing.Point(113, 14);
             this.msExcel.Name = "msExcel";
             this.msExcel.Size = new System.Drawing.Size(18, 15);
             this.msExcel.TabIndex = 101;
@@ -571,7 +706,7 @@
             this.word.AutoSize = true;
             this.word.BackColor = System.Drawing.Color.Transparent;
             this.word.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.word.Location = new System.Drawing.Point(99, 32);
+            this.word.Location = new System.Drawing.Point(127, 32);
             this.word.Name = "word";
             this.word.Size = new System.Drawing.Size(63, 13);
             this.word.TabIndex = 100;
@@ -583,7 +718,7 @@
             this.msWord.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.msWord.Cursor = System.Windows.Forms.Cursors.Hand;
             this.msWord.Image = ((System.Drawing.Image)(resources.GetObject("msWord.Image")));
-            this.msWord.Location = new System.Drawing.Point(85, 30);
+            this.msWord.Location = new System.Drawing.Point(113, 30);
             this.msWord.Name = "msWord";
             this.msWord.Size = new System.Drawing.Size(18, 15);
             this.msWord.TabIndex = 99;
@@ -594,7 +729,7 @@
             this.imagens.AutoSize = true;
             this.imagens.BackColor = System.Drawing.Color.Transparent;
             this.imagens.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.imagens.Location = new System.Drawing.Point(209, 14);
+            this.imagens.Location = new System.Drawing.Point(127, 47);
             this.imagens.Name = "imagens";
             this.imagens.Size = new System.Drawing.Size(80, 13);
             this.imagens.TabIndex = 98;
@@ -606,7 +741,7 @@
             this.winImagens.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.winImagens.Cursor = System.Windows.Forms.Cursors.Hand;
             this.winImagens.Image = ((System.Drawing.Image)(resources.GetObject("winImagens.Image")));
-            this.winImagens.Location = new System.Drawing.Point(195, 12);
+            this.winImagens.Location = new System.Drawing.Point(113, 45);
             this.winImagens.Name = "winImagens";
             this.winImagens.Size = new System.Drawing.Size(18, 15);
             this.winImagens.TabIndex = 97;
@@ -617,7 +752,7 @@
             this.outros.AutoSize = true;
             this.outros.BackColor = System.Drawing.Color.Transparent;
             this.outros.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.outros.Location = new System.Drawing.Point(322, 29);
+            this.outros.Location = new System.Drawing.Point(232, 45);
             this.outros.Name = "outros";
             this.outros.Size = new System.Drawing.Size(36, 13);
             this.outros.TabIndex = 96;
@@ -629,7 +764,7 @@
             this.OutrosArquivos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.OutrosArquivos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.OutrosArquivos.Image = ((System.Drawing.Image)(resources.GetObject("OutrosArquivos.Image")));
-            this.OutrosArquivos.Location = new System.Drawing.Point(308, 27);
+            this.OutrosArquivos.Location = new System.Drawing.Point(218, 43);
             this.OutrosArquivos.Name = "OutrosArquivos";
             this.OutrosArquivos.Size = new System.Drawing.Size(18, 15);
             this.OutrosArquivos.TabIndex = 95;
@@ -640,18 +775,18 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(15, 16);
+            this.label4.Location = new System.Drawing.Point(9, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.Size = new System.Drawing.Size(102, 13);
             this.label4.TabIndex = 94;
-            this.label4.Text = "Legenda:";
+            this.label4.Text = "Legenda Ícones:";
             // 
             // plano_vencido_maior7_3_texto
             // 
             this.plano_vencido_maior7_3_texto.AutoSize = true;
             this.plano_vencido_maior7_3_texto.BackColor = System.Drawing.Color.Transparent;
             this.plano_vencido_maior7_3_texto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.plano_vencido_maior7_3_texto.Location = new System.Drawing.Point(209, 30);
+            this.plano_vencido_maior7_3_texto.Location = new System.Drawing.Point(232, 16);
             this.plano_vencido_maior7_3_texto.Name = "plano_vencido_maior7_3_texto";
             this.plano_vencido_maior7_3_texto.Size = new System.Drawing.Size(57, 13);
             this.plano_vencido_maior7_3_texto.TabIndex = 93;
@@ -663,7 +798,7 @@
             this.msPowerPoint.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.msPowerPoint.Cursor = System.Windows.Forms.Cursors.Hand;
             this.msPowerPoint.Image = ((System.Drawing.Image)(resources.GetObject("msPowerPoint.Image")));
-            this.msPowerPoint.Location = new System.Drawing.Point(195, 28);
+            this.msPowerPoint.Location = new System.Drawing.Point(218, 14);
             this.msPowerPoint.Name = "msPowerPoint";
             this.msPowerPoint.Size = new System.Drawing.Size(18, 15);
             this.msPowerPoint.TabIndex = 92;
@@ -673,7 +808,7 @@
             // 
             this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(1006, 22);
+            this.btnCancelar.Location = new System.Drawing.Point(1006, 20);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(115, 39);
             this.btnCancelar.TabIndex = 1;
@@ -683,16 +818,9 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // btnCancelarAnalise
+            // folderBrowserDialog
             // 
-            this.btnCancelarAnalise.Location = new System.Drawing.Point(440, 125);
-            this.btnCancelarAnalise.Name = "btnCancelarAnalise";
-            this.btnCancelarAnalise.Size = new System.Drawing.Size(90, 21);
-            this.btnCancelarAnalise.TabIndex = 107;
-            this.btnCancelarAnalise.Text = "&Cancelar Análise";
-            this.toolTip1.SetToolTip(this.btnCancelarAnalise, "Cancelar análise do documento atual");
-            this.btnCancelarAnalise.UseVisualStyleBackColor = true;
-            this.btnCancelarAnalise.Click += new System.EventHandler(this.btnCancelarAnalise_Click);
+            this.folderBrowserDialog.ShowNewFolderButton = false;
             // 
             // frmClassificacaoDocumentos
             // 
@@ -774,5 +902,14 @@
         internal System.Windows.Forms.Label label12;
         private System.Windows.Forms.LinkLabel linkLabel_abrirArquivo;
         private System.Windows.Forms.Button btnCancelarAnalise;
+        internal System.Windows.Forms.Label label16;
+        internal System.Windows.Forms.Label label15;
+        internal System.Windows.Forms.Label label14;
+        internal System.Windows.Forms.Label label13;
+        internal System.Windows.Forms.Label label17;
+        private System.Windows.Forms.LinkLabel linkLabel_historicoAnalise;
+        private System.Windows.Forms.LinkLabel linkLabel_analisar;
+        internal System.Windows.Forms.Label lbTotalRegistros;
+        internal System.Windows.Forms.Label label19;
     }
 }

@@ -126,7 +126,7 @@ namespace Sentinella.Forms {
                 if (cbxSeletorFilaImportacao.Text.Contains("AD ")) {
                     ad AD = new ad();
                     if (cbxSeletorFilaImportacao.Text.Contains("TODOS")) {
-                        AD.importarGruposAD(true);
+                        AD.importarGruposAD(true, true);
                     } else if (cbxSeletorFilaImportacao.Text.Contains("FILE SERVE")) {
 
                         //validando se foi selecionado o arquivo
