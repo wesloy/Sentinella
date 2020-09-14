@@ -171,9 +171,24 @@ namespace Sentinella {
             user = user.getPorCPFSupImediado(cat.Cpf);
 
             //validando se houve captura de informações e evitando erros
-            if (user.Nom_Usuario == null) {
+            if (user == null) {
                 return null;
             }
+
+            //tratativa de servidores de e-mails, apenas permitido algartech
+            if (user._gestor1_email != null) {
+                if (!user._gestor1_email.Contains("algartech")) {
+                    user._gestor1_email = "";
+                }
+            }
+
+            if (user._gestor2_email != null) {
+                if (!user._gestor2_email.Contains("algartech")) {
+                    user._gestor2_email = "";
+                }
+            }
+
+
 
             string titulo = "Report Segurança da Informação - " + user.Nom_Usuario + " - Cód 00";
 
@@ -235,6 +250,21 @@ namespace Sentinella {
             if (user.Nom_Usuario == null) {
                 return null;
             }
+
+            
+            //tratativa de servidores de e-mails, apenas permitido algartech
+            if (user._gestor1_email != null) {
+                if (!user._gestor1_email.Contains("algartech")) {
+                    user._gestor1_email = "";
+                }
+            }
+
+            if (user._gestor2_email != null) {
+                if (!user._gestor2_email.Contains("algartech")) {
+                    user._gestor2_email = "";
+                }
+            }
+
 
             string titulo = "Report Segurança da Informação - " + user.Nom_Usuario + " - Cód 00";
 
@@ -320,6 +350,21 @@ namespace Sentinella {
                 return null;
             }
 
+            
+            //tratativa de servidores de e-mails, apenas permitido algartech
+            if (user._gestor1_email != null) {
+                if (!user._gestor1_email.Contains("algartech")) {
+                    user._gestor1_email = "";
+                }
+            }
+
+            if (user._gestor2_email != null) {
+                if (!user._gestor2_email.Contains("algartech")) {
+                    user._gestor2_email = "";
+                }
+            }
+
+
             string titulo = "Report Segurança da Informação - " + user.Nom_Usuario + " - Cód 00";
 
             string corpo = "<b>E-mail Coordenador:</b> " + user._gestor2_email + Environment.NewLine +
@@ -393,6 +438,22 @@ namespace Sentinella {
             if (user.Nom_Usuario == null) {
                 return null;
             }
+
+            
+            //tratativa de servidores de e-mails, apenas permitido algartech
+            if (user._gestor1_email != null) {
+                if (!user._gestor1_email.Contains("algartech")) {
+                    user._gestor1_email = "";
+                }
+            }
+
+            if (user._gestor2_email != null) {
+                if (!user._gestor2_email.Contains("algartech")) {
+                    user._gestor2_email = "";
+                }
+            }
+
+
             string titulo = "Report Segurança da Informação - " + user.Nom_Usuario + " - Cód 00";
 
             string corpo = "<b>E-mail Coordenador:</b> " + user._gestor2_email + Environment.NewLine +

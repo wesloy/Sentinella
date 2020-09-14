@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -115,12 +117,41 @@ namespace Sentinella {
             }
         }
 
+
+        private DataTable _arqAnalisados() {
+            try {
+
+                sql = "select * from w_classificacaoDocumentos where analise like '%conforme%'";
+                return objCon.retornaDataTable(sql);
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CLASSIFICACAO DOCUMENTOS - ARQUIVOS TRABLHADOS (DAL)");
+                return null;
+            }
+        }
+
+        private DataTable _consultaBaseHistorica(string _endCompleto) {
+            try {
+
+                sql = "select * from w_classificacaoDocumentos where enderecoCompleto = " + objCon.valorSql(_endCompleto) + " ";
+                return objCon.retornaDataTable(sql);
+
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CLASSIFICACAO DOCUMENTOS - CONSULTA BASE HISTORICA DOCS (DAL)");
+                return null;
+            }
+        }
+
         #endregion
 
         #region BLL
 
         public bool carregarListview(ListView lst, string diretorio, bool incluirSubpastas = true, bool limparListView = true) {
             try {
+
+
 
                 //Arquivos permissionados para subir para análise
                 List<string> listaExtensoesPermitidas = new List<string>();
@@ -153,10 +184,12 @@ namespace Sentinella {
                     lst.Columns.Add("DATA CRIAÇÃO", 200, HorizontalAlignment.Left);
                     lst.Columns.Add("DATA MODIFICAÇÃO", 200, HorizontalAlignment.Left);
                     lst.Columns.Add("DATA ÚLTIMO ACESSO", 200, HorizontalAlignment.Left);
-                    lst.Columns.Add("CONFORMIDADE", 100, HorizontalAlignment.Left);
+                    lst.Columns.Add("CONFORMIDADE", 100, HorizontalAlignment.Left);                    
                     lst.Columns.Add("OBSERVAÇÕES", 250, HorizontalAlignment.Left);
+
+                    lst.Columns.Add("ANÁLISE ANTERIOR?", 100, HorizontalAlignment.Left);
                     lst.Columns.Add("ANALISTA", 120, HorizontalAlignment.Left);
-                    lst.Columns.Add("DATA ANÁLISE", 150, HorizontalAlignment.Left);
+                    lst.Columns.Add("DATA ÚLT ANÁLISE", 150, HorizontalAlignment.Left);
                 }
 
 
@@ -166,15 +199,27 @@ namespace Sentinella {
                     frmArq.Show();
                     int qtdeLido = 0;
 
+
+                    //base já importada e trabalhada
+                    DataTable dt_arq_trabalhados = new DataTable();
+                    dt_arq_trabalhados = _arqAnalisados();
+
                     //Pasta principal
                     foreach (var arq in Directory.GetFiles(diretorio)) {
 
                         FileInfo info = new FileInfo(arq);
-                        ListViewItem item = new ListViewItem();                        
+                        ListViewItem item = new ListViewItem();
+                        
+
 
                         //verificando se o arquivo sendo lido é permitido ser listado
                         foreach (string ext in listaExtensoesPermitidas) {
-                            
+
+                            //filtrando DataTable com arquivos trabalhados para informar analises anteriores
+                            string expressao = "enderecoCompleto = '" + info.FullName + "'";
+                            DataRow[] arqLocalizados;
+                            arqLocalizados = dt_arq_trabalhados.Select(expressao);
+
                             if (info.Extension.ToString().ToLower().Contains(ext)) {                                
                                 item.Text = "0";
                                 item.SubItems.Add(info.Directory.Root.ToString());
@@ -186,8 +231,23 @@ namespace Sentinella {
                                 item.SubItems.Add(info.LastAccessTime.Date.ToLongDateString());
                                 item.SubItems.Add("NÃO ANALISADO");
                                 item.SubItems.Add("SEM INFO");
-                                item.SubItems.Add("NOME ANALISTA");
-                                item.SubItems.Add(hlp.dataAbreviada().ToShortDateString());
+
+                                if (arqLocalizados.Length > 0) {
+                                    item.SubItems.Add("SIM");
+
+                                        foreach (DataRow row in arqLocalizados) {
+                                            item.SubItems.Add(row["analista"].ToString());
+                                            item.SubItems.Add(DateTime.Parse(row["dataAnalise"].ToString()).ToShortDateString());
+                                            break;
+                                        }
+                                    
+                                    item.ForeColor = Color.Green;
+                                } else {
+                                    item.SubItems.Add("NÃO");
+                                    item.SubItems.Add("PRIMEIRA ANÁLISE"); //cada busca é uma nova análise, por isso sempre o usuário atual...
+                                    item.SubItems.Add("1900-01-01");
+                                }
+                                
 
                                 //Tratando os ícones
                                 string _imageKey = "13";
@@ -275,6 +335,17 @@ namespace Sentinella {
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "CLASSIFICACAO DOCUMENTOS - INSERIR REGISTRO (BLL)");
                 return false;
+            }
+            
+        }
+
+        public DataTable consultaHistoricoAnaliseDoc(string _enderecoCompleto) {
+            try {
+                return _consultaBaseHistorica(_enderecoCompleto);
+            }
+            catch (Exception ex) {
+                log.registrarLog(ex.ToString(), "CLASSIFICACAO DOCUMENTOS - CONSULTA BASE HISTORICA DOCS (BLL)");
+                return null;
             }
         }
 

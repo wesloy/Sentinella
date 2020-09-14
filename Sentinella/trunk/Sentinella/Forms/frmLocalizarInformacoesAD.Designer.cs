@@ -42,6 +42,13 @@
             this.txtCPF = new System.Windows.Forms.TextBox();
             this.txtInfoOU = new System.Windows.Forms.TextBox();
             this.tpGAP = new System.Windows.Forms.TabPage();
+            this.cbxTipoFiltro = new System.Windows.Forms.ComboBox();
+            this.btnLimparFiltros = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.txtValorFiltro = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbxCamposFiltros = new System.Windows.Forms.ComboBox();
             this.cbxValorBuscaGAP = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -49,6 +56,7 @@
             this.cbxPastas = new System.Windows.Forms.CheckBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
+            this.lbTotalRegistros = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInfoAD)).BeginInit();
             this.pnlFiltros.SuspendLayout();
             this.tb_selecaoFuncao.SuspendLayout();
@@ -58,6 +66,7 @@
             // 
             // dgvInfoAD
             // 
+            this.dgvInfoAD.AllowUserToOrderColumns = true;
             this.dgvInfoAD.BackgroundColor = System.Drawing.Color.White;
             this.dgvInfoAD.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvInfoAD.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -73,6 +82,7 @@
             // 
             this.pnlFiltros.AutoScroll = true;
             this.pnlFiltros.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.pnlFiltros.Controls.Add(this.lbTotalRegistros);
             this.pnlFiltros.Controls.Add(this.tb_selecaoFuncao);
             this.pnlFiltros.Controls.Add(this.btnCancelar);
             this.pnlFiltros.Controls.Add(this.btnBuscar);
@@ -230,6 +240,13 @@
             // 
             // tpGAP
             // 
+            this.tpGAP.Controls.Add(this.cbxTipoFiltro);
+            this.tpGAP.Controls.Add(this.btnLimparFiltros);
+            this.tpGAP.Controls.Add(this.label11);
+            this.tpGAP.Controls.Add(this.btnFiltrar);
+            this.tpGAP.Controls.Add(this.txtValorFiltro);
+            this.tpGAP.Controls.Add(this.label8);
+            this.tpGAP.Controls.Add(this.cbxCamposFiltros);
             this.tpGAP.Controls.Add(this.cbxValorBuscaGAP);
             this.tpGAP.Controls.Add(this.label10);
             this.tpGAP.Controls.Add(this.label9);
@@ -242,6 +259,81 @@
             this.tpGAP.TabIndex = 1;
             this.tpGAP.Text = ".: Grupo AD X Associados X Pastas :.";
             this.tpGAP.UseVisualStyleBackColor = true;
+            // 
+            // cbxTipoFiltro
+            // 
+            this.cbxTipoFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxTipoFiltro.FormattingEnabled = true;
+            this.cbxTipoFiltro.Items.AddRange(new object[] {
+            "IDENTICO A",
+            "CONTEM",
+            "NAO CONTEM"});
+            this.cbxTipoFiltro.Location = new System.Drawing.Point(583, 40);
+            this.cbxTipoFiltro.Name = "cbxTipoFiltro";
+            this.cbxTipoFiltro.Size = new System.Drawing.Size(114, 21);
+            this.cbxTipoFiltro.TabIndex = 57;
+            // 
+            // btnLimparFiltros
+            // 
+            this.btnLimparFiltros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLimparFiltros.BackColor = System.Drawing.Color.MistyRose;
+            this.btnLimparFiltros.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimparFiltros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimparFiltros.Location = new System.Drawing.Point(808, 68);
+            this.btnLimparFiltros.Name = "btnLimparFiltros";
+            this.btnLimparFiltros.Size = new System.Drawing.Size(75, 27);
+            this.btnLimparFiltros.TabIndex = 43;
+            this.btnLimparFiltros.Text = "&Limpar";
+            this.btnLimparFiltros.UseVisualStyleBackColor = false;
+            this.btnLimparFiltros.Click += new System.EventHandler(this.btnLimparFiltros_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(543, 44);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(34, 13);
+            this.label11.TabIndex = 56;
+            this.label11.Text = "Valor:";
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnFiltrar.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.btnFiltrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFiltrar.Location = new System.Drawing.Point(727, 68);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(75, 27);
+            this.btnFiltrar.TabIndex = 43;
+            this.btnFiltrar.Text = "&Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = false;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // txtValorFiltro
+            // 
+            this.txtValorFiltro.Location = new System.Drawing.Point(703, 41);
+            this.txtValorFiltro.Name = "txtValorFiltro";
+            this.txtValorFiltro.Size = new System.Drawing.Size(180, 20);
+            this.txtValorFiltro.TabIndex = 55;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(493, 19);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.TabIndex = 54;
+            this.label8.Text = "Filtro Avançado:";
+            // 
+            // cbxCamposFiltros
+            // 
+            this.cbxCamposFiltros.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCamposFiltros.FormattingEnabled = true;
+            this.cbxCamposFiltros.Location = new System.Drawing.Point(583, 16);
+            this.cbxCamposFiltros.Name = "cbxCamposFiltros";
+            this.cbxCamposFiltros.Size = new System.Drawing.Size(300, 21);
+            this.cbxCamposFiltros.TabIndex = 53;
             // 
             // cbxValorBuscaGAP
             // 
@@ -263,11 +355,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 20);
+            this.label9.Location = new System.Drawing.Point(30, 19);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(103, 13);
+            this.label9.Size = new System.Drawing.Size(79, 13);
             this.label9.TabIndex = 50;
-            this.label9.Text = "Campo a ser filtrado:";
+            this.label9.Text = "Tipo de Busca:";
             // 
             // cbxCampoFiltroGAP
             // 
@@ -297,11 +389,11 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancelar.BackColor = System.Drawing.Color.MistyRose;
             this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(960, 162);
+            this.btnCancelar.Location = new System.Drawing.Point(97, 162);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 27);
             this.btnCancelar.TabIndex = 6;
@@ -311,17 +403,27 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBuscar.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Location = new System.Drawing.Point(1035, 162);
+            this.btnBuscar.Location = new System.Drawing.Point(22, 162);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 27);
             this.btnBuscar.TabIndex = 7;
             this.btnBuscar.Text = "&Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // lbTotalRegistros
+            // 
+            this.lbTotalRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbTotalRegistros.AutoSize = true;
+            this.lbTotalRegistros.Location = new System.Drawing.Point(968, 176);
+            this.lbTotalRegistros.Name = "lbTotalRegistros";
+            this.lbTotalRegistros.Size = new System.Drawing.Size(112, 13);
+            this.lbTotalRegistros.TabIndex = 55;
+            this.lbTotalRegistros.Text = "Total de registros: 000";
             // 
             // frmLocalizarInformacoesAD
             // 
@@ -337,6 +439,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmLocalizarInformacoesAD_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInfoAD)).EndInit();
             this.pnlFiltros.ResumeLayout(false);
+            this.pnlFiltros.PerformLayout();
             this.tb_selecaoFuncao.ResumeLayout(false);
             this.tpInformacoesAD.ResumeLayout(false);
             this.tpInformacoesAD.PerformLayout();
@@ -373,5 +476,13 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cbxCampoFiltroGAP;
         private System.Windows.Forms.CheckBox cbxPastas;
+        private System.Windows.Forms.Button btnLimparFiltros;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.TextBox txtValorFiltro;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbxCamposFiltros;
+        private System.Windows.Forms.ComboBox cbxTipoFiltro;
+        private System.Windows.Forms.Label lbTotalRegistros;
     }
 }

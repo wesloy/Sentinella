@@ -455,11 +455,23 @@ namespace Sentinella {
 
         #region Camada BLL - Negócio
 
-        public bool importarGruposAD(bool importacaoMensal = false) {
+        public bool importarGruposAD(bool importacaoMensal = false, bool enviarMsgConfirmacao = false) {
             try {
-                return _importarGruposAD(importacaoMensal);
+
+                bool impComSucesso = _importarGruposAD(importacaoMensal);
+
+                if (enviarMsgConfirmacao) {
+                    if (impComSucesso) {
+                        MessageBox.Show("Importação base AD feita com sucesso!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } else {
+                        MessageBox.Show("Houve erro na importação do AD!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+
+                return impComSucesso;
             }
             catch (Exception ex) {
+                MessageBox.Show("Houve erro na importação do AD!", Constantes.Titulo_MSG, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 log.registrarLog(ex.ToString(), "AD - GRUPOS AD IMPORTACAO (BLL)");
                 return false;
             }

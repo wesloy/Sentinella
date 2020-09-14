@@ -2086,7 +2086,6 @@ namespace Sentinella {
             }
         }
 
-
         #endregion
 
         #region Camada BLL - Negocio
