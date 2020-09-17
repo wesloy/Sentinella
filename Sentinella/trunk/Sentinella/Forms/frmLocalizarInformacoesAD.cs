@@ -165,6 +165,12 @@ namespace Sentinella.Forms {
             }
 
 
+            if (cbxAfastados.Checked) {
+
+                expressaoFiltro += " AND Nom_OUs not like '*OU=Afastados*' AND Nom_OUs not like '*OU=Disable_Users,DC=acs,DC=com,DC=br*'";
+
+            }
+
 
             resultado = dt_publico.Select(expressaoFiltro);
 

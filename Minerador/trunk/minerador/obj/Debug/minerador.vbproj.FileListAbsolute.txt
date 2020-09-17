@@ -60,6 +60,7 @@ C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\bin\Debu
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\bin\Debug\Algar.Utils.dll
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\bin\Debug\Algar.Utils.pdb
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\bin\Debug\Algar.Utils.xml
+C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.vbprojAssemblyReference.cache
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\Interop.ADODB.dll
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.vbproj.ResolveComReference.cache
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.Resources.resources
@@ -71,4 +72,3 @@ C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debu
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.exe
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.xml
 C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.pdb
-C:\Users\a053463-old\SVN\seguranca\Sentinella\Minerador\trunk\minerador\obj\Debug\minerador.vbprojAssemblyReference.cache

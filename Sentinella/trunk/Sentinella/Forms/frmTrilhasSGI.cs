@@ -201,7 +201,7 @@ namespace Sentinella.Forms {
         private void cbxHierarquia_SelectionChangeCommitted(object sender, EventArgs e) {
 
             if (cbxHierarquia.Text != "SELEÇÃO DE TODOS") {
-                trilhas.preencherComboBoxLideres(this, cbxLideranca, cbxHierarquia.Text);
+                trilhas.preencherComboBoxLideres(this, cbxLideranca, cbxHierarquia.Text, int.Parse(cbxAnoVigencia.Text));
                 cbxLideranca.Enabled = true;
                 btnEnviar.Enabled = true;
             } else {

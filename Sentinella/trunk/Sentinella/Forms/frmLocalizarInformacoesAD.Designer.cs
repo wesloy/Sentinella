@@ -26,6 +26,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLocalizarInformacoesAD));
             this.dgvInfoAD = new System.Windows.Forms.DataGridView();
             this.pnlFiltros = new System.Windows.Forms.Panel();
+            this.lbTotalRegistros = new System.Windows.Forms.Label();
             this.tb_selecaoFuncao = new System.Windows.Forms.TabControl();
             this.tpInformacoesAD = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
@@ -56,7 +57,7 @@
             this.cbxPastas = new System.Windows.Forms.CheckBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
-            this.lbTotalRegistros = new System.Windows.Forms.Label();
+            this.cbxAfastados = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInfoAD)).BeginInit();
             this.pnlFiltros.SuspendLayout();
             this.tb_selecaoFuncao.SuspendLayout();
@@ -91,6 +92,16 @@
             this.pnlFiltros.Name = "pnlFiltros";
             this.pnlFiltros.Size = new System.Drawing.Size(1114, 195);
             this.pnlFiltros.TabIndex = 9;
+            // 
+            // lbTotalRegistros
+            // 
+            this.lbTotalRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbTotalRegistros.AutoSize = true;
+            this.lbTotalRegistros.Location = new System.Drawing.Point(968, 176);
+            this.lbTotalRegistros.Name = "lbTotalRegistros";
+            this.lbTotalRegistros.Size = new System.Drawing.Size(112, 13);
+            this.lbTotalRegistros.TabIndex = 55;
+            this.lbTotalRegistros.Text = "Total de registros: 000";
             // 
             // tb_selecaoFuncao
             // 
@@ -240,6 +251,7 @@
             // 
             // tpGAP
             // 
+            this.tpGAP.Controls.Add(this.cbxAfastados);
             this.tpGAP.Controls.Add(this.cbxTipoFiltro);
             this.tpGAP.Controls.Add(this.btnLimparFiltros);
             this.tpGAP.Controls.Add(this.label11);
@@ -302,7 +314,7 @@
             this.btnFiltrar.BackColor = System.Drawing.Color.PaleTurquoise;
             this.btnFiltrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFiltrar.Location = new System.Drawing.Point(727, 68);
+            this.btnFiltrar.Location = new System.Drawing.Point(731, 68);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 27);
             this.btnFiltrar.TabIndex = 43;
@@ -415,15 +427,15 @@
             this.btnBuscar.UseVisualStyleBackColor = false;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
-            // lbTotalRegistros
+            // cbxAfastados
             // 
-            this.lbTotalRegistros.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbTotalRegistros.AutoSize = true;
-            this.lbTotalRegistros.Location = new System.Drawing.Point(968, 176);
-            this.lbTotalRegistros.Name = "lbTotalRegistros";
-            this.lbTotalRegistros.Size = new System.Drawing.Size(112, 13);
-            this.lbTotalRegistros.TabIndex = 55;
-            this.lbTotalRegistros.Text = "Total de registros: 000";
+            this.cbxAfastados.AutoSize = true;
+            this.cbxAfastados.Location = new System.Drawing.Point(583, 68);
+            this.cbxAfastados.Name = "cbxAfastados";
+            this.cbxAfastados.Size = new System.Drawing.Size(143, 17);
+            this.cbxAfastados.TabIndex = 58;
+            this.cbxAfastados.Text = "Retirar OU AFASTADOS";
+            this.cbxAfastados.UseVisualStyleBackColor = true;
             // 
             // frmLocalizarInformacoesAD
             // 
@@ -484,5 +496,6 @@
         private System.Windows.Forms.ComboBox cbxCamposFiltros;
         private System.Windows.Forms.ComboBox cbxTipoFiltro;
         private System.Windows.Forms.Label lbTotalRegistros;
+        private System.Windows.Forms.CheckBox cbxAfastados;
     }
 }

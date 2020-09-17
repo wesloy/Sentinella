@@ -93,7 +93,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Uteis">
-      <HintPath>..\..\..\..\..\SVN_NOVA\seguranca\Complementares\Uteis\bin\Debug\Uteis.dll</HintPath>
+      <HintPath>..\..\..\..\Complementares\Uteis\bin\Debug\Uteis.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
@@ -275,6 +275,12 @@
     <Compile Include="Forms\frmRelatorios.Designer.cs">
       <DependentUpon>frmRelatorios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmRFPs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRFPs.Designer.cs">
+      <DependentUpon>frmRFPs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmTeste.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmRelatorios.resx">
       <DependentUpon>frmRelatorios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRFPs.resx">
+      <DependentUpon>frmRFPs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmTeste.resx">
       <DependentUpon>frmTeste.cs</DependentUpon>

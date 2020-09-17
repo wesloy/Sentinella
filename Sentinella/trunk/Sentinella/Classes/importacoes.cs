@@ -812,6 +812,17 @@ namespace Sentinella {
                 frm.Close();
 
 
+                //teste
+                string expressao = "";
+                DataRow[] resultado = null;
+
+
+                //filtrando registros pelo valor de busca atual
+                expressao = "HostDest like '%" + "" + "%'";
+                resultado = dt_t_url.Select(expressao);
+
+
+
                 //carregar form Barra de Progresso de importação
                 frmProgressBar frm2 = new frmProgressBar(dt_filtros.Rows.Count);
                 frm2.atualizarBarra(0);
@@ -821,8 +832,8 @@ namespace Sentinella {
                 //filtrar registros e acrescentar na w_tamnun_base
                 foreach (DataRow filtro in dt_filtros.Rows) {
 
-                    string expressao = "";
-                    DataRow[] resultado = null;
+                    //string expressao = "";
+                    //DataRow[] resultado = null;
 
                     if (filtro["fonte"].ToString().Contains("URL")) {
 

@@ -61,7 +61,7 @@
         Dim exec_DTO As New execucao_DTO
         Dim exec_BLL As New execucao_BLL
 
-        rsExecucoes = objCon.retornaRs("Select top 1 * from w_execucao where dataConclusao is null and dataInicio is null order by prioridade asc")
+        rsExecucoes = objCon.retornaRs("Select top 1 * from w_execucao where dataConclusao is null order by prioridade asc")
         'Validando se existe processo a ser executado
         If rsExecucoes.RecordCount > 0 Then
 
@@ -114,7 +114,6 @@
 
     End Function
 
-
     Public Function BuscaCartoesPorCpf(ByVal exec_DTO As execucao_DTO, Optional ByRef msgErro As String = "", Optional ByVal cpfEspecifico As String = "") As Boolean
         Dim msg = String.Empty
         Dim status_execucao As Boolean = True
@@ -131,9 +130,17 @@
                 frm_execucao_robos.atualizarStatusLabel("Macro em Execução - Capturar Cartões " & IIf(exec_DTO.apenasCartoesAtivos, "Ativos - ", "Ativos/Inativos - "))
                 Application.DoEvents()
 
+                'Atualizar os demitidos da base já capturada
+                sql = "update c set " +
+                        "demitido = IIf(ia.Dt_Demissao Is null, 0, 1), " +
+                        "dataAtualizacao = iif(ia.Dt_Demissao is null, dataAtualizacao, getdate()) " +
+                        "from w_cartoes c left Join db_Corporate_V3.dbo.tb_Imp_Associado ia on c.cpf = ia.Cod_Cpf "
+                objCon.executaQuery(sql)
+
+
                 'Capturando todos os CPFs para pesquisa
                 Dim rsCPFs As ADODB.Recordset
-                rsCPFs = objCon.retornaRs("Select distinct cpf from w_funcionarios_historico where data_demissao = '1/1/1900' and cpf is not null and cpf <> '0'  order by cpf asc")
+                rsCPFs = objCon.retornaRs("Select distinct Cod_Cpf cpf from db_corporate_v3.dbo.tb_Imp_Associado  where Dt_Demissao Is Not null And Cod_Cpf Is Not null And Cod_Cpf <> '0' order by Cod_Cpf asc")
                 If rsCPFs.RecordCount = 0 Then
                     'Saindo da execucao visto que são tem nenhum cpf válido para pesquisar
                     rsCPFs = Nothing
@@ -172,15 +179,21 @@
                                 rsDados = objCon.retornaRs("Select * from w_cartoes where cpf = '" & cpf & "' and cartao = '" & info(0) & "'")
 
                                 'Se encontrar informações deve-se editar senão deve-se adicionar
-                                If rsDados.RecordCount = 0 Then
+                                If rsDados Is Nothing Then
                                     rsDados.AddNew()
                                     rsDados.Fields("CPF").Value = cpf
+                                Else
+                                    If rsDados.RecordCount = 0 Then
+                                        rsDados.AddNew()
+                                        rsDados.Fields("CPF").Value = cpf
+                                    End If
                                 End If
+
                                 rsDados.Fields("cartao").Value = info(0)
                                 rsDados.Fields("bin").Value = Left(info(0), 6)
                                 rsDados.Fields("nome").Value = info(1)
                                 rsDados.Fields("endereco").Value = info(2)
-                                rsDados.Fields("numResidencial").Value = info(3)
+                                rsDados.Fields("numResidencial").Value = IIf(IsNumeric(info(3)), info(3), 0)
                                 rsDados.Fields("cidade").Value = info(4)
                                 rsDados.Fields("estado").Value = info(5)
                                 rsDados.Fields("cep").Value = info(6)
@@ -241,7 +254,7 @@
                 'Não é necessário função de AGREGAÇÃO visto que a função de CARTÕES por CPF não permite duplicados.
                 Dim rsCards As ADODB.Recordset
                 sql = "Select * from w_cartoes where tipoCartao <> 'CONTA' and ativo = " & objCon.valorSql(.apenasCartoesAtivos) & " "
-                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " ", "")
+                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " and demitido = 0 ", "")
                 rsCards = objCon.retornaRs(sql)
                 If rsCards.RecordCount = 0 Then
                     'Saindo da execucao visto que não tem nenhum cartão válido para pesquisar
@@ -357,7 +370,7 @@
                 'Capturando todos os cartões para pesquisa
                 Dim rsCards As ADODB.Recordset
                 sql = "Select * from w_cartoes where ativo = " & objCon.valorSql(.apenasCartoesAtivos) & " "
-                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " ", "")
+                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " and demitido = 0 ", "")
                 rsCards = objCon.retornaRs(sql)
                 If rsCards.RecordCount = 0 Then
                     'Saindo da execucao visto que são tem nenhum cartão válido para pesquisar
@@ -454,7 +467,7 @@
                 'sql += "where m.cartao is null group by c.cartao, c.cpf"
 
                 sql = "Select cpf, cartao from w_cartoes where ativo = " & objCon.valorSql(.apenasCartoesAtivos) & " "
-                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " ", " ")
+                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " and demitido = 0 ", " ")
                 sql += "group by cpf, cartao"
                 rsCards = objCon.retornaRs(sql)
 
@@ -469,8 +482,6 @@
                     sql += "group by  cpf, cartao "
                     rsDados = objCon.retornaRs(sql)
 
-                    sql = "Select top 1 * from w_manutencoes"
-                    rsDadosUpdate = objCon.retornaRs(sql)
                 End If
 
                 'acessando tela
@@ -497,12 +508,16 @@
                         'Caso de algum erro na tela preta sair da função
                         If Not status_execucao Then
                             Return False
+                        Else
+                            sql = "Select top 1 * from w_manutencoes"
+                            rsDadosUpdate = objCon.retornaRs(sql)
                         End If
 
                         'validando se houve retorno de informações válidas e salvando na tabela 
                         If Not historicoManutencao Is Nothing Then
                             For Each manutencao In historicoManutencao
                                 With manutencao
+
                                     rsDadosUpdate.AddNew()
                                     rsDadosUpdate.Fields("CPF").Value = .cpf
                                     rsDadosUpdate.Fields("cartao").Value = .cartao
@@ -567,7 +582,7 @@
                 'sql += "where m.cartao is null group by c.cartao, c.cpf"
 
                 sql = "Select cpf, cartao from w_cartoes where ativo = " & objCon.valorSql(.apenasCartoesAtivos) & " and tipoCartao = 'CONTA' "
-                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " ", " ")
+                sql += IIf(cpfEspecifico <> "", "and cpf = " & objCon.valorSql(cpfEspecifico) & " and demitido = 0 ", " ")
                 sql += "group by cpf, cartao"
                 rsCards = objCon.retornaRs(sql)
 
@@ -582,11 +597,7 @@
                     sql += "group by  cpf, cartao order by dtAtualizacao desc "
                     rsDados = objCon.retornaRs(sql)
 
-                    sql = "Select top 1 * from w_faturas "
-                    rsDadosUpdate = objCon.retornaRs(sql)
 
-                    sql = "Select top 1 * from w_autorizacoes "
-                    rsDadosUpdate2 = objCon.retornaRs(sql)
                 End If
 
                 'acessando tela
@@ -621,6 +632,12 @@
                             'Caso de algum erro na tela preta sair da função
                             If Not status_execucao Then
                                 Return False
+                            Else
+                                sql = "Select top 1 * from w_faturas "
+                                rsDadosUpdate = objCon.retornaRs(sql)
+
+                                sql = "Select top 1 * from w_autorizacoes "
+                                rsDadosUpdate2 = objCon.retornaRs(sql)
                             End If
 
                             'validando se houve retorno de informações válidas e salvando na tabela 

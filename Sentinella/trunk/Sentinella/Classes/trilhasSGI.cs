@@ -34,6 +34,7 @@ namespace Sentinella {
         //    [data_ferias_fim]           DATETIME       NULL,
         //    [data_afastamento_inicio]   DATETIME       NULL,
         //    [data_afastamento_fim]      DATETIME       NULL,
+        //    [data_ultima_atualizacao]   DATETIME       NULL,
         //    [cat_status]                INT            DEFAULT ((0)) NOT NULL,
         //    [cat_id_analista]           INT            DEFAULT ((0)) NOT NULL,
         //    [data_importacao]           DATETIME       DEFAULT ('1900-01-01 00:00:00') NOT NULL,
@@ -185,7 +186,7 @@ namespace Sentinella {
         private DataTable _consultaBaseSinergy(string _nomeAssociado, string _trilha) {
             try {
 
-                sql = "select cod_trilha, des_trilha, des_nome, des_email, num_conclusao, Id_Conteudo, des_conteudo, dt_inicio, dt_fim, des_status, dt_Importacao " +
+                sql = "select cod_trilha, des_trilha, des_nome, des_email, num_conclusao, Id_Conteudo, des_conteudo, dt_inicio, dt_fim, des_status, dt_Importacao, dt_atualizacao " +
                         "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS inner join w_trilhasTreinamentos_cursos c on db_TreinamentoSinergyRH.dbo.TB_TRILHAS.id_conteudo = c.cod_curso " +
                         "where des_nome = " + objCon.valorSql(_nomeAssociado) + " " +
                         "AND des_trilha = " + objCon.valorSql(_trilha) + " " +
@@ -216,7 +217,7 @@ namespace Sentinella {
 
         }
 
-        private DataTable _listarPendenciasPorLider(string filtro) {
+        private DataTable _listarPendenciasPorLider(string filtro, int anoVigencia) {
             try {
                 sql = "select 1, ";
 
@@ -224,24 +225,32 @@ namespace Sentinella {
                     case "GESTOR 2":
                         sql += "iif(gestor_2 is null,'SEM INFO', gestor_2) as lider ";
                         sql += "from w_trilhasTreinamentos ";
+                        sql += "where (data_demissao = '1900-01-01' or data_demissao is null) ";
+                        sql += "and vigencia_ano = " + objCon.valorSql(anoVigencia) + " ";                        
                         sql += "group by gestor_2 ";
                         sql += "order by gestor_2 ";
                         break;
                     case "GESTOR 3":
                         sql += "iif(gestor_3 is null,'SEM INFO',gestor_3) as lider ";
                         sql += "from w_trilhasTreinamentos ";
+                        sql += "where (data_demissao = '1900-01-01' or data_demissao is null) ";
+                        sql += "and vigencia_ano = " + objCon.valorSql(anoVigencia) + " ";                        
                         sql += "group by gestor_3 ";
                         sql += "order by gestor_3 ";
                         break;
                     case "GESTOR 4":
                         sql += "iif(gestor_4 is null,'SEM INFO',gestor_4) as lider ";
                         sql += "from w_trilhasTreinamentos ";
+                        sql += "where (data_demissao = '1900-01-01' or data_demissao is null) ";
+                        sql += "and vigencia_ano = " + objCon.valorSql(anoVigencia) + " ";                        
                         sql += "group by gestor_4 ";
                         sql += "order by gestor_4 ";
                         break;
                     case "GESTOR 5":
                         sql += "iif(gestor_5 is null,'SEM INFO',gestor_5) as lider ";
                         sql += "from w_trilhasTreinamentos ";
+                        sql += "where (data_demissao = '1900-01-01' or data_demissao is null) ";
+                        sql += "and vigencia_ano = " + objCon.valorSql(anoVigencia) + " ";                        
                         sql += "group by gestor_5 ";
                         sql += "order by gestor_5 ";
                         break;
@@ -322,13 +331,14 @@ namespace Sentinella {
                 sql += "(select iif(Dt_fim_ferias is null, '1900-01-01',convert(date,Dt_fim_ferias,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_fim, ";
                 sql += "(select iif(Dt_inicio_afastamento is null, '1900-01-01',convert(date,Dt_inicio_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_inicio, ";
                 sql += "(select iif(Dt_fim_afastamento is null, '1900-01-01',convert(date,Dt_fim_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_fim, "; //fim do henriquecimento
+                sql += "c.dt_atualizacao, "; //data-hora que foi atualizado pelo Sinergy
                 sql += "GETDATE() as data_importacao, "; //data-hora única de importação
                 sql += Constantes.id_BD_logadoFerramenta + " as id_importacao "; //setando o id do importador
                 sql += "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c ";
                 sql += "inner join w_trilhasTreinamentos_cursos f on c.Id_Conteudo = f.cod_curso "; //Garantindo que sejam apenas os cursos SGI                
                 sql += "inner join w_trilhasTreinamentos_trilhas t on c.cod_trilha = t.cod_trilha "; //Garantindo que sejam apenas os Trilhas monitoradas 
                 sql += "where c.des_status = 'Ativo' ";
-                sql += "group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf ";
+                sql += "group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf, c.dt_atualizacao ";
 
 
                 #region DECOMISSIONADO_06052020
@@ -526,6 +536,10 @@ namespace Sentinella {
                                 if (item["data_afastamento_fim"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_afastamento_fim"].ToString()); };
                                 sql += "data_afastamento_fim = " + objCon.valorSql(valorData) + ", ";
 
+                                valorData = DateTime.Parse("1900-01-01");
+                                if (item["dt_atualizacao"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["dt_atualizacao"].ToString()); };
+                                sql += "data_ultima_atualizacao = " + objCon.valorSql(valorData) + ", ";
+
                                 sql += "data_importacao = " + objCon.valorSql(DateTime.Parse(item["data_importacao"].ToString())) + ", ";
                                 sql += "id_importacao = " + objCon.valorSql(int.Parse(item["id_importacao"].ToString())) + " ";
                                 sql += "where id = " + objCon.valorSql(filtro["id"]) + " ";
@@ -560,6 +574,7 @@ namespace Sentinella {
                                       "data_ferias_fim, " +
                                       "data_afastamento_inicio, " +
                                       "data_afastamento_fim, " +
+                                      "data_ultima_atualizacao, " +
                                       "data_importacao, " +
                                       "id_importacao " +
                                       ") values (";
@@ -608,6 +623,10 @@ namespace Sentinella {
                         if (item["data_afastamento_fim"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_afastamento_fim"].ToString()); };
                         sql += objCon.valorSql(valorData) + ", ";
 
+                        valorData = DateTime.Parse("1900-01-01");
+                        if (item["dt_atualizacao"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["dt_atualizacao"].ToString()); };
+                        sql += objCon.valorSql(valorData) + ", ";
+                        
                         sql += objCon.valorSql(DateTime.Parse(item["data_importacao"].ToString())) + ", ";
                         sql += objCon.valorSql(int.Parse(item["id_importacao"].ToString())) + " ";
                         sql += ")";
@@ -815,9 +834,9 @@ namespace Sentinella {
             }
         }
 
-        public void preencherComboBoxLideres(Form frm, ComboBox cbx, string filtro) {
+        public void preencherComboBoxLideres(Form frm, ComboBox cbx, string filtro, int anoVigencia) {
             try {
-                hlp.carregaComboBox(_listarPendenciasPorLider(filtro), frm, cbx, false);
+                hlp.carregaComboBox(_listarPendenciasPorLider(filtro, anoVigencia), frm, cbx, false);
             }
             catch (Exception ex) {
                 log.registrarLog(ex.ToString(), "TRILHAS SGI - PREENCHER COMBOBOX LIDERES (BLL)");
@@ -892,6 +911,7 @@ namespace Sentinella {
                 lst.Columns.Add("DATA FÉRIAS FIM", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA AFASTAMENTO INICIO", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("DATA AFASTAMENTO FIM", 100, HorizontalAlignment.Left);
+                lst.Columns.Add("DATA ULT. ATUALIZACAO SINERGY", 100, HorizontalAlignment.Left);
                 lst.Columns.Add("1º GESTOR", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("2º GESTOR", 250, HorizontalAlignment.Left);
                 lst.Columns.Add("3º GESTOR", 250, HorizontalAlignment.Left);
@@ -1070,6 +1090,7 @@ namespace Sentinella {
                         item.SubItems.Add(linha["data_ferias_fim"].ToString());
                         item.SubItems.Add(linha["data_afastamento_inicio"].ToString());
                         item.SubItems.Add(linha["data_afastamento_fim"].ToString());
+                        item.SubItems.Add(linha["data_ultima_atualizacao"].ToString());
                         item.SubItems.Add(linha["gestor_1"].ToString());
                         item.SubItems.Add(linha["gestor_2"].ToString());
                         item.SubItems.Add(linha["gestor_3"].ToString());

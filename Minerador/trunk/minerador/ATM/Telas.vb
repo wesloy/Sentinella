@@ -641,6 +641,7 @@ REINICIAR:
 
                 Loop
 
+
                 'Reconectando o MainFrame
                 If Not .getString(1, 23, 26).ToString.Trim = "CUSTOMER SEARCH" Then
                     LogoffSystemB2K(tela)
@@ -651,8 +652,15 @@ REINICIAR:
                     .WaitHostQuiet(50)
                 End If
 
+
+
                 'Validando se o acesso foi concluído com sucesso
                 If Not .getString(1, 26, 18).ToString.Trim = "CUSTOMER SEARCH" Then
+
+                    If contador < 3 Then
+                        GoTo REINICIAR
+                    End If
+
                     status_execucao = False
                     Return Nothing
                 Else
@@ -671,6 +679,8 @@ REINICIAR:
                 Dim cep As String = ""
                 Dim bloqueio As String = ""
                 Dim tipoCartao As String = ""
+
+
 
                 'Configurando o tamanho do CPF
                 If numCpf.Length < 11 Then
@@ -1280,13 +1290,16 @@ REINICIAR:
             tela.sendKeys("<Enter>")
             tela.WaitHostQuiet(50)
 
-
+            If tela.GetString(23, 2, 40).trim().Equals("PLEASE ENTER SELECTION") Then
+                GoTo REINICIAR
+            End If
 
             Do While Not tela.GetString(22, 2, 30).trim().Equals("TECLA PF1 INATIVA") _
                         And Not tela.GetString(22, 2, 30).trim().Equals("NAO CONSTA FAT. ANTERIOR") _
                             And Not tela.GetString(22, 2, 30).trim().Equals("ARQ FATURA INDISPONIVEL") _
                                 And Not tela.GetString(22, 2, 30).trim().Equals("REG AGENDA N/ ENCONT") _
-                                    And Not tela.GetString(22, 2, 30).trim().Equals("NRO CTA N/ ENCONTRADO") 'FIM DAS FATURAS
+                                    And Not tela.GetString(3, 8, 2).trim().Equals("00") _
+                                        And Not tela.GetString(22, 2, 30).trim().Equals("NRO CTA N/ ENCONTRADO") 'FIM DAS FATURAS
 
                 'Iniciando objetos
                 Dim fatura = New fatura_DTO()
@@ -1317,12 +1330,12 @@ REINICIAR:
                 'Validando a data de corte, parâmetro recuperado da tabela de faturas, desta forma não precisa-se repetir capturas já realizadas anteriormente
                 If fatura.dataCorte <= dataLimite Then Exit Do
                 Dim qtdeF8 As Integer = 0
-                Do While Not tela.GetString(22, 2, 17).ToString() = "TECLA PF8 INATIVA" 'FIM DAS AUTORIZACOES
+                Do While Not tela.GetString(22, 2, 17).ToString() = "TECLA PF8 INATIVA" And Not tela.GetString(3, 8, 2).trim().Equals("00") 'FIM DAS AUTORIZACOES
                     For i = 11 To 21
                         linha = i
                         Dim autorizacao = New autorizacoes_DTO()
 
-                        Dim numReferencia = tela.GetString(linha, 4, 24).ToString().Trim() 'Capturando campo de referência
+                        Dim numReferencia = tela.GetString(linha, 4, 24).ToString().Trim()  'Capturando campo de referência
                         If numReferencia.Trim().Length > 0 Then 'Validando se a linha capturada é válida para ser armazenada
                             With autorizacao
 
@@ -1334,6 +1347,10 @@ REINICIAR:
                                 'Capturar Ramo atividade, pais, cidade, nome ec, maquineta e cod moeda
                                 tela.sendKeys("<PF8>")
                                 tela.WaitHostQuiet(25)
+                                If tela.GetString(23, 2, 31).trim().Equals("SYSTEM IN EXTENDED LIMITED MODE") Then
+                                    'erro de tela preta, qdo excede o limite
+                                    GoTo FINALIZAR
+                                End If
                                 .ecMaquineta = tela.GetString(11, 36, 16).ToString().Trim()
                                 .ecCodPais = tela.GetString(10, 76, 4).ToString().Trim()
                                 .ecCidade = tela.GetString(10, 44, 13).ToString().Trim()
@@ -1395,6 +1412,7 @@ REINICIAR:
                 tela.WaitHostQuiet(50)
             Loop
 
+FINALIZAR:
             status_execucao = True
             qtdeTentativas = 0
             Return historicoFaturas
