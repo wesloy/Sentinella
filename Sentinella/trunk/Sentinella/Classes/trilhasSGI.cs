@@ -331,14 +331,14 @@ namespace Sentinella {
                 sql += "(select iif(Dt_fim_ferias is null, '1900-01-01',convert(date,Dt_fim_ferias,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_fim, ";
                 sql += "(select iif(Dt_inicio_afastamento is null, '1900-01-01',convert(date,Dt_inicio_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_inicio, ";
                 sql += "(select iif(Dt_fim_afastamento is null, '1900-01-01',convert(date,Dt_fim_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_fim, "; //fim do henriquecimento
-                sql += "c.dt_atualizacao, "; //data-hora que foi atualizado pelo Sinergy
+                sql += "max(c.dt_atualizacao) dt_atualizacao, "; //data-hora que foi atualizado pelo Sinergy
                 sql += "GETDATE() as data_importacao, "; //data-hora única de importação
                 sql += Constantes.id_BD_logadoFerramenta + " as id_importacao "; //setando o id do importador
                 sql += "from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c ";
                 sql += "inner join w_trilhasTreinamentos_cursos f on c.Id_Conteudo = f.cod_curso "; //Garantindo que sejam apenas os cursos SGI                
                 sql += "inner join w_trilhasTreinamentos_trilhas t on c.cod_trilha = t.cod_trilha "; //Garantindo que sejam apenas os Trilhas monitoradas 
                 sql += "where c.des_status = 'Ativo' ";
-                sql += "group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf, c.dt_atualizacao ";
+                sql += "group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf ";
 
 
                 #region DECOMISSIONADO_06052020
@@ -368,35 +368,35 @@ namespace Sentinella {
                 dt_TrilhasSGI = objCon.retornaDataTable(sql);
                 frm.atualizarBarra(2);
 
-                //Tratando GESTORES para hierarquia superior IMEDIATO
-                if (dt_TrilhasSGI != null) {
+                ////Tratando GESTORES para hierarquia superior IMEDIATO
+                //if (dt_TrilhasSGI != null) {
 
-                    frmProgressBar frmIA = new frmProgressBar(dt_TrilhasSGI.Rows.Count);
-                    frmIA.Show();
-                    int progresso = 0;
+                //    frmProgressBar frmIA = new frmProgressBar(dt_TrilhasSGI.Rows.Count);
+                //    frmIA.Show();
+                //    int progresso = 0;
 
-                    foreach (DataRow item in dt_TrilhasSGI.Rows) {
+                //    foreach (DataRow item in dt_TrilhasSGI.Rows) {
 
-                        progresso += 1;
-                        frmIA.atualizarBarra(progresso);
+                //        progresso += 1;
+                //        frmIA.atualizarBarra(progresso);
 
-                        impAssociado ia = new impAssociado();
-                        ia = ia.getPorNomeUsuarioSupImediado(item["des_nome"].ToString());
+                //        impAssociado ia = new impAssociado();
+                //        ia = ia.getPorNomeUsuarioSupImediado(item["des_nome"].ToString());
 
-                        item["gestor_1"] = ia._gestor1;
-                        item["gestor_2"] = ia._gestor2;
-                        item["gestor_3"] = ia._gestor3;
-                        item["gestor_4"] = ia._gestor4;
-                        item["gestor_5"] = ia._gestor5;
-
-
-
-                    }
-
-                    frmIA.Close();
+                //        item["gestor_1"] = ia._gestor1;
+                //        item["gestor_2"] = ia._gestor2;
+                //        item["gestor_3"] = ia._gestor3;
+                //        item["gestor_4"] = ia._gestor4;
+                //        item["gestor_5"] = ia._gestor5;
 
 
-                }
+
+                //    }
+
+                //    frmIA.Close();
+
+
+                //}
 
                 //Validando se tem vol para trabalhar
                 if (dt_TrilhasSGI.Rows.Count == 0) {
@@ -510,6 +510,16 @@ namespace Sentinella {
                                 if (item["data_conclusao_ultimo_curso_trilha"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_conclusao_ultimo_curso_trilha"].ToString()); };
                                 sql += "data_ult_conteudo_cursado = " + objCon.valorSql(valorData) + ", ";
 
+                                //Atualizando gestores para HIERARQUIA IMEDIATA
+                                impAssociado ia = new impAssociado();
+                                ia = ia.getPorNomeUsuarioSupImediado(item["des_nome"].ToString());
+                                item["gestor_1"] = ia._gestor1;
+                                item["gestor_2"] = ia._gestor2;
+                                item["gestor_3"] = ia._gestor3;
+                                item["gestor_4"] = ia._gestor4;
+                                item["gestor_5"] = ia._gestor5;
+
+
                                 sql += "gestor_1 = " + objCon.valorSql(item["gestor_1"].ToString()) + ", ";
                                 sql += "gestor_2 = " + objCon.valorSql(item["gestor_2"].ToString()) + ", ";
                                 sql += "gestor_3 = " + objCon.valorSql(item["gestor_3"].ToString()) + ", ";
@@ -592,6 +602,17 @@ namespace Sentinella {
                         valorData = DateTime.Parse("1900-01-01");
                         if (item["data_conclusao_ultimo_curso_trilha"].ToString().Equals("")) { valorData = DateTime.Parse("1900-01-01"); } else { valorData = DateTime.Parse(item["data_conclusao_ultimo_curso_trilha"].ToString()); };
                         sql += objCon.valorSql(valorData) + ", ";
+
+
+                        //Atualizando gestores para HIERARQUIA IMEDIATA
+                        impAssociado ia = new impAssociado();
+                        ia = ia.getPorNomeUsuarioSupImediado(item["des_nome"].ToString());
+                        item["gestor_1"] = ia._gestor1;
+                        item["gestor_2"] = ia._gestor2;
+                        item["gestor_3"] = ia._gestor3;
+                        item["gestor_4"] = ia._gestor4;
+                        item["gestor_5"] = ia._gestor5;
+
 
                         sql += objCon.valorSql(item["gestor_1"].ToString()) + ", ";
                         sql += objCon.valorSql(item["gestor_2"].ToString()) + ", ";

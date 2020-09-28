@@ -2,8 +2,7 @@
 c.des_trilha, 
 c.des_nome, 
 replace(replace(c.cod_cpf, '.', ''), '-', '') as cpf, 
-count(c.des_conteudo) as total_cursos, 
-sum(iif(c.num_conclusao = '0', 1, 0)) as vol_nao_concluido, 
+count(c.des_conteudo) as total_cursos, sum(iif(c.num_conclusao = '0', 1, 0)) as vol_nao_concluido, 
 sum(iif(c.num_conclusao = '100', 1, 0)) as vol_concluido, 
 sum(iif(c.num_conclusao = '100', 1, 0)) * 100 / count(c.des_conteudo) as percentual_concluido, 
 max(dt_fim) as data_conclusao_ultimo_curso_trilha, 
@@ -18,14 +17,11 @@ max(dt_fim) as data_conclusao_ultimo_curso_trilha,
 (select iif(Dt_fim_ferias is null, '1900-01-01',convert(date,Dt_fim_ferias,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_ferias_fim, 
 (select iif(Dt_inicio_afastamento is null, '1900-01-01',convert(date,Dt_inicio_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_inicio, 
 (select iif(Dt_fim_afastamento is null, '1900-01-01',convert(date,Dt_fim_afastamento,109)) from db_Corporate_V3.dbo.tb_Imp_Associado where Cod_Cpf = replace(replace(c.cod_cpf, '.', ''), '-', '')) data_afastamento_fim, 
+max(c.dt_atualizacao) dt_atualizacao, 
 GETDATE() as data_importacao, 
 1 as id_importacao 
 from db_TreinamentoSinergyRH.dbo.TB_TRILHAS c 
 inner join w_trilhasTreinamentos_cursos f on c.Id_Conteudo = f.cod_curso 
 inner join w_trilhasTreinamentos_trilhas t on c.cod_trilha = t.cod_trilha 
 where c.des_status = 'Ativo' 
-group by 
-c.cod_trilha, 
-c.des_trilha, 
-c.des_nome, 
-c.cod_cpf 
+group by c.cod_trilha, c.des_trilha, c.des_nome, c.cod_cpf

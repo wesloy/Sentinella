@@ -138,7 +138,7 @@ namespace Sentinella.Forms {
                         email.Mensagem += "<b>Período de conclusão irá vencer:</b> " + item.SubItems[8].Text + " dia(s). <br />";
                     }
 
-                    email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[21].Text + "<br />";
+                    email.Mensagem += "<b>Líder imediato:</b> " + item.SubItems[22].Text + "<br />";
 
 
                     email.Mensagem += "<br />";
@@ -189,9 +189,9 @@ namespace Sentinella.Forms {
                 //liberando registros que podem não ter sido selecionados para envio e limpando o formulário
                 trilhas.liberarRegistros(false);
                 limpezaForm();
-                MessageBox.Show("E-mail enviado com sucesso!", "Envio de E-mail");
+                MessageBox.Show("E-mail enviado com sucesso!", "Envio de E-mail", MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else {
-                MessageBox.Show("Falha no envio de E-mail!", "Envio de E-mail");
+                MessageBox.Show("Falha no envio de E-mail!", "Envio de E-mail",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
 
